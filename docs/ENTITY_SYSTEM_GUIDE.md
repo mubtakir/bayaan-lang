@@ -10,7 +10,7 @@
 
 ملاحظة: مفاتيح القواميس ينبغي أن تكون نصوصاً صريحة (strings) مثل `"states"` أو `"حالات"`.
 
-القيم رقمية ضبابية ضمن [0.0 .. 1.0].
+افتراضياً القيم رقمية ضبابية ضمن [0.0 .. 1.0] ويتم قصّها تلقائياً؛ ويمكن تعريف أنواع اختيارية تجعل بعض القيم غير محدودة (numeric) أو ذات نطاق مخصص (bounded).
 
 ---
 
@@ -90,9 +90,56 @@ query state("Ahmed", "hunger", ?V).
 - "clamp(value + power*0.2, 0, 1)"
 - شرط: "value > 0.3"
 
-جميع النتائج تُقصّ إلى المدى [0..1].
+افتراضياً تُقصّ نتائج التأثير إلى [0..1] (نوع fuzzy). إذا عرّفت نوع "numeric" فلن يُطبَّق قصّ، وإذا عرّفت نوعاً "bounded" فسيُقصّ إلى [min,max].
 
 ---
+## Property/State Types (Optional) — أنواع الخصائص/الحالات (اختياري)
+By default all values are fuzzy [0..1]. You can opt into other kinds per key:
+- fuzzy (default): clamped to [0..1]
+- numeric: unbounded real numbers (e.g., coordinates x,y)
+- bounded[min,max]: custom range (e.g., temperature)
+
+Use a typed entry with a small object: {"type": ..., "value": ...}. Arabic keys are accepted: "نوع" و"قيمة".
+
+Example (EN):
+
+```bayan
+hybrid {
+  entity Ball {
+    "properties": {
+      "x": {"type": "numeric", "value": 10.5},
+      "y": {"type": "numeric", "value": -3.2}
+    },
+    "states": {
+      "energy": {"type": "fuzzy", "value": 0.7},
+      "temperature": {"type": {"bounded": [-273.0, 1000.0]}, "value": 25.0}
+    }
+  }
+}
+```
+
+مثال (AR):
+
+```bayan
+hybrid {
+  كيان كرة {
+    "خصائص": {
+      "س": {"نوع": "عددي", "قيمة": 10.5},
+      "ص": {"نوع": "عددي", "قيمة": -3.2}
+    },
+    "حالات": {
+      "طاقة": {"نوع": "ضبابي", "قيمة": 0.7},
+      "درجة_الحرارة": {"نوع": {"نطاق": [-273.0, 1000.0]}, "قيمة": 25.0}
+    }
+  }
+}
+```
+
+Runtime behavior — السلوك أثناء التنفيذ:
+- fuzzy: values auto-clamped to [0..1]
+- numeric: no clamping
+- bounded: auto-clamped to [min,max]
+
 
 ## Logic Integration — التكامل مع المنطق
 محرك الكيانات يزامن الحقائق التالية مع قاعدة المعرفة المنطقية:

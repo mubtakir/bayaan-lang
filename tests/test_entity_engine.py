@@ -69,3 +69,56 @@ def test_entity_engine_reaction_response():
     sval = getattr(s, 'value', s)
     assert abs(sval - 0.71) < 1e-6
 
+
+
+
+def test_numeric_property_unbounded_and_bounded_state_clamping():
+    code = """
+    engine = EntityEngine(logical)
+    # Numeric property: x should be unbounded
+    engine.create_entity("Ball", properties={"x": {"type": "numeric", "value": 10.0}})
+    engine.create_entity("Mover")
+    engine.define_action("Mover", "move_x", effects=[{"on": "x", "formula": "value + 5.0*action_value"}])
+    engine.apply_action("Mover", "move_x", "Ball", action_value=3.0)  # x = 25.0
+
+    # Bounded state: temperature clamped to [-273, 1000]
+    engine.create_entity("Thermo", states={"temperature": {"type": {"bounded": [-273.0, 1000.0]}, "value": 0.0}})
+    engine.define_action("Mover", "cool", effects=[{"on": "temperature", "formula": "value - 300*action_value"}])
+    engine.apply_action("Mover", "cool", "Thermo", action_value=1.0)
+
+    query property("Ball", "x", ?X).
+    """
+    interp, res_prop = run(code)
+    assert res_prop, "Expected property query results"
+    X = res_prop[0]['X']
+    xv = getattr(X, 'value', X)
+    assert abs(xv - 25.0) < 1e-6
+
+    # Now query temperature state (should be clamped at -273)
+    code2 = """
+    query state("Thermo", "temperature", ?T).
+    """
+    interp.traditional.set_source(code2, filename=None)
+    ast2 = HybridParser(HybridLexer(code2).tokenize()).parse()
+    res_temp = interp.interpret(ast2)
+    assert res_temp, "Expected temperature state query results"
+    T = res_temp[0]['T']
+    tv = getattr(T, 'value', T)
+    assert abs(tv + 273.0) < 1e-6
+
+
+def test_default_fuzzy_clamp_still_applies_for_plain_numbers():
+    code = """
+    engine = EntityEngine(logical)
+    engine.create_entity("Ahmed", states={"hunger": 0.9})
+    engine.create_entity("John")
+    engine.define_action("John", "feed", effects=[{"on": "hunger", "formula": "value + 0.5"}])
+    engine.apply_action("John", "feed", "Ahmed", action_value=1.0)
+
+    query state("Ahmed", "hunger", ?V).
+    """
+    _, res = run(code)
+    assert res, "Expected state query results"
+    V = res[0]['V']
+    vv = getattr(V, 'value', V)
+    assert abs(vv - 1.0) < 1e-6

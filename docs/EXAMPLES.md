@@ -266,6 +266,7 @@ python main.py your_file.by
 - entity_reactions_en.by — Reactions increase target happiness
 - social_trust_en.by — Help increases trust (power + reaction)
 - bread_market_en.by — Micro-market: hunger and budget updates
+- moving_ball_en.by — Numeric coordinates (x,y), fuzzy energy, bounded temperature
 
 - virtual_village_en.by — Virtual Village: multi-entity interactions
 
@@ -274,4 +275,5 @@ python main.py your_file.by
 
 ## أمثلة نظام الكيانات (بالعربية)
 - entity_food_interaction.by — مثال عربي بسيط
+- moving_ball_ar.by — إحداثيات عددية (س،ص)، طاقة ضبابية، حرارة بنطاق مخصص
 - virtual_village_ar.by — قرية افتراضية: كيانات متعددة وتفاعلات

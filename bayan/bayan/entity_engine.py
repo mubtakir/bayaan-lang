@@ -26,7 +26,7 @@ Example (inside a Bayan program):
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 import ast as _ast
 import math as _math
 import random as _random
@@ -126,6 +126,9 @@ class _Entity:
     properties: Dict[str, float] = field(default_factory=dict)
     actions: Dict[str, Dict[str, Any]] = field(default_factory=dict)  # action_name -> {power, effects: List[_ActionEffect]}
     reactions: Dict[str, _Reaction] = field(default_factory=dict)     # action_name -> Reaction on receiving
+    # Optional type metadata per key
+    state_types: Dict[str, Dict[str, Any]] = field(default_factory=dict)      # key -> {kind: fuzzy|numeric|bounded, min, max}
+    property_types: Dict[str, Dict[str, Any]] = field(default_factory=dict)   # key -> {kind: ...}
 
 
 # --------------------------- Entity Engine --------------------------------
@@ -136,6 +139,107 @@ class EntityEngine:
             raise ValueError("EntityEngine requires a logical engine (pass 'logical')")
         self.logical = logical_engine
         self.entities: Dict[str, _Entity] = {}
+    # --------- Type handling (optional) ---------
+    def _default_typeinfo(self, kind: str = 'fuzzy') -> Dict[str, Any]:
+        if kind == 'numeric':
+            return {'kind': 'numeric'}
+        if kind == 'bounded':
+            # caller should override min/max
+            return {'kind': 'bounded', 'min': 0.0, 'max': 1.0}
+        # default fuzzy 0..1
+        return {'kind': 'fuzzy', 'min': 0.0, 'max': 1.0}
+
+    def _parse_type_spec(self, spec: Any) -> Dict[str, Any]:
+        """Parse a type spec from strings or dicts (bilingual keys supported).
+        Accepted forms:
+          - 'fuzzy' / 'ضبابي'
+          - 'numeric' / 'عددي'
+          - {'bounded': [min, max]} / {'نطاق': [min, max]}
+          - {'type': 'bounded', 'min': x, 'max': y} (or Arabic min/max)
+        Returns a normalized dict: {'kind': 'fuzzy'|'numeric'|'bounded', 'min'?, 'max'?}
+        """
+        # direct strings
+        if isinstance(spec, str):
+            s = spec.strip().lower()
+            if s in ('fuzzy', 'ضبابي'):
+                return self._default_typeinfo('fuzzy')
+            if s in ('numeric', 'عددي'):
+                return self._default_typeinfo('numeric')
+            if s in ('bounded', 'محدود'):
+                return self._default_typeinfo('bounded')
+        # dict forms
+        if isinstance(spec, dict):
+            # nested bounded list: {'bounded': [min, max]} or Arabic
+            for key in ('bounded', 'نطاق', 'range', 'bounds'):
+                if key in spec:
+                    arr = spec[key]
+                    if isinstance(arr, (list, tuple)) and len(arr) == 2:
+                        return {'kind': 'bounded', 'min': float(arr[0]), 'max': float(arr[1])}
+            # flat: {'type': 'bounded', 'min': x, 'max': y}
+            tval = spec.get('type') or spec.get('نوع')
+            if tval:
+                tinfo = self._parse_type_spec(tval)
+                if tinfo['kind'] == 'bounded':
+                    mn = spec.get('min') or spec.get('حد_أدنى')
+                    mx = spec.get('max') or spec.get('حد_أقصى')
+                    if mn is not None and mx is not None:
+                        tinfo['min'] = float(mn)
+                        tinfo['max'] = float(mx)
+                return tinfo
+        # fallback
+        return self._default_typeinfo('fuzzy')
+
+    def _coerce_value_and_type(self, raw: Any, default_kind: str = 'fuzzy') -> Tuple[float, Dict[str, Any]]:
+        """Accept numeric or typed-dict like {'type': 'numeric'|'fuzzy'|{'bounded':[a,b]}, 'value': x}
+        Also accepts Arabic keys: 'نوع', 'قيمة'.
+        Returns (value, typeinfo)
+        """
+        if isinstance(raw, dict):
+            # value field
+            val = raw.get('value')
+            if val is None and 'قيمة' in raw:
+                val = raw.get('قيمة')
+            # type field (may be string or dict)
+            tspec = raw.get('type')
+            if tspec is None and 'نوع' in raw:
+                tspec = raw.get('نوع')
+            # allow putting bounds at top-level too
+            tinfo = self._parse_type_spec(tspec if tspec is not None else raw)
+            if val is None:
+                # If dict had no value, but was actually a bounds dict, default value 0.0
+                val = 0.0
+            return float(val), tinfo
+        # plain number: default to fuzzy (to preserve existing semantics)
+        tinfo = self._default_typeinfo(default_kind)
+        return float(raw), tinfo
+
+    def _get_typemap(self, ent: _Entity, is_state: bool) -> Dict[str, Dict[str, Any]]:
+        return ent.state_types if is_state else ent.property_types
+
+    def _apply_bounds(self, ent: _Entity, is_state: bool, key: str, value: float) -> float:
+        tmap = self._get_typemap(ent, is_state)
+        tinfo = tmap.get(key)
+        if not tinfo:
+            # default semantics: fuzzy clamp
+            return _clamp(value)
+        kind = tinfo.get('kind', 'fuzzy')
+        if kind == 'numeric':
+            return float(value)
+        # fuzzy or bounded
+        mn = float(tinfo.get('min', 0.0))
+        mx = float(tinfo.get('max', 1.0))
+        return max(mn, min(mx, float(value)))
+
+    def _normalize_initial_map(self, ent: _Entity, src: Optional[Dict[str, Any]], *, is_state: bool, default_kind: str = 'fuzzy') -> Dict[str, float]:
+        result: Dict[str, float] = {}
+        if not src:
+            return result
+        tmap = self._get_typemap(ent, is_state)
+        for k, raw in src.items():
+            val, tinfo = self._coerce_value_and_type(raw, default_kind=default_kind)
+            tmap[k] = tinfo
+            result[k] = self._apply_bounds(ent, is_state, k, val)
+        return result
 
     # --------- Logical KB helpers ---------
     def _assert_fact(self, name: str, *args: Any) -> None:
@@ -167,14 +271,13 @@ class EntityEngine:
             self._assert_fact('property', ent.name, k, float(v))
 
     # ------------- API -------------
-    def create_entity(self, name: str, *, states: Optional[Dict[str, float]] = None,
-                      properties: Optional[Dict[str, float]] = None,
+    def create_entity(self, name: str, *, states: Optional[Dict[str, Any]] = None,
+                      properties: Optional[Dict[str, Any]] = None,
                       reactions: Optional[Dict[str, Dict[str, Any]]] = None) -> None:
         ent = _Entity(name=name)
-        if states:
-            ent.states = {k: _clamp(v) for k, v in states.items()}
-        if properties:
-            ent.properties = {k: _clamp(v) for k, v in properties.items()}
+        # Normalize maps (support typed entries)
+        ent.states = self._normalize_initial_map(ent, states, is_state=True, default_kind='fuzzy')
+        ent.properties = self._normalize_initial_map(ent, properties, is_state=False, default_kind='fuzzy')
         if reactions:
             for act_name, spec in reactions.items():
                 sens = float(spec.get('sensitivity', 1.0))
@@ -185,7 +288,11 @@ class EntityEngine:
 
     def set_state(self, name: str, key: str, value: float) -> float:
         ent = self.entities.setdefault(name, _Entity(name=name))
-        ent.states[key] = _clamp(value)
+        # Ensure type info exists (default fuzzy)
+        if key not in ent.state_types:
+            ent.state_types[key] = self._default_typeinfo('fuzzy')
+        val = self._apply_bounds(ent, True, key, value)
+        ent.states[key] = val
         self._retractall('state', name, key, None)
         self._assert_fact('state', name, key, ent.states[key])
         return ent.states[key]
@@ -196,9 +303,20 @@ class EntityEngine:
             return _clamp(default)
         return float(ent.states.get(key, _clamp(default)))
 
+    def get_property(self, name: str, key: str, default: float = 0.5) -> float:
+        ent = self.entities.get(name)
+        if not ent:
+            return _clamp(default)
+        return float(ent.properties.get(key, _clamp(default)))
+
+
     def set_property(self, name: str, key: str, value: float) -> float:
         ent = self.entities.setdefault(name, _Entity(name=name))
-        ent.properties[key] = _clamp(value)
+        # Ensure type info exists (default fuzzy to preserve previous semantics)
+        if key not in ent.property_types:
+            ent.property_types[key] = self._default_typeinfo('fuzzy')
+        val = self._apply_bounds(ent, False, key, value)
+        ent.properties[key] = val
         self._retractall('property', name, key, None)
         self._assert_fact('property', name, key, ent.properties[key])
         return ent.properties[key]
@@ -241,15 +359,25 @@ class EntityEngine:
                 if not cond_val:
                     continue
 
-            old = self.get_state(target_name, eff.on, 0.5)
-            new_val = _SafeExpr.eval(eff.formula, {
-                'value': old,
-                'action_value': action_value,
-                'power': power,
-                'sensitivity': sensitivity,
-            })
-            new_val = _clamp(new_val)
-            self.set_state(target_name, eff.on, new_val)
+            # Determine whether this key is a state or a property on target
+            if eff.on in target.states or eff.on not in target.properties:
+                old = self.get_state(target_name, eff.on, 0.5)
+                new_val = _SafeExpr.eval(eff.formula, {
+                    'value': old,
+                    'action_value': action_value,
+                    'power': power,
+                    'sensitivity': sensitivity,
+                })
+                new_val = self.set_state(target_name, eff.on, new_val)
+            else:
+                old = self.get_property(target_name, eff.on, 0.0)
+                new_val = _SafeExpr.eval(eff.formula, {
+                    'value': old,
+                    'action_value': action_value,
+                    'power': power,
+                    'sensitivity': sensitivity,
+                })
+                new_val = self.set_property(target_name, eff.on, new_val)
             results[eff.on] = new_val
             # Record change as fact: changed(Target, Key, Old, New)
             self._assert_fact('changed', target_name, eff.on, float(old), float(new_val))
@@ -265,11 +393,11 @@ class EntityEngine:
                 'value': base,
             })
             if op == '+=':
-                self.set_state(target_name, key, _clamp(base + delta))
-                results[key] = self.get_state(target_name, key)
+                newv = self.set_state(target_name, key, base + delta)
+                results[key] = newv
             elif op == '-=':
-                self.set_state(target_name, key, _clamp(base - delta))
-                results[key] = self.get_state(target_name, key)
+                newv = self.set_state(target_name, key, base - delta)
+                results[key] = newv
 
         # Record event
         self._assert_fact('event', actor_name, action_name, target_name, float(action_value))
