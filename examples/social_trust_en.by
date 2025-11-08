@@ -1,0 +1,17 @@
+hybrid {
+    # Social interaction: help increases trust with a reaction
+    entity Alice { "states": {"trust": 0.5}, "reactions": {
+        "help": {"sensitivity": 0.9, "response": "trust += sensitivity*0.2"}
+    }}
+
+    entity Bob { "actions": {
+        "help": {"power": 0.7, "effects": [
+            {"on": "trust", "formula": "clamp(value + power*action_value*0.3, 0, 1)"}
+        ]}
+    }}
+
+    apply Bob.help(Alice, action_value=1.0)
+}
+
+query state("Alice", "trust", ?V).
+

@@ -8,7 +8,7 @@
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=for-the-badge&logo=python)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 
-**The World's First True Hybrid Programming Language**  
+**The World's First True Hybrid Programming Language**
 **أول لغة برمجة هجينة حقيقية في العالم**
 
 [English](#english) | [العربية](#arabic)
@@ -78,12 +78,12 @@ hybrid {
     y = 20
     sum = x + y
     print("Sum: " + str(sum))
-    
+
     # Control flow
     if sum > 25: {
         print("Large sum")
     }
-    
+
     # Loops
     for i in range(5): {
         print("Number: " + str(i))
@@ -100,12 +100,12 @@ hybrid {
             self.name = name
             self.age = age
         }
-        
+
         def greet(self): {
             return "Hello, I am " + self.name
         }
     }
-    
+
     person = Person("أحمد", 25)
     print(person.greet())
 }
@@ -119,13 +119,13 @@ hybrid {
     parent("أحمد", "محمد").
     parent("أحمد", "فاطمة").
     parent("علي", "سارة").
-    
+
     # Rules
     sibling(?X, ?Y) :- parent(?P, ?X), parent(?P, ?Y), ?X != ?Y.
-    
+
     # Query
     results = query sibling("محمد", ?S)?
-    
+
     for result in results: {
         print("Sibling: " + result["?S"])
     }
@@ -141,22 +141,22 @@ hybrid {
         def __init__(self, name, grade): {
             self.name = name
             self.grade = grade
-            
+
             # Logic: Add to knowledge base
             assertz(student(name, grade))
         }
     }
-    
+
     # Imperative: Create students
     students = [
         Student("أحمد", 85),
         Student("فاطمة", 95),
         Student("علي", 92)
     ]
-    
+
     # Logic: Query excellent students
     results = query student(?N, ?G), ?G >= 90?
-    
+
     # Imperative: Print results
     print("Excellent students:")
     for result in results: {
@@ -173,6 +173,12 @@ hybrid {
 - [Part 1: Introduction](docs/01_INTRODUCTION_AR.md) - What is Bayan, features, installation
 - [Part 2: Procedural & OOP](docs/02_PROCEDURAL_OOP_AR.md) - From beginner to expert
 - [Part 3: Logic Programming](docs/03_LOGIC_PROGRAMMING_AR.md) - Prolog-style programming
+- [Part 4: Probabilistic Reasoning](docs/04_PROBABILISTIC_REASONING_AR.md) - Expressing uncertainty 🎲 (NEW!)
+
+### Tutorials (English)
+- Procedural & OOP: [PART1](docs/02_PROCEDURAL_OOP_EN_PART1.md), [PART2](docs/02_PROCEDURAL_OOP_EN_PART2.md), [PART3](docs/02_PROCEDURAL_OOP_EN_PART3.md), [PART4](docs/02_PROCEDURAL_OOP_EN_PART4.md)
+- Logic Programming: [PART1](docs/03_LOGIC_PROGRAMMING_EN_PART1.md), [PART2](docs/03_LOGIC_PROGRAMMING_EN_PART2.md), [PART3](docs/03_LOGIC_PROGRAMMING_EN_PART3.md), [PART4](docs/03_LOGIC_PROGRAMMING_EN_PART4.md)
+
 
 ### LLM Integration
 - [LLM System Prompt](docs/LLM_SYSTEM_PROMPT.txt) - Ready-to-use prompt for AI models
@@ -186,7 +192,41 @@ hybrid {
 - [Examples](docs/EXAMPLES.md) - Advanced examples
 - [Arabic Text Support](docs/ARABIC_TEXT_SUPPORT.md) - How Arabic text works
 
+
+### ⚙️ Entity System (Quick Start)
+
+Model dynamic actors, states (0..1), and interactions as facts you can query.
+
+- Keywords: `entity`, `apply` (Arabic: `كيان`, `طبق`)
+- Body keys: `states`, `properties`, `actions`, `reactions` (Arabic: "حالات", "خصائص", "أفعال", "ردود_أفعال")
+
+```bayan
+hybrid {
+    entity Ahmed { "states": {"hunger": 0.6} }
+    entity John  { "actions": {
+        "feed": {"effects": [{"on": "hunger", "formula": "max(value - 0.4*action_value, 0.0)"}]}
+    }}
+    apply John.feed(Ahmed, action_value=1.0)
+}
+
+query state("Ahmed", "hunger", ?V).
+```
+
+- Full guide: docs/ENTITY_SYSTEM_GUIDE.md
+- Examples: docs/EXAMPLES.md (see “Entity System Examples (English)”)
+
 ---
+
+## ❓ FAQ
+
+- Why use Bayan instead of Python?
+  - Bayan unifies imperative, OOP, and logic programming in one syntax, with first-class fuzzy values (0..1) and a built-in Entity System to model interactions as facts you can query.
+
+- How do I integrate Bayan with my current AI model?
+  - Two options: (1) call the Bayan interpreter from Python and send code that defines entities and runs queries; (2) use Bayan to generate facts and export query results to your model. See docs/ENTITY_SYSTEM_GUIDE.md.
+
+---
+
 
 ## 🧪 Testing
 
@@ -235,7 +275,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👨‍💻 Author
 
-**Developed by: Basel Yahya Abdullah (باسل يحيى عبدالله)**  
+**Developed by: Basel Yahya Abdullah (باسل يحيى عبدالله)**
 **With assistance from: AI Language Models**
 
 ---
@@ -313,6 +353,7 @@ python -m bayan examples/hello.by
 - [الجزء الأول: مقدمة](docs/01_INTRODUCTION_AR.md) - ما هي البيان، المزايا، التثبيت
 - [الجزء الثاني: الإجرائية والكائنية](docs/02_PROCEDURAL_OOP_AR.md) - من المبتدئ إلى الخبير
 - [الجزء الثالث: البرمجة المنطقية](docs/03_LOGIC_PROGRAMMING_AR.md) - البرمجة بأسلوب Prolog
+- [الجزء الرابع: الاستدلال الاحتمالي والتشكيك](docs/04_PROBABILISTIC_REASONING_AR.md) - التعبير عن عدم اليقين 🎲 (جديد!)
 
 ### التكامل مع النماذج اللغوية
 - [System Prompt للنماذج](docs/LLM_SYSTEM_PROMPT.txt) - Prompt جاهز للاستخدام
@@ -336,7 +377,7 @@ python -m pytest tests/ -v
 
 ## 👨‍💻 المطور
 
-**تم التطوير بواسطة: باسل يحيى عبدالله**  
+**تم التطوير بواسطة: باسل يحيى عبدالله**
 **بمساعدة: نماذج الذكاء الاصطناعي اللغوية**
 
 ---

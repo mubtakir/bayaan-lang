@@ -1,0 +1,22 @@
+hybrid {
+    # Bread market micro-simulation (English keywords)
+    entity Seller { "actions": {
+        "sell_bread": {
+            "power": 1.0,
+            "effects": [
+                {"on": "hunger", "formula": "value - 0.2*action_value"},  # affects target's hunger
+                {"on": "budget", "formula": "value - 0.1*action_value"}   # target pays a bit
+            ]
+        }
+    }}
+
+    entity Buyer { "states": {"hunger": 0.8, "budget": 0.7}, "reactions": {
+        "sell_bread": {"sensitivity": 1.0, "response": "hunger -= 0.3"}
+    }}
+
+    apply Seller.sell_bread(Buyer, action_value=1.0)
+}
+
+# Inspect buyer's hunger after transaction
+query state("Buyer", "hunger", ?H).
+

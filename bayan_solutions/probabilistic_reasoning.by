@@ -1,0 +1,208 @@
+"""
+نظام الاستدلال الاحتمالي والتشكيك - نسخة مبسطة
+Probabilistic Reasoning and Uncertainty System - Simplified Version
+
+الكلمات المفتاحية:
+- عربي: ربما، محتمل، غير_محتمل، ممكن، مؤكد، قطعاً، احتمال
+- English: maybe, likely, unlikely, possible, certain, definitely, probability
+"""
+
+hybrid {
+    
+    # ============================================
+    # 1. قاعدة بيانات الحقائق الاحتمالية
+    # Probabilistic Facts Database
+    # ============================================
+    
+    # الصيغة: prob(fact_name, entity, probability)
+    # probability: رقم بين 0.0 و 1.0
+    
+    # أمثلة: الحديقة
+    prob("is_green", "garden", 0.7).
+    prob("has_trees", "garden", 0.6).
+    prob("is_neglected", "garden", 0.8).
+    prob("has_water", "garden", 0.3).
+    
+    # أمثلة: المركب الكيميائي
+    prob("compound_exists", "compound_A", 0.9).
+    prob("has_element_X", "compound_A", 0.85).
+    prob("has_element_Y", "compound_A", 0.75).
+    prob("factor_present", "factor_Z", 0.6).
+    
+    # ============================================
+    # 2. أدوات التشكيك (عربي + English)
+    # Uncertainty Tools
+    # ============================================
+    
+    # ربما / maybe (احتمال > 50%)
+    maybe(?fact, ?entity) :-
+        prob(?fact, ?entity, ?p),
+        ?p > 0.5.
+    
+    ربما(?fact, ?entity) :-
+        prob(?fact, ?entity, ?p),
+        ?p > 0.5.
+    
+    # محتمل / likely (احتمال > 70%)
+    likely(?fact, ?entity) :-
+        prob(?fact, ?entity, ?p),
+        ?p > 0.7.
+    
+    محتمل(?fact, ?entity) :-
+        prob(?fact, ?entity, ?p),
+        ?p > 0.7.
+    
+    # غير محتمل / unlikely (احتمال < 30%)
+    unlikely(?fact, ?entity) :-
+        prob(?fact, ?entity, ?p),
+        ?p < 0.3.
+    
+    غير_محتمل(?fact, ?entity) :-
+        prob(?fact, ?entity, ?p),
+        ?p < 0.3.
+    
+    # ممكن / possible (احتمال بين 20% و 80%)
+    possible(?fact, ?entity) :-
+        prob(?fact, ?entity, ?p),
+        ?p > 0.2,
+        ?p < 0.8.
+    
+    ممكن(?fact, ?entity) :-
+        prob(?fact, ?entity, ?p),
+        ?p > 0.2,
+        ?p < 0.8.
+    
+    # مؤكد / certain (احتمال > 95%)
+    certain(?fact, ?entity) :-
+        prob(?fact, ?entity, ?p),
+        ?p > 0.95.
+    
+    مؤكد(?fact, ?entity) :-
+        prob(?fact, ?entity, ?p),
+        ?p > 0.95.
+    
+    # ============================================
+    # 3. الحالات المتعددة للحديقة
+    # Multiple Garden States
+    # ============================================
+    
+    # الحالة 1: خضراء وفيها أشجار
+    state_green_with_trees("garden", ?prob) :-
+        prob("is_green", "garden", ?p1),
+        prob("has_trees", "garden", ?p2),
+        ?prob is ?p1 * ?p2.
+    
+    # الحالة 2: خضراء بلا أشجار
+    state_green_no_trees("garden", ?prob) :-
+        prob("is_green", "garden", ?p1),
+        prob("has_trees", "garden", ?p2),
+        ?not_p2 is 1 - ?p2,
+        ?prob is ?p1 * ?not_p2.
+    
+    # الحالة 3: غير خضراء مع أشجار
+    state_not_green_with_trees("garden", ?prob) :-
+        prob("is_green", "garden", ?p1),
+        prob("has_trees", "garden", ?p2),
+        ?not_p1 is 1 - ?p1,
+        ?prob is ?not_p1 * ?p2.
+    
+    # الحالة 4: غير خضراء بلا أشجار
+    state_not_green_no_trees("garden", ?prob) :-
+        prob("is_green", "garden", ?p1),
+        prob("has_trees", "garden", ?p2),
+        ?not_p1 is 1 - ?p1,
+        ?not_p2 is 1 - ?p2,
+        ?prob is ?not_p1 * ?not_p2.
+    
+    # ============================================
+    # 4. الاستدلال الشرطي للمركب الكيميائي
+    # Conditional Inference for Chemical Compound
+    # ============================================
+    
+    # المركب يؤثر إذا توفر العامل
+    compound_affects_if_factor("compound_A", ?prob) :-
+        prob("compound_exists", "compound_A", ?p1),
+        prob("factor_present", "factor_Z", ?p2),
+        ?p1 > 0.8,
+        ?p2 > 0.5,
+        ?prob is 0.9.
+    
+    # المركب لا يؤثر إذا لم يتوفر العامل
+    compound_no_affect_if_no_factor("compound_A", ?prob) :-
+        prob("compound_exists", "compound_A", ?p1),
+        prob("factor_present", "factor_Z", ?p2),
+        ?p1 > 0.8,
+        ?p2 < 0.5,
+        ?prob is 0.2.
+    
+
+
+    # ============================================
+    # 5. أمثلة تطبيقية
+    # Practical Examples
+    # ============================================
+    
+    print("============================================================")
+    print("🎲 نظام الاستدلال الاحتمالي والتشكيك")
+    print("   Probabilistic Reasoning and Uncertainty System")
+    print("============================================================")
+    print("")
+    
+    # مثال 1: الحديقة
+    print("--- مثال 1: الحديقة / Garden ---")
+    print("")
+    print("الحقائق الاحتمالية / Probabilistic Facts:")
+    print("  - الحديقة خضراء / Garden is green: 70%")
+    print("  - الحديقة فيها أشجار / Garden has trees: 60%")
+    print("  - الحديقة مهملة / Garden is neglected: 80%")
+    print("  - الحديقة يصلها ماء / Garden has water: 30%")
+    print("")
+    
+    print("جميع الحالات الممكنة / All Possible States:")
+    query state_green_with_trees("garden", ?p1).
+    query state_green_no_trees("garden", ?p2).
+    query state_not_green_with_trees("garden", ?p3).
+    query state_not_green_no_trees("garden", ?p4).
+    print("")
+    
+    print("أدوات التشكيك / Uncertainty Tools:")
+    print("  - ربما الحديقة خضراء؟ / Maybe garden is green?")
+    query ربما("is_green", "garden").
+    print("  - محتمل أن الحديقة مهملة؟ / Likely garden is neglected?")
+    query محتمل("is_neglected", "garden").
+    print("  - غير محتمل أن يصلها ماء؟ / Unlikely garden has water?")
+    query غير_محتمل("has_water", "garden").
+    print("")
+    
+    # مثال 2: المركب الكيميائي
+    print("--- مثال 2: المركب الكيميائي / Chemical Compound ---")
+    print("")
+    print("الحقائق الاحتمالية / Probabilistic Facts:")
+    print("  - المركب A موجود / Compound A exists: 90%")
+    print("  - المركب يحتوي على عنصر X / Has element X: 85%")
+    print("  - المركب يحتوي على عنصر Y / Has element Y: 75%")
+    print("  - العامل Z متوفر / Factor Z present: 60%")
+    print("")
+    
+    print("التأثير الشرطي / Conditional Effect:")
+    print("  - إذا توفر العامل Z (60% > 50%):")
+    query compound_affects_if_factor("compound_A", ?prob_yes).
+    print("  - إذا لم يتوفر العامل Z (60% < 50% - لا ينطبق):")
+    print("    (لا ينطبق في هذه الحالة)")
+    print("")
+    
+    # مثال 3: ملخص الاحتمالات
+    print("--- مثال 3: ملخص الاحتمالات / Probability Summary ---")
+    print("")
+    print("الحديقة خضراء: 70% - محتمل / likely")
+    print("الحديقة فيها أشجار: 60% - ربما / maybe")
+    print("الحديقة مهملة: 80% - محتمل / likely")
+    print("الحديقة يصلها ماء: 30% - غير محتمل / unlikely")
+    print("")
+    
+    print("============================================================")
+    print("✅ نظام الاستدلال الاحتمالي جاهز!")
+    print("   Probabilistic Reasoning System Ready!")
+    print("============================================================")
+}
+

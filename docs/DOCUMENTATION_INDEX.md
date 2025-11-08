@@ -106,6 +106,17 @@
 
 ---
 
+
+### 📦 Entity System
+- [ENTITY_SYSTEM_GUIDE.md](ENTITY_SYSTEM_GUIDE.md) — Modeling entities, actions, reactions (0..1), Arabic + English
+
+### 🧩 Split Tutorials (Parts)
+- Procedural & OOP: [PART1](02_PROCEDURAL_OOP_AR_PART1.md), [PART2](02_PROCEDURAL_OOP_AR_PART2.md), [PART3](02_PROCEDURAL_OOP_AR_PART3.md), [PART4](02_PROCEDURAL_OOP_AR_PART4.md)
+- Logic Programming: [PART1](03_LOGIC_PROGRAMMING_AR_PART1.md), [PART2](03_LOGIC_PROGRAMMING_AR_PART2.md), [PART3](03_LOGIC_PROGRAMMING_AR_PART3.md), [PART4](03_LOGIC_PROGRAMMING_AR_PART4.md)
+- Procedural & OOP (EN): [PART1](02_PROCEDURAL_OOP_EN_PART1.md), [PART2](02_PROCEDURAL_OOP_EN_PART2.md), [PART3](02_PROCEDURAL_OOP_EN_PART3.md), [PART4](02_PROCEDURAL_OOP_EN_PART4.md)
+- Logic Programming (EN): [PART1](03_LOGIC_PROGRAMMING_EN_PART1.md), [PART2](03_LOGIC_PROGRAMMING_EN_PART2.md), [PART3](03_LOGIC_PROGRAMMING_EN_PART3.md), [PART4](03_LOGIC_PROGRAMMING_EN_PART4.md)
+
+
 ## 📖 الوثائق الموسعة (الجديدة)
 
 ### 7. [advanced_features.md](advanced_features.md) - الميزات المتقدمة
@@ -182,6 +193,7 @@
 ---
 
 ## 🗺️ خارطة الطريق
+
 
 ### حسب المستوى:
 
@@ -282,6 +294,6 @@
 
 ---
 
-**آخر تحديث:** 2024-10-23  
+**آخر تحديث:** 2024-10-23
 **الإصدار:** 1.0
 

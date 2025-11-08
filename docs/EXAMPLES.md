@@ -12,17 +12,17 @@ hybrid {
     parent("أحمد", "محمد").
     parent("أحمد", "سارة").
     parent("محمد", "علي").
-    
+
     # Rules - القواعد
     grandparent(?X, ?Z) :- parent(?X, ?Y), parent(?Y, ?Z).
     sibling(?X, ?Y) :- parent(?P, ?X), parent(?P, ?Y).
     ancestor(?X, ?Y) :- parent(?X, ?Y).
     ancestor(?X, ?Z) :- parent(?X, ?Y), ancestor(?Y, ?Z).
-    
+
     # Queries
     print("Grandparents of محمد:")
     query grandparent(?GP, "محمد").
-    
+
     print("Siblings of أحمد:")
     query sibling("أحمد", ?SIB).
 }
@@ -44,17 +44,17 @@ hybrid {
     {
         return a + b
     }
-    
+
     def subtract(a, b):
     {
         return a - b
     }
-    
+
     def multiply(a, b):
     {
         return a * b
     }
-    
+
     def divide(a, b):
     {
         if b == 0:
@@ -64,10 +64,10 @@ hybrid {
         }
         return a / b
     }
-    
+
     x = 10
     y = 5
-    
+
     print("x + y = " + str(add(x, y)))
     print("x - y = " + str(subtract(x, y)))
     print("x * y = " + str(multiply(x, y)))
@@ -88,15 +88,15 @@ x / y = 2.0
 ```bayan
 hybrid {
     numbers = [1, 2, 3, 4, 5]
-    
+
     print("Original list: " + str(numbers))
-    
+
     # Iterate through list
     for num in numbers:
     {
         print("Number: " + str(num))
     }
-    
+
     # List operations
     print("Length: " + str(len(numbers)))
     print("First: " + str(numbers[0]))
@@ -108,7 +108,7 @@ hybrid {
 ```bayan
 hybrid {
     person = {name: "Ahmed", age: 30, city: "Cairo"}
-    
+
     print("Name: " + person[name])
     print("Age: " + str(person[age]))
     print("City: " + person[city])
@@ -120,7 +120,7 @@ hybrid {
 ```bayan
 hybrid {
     x = 10
-    
+
     if x > 5:
     {
         print("x is greater than 5")
@@ -129,13 +129,13 @@ hybrid {
     {
         print("x is less than or equal to 5")
     }
-    
+
     # For loop
     for i in range(5):
     {
         print("i = " + str(i))
     }
-    
+
     # While loop
     count = 0
     while count < 3:
@@ -154,13 +154,13 @@ hybrid {
     student("Ahmed", "Math").
     student("Fatima", "Science").
     student("Ali", "Math").
-    
+
     # Define rules
     classmate(?X, ?Y) :- student(?X, ?C), student(?Y, ?C).
-    
+
     # Traditional code
     print("Students in Math class:")
-    
+
     # Use logical query in traditional code
     if student("Ahmed", ?Subject):
     {
@@ -174,7 +174,7 @@ hybrid {
 ```bayan
 hybrid {
     text = "Hello Bayan"
-    
+
     print("Original: " + text)
     print("Length: " + str(len(text)))
     print("Uppercase: " + upper(text))
@@ -188,7 +188,7 @@ hybrid {
 hybrid {
     a = 10
     b = 3
-    
+
     print("a + b = " + str(a + b))
     print("a - b = " + str(a - b))
     print("a * b = " + str(a * b))
@@ -203,7 +203,7 @@ hybrid {
 hybrid {
     x = True
     y = False
-    
+
     print("x and y = " + str(x and y))
     print("x or y = " + str(x or y))
     print("not x = " + str(not x))
@@ -217,15 +217,15 @@ hybrid {
     الاسم = "أحمد"
     العمر = 30
     المدينة = "القاهرة"
-    
+
     print("الاسم: " + الاسم)
     print("العمر: " + str(العمر))
     print("المدينة: " + المدينة)
-    
+
     # Logical facts with Arabic
     شخص("أحمد", 30).
     شخص("فاطمة", 25).
-    
+
     print("الأشخاص:")
     query شخص(?اسم, ?عمر).
 }
@@ -256,3 +256,22 @@ python main.py your_file.by
 8. Test your code with different inputs
 
 
+
+
+---
+
+## Entity System Examples (English)
+
+- entity_food_interaction_en.by — Basic action reducing hunger
+- entity_reactions_en.by — Reactions increase target happiness
+- social_trust_en.by — Help increases trust (power + reaction)
+- bread_market_en.by — Micro-market: hunger and budget updates
+
+- virtual_village_en.by — Virtual Village: multi-entity interactions
+
+    - Multi-turn scenario with chained effects (bread → help → pay)
+    - Inspect multiple states via queries after each turn
+
+## أمثلة نظام الكيانات (بالعربية)
+- entity_food_interaction.by — مثال عربي بسيط
+- virtual_village_ar.by — قرية افتراضية: كيانات متعددة وتفاعلات

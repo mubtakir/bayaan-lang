@@ -87,11 +87,11 @@ hybrid {
     # Traditional code
     x = 10
     y = 20
-    
+
     # Logical facts
     number(10).
     number(20).
-    
+
     # Mixed code
     if number(x):
     {
@@ -115,10 +115,10 @@ hybrid {
 hybrid {
     الاسم = "أحمد"
     العمر = 30
-    
+
     شخص("أحمد", 30).
     شخص("فاطمة", 25).
-    
+
     print(الاسم)
 }
 ```
@@ -131,9 +131,9 @@ hybrid {
 hybrid {
     parent("john", "mary").
     parent("mary", "susan").
-    
+
     grandparent(?X, ?Z) :- parent(?X, ?Y), parent(?Y, ?Z).
-    
+
     query grandparent("john", ?X).
 }
 ```
@@ -146,7 +146,7 @@ hybrid {
     {
         return a + b
     }
-    
+
     result = add(10, 5)
     print(result)
 }
@@ -199,6 +199,30 @@ first = items[0]
 
 ## Dictionary Operations - عمليات القواميس
 
+## Entity System - نظام الكيانات (ثنائي اللغة)
+
+يدعم بيان تعريف كيانات بحالات/خصائص وتأثيرات أفعال، بالكلمات المفتاحية الإنجليزية والعربية.
+
+```bayan
+hybrid {
+    entity Ahmed {
+        "states": {"hunger": 0.7},
+        "reactions": {
+            "praise": {"sensitivity": 0.3, "effects": [{"on": "happiness", "formula": "min(value + 0.2*action_value, 1.0)"}]}
+        }
+    }
+
+    entity John {
+        "actions": {"feed": {"effects": [{"on": "hunger", "formula": "max(value - 0.5*action_value, 0.0)"}]}}
+    }
+
+    apply John.feed(Ahmed, action_value=1.0)
+}
+```
+
+الكلمات المفتاحية: `entity/apply` ⇄ `كيان/طبق`. انظر أيضًا: docs/ENTITY_SYSTEM_GUIDE.md
+
+
 ```bayan
 person = {name: "Ali", age: 30}
 name = person[name]
@@ -214,3 +238,7 @@ name = person[name]
 6. Support Arabic identifiers for better readability
 
 
+
+## Entity System (0..1)
+
+See docs/ENTITY_SYSTEM_GUIDE.md for the complete guide and examples.

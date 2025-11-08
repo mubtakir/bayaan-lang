@@ -18,6 +18,7 @@ from .traditional_interpreter import TraditionalInterpreter
 from .hybrid_interpreter import HybridInterpreter
 from .object_system import BayanObject, ClassSystem
 from .import_system import ImportSystem
+from .entity_engine import EntityEngine
 
 __all__ = [
     'HybridLexer',
@@ -34,6 +35,7 @@ __all__ = [
     'BayanObject',
     'ClassSystem',
     'ImportSystem',
+    'EntityEngine',
 ]
 
 def run_code(code):

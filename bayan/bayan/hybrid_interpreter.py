@@ -5,7 +5,8 @@ Hybrid Interpreter for Bayan Language
 
 from .ast_nodes import *
 from .traditional_interpreter import TraditionalInterpreter
-from .logical_engine import LogicalEngine, Fact, Rule
+from .logical_engine import LogicalEngine, Fact, Rule, Predicate, Term
+from .entity_engine import EntityEngine
 
 class HybridInterpreter:
     """Hybrid interpreter combining traditional and logical programming"""
@@ -16,6 +17,14 @@ class HybridInterpreter:
         self.shared_env = {}
         # Share the logical engine with the traditional interpreter
         self.traditional.logical_engine = self.logical
+        # Expose useful runtime objects/types in Bayan global env
+        env = self.traditional.global_env
+        env['EntityEngine'] = EntityEngine
+        env['Fact'] = Fact
+        env['Rule'] = Rule
+        env['Predicate'] = Predicate
+        env['Term'] = Term
+        env['logical'] = self.logical
         # Share the class system and import system
         self.class_system = self.traditional.class_system
         self.import_system = self.traditional.import_system
@@ -41,6 +50,10 @@ class HybridInterpreter:
             return self.visit_logical_if_statement(node)
         elif isinstance(node, QueryExpression):
             return self.visit_query_expression(node)
+        elif isinstance(node, EntityDef):
+            return self.visit_entity_def(node)
+        elif isinstance(node, ApplyActionStmt):
+            return self.visit_apply_action_stmt(node)
         elif isinstance(node, ImportStatement):
             return self.visit_import_statement(node)
         elif isinstance(node, FromImportStatement):
@@ -247,6 +260,76 @@ class HybridInterpreter:
             for var_name, value in substitution.bindings.items():
                 result_dict[var_name] = value
             results.append(result_dict)
-
         return results
+
+    def _get_or_create_engine(self):
+        env = self.traditional.global_env
+        if 'entity_engine' not in env:
+            env['entity_engine'] = EntityEngine(self.logical)
+        return env['entity_engine']
+
+    def visit_entity_def(self, node):
+        """Create/extend an entity from an EntityDef node."""
+        engine = self._get_or_create_engine()
+        # Evaluate body dict (keys likely strings)
+        body = self.traditional.interpret(node.body)
+        if not isinstance(body, dict):
+            raise TypeError("Entity body must be a dict-like structure")
+        # Bilingual keys support
+        def k(*names):
+            for n in names:
+                if n in body:
+                    return n
+            return None
+        name = node.name
+        states = body.get(k('states', 'حالات')) or {}
+        properties = body.get(k('properties', 'خصائص')) or {}
+        reactions = body.get(k('reactions', 'ردود_أفعال')) or {}
+        actions = body.get(k('actions', 'أفعال')) or {}
+        # Create the entity with initial states/properties/reactions
+        engine.create_entity(name, states=states, properties=properties, reactions=reactions)
+        # Define actions for this actor, if any
+        if isinstance(actions, dict):
+            for act_name, spec in actions.items():
+                if not isinstance(spec, dict):
+                    continue
+                power = spec.get('power')
+                if power is None:
+                    power = spec.get('قوة', 1.0)
+                effects = spec.get('effects') or spec.get('تأثيرات') or []
+                engine.define_action(name, act_name, power=float(power), effects=effects)
+        return None
+
+    def visit_apply_action_stmt(self, node):
+        """Apply an action defined on an actor to a target entity."""
+        engine = self._get_or_create_engine()
+        actor = node.actor_name
+        action = node.action_name
+        # Resolve target name. Accept string literal, or identifier fallback to its name.
+        from .ast_nodes import Variable, String
+        target_name = None
+        if isinstance(node.target_expr, String):
+            target_name = node.target_expr.value
+        elif isinstance(node.target_expr, Variable):
+            # Try to resolve variable from env; fallback to its symbol
+            if self.traditional.local_env and node.target_expr.name in self.traditional.local_env:
+                target_name = self.traditional.local_env[node.target_expr.name]
+            elif node.target_expr.name in self.traditional.global_env:
+                target_name = self.traditional.global_env[node.target_expr.name]
+            else:
+                target_name = node.target_expr.name
+        else:
+            # Evaluate to a value and stringify
+            val = self.traditional.interpret(node.target_expr)
+            target_name = str(val)
+        # Named args
+        action_value = 1.0
+        if node.named_args:
+            if 'action_value' in node.named_args:
+                action_value = float(self.traditional.interpret(node.named_args['action_value']))
+            elif 'قيمة_الفعل' in node.named_args:
+                action_value = float(self.traditional.interpret(node.named_args['قيمة_الفعل']))
+        engine.apply_action(actor, action, target_name, action_value=action_value)
+        return None
+
 

@@ -154,6 +154,10 @@ class HybridParser:
             return self.parse_import_statement()
         elif self.match(TokenType.FROM):
             return self.parse_from_import_statement()
+        elif self.match(TokenType.ENTITY):
+            return self.parse_entity_def()
+        elif self.match(TokenType.APPLY):
+            return self.parse_apply_action()
         elif self.match(TokenType.IDENTIFIER):
             # Delegate to expression statement; it will also handle assignment forms
             return self.parse_expression_statement()
@@ -1129,6 +1133,29 @@ class HybridParser:
             self.eat(TokenType.DOT)
 
         return LogicalRule(head, body)
+
+    def parse_entity_def(self):
+        """Parse an entity definition: entity <name> { ... }"""
+        ent_tok = self.eat(TokenType.ENTITY)
+        name = self.eat(TokenType.IDENTIFIER).value
+        # Entity body is a dict-like structure
+        body = self.parse_dict()
+        return self._with_pos(EntityDef(name, body), ent_tok)
+
+    def parse_apply_action(self):
+        """Parse apply statement: apply <actor>.<action>(<target>, [name=expr, ...])"""
+        app_tok = self.eat(TokenType.APPLY)
+        actor_name = self.eat(TokenType.IDENTIFIER).value
+        self.eat(TokenType.DOT)
+        action_name = self.eat(TokenType.IDENTIFIER).value
+        self.eat(TokenType.LPAREN)
+        args, named_args = self.parse_argument_list()
+        self.eat(TokenType.RPAREN)
+        if not args:
+            raise SyntaxError("apply requires at least a target argument")
+        target_expr = args[0]
+        return self._with_pos(ApplyActionStmt(actor_name, action_name, target_expr, named_args), app_tok)
+
 
     def parse_logical_predicate(self):
         """Parse a logical predicate"""

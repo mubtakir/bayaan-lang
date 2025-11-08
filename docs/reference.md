@@ -29,6 +29,8 @@
 ### الكلمات المحجوزة (Keywords)
 - تقليدية: `def, class, if, elif, else, for, while, in, print, return, break, continue, pass, True, False, None, and, or, not, self, super, import, from, as`
 - هجينة/منطقية: `hybrid, query, fact, rule`
+- نظام الكيانات: `entity, apply` / `كيان, طبق`
+
 
 ### الرموز (Symbols)
 - أقواس: `() { } [ ]`
@@ -229,8 +231,22 @@ call_or_chain  := '(' args ')' chain?
 chain          := ('.' IDENT call? | '[' expr ']')*
 call           := '(' args ')'
 args           := (expr (',' expr)*)?
-super_call     := 'super' '(' (')' '.' IDENT '(' args ')' | IDENT (',' args)? ')' )
 ```
+
+
+### إضافات نحو نظام الكيانات (غير صارمة)
+```
+# Statements (إضافة جديدة):
+statement      := ... | entity_stmt | apply_stmt
+
+entity_stmt    := ('entity'|'كيان') IDENT '{' dict '}'
+apply_stmt     := ('apply'|'طبق') IDENT '.' IDENT '(' args ')'
+```
+
+- يدعم جسم `entity` مفاتيح القواميس الثنائية اللغة: `states/حالات`, `properties/خصائص`, `actions/أفعال`, `reactions/ردود_أفعال`.
+- `apply` يمرر `action_value`/`قيمة_الفعل` اختيارياً.
+- يُزاوِج محرك الكيانات حقائق runtime: `entity/1`, `state/3`, `property/3`, `event/4`, `changed/4`.
+
 
 ## اختلافات عن بايثون (ملحوظات)
 - بنية الكتل ليست بالمسافة البادئة بل بأقواس `{}` مع `:`.

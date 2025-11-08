@@ -232,14 +232,43 @@ hybrid {
 ```bayan
 hybrid {
     data = [85, 92, 78, 95, 88]
-    
+
     avg = sum(data) / len(data)
     high = list(filter(lambda x: x >= 90, data))
-    
+
     print("Average: " + str(avg))
     print("High: " + str(high))
 }
 ```
+
+### Pattern 4: Probabilistic Reasoning (NEW! 🎲)
+```bayan
+hybrid {
+    # Probabilistic facts
+    prob("is_green", "garden", 0.7).
+    prob("has_trees", "garden", 0.6).
+
+    # Uncertainty tools (bilingual)
+    query ربما("is_green", "garden").      # maybe (70% > 50%) ✅
+    query محتمل("is_green", "garden").     # likely (70% > 70%) ❌
+    query maybe("has_trees", "garden").    # maybe (60% > 50%) ✅
+
+    # Multiple states calculation
+    state_green_with_trees("garden", ?prob) :-
+        prob("is_green", "garden", ?p1),
+        prob("has_trees", "garden", ?p2),
+        ?prob is ?p1 * ?p2.  # 0.7 × 0.6 = 0.42 (42%)
+
+    query state_green_with_trees("garden", ?p).
+}
+```
+
+**Uncertainty Tools:**
+- `ربما/maybe` - probability > 50%
+- `محتمل/likely` - probability > 70%
+- `غير_محتمل/unlikely` - probability < 30%
+- `ممكن/possible` - probability between 20% and 80%
+- `مؤكد/certain` - probability > 95%
 
 ## ✅ Checklist for LLMs
 

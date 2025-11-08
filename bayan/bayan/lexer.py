@@ -78,6 +78,8 @@ class TokenType(Enum):
 
     # Hybrid tokens
     HYBRID = auto()
+    ENTITY = auto()
+    APPLY = auto()
 
     # Special
     NEWLINE = auto()
@@ -137,6 +139,11 @@ class HybridLexer:
         'async': TokenType.ASYNC,
         'await': TokenType.AWAIT,
         'with': TokenType.WITH,
+        # Entity/Action keywords (bilingual)
+        'entity': TokenType.ENTITY,
+        'كيان': TokenType.ENTITY,
+        'apply': TokenType.APPLY,
+        'طبق': TokenType.APPLY,
     }
 
     def __init__(self, code):

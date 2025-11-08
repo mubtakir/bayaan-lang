@@ -2,6 +2,12 @@
 # Bayan Language Guide - Part 2: Procedural & OOP Programming
 
 <div dir="rtl">
+> ملاحظة: هذا الدليل كبير الحجم وسيُقسّم إلى عدة أجزاء (Part 1/2/3) لتسهيل التصفح. كما أضفنا ميزة "نظام الكيانات" (0..1) موثقة في docs/ENTITY_SYSTEM_GUIDE.md.
+
+
+> الأجزاء: [PART1](02_PROCEDURAL_OOP_AR_PART1.md) | [PART2](02_PROCEDURAL_OOP_AR_PART2.md) | [PART3](02_PROCEDURAL_OOP_AR_PART3.md) | [PART4](02_PROCEDURAL_OOP_AR_PART4.md)
+
+
 
 ## 📚 جدول المحتويات
 
@@ -47,19 +53,19 @@ hybrid {
     # أرقام صحيحة (Integers)
     age = 25
     year = 2024
-    
+
     # أرقام عشرية (Floats)
     price = 99.99
     pi = 3.14159
-    
+
     # نصوص (Strings)
     name = "أحمد"
     city = "الرياض"
-    
+
     # قيم منطقية (Booleans)
     is_student = True
     is_married = False
-    
+
     # قيمة فارغة (None)
     result = None
 }
@@ -72,19 +78,19 @@ hybrid {
     # Integer
     x = 10
     print(x)  # 10
-    
+
     # Float
     y = 3.14
     print(y)  # 3.14
-    
+
     # String
     text = "مرحباً"
     print(text)  # مرحباً
-    
+
     # Boolean
     flag = True
     print(flag)  # True
-    
+
     # None
     empty = None
     print(empty)  # None
@@ -99,17 +105,17 @@ hybrid {
     text = "123"
     number = int(text)
     print(number)  # 123
-    
+
     # Integer to String
     age = 25
     age_text = str(age)
     print(age_text)  # "25"
-    
+
     # String to Float
     price_text = "99.99"
     price = float(price_text)
     print(price)  # 99.99
-    
+
     # Integer to Float
     x = 10
     y = float(x)
@@ -127,31 +133,31 @@ hybrid {
 hybrid {
     a = 10
     b = 3
-    
+
     # الجمع
     sum = a + b
     print(sum)  # 13
-    
+
     # الطرح
     diff = a - b
     print(diff)  # 7
-    
+
     # الضرب
     product = a * b
     print(product)  # 30
-    
+
     # القسمة
     division = a / b
     print(division)  # 3.333...
-    
+
     # القسمة الصحيحة
     floor_div = a // b
     print(floor_div)  # 3
-    
+
     # الباقي
     remainder = a % b
     print(remainder)  # 1
-    
+
     # الأس
     power = a ** b
     print(power)  # 1000
@@ -164,27 +170,27 @@ hybrid {
 hybrid {
     x = 10
     y = 20
-    
+
     # يساوي
     result1 = (x == y)
     print(result1)  # False
-    
+
     # لا يساوي
     result2 = (x != y)
     print(result2)  # True
-    
+
     # أكبر من
     result3 = (x > y)
     print(result3)  # False
-    
+
     # أصغر من
     result4 = (x < y)
     print(result4)  # True
-    
+
     # أكبر من أو يساوي
     result5 = (x >= 10)
     print(result5)  # True
-    
+
     # أصغر من أو يساوي
     result6 = (y <= 20)
     print(result6)  # True
@@ -197,19 +203,19 @@ hybrid {
 hybrid {
     a = True
     b = False
-    
+
     # AND (و)
     result1 = a and b
     print(result1)  # False
-    
+
     # OR (أو)
     result2 = a or b
     print(result2)  # True
-    
+
     # NOT (ليس)
     result3 = not a
     print(result3)  # False
-    
+
     # مثال مركب
     x = 10
     y = 20
@@ -229,13 +235,13 @@ hybrid {
     # نص بسيط
     text1 = "مرحباً"
     text2 = 'Hello'
-    
+
     # نص متعدد الأسطر
     text3 = """
     هذا نص
     متعدد الأسطر
     """
-    
+
     # نص فارغ
     empty = ""
 }
@@ -250,19 +256,19 @@ hybrid {
     last = "أحمد"
     full_name = first + " " + last
     print(full_name)  # "محمد أحمد"
-    
+
     # تكرار النص
     text = "Ha" * 3
     print(text)  # "HaHaHa"
-    
+
     # طول النص
     length = len(full_name)
     print(length)  # 9
-    
+
     # الوصول إلى حرف
     first_char = full_name[0]
     print(first_char)  # "م"
-    
+
     # قطع النص (Slicing)
     substring = full_name[0:4]
     print(substring)  # "محمد"
@@ -274,19 +280,19 @@ hybrid {
 ```bayan
 hybrid {
     text = "Hello World"
-    
+
     # تحويل لأحرف كبيرة
     upper_text = upper(text)
     print(upper_text)  # "HELLO WORLD"
-    
+
     # تحويل لأحرف صغيرة
     lower_text = lower(text)
     print(lower_text)  # "hello world"
-    
+
     # استبدال
     new_text = replace(text, "World", "Python")
     print(new_text)  # "Hello Python"
-    
+
     # تقسيم النص
     words = split(text, " ")
     print(words)  # ["Hello", "World"]
@@ -300,15 +306,15 @@ hybrid {
     # سطر جديد
     text1 = "السطر الأول\nالسطر الثاني"
     print(text1)
-    
+
     # Tab
     text2 = "العمود1\tالعمود2"
     print(text2)
-    
+
     # علامة اقتباس
     text3 = "قال: \"مرحباً\""
     print(text3)
-    
+
     # Backslash
     text4 = "المسار: C:\\Users\\Ahmad"
     print(text4)
@@ -325,16 +331,16 @@ hybrid {
 hybrid {
     # قائمة فارغة
     empty_list = []
-    
+
     # قائمة أرقام
     numbers = [1, 2, 3, 4, 5]
-    
+
     # قائمة نصوص
     names = ["أحمد", "فاطمة", "علي"]
-    
+
     # قائمة مختلطة
     mixed = [1, "text", 3.14, True]
-    
+
     # قائمة متداخلة
     nested = [[1, 2], [3, 4], [5, 6]]
 }
@@ -345,19 +351,19 @@ hybrid {
 ```bayan
 hybrid {
     fruits = ["تفاح", "موز", "برتقال", "عنب"]
-    
+
     # الوصول بالفهرس
     first = fruits[0]
     print(first)  # "تفاح"
-    
+
     # الفهرس السالب (من النهاية)
     last = fruits[-1]
     print(last)  # "عنب"
-    
+
     # Slicing
     subset = fruits[1:3]
     print(subset)  # ["موز", "برتقال"]
-    
+
     # طول القائمة
     length = len(fruits)
     print(length)  # 4
@@ -369,23 +375,23 @@ hybrid {
 ```bayan
 hybrid {
     numbers = [1, 2, 3, 4, 5]
-    
+
     # تغيير عنصر
     numbers[0] = 10
     print(numbers)  # [10, 2, 3, 4, 5]
-    
+
     # إضافة عنصر في النهاية
     numbers.append(6)
     print(numbers)  # [10, 2, 3, 4, 5, 6]
-    
+
     # إضافة عنصر في موضع محدد
     numbers.insert(0, 0)
     print(numbers)  # [0, 10, 2, 3, 4, 5, 6]
-    
+
     # حذف عنصر
     numbers.remove(10)
     print(numbers)  # [0, 2, 3, 4, 5, 6]
-    
+
     # حذف بالفهرس
     del numbers[0]
     print(numbers)  # [2, 3, 4, 5, 6]
@@ -398,24 +404,24 @@ hybrid {
 hybrid {
     list1 = [1, 2, 3]
     list2 = [4, 5, 6]
-    
+
     # دمج القوائم
     combined = list1 + list2
     print(combined)  # [1, 2, 3, 4, 5, 6]
-    
+
     # تكرار القائمة
     repeated = list1 * 2
     print(repeated)  # [1, 2, 3, 1, 2, 3]
-    
+
     # البحث عن عنصر
     exists = 2 in list1
     print(exists)  # True
-    
+
     # فرز القائمة
     numbers = [5, 2, 8, 1, 9]
     sorted_numbers = sorted(numbers)
     print(sorted_numbers)  # [1, 2, 5, 8, 9]
-    
+
     # عكس القائمة
     reversed_list = list(reversed(numbers))
     print(reversed_list)  # [9, 1, 8, 2, 5]
@@ -432,14 +438,14 @@ hybrid {
 hybrid {
     # قاموس فارغ
     empty_dict = {}
-    
+
     # قاموس بسيط
     person = {
         "name": "أحمد",
         "age": 25,
         "city": "الرياض"
     }
-    
+
     # قاموس بمفاتيح عربية
     student = {
         "الاسم": "فاطمة",
@@ -458,19 +464,19 @@ hybrid {
         "age": 25,
         "city": "الرياض"
     }
-    
+
     # الوصول بالمفتاح
     name = person["name"]
     print(name)  # "أحمد"
-    
+
     # التحقق من وجود مفتاح
     has_age = "age" in person
     print(has_age)  # True
-    
+
     # الحصول على جميع المفاتيح
     keys = list(person.keys())
     print(keys)  # ["name", "age", "city"]
-    
+
     # الحصول على جميع القيم
     values = list(person.values())
     print(values)  # ["أحمد", 25, "الرياض"]
@@ -485,16 +491,16 @@ hybrid {
         "name": "أحمد",
         "age": 25
     }
-    
+
     # إضافة/تعديل قيمة
     person["city"] = "الرياض"
     person["age"] = 26
     print(person)
-    
+
     # حذف مفتاح
     del person["age"]
     print(person)
-    
+
     # مسح القاموس
     person.clear()
     print(person)  # {}
@@ -511,10 +517,10 @@ hybrid {
 hybrid {
     # مجموعة من الأرقام
     numbers = {1, 2, 3, 4, 5}
-    
+
     # مجموعة من النصوص
     fruits = {"تفاح", "موز", "برتقال"}
-    
+
     # ملاحظة: المجموعات لا تحتوي على عناصر مكررة
     unique_numbers = {1, 2, 2, 3, 3, 3}
     print(unique_numbers)  # {1, 2, 3}
@@ -527,23 +533,23 @@ hybrid {
 hybrid {
     set1 = {1, 2, 3, 4}
     set2 = {3, 4, 5, 6}
-    
+
     # الاتحاد (Union)
     union = set1 | set2
     print(union)  # {1, 2, 3, 4, 5, 6}
-    
+
     # التقاطع (Intersection)
     intersection = set1 & set2
     print(intersection)  # {3, 4}
-    
+
     # الفرق (Difference)
     difference = set1 - set2
     print(difference)  # {1, 2}
-    
+
     # إضافة عنصر
     set1.add(5)
     print(set1)  # {1, 2, 3, 4, 5}
-    
+
     # حذف عنصر
     set1.remove(5)
     print(set1)  # {1, 2, 3, 4}
@@ -561,7 +567,7 @@ hybrid {
 ```bayan
 hybrid {
     age = 18
-    
+
     if age >= 18: {
         print("بالغ")
     }
@@ -573,7 +579,7 @@ hybrid {
 ```bayan
 hybrid {
     temperature = 30
-    
+
     if temperature > 25: {
         print("الجو حار")
     }
@@ -588,7 +594,7 @@ hybrid {
 ```bayan
 hybrid {
     score = 85
-    
+
     if score >= 90: {
         print("ممتاز")
     }
@@ -613,7 +619,7 @@ hybrid {
 hybrid {
     age = 20
     has_license = True
-    
+
     if age >= 18: {
         if has_license: {
             print("يمكنك القيادة")
@@ -638,21 +644,21 @@ hybrid {
 hybrid {
     # التكرار على قائمة
     fruits = ["تفاح", "موز", "برتقال"]
-    
+
     for fruit in fruits: {
         print(fruit)
     }
-    
+
     # التكرار على range
     for i in range(5): {
         print(i)  # 0, 1, 2, 3, 4
     }
-    
+
     # range مع بداية ونهاية
     for i in range(1, 6): {
         print(i)  # 1, 2, 3, 4, 5
     }
-    
+
     # range مع خطوة
     for i in range(0, 10, 2): {
         print(i)  # 0, 2, 4, 6, 8
@@ -666,15 +672,15 @@ hybrid {
 hybrid {
     # حلقة while بسيطة
     count = 0
-    
+
     while count < 5: {
         print(count)
         count = count + 1
     }
-    
+
     # حلقة while مع شرط
     number = 1
-    
+
     while number <= 10: {
         if number % 2 == 0: {
             print(number)
@@ -695,7 +701,7 @@ hybrid {
         }
         print(i)  # 0, 1, 2, 3, 4
     }
-    
+
     # continue - تخطي التكرار الحالي
     for i in range(5): {
         if i == 2: {
@@ -712,18 +718,18 @@ hybrid {
 hybrid {
     # enumerate - الحصول على الفهرس والقيمة
     fruits = ["تفاح", "موز", "برتقال"]
-    
+
     for index_value in enumerate(fruits): {
         index = index_value[0]
         value = index_value[1]
         print(index)
         print(value)
     }
-    
+
     # zip - دمج قائمتين
     names = ["أحمد", "فاطمة", "علي"]
     ages = [25, 22, 30]
-    
+
     for pair in zip(names, ages): {
         name = pair[0]
         age = pair[1]
@@ -744,7 +750,7 @@ hybrid {
     def greet(): {
         print("مرحباً!")
     }
-    
+
     greet()  # استدعاء الدالة
 }
 ```
@@ -756,7 +762,7 @@ hybrid {
     def greet_person(name): {
         print("مرحباً " + name)
     }
-    
+
     greet_person("أحمد")  # "مرحباً أحمد"
     greet_person("فاطمة")  # "مرحباً فاطمة"
 }
@@ -769,7 +775,7 @@ hybrid {
     def add(a, b): {
         return a + b
     }
-    
+
     result = add(10, 20)
     print(result)  # 30
 }

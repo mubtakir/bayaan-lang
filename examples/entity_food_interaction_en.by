@@ -1,0 +1,14 @@
+hybrid {
+    # Define two entities and one action (English keywords)
+    entity Ahmed { "states": {"hunger": 0.6} }
+    entity John  { "actions": {
+        "feed": {"power": 1.0, "effects": [ {"on": "hunger", "formula": "value - 0.4*action_value"} ] }
+    }}
+
+    # Apply the action
+    apply John.feed(Ahmed, action_value=1.0)
+}
+
+# Query outside the hybrid block so it is the program's result
+query state("Ahmed", "hunger", ?V).
+

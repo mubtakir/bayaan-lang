@@ -573,3 +573,26 @@ class QueryExpression(ASTNode):
     def __repr__(self):
         return f"QueryExpression({self.goal})"
 
+
+# ============ Entity System Nodes ============
+
+class EntityDef(ASTNode):
+    """Entity definition: entity <name> { ... } where body is a dict-like structure"""
+    def __init__(self, name, body):
+        self.name = name
+        self.body = body  # AST node (Dict) to be evaluated later
+
+    def __repr__(self):
+        return f"EntityDef({self.name})"
+
+class ApplyActionStmt(ASTNode):
+    """Apply action: apply <actor>.<action>(<target>, [action_value=...])"""
+    def __init__(self, actor_name, action_name, target_expr, named_args=None):
+        self.actor_name = actor_name
+        self.action_name = action_name
+        self.target_expr = target_expr
+        self.named_args = named_args or {}
+
+    def __repr__(self):
+        return f"ApplyActionStmt({self.actor_name}.{self.action_name}(...))"
+

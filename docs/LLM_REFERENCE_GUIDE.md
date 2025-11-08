@@ -11,12 +11,14 @@
 1. **Imperative Programming** (like Python)
 2. **Object-Oriented Programming** (like Python/Java)
 3. **Logic Programming** (like Prolog)
+4. **Causal Network Engine** (NEW! 🎯) - Build causal networks in any domain
 
 **Key Features**:
 - Supports both Arabic and English keywords
 - Brace-based syntax with `:` before blocks
 - All code must be wrapped in `hybrid { ... }`
 - Full Unicode support for Arabic text
+- **Built-in Causal Network Engine** for building causal reasoning systems
 
 ---
 
@@ -578,6 +580,7 @@ hybrid {
 5. **Use `?Variable` for logic variables**
 6. **Support Arabic text in strings and identifiers**
 7. **Use English keywords** for universal code (unless user requests Arabic)
+8. **Use Causal Network Engine** for building causal reasoning systems (NEW! 🎯)
 
 ### ❌ DON'T:
 1. Don't forget the `hybrid { }` wrapper
@@ -585,6 +588,7 @@ hybrid {
 3. Don't forget `:` before `{` in function/class/control definitions
 4. Don't use `print()` with multiple arguments - use string concatenation instead
 5. Don't forget `.` at the end of logic facts/rules
+6. Don't confuse causal network commands with regular functions
 
 ---
 
@@ -653,6 +657,13 @@ hybrid {
 | Query | `results = query parent(?X, "b")?` |
 | Assert | `assertz(fact("data"))` |
 | Retract | `retract(fact("data"))` |
+| **Causal Network** 🎯 | |
+| Create Network | `create_network("id", "name", "domain")` |
+| Add Node | `add_node("net_id", "node_id", "type", "props")` |
+| Add Relation | `add_causal_relation("net_id", "from", "to", "type", "strength")` |
+| Infer Chain | `infer_causal_chain("net_id", "start", "end", "depth")` |
+| Find Effects | `find_all_effects("net_id", "node_id", "depth")` |
+| Find Causes | `find_all_causes("net_id", "node_id", "depth")` |
 
 ---
 
@@ -1198,6 +1209,238 @@ hybrid {
 
 ---
 
+### Example 11: Probabilistic Reasoning - Medical Diagnosis (NEW! 🎲)
+
+```bayan
+hybrid {
+    # Patient symptoms (probabilistic facts)
+    prob("has_fever", "patient1", 0.9).
+    prob("has_cough", "patient1", 0.7).
+    prob("has_headache", "patient1", 0.5).
+    prob("has_fatigue", "patient1", 0.8).
+
+    # Disease probabilities
+    prob("has_flu", "patient1", 0.8).
+    prob("has_cold", "patient1", 0.6).
+    prob("has_covid", "patient1", 0.3).
+
+    # Uncertainty tools (bilingual)
+    print("=== Medical Diagnosis ===")
+
+    # Check if flu is likely
+    print("Is flu likely?")
+    flu_likely = query محتمل("has_flu", "patient1")?
+    if len(flu_likely) > 0: {
+        print("  Yes, flu is likely (80% > 70%)")
+    }
+    else: {
+        print("  No, flu is not likely")
+    }
+
+    # Check if COVID is unlikely
+    print("Is COVID unlikely?")
+    covid_unlikely = query غير_محتمل("has_covid", "patient1")?
+    if len(covid_unlikely) > 0: {
+        print("  Yes, COVID is unlikely (30% < 30%)")
+    }
+
+    # Calculate combined probability of fever AND cough
+    fever_and_cough(?prob) :-
+        prob("has_fever", "patient1", ?p1),
+        prob("has_cough", "patient1", ?p2),
+        ?prob is ?p1 * ?p2.
+
+    print("Probability of fever AND cough:")
+    result = query fever_and_cough(?p)?
+    if len(result) > 0: {
+        prob_value = result[0]["?p"]
+        print("  " + str(prob_value) + " (90% × 70% = 63%)")
+    }
+
+    # Conditional inference: Treatment recommendation
+    recommend_antiviral("patient1", ?confidence) :-
+        prob("has_flu", "patient1", ?p_flu),
+        prob("has_fever", "patient1", ?p_fever),
+        ?p_flu > 0.7,
+        ?p_fever > 0.8,
+        ?confidence is 0.9.
+
+    print("Should we recommend antiviral treatment?")
+    treatment = query recommend_antiviral("patient1", ?conf)?
+    if len(treatment) > 0: {
+        confidence = treatment[0]["?conf"]
+        print("  Yes, with " + str(confidence * 100) + "% confidence")
+    }
+    else: {
+        print("  No, conditions not met")
+    }
+}
+```
+
+**Probabilistic Keywords:**
+- `prob(fact, entity, probability)` - Define probabilistic fact
+- `ربما/maybe` - probability > 50%
+- `محتمل/likely` - probability > 70%
+- `غير_محتمل/unlikely` - probability < 30%
+- `ممكن/possible` - probability between 20% and 80%
+- `مؤكد/certain` - probability > 95%
+
+**Probabilistic Operations:**
+- AND: `P(A ∧ B) = P(A) × P(B)`
+- NOT: `P(¬A) = 1 - P(A)`
+
+---
+
+## Example 12: Causal Network Engine (NEW! 🎯)
+
+### Building a Scientific Theory Network
+
+```bayan
+hybrid {
+    # Create a physics network
+    create_network("physics", "قوانين نيوتن", "scientific")
+
+    # Add physics concepts
+    add_node("physics", "قوة", "concept", "مفهوم فيزيائي")
+    add_node("physics", "كتلة", "property", "خاصية")
+    add_node("physics", "تسارع", "concept", "مفهوم فيزيائي")
+    add_node("physics", "سرعة", "state", "حالة")
+    add_node("physics", "حركة", "state", "حالة")
+    add_node("physics", "طاقة_حركية", "concept", "مفهوم فيزيائي")
+
+    # Newton's laws as causal relations
+    add_causal_relation("physics", "قوة", "تسارع", "causes", "0.95")
+    add_causal_relation("physics", "كتلة", "تسارع", "affects", "0.9")
+    add_causal_relation("physics", "تسارع", "سرعة", "leads_to", "0.9")
+    add_causal_relation("physics", "سرعة", "حركة", "causes", "0.95")
+    add_causal_relation("physics", "حركة", "طاقة_حركية", "results_in", "0.9")
+
+    # Causal inference: How does force lead to kinetic energy?
+    print("=== السلسلة السببية: من القوة إلى الطاقة الحركية ===")
+    infer_causal_chain("physics", "قوة", "طاقة_حركية", "5")
+    # Result: قوة → تسارع → سرعة → حركة → طاقة_حركية
+
+    # Find all effects of force
+    print("\n=== جميع تأثيرات القوة ===")
+    find_all_effects("physics", "قوة", "3")
+    # Result: تسارع، سرعة، حركة، طاقة_حركية
+
+    # Analyze the network
+    print("\n=== تحليل الشبكة ===")
+    analyze_network("physics")
+}
+```
+
+### Building a Psychological Network
+
+```bayan
+hybrid {
+    # Create psychological network
+    create_network("psych", "الحالات النفسية", "psychological")
+
+    # Add psychological states
+    add_node("psych", "ضغط_نفسي", "state", "حالة نفسية")
+    add_node("psych", "قلق", "emotion", "عاطفة")
+    add_node("psych", "أرق", "state", "حالة")
+    add_node("psych", "تعب", "state", "حالة")
+    add_node("psych", "استرخاء", "state", "حالة")
+    add_node("psych", "راحة", "state", "حالة")
+
+    # Negative causal chain
+    add_causal_relation("psych", "ضغط_نفسي", "قلق", "causes", "0.9")
+    add_causal_relation("psych", "قلق", "أرق", "leads_to", "0.8")
+    add_causal_relation("psych", "أرق", "تعب", "causes", "0.95")
+
+    # Positive causal chain
+    add_causal_relation("psych", "استرخاء", "راحة", "leads_to", "0.9")
+
+    # Inverse relation
+    add_causal_relation("psych", "استرخاء", "قلق", "weakens", "0.85")
+
+    # Query: How to reduce anxiety?
+    print("=== كيف أتخلص من القلق؟ ===")
+    results = query causal_relation(?From, "قلق", "weakens", ?Strength)?
+
+    for result in results: {
+        solution = result["?From"]
+        strength = result["?Strength"]
+        print("الحل: " + solution + " (قوة: " + strength + ")")
+    }
+
+    # Find causes of fatigue
+    print("\n=== أسباب التعب ===")
+    find_all_causes("psych", "تعب", "3")
+    # Result: أرق، قلق، ضغط_نفسي
+}
+```
+
+### Building a Social Network
+
+```bayan
+hybrid {
+    # Create social network
+    create_network("social", "العلاقات الاجتماعية", "social")
+
+    # Add social behaviors and emotions
+    add_node("social", "صدق", "behavior", "سلوك")
+    add_node("social", "ثقة", "emotion", "عاطفة")
+    add_node("social", "احترام", "emotion", "عاطفة")
+    add_node("social", "تعاون", "behavior", "سلوك")
+    add_node("social", "نجاح_مشترك", "state", "حالة")
+
+    # Build causal chain
+    add_causal_relation("social", "صدق", "ثقة", "causes", "0.9")
+    add_causal_relation("social", "ثقة", "احترام", "leads_to", "0.85")
+    add_causal_relation("social", "احترام", "تعاون", "enables", "0.8")
+    add_causal_relation("social", "تعاون", "نجاح_مشترك", "leads_to", "0.9")
+
+    # Function to get relationship advice
+    def get_advice(goal): {
+        print("=== كيف أصل إلى: " + goal + "؟ ===")
+
+        # Find all causes
+        causes = find_all_causes("social", goal, "4")
+
+        print("الخطوات المقترحة:")
+        for cause in causes: {
+            print("  - " + cause)
+        }
+
+        # Find causal path
+        print("\nالمسار السببي:")
+        infer_causal_chain("social", "صدق", goal, "5")
+    }
+
+    # Use the system
+    get_advice("نجاح_مشترك")
+    # Result: ابدأ بالصدق → ثقة → احترام → تعاون → نجاح مشترك
+}
+```
+
+**Key Causal Network Commands:**
+- `create_network(id, name, domain)` - Create new network
+- `add_node(net_id, node_id, type, properties)` - Add node
+- `add_causal_relation(net_id, from, to, type, strength)` - Add causal relation
+- `infer_causal_chain(net_id, start, end, depth)` - Find causal path
+- `find_all_effects(net_id, node_id, depth)` - Find all effects
+- `find_all_causes(net_id, node_id, depth)` - Find all causes
+- `analyze_network(net_id)` - Analyze network structure
+
+**Supported Domains:**
+- `professional` - المهن والحياة اليومية
+- `social` - العلاقات الاجتماعية
+- `psychological` - الحالات النفسية
+- `scientific` - القوانين العلمية
+- `philosophical` - النظريات الفلسفية
+- `historical` - الأحداث التاريخية
+- `custom` - أي مجال مخصص
+
+**12 Causal Relation Types:**
+- `causes`, `enables`, `prevents`, `requires`, `leads_to`, `results_from`
+- `enhances`, `weakens`, `correlates_with`, `contradicts`, `complements`, `depends_on`
+
+---
+
 ## Tips for Writing Clean Bayan Code
 
 1. **Always use meaningful variable names** (Arabic or English)
@@ -1207,7 +1450,9 @@ hybrid {
 5. **Use logic programming** for rules and queries
 6. **Use OOP** for data structures and encapsulation
 7. **Use imperative** for sequential operations
-8. **Test your code** with different inputs
+8. **Use probabilistic reasoning** for uncertainty and decision-making
+9. **Use causal networks** for building theories and reasoning systems (NEW! 🎯)
+10. **Test your code** with different inputs
 
 ---
 

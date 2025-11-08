@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row g-3">
+  <div class="col-12 col-lg-3">
+    <div class="card h-100">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <strong>الملفات</strong>
+        <div class="btn-group btn-group-sm" role="group">
+          <a class="btn btn-primary" id="btn-new">+ جديد</a>
+          <a class="btn btn-secondary" id="btn-refresh">تحديث</a>
+        </div>
+      </div>
+      <div class="px-3 py-2">
+        <div class="btn-group btn-group-sm" role="group">
+          <a class="btn btn-outline-light" id="btn-save-as">حفظ كـ</a>
+          <a class="btn btn-outline-warning" id="btn-rename">إعادة تسمية</a>
+          <a class="btn btn-outline-danger" id="btn-delete">حذف</a>
+        </div>
+      </div>
+        <div id="file-list" class="list-group list-group-flush" style="max-height: 60vh; overflow:auto"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-lg-9">
+    <div class="card">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <div>
+          <span class="badge text-bg-dark" id="current-file">غير محفوظ</span>
+        </div>
+        <div>
+          <a class="btn btn-sm btn-primary" id="btn-run">تشغيل</a>
+          <a class="btn btn-sm btn-secondary" id="btn-run-selection">تشغيل التحديد</a>
+          <a class="btn btn-sm btn-success" id="btn-save">حفظ</a>
+        </div>
+      </div>
+      <div id="editor" style="height: 55vh; width: 100%"></div>
+      <div class="card-body">
+        <h6 class="mb-2">المخرجات</h6>
+        <pre id="output" class="p-3 rounded" style="background:#0b1220; border:1px solid #1f2a44; min-height: 18vh"></pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.6/ace.js" integrity="sha512-ycHu2LvbZqBz7lR71QwFIfuA0S1YxC4+NpiJziG52iMm7W/gQ6I+ttcSzopwGtSDAm0F1RG8WzUuZ6s0OqYoYg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.6/ext-language_tools.min.js" integrity="sha512-uXK1r6n6mGm0mQ0qJx/fekxR6oT9vHBt4D9p6VQKQ9YJXw1S6Vboy3V3uFqg+Kc9pFfz9wV2mL4ZtbnJ0H1pLw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  // Minimal Bayan mode (keywords + comments)
+  ace.define('ace/mode/bayan', function(require, exports, module) {
+    var oop = require("ace/lib/oop");
+    var TextMode = require("ace/mode/text").Mode;
+    var TextHighlightRules = require("ace/mode/text_highlight_rules").TextHighlightRules;
+
+    var BayanHighlightRules = function() {
+      var keywords = (
+        'and|as|assert|async|await|break|class|continue|def|del|elif|else|except|'
+        + 'False|finally|for|from|global|if|import|in|is|lambda|None|nonlocal|'
+        + 'not|or|pass|raise|return|True|try|while|with|yield|hybrid|fact|rule|query'
+      );
+      this.$rules = { start: [
+        { token: 'comment.line.number-sign.bayan', regex: '#.*$' },
+        { token: 'string.quoted.single.bayan', regex: "'(?:[^'\\\\]|\\\\.)*'" },
+        { token: 'string.quoted.double.bayan', regex: '"(?:[^"\\\\]|\\\\.)*"' },
+        { token: 'constant.numeric.bayan', regex: /\b[0-9]+(?:\.[0-9]+)?\b/ },
+        { token: 'keyword.control.bayan', regex: new RegExp('\\b(' + keywords + ')\\b') }
+      ]};
+    };
+    oop.inherits(BayanHighlightRules, TextHighlightRules);
+
+    var Mode = function() { this.HighlightRules = BayanHighlightRules; };
+    oop.inherits(Mode, TextMode);
+    (function() { this.$id = 'ace/mode/bayan'; }).call(Mode.prototype);
+    exports.Mode = Mode;
+  });
+
+  var editor = ace.edit('editor');
+  editor.session.setMode('ace/mode/bayan');
+  editor.setTheme('ace/theme/monokai');
+  editor.setOptions({
+    enableBasicAutocompletion: true,
+    enableLiveAutocompletion: true,
+    enableSnippets: true,
+    fontSize: '14px',
+    tabSize: 2,
+    useSoftTabs: true,
+    wrap: true,
+    rtl: true
+  });
+  editor.setValue(`# مثال سريع\n\nprint("Hello Bayan!\n")\n\nclass A:{\n  def who():{ print("A") }\n}\n\nb = A()\nb.who()\n\n# منطق\nhybrid{\n  fact edge(a,b).\n  fact edge(b,c).\n  rule reachable(X,Y) :- edge(X,Y).\n  rule reachable(X,Y) :- edge(X,Z), reachable(Z,Y).\n  print("reachable(a, ?Y):")\n  query reachable(a, ?Y).\n}\n`, 1);
+
+  const outputPre = document.getElementById('output');
+  const currentFileBadge = document.getElementById('current-file');
+  let currentFile = null;
+
+  // Static completions
+  const langTools = ace.require('ace/ext/language_tools');
+  const keywords = [
+    'class','def','return','if','elif','else','while','for','break','continue','try','except','finally','raise','assert','with','yield','async','await','import','from','as','pass','True','False','None','hybrid','fact','rule','query','print','super'
+  ];
+  const staticCompleter = {
+    getCompletions: function(editor, session, pos, prefix, callback) {
+      const completions = keywords.map(k => ({
+        caption: k, value: k, meta: 'kw', score: 50
+      }));
+      callback(null, completions);
+    }
+  };
+  langTools.addCompleter(staticCompleter);
+
+  async function refreshFiles() {
+    const res = await fetch('/api/ide/files');
+    const files = await res.json();
+    const list = document.getElementById('file-list');
+    list.innerHTML = '';
+    files.forEach(f => {
+      const a = document.createElement('a');
+      a.href = '#';
+      a.className = 'list-group-item list-group-item-action d-flex justify-content-between align-items-center';
+      a.textContent = f.name;
+      a.onclick = async (e) => {
+        e.preventDefault();
+        const r = await fetch(`/api/ide/file?name=${encodeURIComponent(f.name)}`);
+        if (r.ok) {
+          const data = await r.json();
+          editor.setValue(data.content, 1);
+          currentFile = data.name;
+          currentFileBadge.textContent = currentFile;
+        }
+      };
+      list.appendChild(a);
+    });
+  }
+
+  async function saveFile(asNew=false) {
+    let name = currentFile;
+    if (!name || asNew) {
+      name = prompt('اسم الملف (ينتهي بـ .bayan):', name || 'program.bayan');
+      if (!name) return;
+    }
+    const res = await fetch('/api/ide/file', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, content: editor.getValue() })
+    });
+    if (res.ok) {
+      currentFile = name; currentFileBadge.textContent = name; refreshFiles();
+    } else {
+      alert('فشل الحفظ');
+    }
+  }
+
+  async function run(code) {
+    outputPre.textContent = '...';
+    const res = await fetch('/api/ide/run', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code })
+    });
+    const data = await res.json();
+    if (data.success) {
+      let out = '';
+      if (data.stdout) out += data.stdout;
+      if (data.result !== null && data.result !== undefined) {
+        out += `\n[Result(JSON)]: ${JSON.stringify(data.result)}`;
+      } else if (data.result_repr) {
+        out += `\n[Result]: ${data.result_repr}`;
+      }
+      outputPre.textContent = out;
+    } else {
+      outputPre.textContent = `Error: ${data.error_type}: ${data.error}\n${data.traceback || ''}`;
+    }
+  }
+
+  // Buttons
+  document.getElementById('btn-refresh').onclick = refreshFiles;
+  document.getElementById('btn-new').onclick = () => { currentFile = null; currentFileBadge.textContent = 'غير محفوظ'; editor.setValue('',1); };
+  document.getElementById('btn-save').onclick = () => saveFile(false);
+  document.getElementById('btn-save-as').onclick = () => saveFile(true);
+  document.getElementById('btn-rename').onclick = async () => {
+    if (!currentFile) return alert('لا يوجد ملف مفتوح');
+    const name = prompt('اسم جديد:', currentFile);
+    if (!name || name === currentFile) return;
+    const res = await fetch('/api/ide/rename', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ old_name: currentFile, new_name: name })
+    });
+    if (res.ok) { currentFile = name; currentFileBadge.textContent = name; refreshFiles(); }
+  };
+  document.getElementById('btn-delete').onclick = async () => {
+    if (!currentFile) return alert('لا يوجد ملف مفتوح');
+    if (!confirm('حذف الملف؟')) return;
+    const res = await fetch(`/api/ide/file?name=${encodeURIComponent(currentFile)}`, { method: 'DELETE' });
+    if (res.ok) { currentFile = null; currentFileBadge.textContent = 'غير محفوظ'; editor.setValue('',1); refreshFiles(); }
+  };
+  document.getElementById('btn-run').onclick = () => run(editor.getValue());
+  document.getElementById('btn-run-selection').onclick = () => {
+    const sel = editor.session.getTextRange(editor.getSelectionRange());
+    run(sel || editor.getValue());
+  };
+
+  // init
+  refreshFiles();
+</script>
+{% endblock %}
+
