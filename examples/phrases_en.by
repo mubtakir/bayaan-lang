@@ -1,0 +1,9 @@
+hybrid {
+  # Nominal phrases as linguistic templates
+  phrase("Mohammad the_doctor", relation="isa")     # Mohammad is a doctor
+  phrase("juice grapes", relation="of")              # juice of grapes
+  phrase("owner house", relation="belongs")         # house belongs to owner
+}
+
+# Queries can be issued outside the block using the logical engine if needed
+

@@ -198,6 +198,76 @@ hybrid {
   - `عرّف_أضداد(الكيان, "حالة|خاصية", أ, ب, المجموع=1.0)` يضيف العلاقتين المتقابلتين.
 
 Notes:
+
+---
+
+## Linguistic Templates — القوالب اللغوية (صفات/ألقاب/إضافة/ملكية)
+لخدمة التعبير العربي والإنجليزي، وفرنا دوالاً مساعدة تُحوّل العبارات الشائعة إلى حقائق منطقية جاهزة للاستعلام:
+
+- EN helpers:
+  - `assert_is(subject, klass)` + alias `isa(...)` + unary `klass(subject)`
+  - `assert_attrs(subject, ["generous", "brave:0.7"])`  → `attribute(subject, adj)` و `attribute(subject, adj, degree)` و `adj(subject)`
+  - `assert_of(head, genitive)`  → `of(head, genitive)` + `genitive(...)` (+ `from(...)` للاستعمال البرمجي)
+  - `assert_belongs(thing, owner)` → `belongs_to(thing, owner)` + `owner_of(owner, thing)`
+  - `phrase("Mohammad the_doctor", relation="isa")`, `phrase("juice grapes", relation="of")`, `phrase("owner house", relation="belongs")`
+- AR helpers:
+  - `أثبت_يكون(الموضوع, الفئة)` + `يكون(...)` + مسند أحادي `الفئة(الموضوع)`
+  - `أثبت_صفات("محمد", ["كريم", "شجاع:0.3"])`
+  - `أثبت_إضافة(المضاف, المضاف_إليه)`
+  - `أثبت_يعود(المملوك, المالك)`، ومرادفات `يعود(...)`
+  - `عبارة("محمد الطبيب", relation="isa")`، `عبارة("عصير العنب", relation="of")`، `عبارة("مالك البيت", relation="belongs")`
+
+ملاحظات:
+- اللاحقة العددية للصفة تقبل `:0.7` أو `.0.7` (مثل `كريم:0.8`).
+- `phrase/عبارة` يدعم خيار `strip_definite=True` افتراضيًا لإزالة "ال" من بداية الكلمات العربية الثانية الأكثر شيوعًا:
+  - مثال: `عبارة("مالك البيت", relation="belongs")` → `belongs_to("بيت", "مالك")` و `owner_of("مالك", "بيت")`.
+
+أمثلة سريعة (AR):
+```bayan
+hybrid {
+  أثبت_صفات("محمد", ["كريم", "حكيم", "شجاع:0.4"])     # attribute + درجات
+  أثبت_يكون("محمد", "طبيب")                           # isa + مسند أحادي: طبيب("محمد")
+  أثبت_إضافة("عصير", "العنب")                         # of/genitive
+  أثبت_يعود("البيت", "المالك")                         # belongs_to + owner_of
+  عبارة("محمد الطبيب", relation="isa")
+  عبارة("عصير العنب", relation="of")
+}
+```
+
+راجع الأمثلة: `examples/phrases_ar.by`, `examples/phrases_en.by`.
+
+### Grammar sugar in parser — سكر نحوي للعبارات الاسمية
+يمكنك الآن كتابة العبارات الاسمية مباشرة داخل كتلة hybrid، بشرط إنهائها بنقطة:
+
+```bayan
+hybrid {
+  محمد الطبيب.
+  عصير العنب[of].       # [علاقة] اختيارية بين معقوفين: isa|of|belongs أو اسم قالب مخصص
+  مالك البيت[belongs].   # belongs تُفسَّر افتراضياً بترتيب BA → belongs_to("بيت", "مالك")
+}
+```
+
+### Programmable templates — قوالب قابلة للبرمجة
+لتمكين التخصيص، وفرنا واجهات لتعريف قوالب واختصارات رءوس:
+- EN:
+  - `define_nominal_template(name, relation, order='AB', strip_definite=True)`
+  - `define_head_template(head, template_or_relation, order='AB')`
+- AR:
+  - `عرّف_قالب_عبارة(الاسم, العلاقة, order='AB', strip_definite=True)`
+  - `عرّف_قالب_رأس(الرأس, القالب_أو_العلاقة, order='AB')`
+
+أمثلة سريعة:
+```bayan
+hybrid {
+  define_nominal_template("ملك", relation="belongs", order="BA")
+  مالك البيت[ملك].              # يستخدم القالب
+
+  define_head_template("مالك", "belongs", order="BA")
+  مالك البيت.                   # بدون معقوفات بفضل تلميح الرأس
+}
+```
+
+
 - استخدم أسماء المفاتيح كمتغيرات داخل التعبير (تُسمح معرفات عربية/إنجليزية)
 - تُفرض المعادلات بعد أي `set_state`/`set_property` أو تأثير فعل
 
@@ -223,15 +293,17 @@ query property("Light", "on", ?V).
 
 ### Event History — سجل الأحداث
 لتيسير التعليل الزمني وبناء بيانات تدريبية، يسجّل محرك الكيانات كل تطبيق لفعل كحدث في `engine.events` ويعرض دوالاً مساعدة:
-- EN: `events(actor=None, action=None, target=None)`, `clear_events()`, `last_participants()`
-- AR: `الأحداث(...)`, `سجل_الأحداث(...)` (مرادف)، `امسح_الأحداث()`, `آخر_مشاركين()`
+- EN: `events(actor=None, action=None, target=None)`, `clear_events()`, `last_participants()`, `event_texts(lang='en')` / `describe_events(lang='en')`
+- AR: `الأحداث(...)`, `سجل_الأحداث(...)` (مرادف)، `امسح_الأحداث()`, `آخر_مشاركين()`, `نص_الأحداث('ar')` / `وصف_الأحداث('ar')`
 
 شكل كل حدث:
 ```python
 {
   'actor': 'Ahmed', 'action': 'go', 'target': 'Ali',
   'value': 1.0, 'power': 1.0, 'sensitivity': 0.5,
-  'changes': [{'key': 'x', 'old': 1.0, 'new': 2.0}, ...]
+  'changes': [{'key': 'x', 'old': 1.0, 'new': 2.0}, ...],
+  'summary_en': 'Ahmed -> go -> Ali (value=1.0, power=1.0, sensitivity=0.5)',
+  'summary_ar': 'Ahmed -> go -> Ali (قيمة=1.0، قدرة=1.0، حساسية=0.5)'
 }
 ```
 
@@ -243,7 +315,7 @@ hybrid {
   entity Ali   { "properties": {"x": {"type": "numeric", "value": 1.0}} }
 
   perform("go", ["Ahmed.1.0", "Ali.0.5"])
-  # لاحقًا يمكنك استرجاع السجل عبر events()/الأحداث()
+  # لاحقًا يمكنك استرجاع السجل نصيًا عبر describe_events('en') / نص_الأحداث('ar')
 }
 ```
 
@@ -272,6 +344,35 @@ hybrid {
   اذهب(["أحمد.0.5"])  # س += 1.0
 }
 ```
+
+#### Defining custom operators — تعريف مشغلات مخصّصة
+Programmers can define their own operator names at runtime as thin wrappers over `perform`.
+- EN: `define_operator(name, action=None, alias=None)`
+- AR: `عرّف_مشغل(الاسم، action=None، alias=None)`
+
+Notes:
+- If `action` is omitted, the operator name itself is used as the action verb.
+- `alias` adds a second callable name pointing to the same operator.
+
+Example (EN):
+```bayan
+hybrid {
+  entity Pusher { "properties": {"x": {"type":"numeric","value":0.0}},
+                  "actions": {"go": {"effects":[{"on":"x","formula":"value + sensitivity"}]}} }
+  define_operator("Push", action="go")
+  Push(["Pusher:1.0"])
+}
+```
+Example (AR):
+```bayan
+hybrid {
+  كيان دافع { "خصائص": {"س": {"نوع":"عددي","قيمة":0.0}},
+              "أفعال": {"اذهب": {"تأثيرات":[{"on":"س","formula":"value + sensitivity"}]}} }
+  عرّف_مشغل("ادفع", action="اذهب")
+  ادفع(["دافع:1.0"])
+}
+```
+
 
 ---
 ## Property/State Types (Optional) — أنواع الخصائص/الحالات (اختياري)

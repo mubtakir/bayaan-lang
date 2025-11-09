@@ -144,6 +144,19 @@ class HybridInterpreter:
         env['حوّل'] = _make_action_wrapper('حوّل')
         env['حول'] = env['حوّل']
 
+        # Dynamic operator definition (user-defined wrappers)
+        def _define_operator(name: str, action: str | None = None, alias: str | None = None):
+            act = str(action) if action is not None else str(name)
+            def _dyn_op(participants, states=None, properties=None, value: float = 1.0):
+                engine = self._get_or_create_engine()
+                return engine.perform_action(act, participants, states=states, properties=properties, action_value=float(value))
+            env[str(name)] = _dyn_op
+            if alias:
+                env[str(alias)] = _dyn_op
+            return True
+        env['define_operator'] = _define_operator
+        env['عرّف_مشغل'] = _define_operator
+
         # Event/history helpers
         def _events(actor=None, action=None, target=None):
             engine = self._get_or_create_engine()
@@ -159,14 +172,275 @@ class HybridInterpreter:
         def _last_participants():
             engine = self._get_or_create_engine()
             return list(getattr(engine, '_last_participants', []))
+        def _event_texts(lang='en'):
+            engine = self._get_or_create_engine()
+            key = 'summary_en' if str(lang).lower().startswith('e') else 'summary_ar'
+            out = []
+            for evt in engine.events:
+                if key in evt:
+                    out.append(evt[key])
+                else:
+                    # Back-compat if summaries missing
+                    out.append(f"{evt.get('actor')} -> {evt.get('action')} -> {evt.get('target')}")
+            return out
         env['events'] = _events
         env['get_events'] = _events
         env['clear_events'] = _clear_events
         env['last_participants'] = _last_participants
+        env['event_texts'] = _event_texts
+        env['describe_events'] = _event_texts
         env['الأحداث'] = _events
         env['سجل_الأحداث'] = _events
         env['امسح_الأحداث'] = _clear_events
         env['آخر_مشاركين'] = _last_participants
+        env['نص_الأحداث'] = _event_texts
+        env['وصف_الأحداث'] = _event_texts
+
+        # --- Linguistic logic helpers (facts/rules sugar) ---
+        def _assert_fact(_name: str, *args):
+            """Assert a fact predicate(args). Accepts numbers/strings."""
+            pred = Predicate(str(_name), [Term(a, is_variable=False) if not isinstance(a, Term) else a for a in args])
+            self.logical.assertz(Fact(pred))
+            return True
+
+        def _assert_is(subject, klass):
+            # isa(subject, klass) and unary klass(subject)
+            _assert_fact('isa', str(subject), str(klass))
+            _assert_fact(str(klass), str(subject))
+            return True
+
+        def _parse_attr_items(attrs):
+            # attrs: list like ["كريم", "شجاع:0.7"] or comma-separated string
+            items = []
+            if attrs is None:
+                return items
+            if isinstance(attrs, str):
+                parts = [p.strip() for p in attrs.split(',') if p.strip()]
+            else:
+                parts = list(attrs)
+            for it in parts:
+                name = str(it)
+                deg = None
+                if isinstance(it, (int, float)):
+                    name = str(it)
+                else:
+                    # parse suffix :0.7 or .0.7
+                    if ':' in name:
+                        base, d = name.split(':', 1)
+                        try:
+                            deg = float(d)
+                            name = base
+                        except Exception:
+                            deg = None
+                    elif '.' in name:
+                        base, d = name.split('.', 1)
+                        try:
+                            deg = float(d)
+                            name = base
+                        except Exception:
+                            deg = None
+                items.append((name, deg))
+            return items
+
+        def _assert_attrs(subject, attrs):
+            # attribute(subject, a) [+ attribute(subject,a,deg)] and unary a(subject)
+            for (adj, deg) in _parse_attr_items(attrs):
+                _assert_fact('attribute', str(subject), str(adj))
+                _assert_fact(str(adj), str(subject))
+                if deg is not None:
+                    _assert_fact('attribute', str(subject), str(adj), float(deg))
+            return True
+
+        def _assert_of(head, genitive):
+            # of(head, genitive) and synonyms: genitive(head, genitive), from(head, genitive)
+            _assert_fact('of', str(head), str(genitive))
+            _assert_fact('genitive', str(head), str(genitive))
+            _assert_fact('from', str(head), str(genitive))
+            return True
+
+        def _assert_belongs(owned, owner):
+            # belongs_to(owned, owner) and owner_of(owner, owned)
+            _assert_fact('belongs_to', str(owned), str(owner))
+            _assert_fact('owner_of', str(owner), str(owned))
+            return True
+
+        # English bindings
+        env['assert_fact'] = _assert_fact
+        env['assert_is'] = _assert_is
+        env['assert_attrs'] = _assert_attrs
+        env['assert_of'] = _assert_of
+        env['assert_belongs'] = _assert_belongs
+        env['isa'] = lambda s, c: _assert_is(s, c)
+        env['of'] = lambda h, g: _assert_of(h, g)
+        env['belongs_to'] = lambda t, o: _assert_belongs(t, o)
+        env['owner_of'] = lambda o, t: _assert_belongs(t, o)
+
+        # Arabic bindings
+        env['أثبت_حقيقة'] = _assert_fact
+        env['أثبت_يكون'] = _assert_is
+        env['أثبت_صفات'] = _assert_attrs
+        env['أثبت_إضافة'] = _assert_of
+        env['أثبت_يعود'] = _assert_belongs
+        env['يكون'] = lambda s, c: _assert_is(s, c)
+        env['إضافة'] = lambda h, g: _assert_of(h, g)
+        env['يعود'] = lambda t, o: _assert_belongs(t, o)
+        # --- Phrase helpers for nominal templates (EN/AR) ---
+        def _strip_al_ar(s: str) -> str:
+            try:
+                if isinstance(s, str) and s.startswith("ال"):
+                    return s[2:]
+            except Exception:
+                pass
+            return s
+
+        # --- Nominal templates registry and helpers ---
+        env['_nominal_templates'] = env.get('_nominal_templates', {})
+        env['_nominal_head_hints'] = env.get('_nominal_head_hints', {})
+
+        def _normalize_relation(name: str) -> str:
+            s = str(name)
+            if s in ('يكون',):
+                return 'isa'
+            if s in ('إضافة', 'genitive', 'من'):
+                return 'of'
+            if s in ('يعود', 'ملكية', 'ملك'):
+                return 'belongs'
+            return s.lower()
+
+        def _define_nominal_template(name, relation='isa', order='AB', strip_definite=True):
+            env['_nominal_templates'][str(name)] = {
+                'relation': _normalize_relation(relation),
+                'order': 'BA' if str(order).upper() == 'BA' else 'AB',
+                'strip_definite': bool(strip_definite),
+            }
+            return True
+
+        def _apply_nominal_template(name, a, b):
+            tpl = env['_nominal_templates'].get(str(name))
+            if not tpl:
+                return False
+            rel = tpl['relation']; order = tpl['order']
+            sa, sb = (a, b) if order == 'AB' else (b, a)
+            if rel in ('isa', 'is', 'class'):
+                return _assert_is(sa, sb)
+            if rel in ('of', 'genitive', 'from'):
+                return _assert_of(sa, sb)
+            if rel in ('belongs', 'belongs_to', 'owner', 'owner_of'):
+                return _assert_belongs(sa, sb)
+            return _assert_is(sa, sb)
+
+        def _define_head_template(head, template_or_relation, order=None, strip_definite=None):
+            # Resolve possibly by template name
+            tpl = env['_nominal_templates'].get(str(template_or_relation))
+            if tpl:
+                rel = tpl['relation']
+                ordv = tpl['order']
+                sd = tpl.get('strip_definite', True)
+            else:
+                rel = _normalize_relation(template_or_relation)
+                ordv = 'BA' if (str(order).upper() == 'BA') else 'AB' if order else 'AB'
+                sd = True if strip_definite is None else bool(strip_definite)
+            env['_nominal_head_hints'][str(head)] = {'relation': rel, 'order': ordv, 'strip_definite': sd}
+            return True
+
+        def _assert_phrase(text, relation=None, strip_definite=True):
+            """Assert a nominal phrase into facts.
+            Examples:
+              - phrase("محمد الطبيب", relation="isa")
+              - phrase("عصير العنب", relation="of")
+              - phrase("مالك البيت", relation="belongs")
+            """
+            if text is None:
+                return False
+            if not isinstance(text, str):
+                text = str(text)
+            parts = [p for p in text.strip().split() if p]
+            if len(parts) < 2:
+                return False
+            a, b = parts[0], parts[1]
+
+            rel_l = None
+            order = 'AB'
+
+            # Relation from explicit argument or template name
+            if relation is not None:
+                # If refers to a registered template, use it
+                tpl = env['_nominal_templates'].get(str(relation))
+                if tpl:
+                    rel_l = tpl['relation']
+                    order = tpl['order']
+                    # keep strip_definite as passed by caller
+                else:
+                    rel_l = _normalize_relation(relation)
+                    if rel_l == 'belongs':
+                        order = 'BA'
+            else:
+                # Try head hint
+                hint = env['_nominal_head_hints'].get(a)
+                if hint:
+                    rel_l = hint.get('relation')
+                    order = hint.get('order', 'AB')
+                    sd_hint = hint.get('strip_definite')
+                    if sd_hint is not None:
+                        strip_definite = sd_hint
+
+            if strip_definite:
+                a = _strip_al_ar(a)
+                b = _strip_al_ar(b)
+
+            # Default if still unknown
+            if not rel_l:
+                rel_l = 'isa'
+
+            # Apply ordering
+            sa, sb = (a, b) if order == 'AB' else (b, a)
+
+            if rel_l in ('isa', 'is', 'class'):
+                return _assert_is(sa, sb)
+            elif rel_l in ('of', 'genitive', 'from'):
+                return _assert_of(sa, sb)
+            elif rel_l in ('belongs', 'belongs_to', 'owner', 'owner_of'):
+                return _assert_belongs(sa, sb)
+            else:
+                return _assert_is(sa, sb)
+
+        def _assert_phrases(items, relation=None, strip_definite=True):
+            if items is None:
+                return False
+            seq = []
+            if isinstance(items, str):
+                if ('\n' in items) or (',' in items):
+                    tmp = []
+                    for line in items.splitlines():
+                        tmp += [p.strip() for p in line.split(',') if p.strip()]
+                    seq = tmp
+                else:
+                    seq = [items]
+            else:
+                seq = list(items)
+            ok = True
+            for it in seq:
+                ok = _assert_phrase(it, relation=relation, strip_definite=strip_definite) and ok
+            return ok
+
+        # English bindings
+        env['assert_phrase'] = _assert_phrase
+        env['phrase'] = _assert_phrase
+        env['assert_phrases'] = _assert_phrases
+        env['phrases'] = _assert_phrases
+        env['define_nominal_template'] = _define_nominal_template
+        env['apply_template'] = _apply_nominal_template
+        env['define_head_template'] = _define_head_template
+
+        # Arabic bindings
+        env['أثبت_عبارة'] = _assert_phrase
+        env['عبارة'] = _assert_phrase
+        env['أثبت_عبارات'] = _assert_phrases
+        env['عبارات'] = _assert_phrases
+        env['عرّف_قالب_عبارة'] = _define_nominal_template
+        env['طبق_قالب'] = _apply_nominal_template
+        env['عرّف_قالب_رأس'] = _define_head_template
+
 
     def interpret(self, node):
         """Interpret an AST node"""
@@ -184,6 +458,8 @@ class HybridInterpreter:
             return self.visit_logical_if_statement(node)
         elif isinstance(node, QueryExpression):
             return self.visit_query_expression(node)
+        elif isinstance(node, PhraseStatement):
+            return self.visit_phrase_statement(node)
         elif isinstance(node, EntityDef):
             return self.visit_entity_def(node)
         elif isinstance(node, ApplyActionStmt):
@@ -195,6 +471,16 @@ class HybridInterpreter:
         else:
             # Delegate to traditional interpreter
             return self.traditional.interpret(node)
+
+    def visit_phrase_statement(self, node):
+        """Evaluate grammar-sugar nominal phrase by delegating to phrase/عبارة env function."""
+        env = self.traditional.global_env
+        fn = env.get('phrase') or env.get('عبارة')
+        if fn:
+            if getattr(node, 'relation', None) is not None:
+                return fn(node.text, relation=node.relation)
+            return fn(node.text)
+        return None
     class _BayanModuleProxy:
         def __init__(self, module_interpreter):
             self._mod = module_interpreter.traditional
@@ -244,6 +530,7 @@ class HybridInterpreter:
                         self._mod.local_env = old_local
                 return _fn
             # Variables in global env
+
             if name in self._mod.global_env:
                 return self._mod.global_env[name]
             raise AttributeError(f"Module has no attribute '{name}'")

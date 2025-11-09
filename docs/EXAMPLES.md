@@ -238,6 +238,44 @@ hybrid {
 python main.py examples/family.by
 
 # Run calculator example
+
+## Example 11: Linguistic Templates - القوالب اللغوية
+
+```bayan
+hybrid {
+  # Arabic
+  عبارة("محمد الطبيب", relation="isa")
+  عبارة("عصير العنب", relation="of")
+  عبارة("مالك البيت", relation="belongs")
+}
+```
+
+See also: examples/phrases_ar.by, examples/phrases_en.by
+
+## Example 12: Grammar-level Nominal Phrases - سكر نحوي
+
+```bayan
+hybrid {
+  محمد الطبيب.
+  عصير العنب[of].
+  مالك البيت[belongs].
+}
+```
+
+## Example 13: Programmable Templates - قوالب قابلة للبرمجة
+
+```bayan
+hybrid {
+  define_nominal_template("ملك", relation="belongs", order="BA")
+  مالك البيت[ملك].
+
+  define_head_template("مالك", "belongs", order="BA")
+  مالك البيت.
+}
+```
+
+
+
 python main.py examples/calculator.by
 
 # Run custom code
@@ -248,6 +286,8 @@ python main.py your_file.by
 
 1. Use hybrid blocks to combine traditional and logical code
 2. Use logical variables with `?` prefix
+
+
 3. Use facts for static data
 4. Use rules for relationships
 5. Use queries to find solutions
@@ -270,11 +310,15 @@ python main.py your_file.by
 - action_centric_en.by — Action-first API demo (perform)
 
 - operators_en.by — Linguistic operator wrappers (Go/Affect/...) over perform
+- operators_custom_en.by — Define custom operator wrappers at runtime (define_operator)
+
+- phrases_en.by — Nominal phrases sugar + programmable templates
 
 - equations_en.by — Equations/constraints: on = 1 - off
 
 - groups_discourse_en.by — Groups and pronoun-like "last" reuse
-- events_en.by — Event history (engine.events), filters, and last_participants()
+- events_en.by — Event history (engine.events), filters, last_participants(), and event_texts()
+- narrative_en.by — Narrative-style multi-turn with groups + equations + event descriptions
 
 - virtual_village_en.by — Virtual Village: multi-entity interactions
 
@@ -283,12 +327,16 @@ python main.py your_file.by
 
 ## أمثلة نظام الكيانات (بالعربية)
 - operators_ar.by —  (المشغلات/...) عبر perform
+- operators_custom_ar.by — تعريف مشغل مخصص وقت التنفيذ (عرّف_مشغل)
 
 - entity_food_interaction.by — مثال عربي بسيط
 - equations_ar.by — نظام المعادلات: حر = 1 - برد
 
 - groups_discourse_ar.by — المجموعات ومرجع "last/هم" مع نفّذ
-- events_ar.by — سجل الأحداث والتصفية وآخر مشاركين
+- events_ar.by — سجل الأحداث والتصفية وآخر مشاركين ونص_الأحداث()
+- phrases_ar.by — سكر نحوي للعبارات الاسمية + قوالب مبرمجة
+
+- narrative_ar.by — سيناريو سردي متعدد الأدوار مع مجموعات + معادلات + وصف أحداث
 
 - moving_ball_ar.by — إحداثيات عددية (س،ص)، طاقة ضبابية، حرارة بنطاق مخصص
 - action_centric_ar.by — نمط التنفيذ أولًا (نفذ)

@@ -188,6 +188,9 @@ class HybridParser:
             elif self.is_logical_fact():
                 # Parse as logical fact
                 logical_stmts.append(self.parse_fact())
+            elif self.is_nominal_phrase():
+                # Grammar sugar: nominal phrase like "محمد الطبيب." or with relation hint: "عصير العنب[of]."
+                traditional_stmts.append(self.parse_nominal_phrase())
             else:
                 stmt = self.parse_statement()
                 if stmt:
@@ -195,6 +198,63 @@ class HybridParser:
 
         self.eat(TokenType.RBRACE)
         return HybridBlock(traditional_stmts, logical_stmts)
+
+    def is_nominal_phrase(self):
+        """Lookahead for a nominal phrase statement requiring a trailing DOT.
+        Pattern: (IDENT|STRING) (IDENT|STRING) [ '[' (IDENT|STRING) ']' ] '.'
+        """
+        t1 = self.current_token
+        t2 = self.peek(1)
+        if not t1 or not t2:
+            return False
+        if t1.type not in (TokenType.IDENTIFIER, TokenType.STRING):
+            return False
+        if t2.type not in (TokenType.IDENTIFIER, TokenType.STRING):
+            return False
+        t3 = self.peek(2)
+        if t3 and t3.type == TokenType.DOT:
+            return True
+        if t3 and t3.type == TokenType.LBRACKET:
+            t4 = self.peek(3)
+            t5 = self.peek(4)
+            t6 = self.peek(5)
+            return (
+                t4 and t4.type in (TokenType.IDENTIFIER, TokenType.STRING)
+                and t5 and t5.type == TokenType.RBRACKET
+                and t6 and t6.type == TokenType.DOT
+            )
+        return False
+
+    def parse_nominal_phrase(self):
+        """Parse a nominal phrase into a PhraseStatement AST node."""
+        t1 = self.current_token
+        self.advance()
+        t2 = self.current_token
+        self.advance()
+
+        def tok_to_text(tok):
+            if tok.type == TokenType.STRING:
+                v = tok.value
+                if len(v) >= 2 and ((v[0] == '"' and v[-1] == '"') or (v[0] == "'" and v[-1] == "'")):
+                    return v[1:-1]
+                return v
+            return tok.value
+
+        a = tok_to_text(t1)
+        b = tok_to_text(t2)
+        relation = None
+        if self.current_token and self.current_token.type == TokenType.LBRACKET:
+            self.eat(TokenType.LBRACKET)
+            rel_tok = self.current_token
+            if rel_tok.type not in (TokenType.IDENTIFIER, TokenType.STRING):
+                raise SyntaxError("Expected relation name inside [ ]")
+            self.advance()
+            rv = tok_to_text(rel_tok)
+            self.eat(TokenType.RBRACKET)
+            relation = rv
+        self.eat(TokenType.DOT)
+        text = f"{a} {b}"
+        return PhraseStatement(text, relation)
 
     def is_logical_fact(self):
         """Check if the current token is a logical fact (identifier followed by parentheses and dot)"""

@@ -427,6 +427,15 @@ class EntityEngine:
 
         # Record event (logical fact + in-memory log)
         self._assert_fact('event', actor_name, action_name, target_name, float(action_value))
+        # Build short textual summaries (EN/AR)
+        try:
+            _val = float(action_value)
+            _pow = float(power)
+            _sen = float(sensitivity)
+        except Exception:
+            _val, _pow, _sen = float(action_value), float(power), float(sensitivity)
+        summary_en = f"{actor_name} -> {action_name} -> {target_name} (value={_val}, power={_pow}, sensitivity={_sen})"
+        summary_ar = f"{actor_name} -> {action_name} -> {target_name} (قيمة={_val}، قدرة={_pow}، حساسية={_sen})"
         self.events.append({
             'actor': actor_name,
             'action': action_name,
@@ -435,6 +444,8 @@ class EntityEngine:
             'power': float(power),
             'sensitivity': float(sensitivity),
             'changes': changes,
+            'summary_en': summary_en,
+            'summary_ar': summary_ar,
         })
         return results
 

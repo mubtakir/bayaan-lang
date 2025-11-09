@@ -893,9 +893,14 @@ class TraditionalInterpreter:
             # Check if it's a decorated function (callable)
             if callable(target) and not isinstance(target, type):
                 args = [self.interpret(arg) for arg in node.arguments]
+                kwargs = {}
+                if hasattr(node, 'named_arguments') and node.named_arguments:
+                    for name, value in node.named_arguments.items():
+                        kwargs[name] = self.interpret(value)
                 if isinstance(target, BayanObject) and target.has_method('__call__'):
+                    # For Bayan objects, pass positional only
                     return target.call_method('__call__', args)
-                return target(*args)
+                return target(*args, **kwargs)
 
         # User-defined functions
         if node.name in self.functions:

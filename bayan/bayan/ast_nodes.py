@@ -219,6 +219,15 @@ class Dict(ASTNode):
     def __repr__(self):
         return f"Dict({len(self.pairs)} pairs)"
 
+class PhraseStatement(ASTNode):
+    """Nominal phrase sugar inside hybrid blocks: e.g., محمد الطبيب. or عصير العنب[of]."""
+    def __init__(self, text, relation=None):
+        self.text = text
+        self.relation = relation
+
+    def __repr__(self):
+        return f"PhraseStatement({self.text!r}, relation={self.relation!r})"
+
 class Parameter(ASTNode):
     """Function parameter with optional default value and support for *args/**kwargs"""
     def __init__(self, name, default_value=None, is_varargs=False, is_kwargs=False):

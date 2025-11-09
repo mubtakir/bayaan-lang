@@ -1,0 +1,12 @@
+hybrid {
+  entity Pusher { "properties": {"x": {"type":"numeric","value":0.0}},
+                  "actions": {"go": {"effects":[{"on":"x","formula":"value + sensitivity"}]}} }
+  entity Box    { "properties": {"x": {"type":"numeric","value":1.0}} }
+
+  # Define a custom operator that maps to existing action 'go'
+  define_operator("Push", action="go")
+
+  # Use it like a built-in operator
+  Push(["Pusher:1.0", "Box:0.3"], value=1.0)
+}
+
