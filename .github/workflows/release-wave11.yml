@@ -3,6 +3,12 @@ name: Create Release for Wave 11 (ai-stdlib-v11)
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
+
+
+permissions:
+  contents: write
+
 
 jobs:
   create-release:
@@ -42,9 +48,12 @@ jobs:
           }
           JSON
 
-          curl -s -X POST \
+          code=$(curl -s -o /tmp/create.json -w "%{http_code}" -X POST \
             -H "Authorization: Bearer ${GH_TOKEN}" \
             -H "Accept: application/vnd.github+json" \
             https://api.github.com/repos/${GITHUB_REPOSITORY}/releases \
-            -d @/tmp/release.json
+            -d @/tmp/release.json)
+          echo "Create release HTTP: $code"
+          test "$code" = "201"
+          jq -r '.html_url // ""' /tmp/create.json || true
 
