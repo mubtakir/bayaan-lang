@@ -83,14 +83,19 @@ class HybridInterpreter:
         def _define_complement(entity, scope, base_key, complement_key, total: float = 1.0):
             engine = self._get_or_create_engine()
             return engine.define_complement(str(entity), scope=str(scope), base_key=str(base_key), complement_key=str(complement_key), total=float(total))
+        def _define_opposites(entity, scope, key_a, key_b, total: float = 1.0):
+            engine = self._get_or_create_engine()
+            return engine.define_opposites(str(entity), scope=str(scope), key_a=str(key_a), key_b=str(key_b), total=float(total))
         env['define_equation'] = _define_equation
         env['equation_state'] = _equation_state
         env['equation_property'] = _equation_property
         env['define_complement'] = _define_complement
+        env['define_opposites'] = _define_opposites
         env['عرّف_معادلة'] = _define_equation
         env['معادلة_حالة'] = _equation_state
         env['معادلة_خاصية'] = _equation_property
         env['عرّف_متمم'] = _define_complement
+        env['عرّف_أضداد'] = _define_opposites
 
         # Concept comparison helper (utility only)
         def _compare_concepts(before: dict, after: dict, tolerance: float = 0.1):
@@ -138,6 +143,30 @@ class HybridInterpreter:
         env['اربط'] = _make_action_wrapper('اربط')
         env['حوّل'] = _make_action_wrapper('حوّل')
         env['حول'] = env['حوّل']
+
+        # Event/history helpers
+        def _events(actor=None, action=None, target=None):
+            engine = self._get_or_create_engine()
+            def _ok(evt):
+                if actor is not None and evt.get('actor') != actor: return False
+                if action is not None and evt.get('action') != action: return False
+                if target is not None and evt.get('target') != target: return False
+                return True
+            return [e for e in engine.events if _ok(e)]
+        def _clear_events():
+            engine = self._get_or_create_engine()
+            engine.events.clear()
+        def _last_participants():
+            engine = self._get_or_create_engine()
+            return list(getattr(engine, '_last_participants', []))
+        env['events'] = _events
+        env['get_events'] = _events
+        env['clear_events'] = _clear_events
+        env['last_participants'] = _last_participants
+        env['الأحداث'] = _events
+        env['سجل_الأحداث'] = _events
+        env['امسح_الأحداث'] = _clear_events
+        env['آخر_مشاركين'] = _last_participants
 
     def interpret(self, node):
         """Interpret an AST node"""

@@ -65,3 +65,21 @@ def test_equation_complement_property_en():
     V = getattr(res[0]['V'], 'value', res[0]['V'])
     assert abs(V - 0.7) < 1e-6
 
+
+
+
+def test_define_opposites_helpers():
+    code = """
+    hybrid {
+      entity Light { "properties": {"on": {"type": "fuzzy", "value": 0.0},
+                                     "off": {"type": "fuzzy", "value": 1.0} } }
+
+      define_opposites("Light", "property", "on", "off", 1.0)
+      set_property("Light", "off", 0.25)
+    }
+
+    query property("Light", "on", ?V).
+    """
+    interp, res = run(code)
+    V = getattr(res[0]['V'], 'value', res[0]['V'])
+    assert abs(V - 0.75) < 1e-6

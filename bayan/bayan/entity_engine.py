@@ -150,6 +150,8 @@ class EntityEngine:
         # Groups and discourse helpers
         self.groups: Dict[str, List[str]] = {}
         self._last_participants: List[str] = []
+        # Event log for downstream analysis/training data
+        self.events: List[Dict[str, Any]] = []
         # Constraint enforcement guard to avoid recursion
         self._in_enforce: bool = False
 
@@ -362,6 +364,7 @@ class EntityEngine:
 
         power = float(spec.get('power', 1.0))
         results: Dict[str, float] = {}
+        changes: List[Dict[str, float]] = []
 
         # Reaction sensitivity on receiver (allow override for single application)
         reaction = target.reactions.get(action_name, _Reaction())
@@ -399,6 +402,7 @@ class EntityEngine:
                 })
                 new_val = self.set_property(target_name, eff.on, new_val)
             results[eff.on] = new_val
+            changes.append({'key': eff.on, 'old': float(old), 'new': float(new_val)})
             # Record change as fact: changed(Target, Key, Old, New)
             self._assert_fact('changed', target_name, eff.on, float(old), float(new_val))
 
@@ -415,12 +419,23 @@ class EntityEngine:
             if op == '+=':
                 newv = self.set_state(target_name, key, base + delta)
                 results[key] = newv
+                changes.append({'key': key, 'old': float(base), 'new': float(newv)})
             elif op == '-=':
                 newv = self.set_state(target_name, key, base - delta)
                 results[key] = newv
+                changes.append({'key': key, 'old': float(base), 'new': float(newv)})
 
-        # Record event
+        # Record event (logical fact + in-memory log)
         self._assert_fact('event', actor_name, action_name, target_name, float(action_value))
+        self.events.append({
+            'actor': actor_name,
+            'action': action_name,
+            'target': target_name,
+            'value': float(action_value),
+            'power': float(power),
+            'sensitivity': float(sensitivity),
+            'changes': changes,
+        })
         return results
 
     # --------- Action-centric API (perform) ---------
@@ -466,6 +481,24 @@ class EntityEngine:
             members = self.groups.get(name_part, [])
             return (list(members), deg)
 
+        def _parse_degree_suffix(s: str) -> Optional[float]:
+            idx = s.rfind(':')
+            if idx != -1:
+                try:
+                    return float(s[idx+1:].strip())
+                except Exception:
+                    return None
+            dot_idx = s.find('.')
+            if dot_idx != -1:
+                try:
+                    return float(s[dot_idx+1:].strip())
+                except Exception:
+                    return None
+            return None
+
+        pronouns_en = {'last', 'they', 'them', 'he', 'she', 'it'}
+        pronouns_ar = {'هم', 'هو', 'هي', 'هما', 'هن'}
+
         # dict form
         if isinstance(participants, dict):
             for k, v in participants.items():
@@ -489,7 +522,7 @@ class EntityEngine:
                         members, _gdeg = _expand_group_spec(name)
                         for m in members:
                             _add(m, float(deg))
-                    elif isinstance(name, str) and (name.lower() == 'last' or name == 'هم'):
+                    elif isinstance(name, str) and (name.lower() in pronouns_en or name in pronouns_ar):
                         for m in self._last_participants:
                             _add(m, float(deg))
                     else:
@@ -502,27 +535,14 @@ class EntityEngine:
                         for m in members:
                             _add(m, gdeg if gdeg is not None else 1.0)
                         continue
-                    # last pronoun / reference (supports last, last:0.5, last.0.5, and Arabic "هم")
+                    # pronoun / last reference (supports ':deg' or first '.' suffix)
                     low = s.lower()
-                    if low.startswith('last') or s == 'هم':
-                        deg = None
-                        idx = s.rfind(':')
-                        if idx != -1 and low.startswith('last'):
-                            try:
-                                deg = float(s[idx+1:].strip())
-                            except Exception:
-                                deg = None
-                        else:
-                            # Use FIRST '.' so that 'last.0.2' -> 0.2 (not 2.0)
-                            dot_idx = s.find('.')
-                            if dot_idx != -1 and low.startswith('last'):
-                                try:
-                                    deg = float(s[dot_idx+1:].strip())
-                                except Exception:
-                                    deg = None
+                    base = low.split(':', 1)[0]
+                    if '.' in base:
+                        base = base.split('.', 1)[0]
+                    if (base in pronouns_en) or (base == 'last') or (base in pronouns_ar) or (s in pronouns_ar):
+                        deg = _parse_degree_suffix(s)
                         for m in self._last_participants:
-
-
                             _add(m, deg if deg is not None else 1.0)
                         continue
                     # Default: "Name:1.0" or "Name.1.0"
@@ -704,6 +724,12 @@ class EntityEngine:
         # complement_key = total - base_key
         expr = f"{float(total)} - {base_key}"
         self.add_equation(entity_name, scope=scope, key=complement_key, expr=expr)
+
+    def define_opposites(self, entity_name: str, *, scope: str, key_a: str, key_b: str, total: float = 1.0) -> None:
+        # Define symmetric complements: A = total - B and B = total - A
+        total_f = float(total)
+        self.add_equation(entity_name, scope=scope, key=str(key_a), expr=f"{total_f} - {key_b}")
+        self.add_equation(entity_name, scope=scope, key=str(key_b), expr=f"{total_f} - {key_a}")
 
 
     @staticmethod

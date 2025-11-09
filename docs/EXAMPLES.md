@@ -274,6 +274,7 @@ python main.py your_file.by
 - equations_en.by — Equations/constraints: on = 1 - off
 
 - groups_discourse_en.by — Groups and pronoun-like "last" reuse
+- events_en.by — Event history (engine.events), filters, and last_participants()
 
 - virtual_village_en.by — Virtual Village: multi-entity interactions
 
@@ -281,12 +282,13 @@ python main.py your_file.by
     - Inspect multiple states via queries after each turn
 
 ## أمثلة نظام الكيانات (بالعربية)
-- operators_ar.by —  (//...)  perform
+- operators_ar.by —  (المشغلات/...) عبر perform
 
 - entity_food_interaction.by — مثال عربي بسيط
 - equations_ar.by — نظام المعادلات: حر = 1 - برد
 
 - groups_discourse_ar.by — المجموعات ومرجع "last/هم" مع نفّذ
+- events_ar.by — سجل الأحداث والتصفية وآخر مشاركين
 
 - moving_ball_ar.by — إحداثيات عددية (س،ص)، طاقة ضبابية، حرارة بنطاق مخصص
 - action_centric_ar.by — نمط التنفيذ أولًا (نفذ)

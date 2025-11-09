@@ -151,6 +151,10 @@ query property("أحمد", "س", ?V).
   - كثنائية: `("group:Team", 0.7)`
 - إعادة استخدام آخر مشاركين: `"last"` أو العربية `"هم"`
   - يمكن تمرير درجة موحّدة: `"last:0.3"` أو `"last.0.3"`
+- Synonyms (aliases) for last-reference:
+  - EN pronouns: `they`, `them`, `he`, `she`, `it`
+  - AR pronouns: `هم`, `هو`, `هي`, `هما`, `هن`
+  - All treated as alias of "last"; degree suffix is supported via `:0.2` or `.0.2` (e.g., `they:0.2`, `هما.0.5`).
 
 مثال EN:
 ```bayan
@@ -161,7 +165,7 @@ hybrid {
 
   define_group("Team", ["Ahmed", "Ali"])    # Group definition
   perform("go", ["group:Team.0.5"])          # Apply to group members
-  perform("go", ["last.0.2"])                # Reuse last participants
+  perform("go", ["they:0.2"])                # Reuse last via pronoun alias
 }
 ```
 
@@ -174,7 +178,7 @@ hybrid {
 
   عرّف_مجموعة("الفريق", ["أحمد", "علي"])
   نفذ("اذهب", ["مجموعة:الفريق.0.5"])
-  نفذ("اذهب", ["last.0.2"])                    # أو "هم" بدرجة افتراضية 1.0
+  نفذ("اذهب", ["هما.0.2"])                    # مرجع ضمير مكافئ لـ last
 }
 ```
 
@@ -186,10 +190,12 @@ hybrid {
   - `define_equation(entity, scope, key, expr)` where `scope` is `state` or `property`
   - `equation_state(entity, key, expr)` / `equation_property(entity, key, expr)`
   - `define_complement(entity, scope, base_key, complement_key, total=1.0)` adds `complement_key = total - base_key`
+  - `define_opposites(entity, scope, key_a, key_b, total=1.0)` adds both: `A = total - B` and `B = total - A`
 - AR helpers:
   - `عرّف_معادلة(الكيان, "حالة|خاصية", المفتاح, "التعبير")`
   - `معادلة_حالة(...)` / `معادلة_خاصية(...)`
   - `عرّف_متمم(الكيان, "حالة|خاصية", الأساس, المتمم, المجموع=1.0)`
+  - `عرّف_أضداد(الكيان, "حالة|خاصية", أ, ب, المجموع=1.0)` يضيف العلاقتين المتقابلتين.
 
 Notes:
 - استخدم أسماء المفاتيح كمتغيرات داخل التعبير (تُسمح معرفات عربية/إنجليزية)
@@ -199,7 +205,7 @@ Notes:
 ```bayan
 hybrid {
   كيان الطقس { "حالات": {"حر": {"نوع": "ضبابي", "قيمة": 0.0}, "برد": {"نوع": "ضبابي", "قيمة": 1.0}} }
-  عرّف_معادلة("الطقس", "حالة", "حر", "1 - برد")
+  عرّف_أضداد("الطقس", "حالة", "حر", "برد", 1.0)
   عين_حالة("الطقس", "برد", 0.2)
 }
 query state("الطقس", "حر", ?H).
@@ -208,10 +214,37 @@ query state("الطقس", "حر", ?H).
 ```bayan
 hybrid {
   entity Light { "properties": {"on": {"type": "fuzzy", "value": 0.0}, "off": {"type": "fuzzy", "value": 1.0}} }
-  define_equation("Light", "property", "on", "1 - off")
+  define_opposites("Light", "property", "on", "off", 1.0)
   set_property("Light", "off", 0.3)
 }
 query property("Light", "on", ?V).
+```
+
+
+### Event History — سجل الأحداث
+لتيسير التعليل الزمني وبناء بيانات تدريبية، يسجّل محرك الكيانات كل تطبيق لفعل كحدث في `engine.events` ويعرض دوالاً مساعدة:
+- EN: `events(actor=None, action=None, target=None)`, `clear_events()`, `last_participants()`
+- AR: `الأحداث(...)`, `سجل_الأحداث(...)` (مرادف)، `امسح_الأحداث()`, `آخر_مشاركين()`
+
+شكل كل حدث:
+```python
+{
+  'actor': 'Ahmed', 'action': 'go', 'target': 'Ali',
+  'value': 1.0, 'power': 1.0, 'sensitivity': 0.5,
+  'changes': [{'key': 'x', 'old': 1.0, 'new': 2.0}, ...]
+}
+```
+
+مثال مختصر:
+```bayan
+hybrid {
+  entity Ahmed { "properties": {"x": {"type": "numeric", "value": 0.0}},
+                 "actions": {"go": {"effects": [{"on": "x", "formula": "value + 2*sensitivity"}]}} }
+  entity Ali   { "properties": {"x": {"type": "numeric", "value": 1.0}} }
+
+  perform("go", ["Ahmed.1.0", "Ali.0.5"])
+  # لاحقًا يمكنك استرجاع السجل عبر events()/الأحداث()
+}
 ```
 
 
