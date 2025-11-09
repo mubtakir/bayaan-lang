@@ -116,6 +116,29 @@ class HybridInterpreter:
         env['compare_concepts'] = _compare_concepts
         env['قارن_المفاهيم'] = _compare_concepts
 
+
+        # Linguistic Operators (thin wrappers over perform)
+        def _make_action_wrapper(_action_name: str):
+            def _fn(participants, states=None, properties=None, value: float = 1.0):
+                engine = self._get_or_create_engine()
+                return engine.perform_action(_action_name, participants, states=states, properties=properties, action_value=float(value))
+            return _fn
+        # English operators
+        env['Go'] = _make_action_wrapper('go')
+        env['Affect'] = _make_action_wrapper('affect')
+        env['Consume'] = _make_action_wrapper('consume')
+        env['Bond'] = _make_action_wrapper('bond')
+        env['Transform'] = _make_action_wrapper('transform')
+        # Arabic operators
+        env['اذهب'] = _make_action_wrapper('اذهب')
+        env['أثّر'] = _make_action_wrapper('أثر')
+        env['اثر'] = env['أثّر']
+        env['أكل'] = _make_action_wrapper('أكل')
+        env['اكل'] = env['أكل']
+        env['اربط'] = _make_action_wrapper('اربط')
+        env['حوّل'] = _make_action_wrapper('حوّل')
+        env['حول'] = env['حوّل']
+
     def interpret(self, node):
         """Interpret an AST node"""
         if isinstance(node, Program):

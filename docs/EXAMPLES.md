@@ -269,6 +269,8 @@ python main.py your_file.by
 - moving_ball_en.by — Numeric coordinates (x,y), fuzzy energy, bounded temperature
 - action_centric_en.by — Action-first API demo (perform)
 
+- operators_en.by — Linguistic operator wrappers (Go/Affect/...) over perform
+
 - equations_en.by — Equations/constraints: on = 1 - off
 
 - groups_discourse_en.by — Groups and pronoun-like "last" reuse
@@ -279,6 +281,8 @@ python main.py your_file.by
     - Inspect multiple states via queries after each turn
 
 ## أمثلة نظام الكيانات (بالعربية)
+- operators_ar.by —  (//...)  perform
+
 - entity_food_interaction.by — مثال عربي بسيط
 - equations_ar.by — نظام المعادلات: حر = 1 - برد
 

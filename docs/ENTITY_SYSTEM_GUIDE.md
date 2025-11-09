@@ -214,6 +214,32 @@ hybrid {
 query property("Light", "on", ?V).
 ```
 
+
+### Linguistic Operators — مشغلات لغوية (Wrappers)
+Wrappers that call the action-centric engine with conventional names; useful for readability and LLM training data.
+
+- English: `Go(participants, states=None, properties=None, value=1.0)`, `Affect(...)`, `Consume(...)`, `Bond(...)`, `Transform(...)`
+- العربية: `اذهب(...)`, `أثّر(...)`, `أكل(...)`, `اربط(...)`, `حوّل(...)`
+
+Note: These wrappers are thin aliases over `perform("<verb>", participants, ...)`. The verb must have an action/effects defined on the target entities to induce change, or pair with state/property setters where appropriate.
+
+Example (EN):
+```bayan
+hybrid {
+  entity Ahmed { "properties": {"x": {"type": "numeric", "value": 0.0}},
+                 "actions": {"go": {"effects": [{"on": "x", "formula": "value + 3*sensitivity"}]}} }
+  Go(["Ahmed.0.5"])  # x += 1.5
+}
+```
+Example (AR):
+```bayan
+hybrid {
+  كيان أحمد { "خصائص": {"س": {"نوع": "عددي", "قيمة": 0.0}},
+              "أفعال": {"اذهب": {"تأثيرات": [{"on": "س", "formula": "value + 2*sensitivity"}]}} }
+  اذهب(["أحمد.0.5"])  # س += 1.0
+}
+```
+
 ---
 ## Property/State Types (Optional) — أنواع الخصائص/الحالات (اختياري)
 By default all values are fuzzy [0..1]. You can opt into other kinds per key:
