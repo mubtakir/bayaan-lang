@@ -53,6 +53,17 @@ Arabic wrappers (new):
 - توقع_نايف_بايز_نص(نموذج, نص)
 - احتمال_نايف_بايز_نص(نموذج, نص)
 
+
+New (v4):
+- bigram_lm_train(docs, alpha=1.0)
+- bigram_lm_probability(model, w1, w2)
+- bigram_lm_predict_next(model, w1, top_n=3)
+
+Arabic wrappers (v4):
+- تدريب_ثنائي_الكلمات(نصوص, ألفا=1.0)
+- احتمال_ثنائي_الكلمات(نموذج, كلمة1, كلمة2)
+- أفضل_التالي_ثنائي(نموذج, كلمة, أعلى=3)
+
 Arabic wrappers:
 - تجهيز_نص(نص, لغة="auto")
 - تجزئة_نص(نص, لغة="auto")
@@ -73,6 +84,23 @@ Notes:
 New (v2):
 - logistic_regression_predict_proba(X, w, b)
 - confusion_matrix(y_true, y_pred, pos_label=1, neg_label=0)
+
+New (v4):
+- accuracy_score(y_true, y_pred)
+- confusion_matrix_multi(y_true, y_pred, labels)
+- classification_report(y_true, y_pred, labels)
+- k_fold_evaluate_logistic(X, y, k=5, lr=0.1, epochs=200)
+- k_fold_evaluate_knn(X, y, k_folds=5, k_neighbors=3)
+
+Arabic wrappers (v4):
+- دقة(حقيقة, توقع)
+- مصفوفة_الالتباس_متعددة(حقيقة, توقع, تسميات)
+
+
+- تقرير_تصنيف(حقيقة, توقع, تسميات)
+- تقييم_طي_تقاطعي_لوجستي(س, ت, ك=5)
+- تقييم_طي_تقاطعي_KNN(س, ت, طيات=5, جيران=3)
+
 - roc_curve(y_true, y_scores, pos_label=1) → [fprs, tprs, thresholds]
 - auc_roc(fprs, tprs)
 - k_means_pp_prob(data, k, max_iters=10, seed=42)
@@ -90,6 +118,21 @@ Arabic wrappers (new):
 
 - random_permutation(n, seed=42)
 - train_test_split_shuffle(X, y, test_ratio=0.25, seed=42)
+
+
+New (v4):
+- set_seed(seed)
+- rand()
+- randint(a, b)
+- shuffle_list(lst)
+- sample_list(lst, k)
+
+Arabic wrappers (v4):
+- تعيين_بذرة(بذرة)
+- عشوائي_0_1()
+- عشوائي_صحيح_بين(أ, ب)
+- خلط_قائمة(قائمة)
+- عينة_من_قائمة(قائمة, ك)
 
 Arabic wrappers:
 - ترتيب_عشوائي(n, بذرة=42)
@@ -116,6 +159,26 @@ Arabic wrappers:
 
 Notes:
 - تم استخدام pow(e, -z) بدل exp() لعدم الحاجة لاعتماد خارجي
+
+```bayan
+hybrid {
+  # Bigram LM (train and predict)
+  import ai.nlp as nlp
+  model = nlp.bigram_lm_train(["this is fine", "this is good"])
+  top = nlp.bigram_lm_predict_next(model, "is", 2)
+}
+```
+
+```bayan
+hybrid {
+  # Multi-class report
+  import ai.ml as ml
+  y_true = [0,1,2,1,0,2]
+  y_pred = [0,2,2,1,0,1]
+  rep = ml.classification_report(y_true, y_pred, [0,1,2])
+}
+```
+
 - المسافات في k-means هي مسافة إقليدية مربعة (بدون جذر) للمقارنة فقط
 
 ---

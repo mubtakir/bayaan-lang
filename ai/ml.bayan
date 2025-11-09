@@ -458,6 +458,192 @@ def confusion_matrix(y_true, y_pred, pos_label=1, neg_label=0):
     return [[tn, fp], [fn, tp]]
 }
 
+# Multi-class confusion matrix and classification report
+
+def accuracy_score(y_true, y_pred):
+{
+    correct = 0
+    n = len(y_true)
+    for i in range(n):
+    {
+        if y_true[i] == y_pred[i]: { correct = correct + 1 }
+    }
+    if n > 0: { return correct / n }
+    return 0.0
+}
+
+# If labels is empty list, infer labels from y_true ∪ y_pred in order of appearance
+
+def confusion_matrix_multi(y_true, y_pred, labels):
+{
+    labs = []
+    if len(labels) == 0:
+    {
+        seen = {}
+        for i in range(len(y_true)):
+        {
+            l = y_true[i]
+            if l in seen:
+            {
+                # skip
+            }
+            else:
+            {
+                seen[l] = 1
+                labs.append(l)
+            }
+        }
+        for i in range(len(y_pred)):
+        {
+            l = y_pred[i]
+            if l in seen:
+            {
+                # skip
+            }
+            else:
+            {
+                seen[l] = 1
+                labs.append(l)
+            }
+        }
+    }
+    else:
+    {
+        for i in range(len(labels)):
+        {
+            labs.append(labels[i])
+        }
+    }
+    m = len(labs)
+    mat = []
+    for i in range(m):
+    {
+        row = []
+        for j in range(m): { row.append(0) }
+        mat.append(row)
+    }
+    idx = {}
+    for i in range(m): { idx[labs[i]] = i }
+    for i in range(len(y_true)):
+    {
+        t = y_true[i]
+        p = y_pred[i]
+        if t in idx and p in idx:
+        {
+            r = idx[t]
+            c = idx[p]
+            mat[r][c] = mat[r][c] + 1
+        }
+    }
+    return [mat, labs]
+}
+
+
+def classification_report(y_true, y_pred, labels):
+{
+    # infer labels if needed
+    labs = []
+    if len(labels) == 0:
+    {
+        seen = {}
+        for i in range(len(y_true)):
+        {
+            l = y_true[i]
+            if l in seen: { }
+            else:
+            {
+                seen[l] = 1
+                labs.append(l)
+            }
+        }
+        for i in range(len(y_pred)):
+        {
+            l = y_pred[i]
+            if l in seen: { }
+            else:
+            {
+                seen[l] = 1
+                labs.append(l)
+            }
+        }
+    }
+    else:
+    {
+        for i in range(len(labels)): { labs.append(labels[i]) }
+    }
+    m = len(labs)
+    per_class = {}
+    tp_total = 0
+    fp_total = 0
+    fn_total = 0
+    for li in range(m):
+    {
+        L = labs[li]
+        tp = 0
+        fp = 0
+        fn = 0
+        supp = 0
+        for i in range(len(y_true)):
+        {
+            if y_true[i] == L:
+            {
+                supp = supp + 1
+                if y_pred[i] == L: { tp = tp + 1 } else: { fn = fn + 1 }
+            }
+            else:
+            {
+                if y_pred[i] == L: { fp = fp + 1 }
+            }
+        }
+        prec = 0.0
+        reca = 0.0
+        f1 = 0.0
+        if (tp + fp) > 0: { prec = tp / (tp + fp) }
+        if (tp + fn) > 0: { reca = tp / (tp + fn) }
+        if (prec + reca) > 0.0: { f1 = 2.0 * prec * reca / (prec + reca) }
+        d = {}
+        d["precision"] = prec
+        d["recall"] = reca
+        d["f1"] = f1
+        d["support"] = supp
+        per_class[L] = d
+        tp_total = tp_total + tp
+        fp_total = fp_total + fp
+        fn_total = fn_total + fn
+    }
+    macro_p = 0.0
+    macro_r = 0.0
+    macro_f = 0.0
+    if m > 0:
+    {
+        for li in range(m):
+        {
+            L = labs[li]
+            macro_p = macro_p + per_class[L]["precision"]
+            macro_r = macro_r + per_class[L]["recall"]
+            macro_f = macro_f + per_class[L]["f1"]
+        }
+        macro_p = macro_p / m
+        macro_r = macro_r / m
+        macro_f = macro_f / m
+    }
+    micro_p = 0.0
+    micro_r = 0.0
+    micro_f = 0.0
+    if (tp_total + fp_total) > 0: { micro_p = tp_total / (tp_total + fp_total) }
+    if (tp_total + fn_total) > 0: { micro_r = tp_total / (tp_total + fn_total) }
+    if (micro_p + micro_r) > 0.0: { micro_f = 2.0 * micro_p * micro_r / (micro_p + micro_r) }
+    acc = accuracy_score(y_true, y_pred)
+    rep = {}
+    rep["per_class"] = per_class
+    rep["labels"] = labs
+    rep["macro_avg"] = {"precision": macro_p, "recall": macro_r, "f1": macro_f}
+    rep["micro_avg"] = {"precision": micro_p, "recall": micro_r, "f1": micro_f}
+    rep["accuracy"] = acc
+    return rep
+}
+
+
 # Probability outputs for logistic regression
 
 def logistic_regression_predict_proba(X, w, b):
@@ -630,6 +816,99 @@ def k_fold_indices(n, k, shuffle=True, seed=42):
 def تقسيم_طي_تقاطعي_مؤشرات(ن, ك, عشوائي=True, بذرة=42): { return k_fold_indices(ن, ك, عشوائي, بذرة) }
 
 
+# K-Fold evaluation for logistic regression (binary). Returns [precision, recall, f1, accuracy] averages
+
+def k_fold_evaluate_logistic(X, y, k=5, lr=0.1, epochs=200, shuffle=True, seed=42):
+{
+    n = len(X)
+    folds = k_fold_indices(n, k, shuffle, seed)
+    p_sum = 0.0
+    r_sum = 0.0
+    f_sum = 0.0
+    a_sum = 0.0
+    m = 0
+    for fi in range(len(folds)):
+    {
+        tr_idx = folds[fi][0]
+        va_idx = folds[fi][1]
+        Xtr = []
+        ytr = []
+        for i in range(len(tr_idx)):
+        {
+            idx = tr_idx[i]
+            Xtr.append(X[idx])
+            ytr.append(y[idx])
+        }
+        Xva = []
+        yva = []
+        for i in range(len(va_idx)):
+        {
+            idx = va_idx[i]
+            Xva.append(X[idx])
+            yva.append(y[idx])
+        }
+        model = logistic_regression_train(Xtr, ytr, lr, epochs)
+        w = model[0]
+        b = model[1]
+        yhat = logistic_regression_predict(Xva, w, b, 0.5)
+        p = precision_score(yva, yhat, 1)
+        r = recall_score(yva, yhat, 1)
+        f = f1_score(yva, yhat, 1)
+        a = accuracy_score(yva, yhat)
+        p_sum = p_sum + p
+        r_sum = r_sum + r
+        f_sum = f_sum + f
+        a_sum = a_sum + a
+        m = m + 1
+    }
+    if m == 0: { return [0.0, 0.0, 0.0, 0.0] }
+    return [p_sum / m, r_sum / m, f_sum / m, a_sum / m]
+}
+
+# K-Fold evaluation for KNN (multi-class). Returns average accuracy
+
+def k_fold_evaluate_knn(X, y, k_folds=5, k_neighbors=3, shuffle=True, seed=42):
+{
+    n = len(X)
+    folds = k_fold_indices(n, k_folds, shuffle, seed)
+    a_sum = 0.0
+    m = 0
+    for fi in range(len(folds)):
+    {
+        tr_idx = folds[fi][0]
+        va_idx = folds[fi][1]
+        Xtr = []
+        ytr = []
+        for i in range(len(tr_idx)):
+        {
+            idx = tr_idx[i]
+            Xtr.append(X[idx])
+            ytr.append(y[idx])
+        }
+        Xva = []
+        yva = []
+        for i in range(len(va_idx)):
+        {
+            idx = va_idx[i]
+            Xva.append(X[idx])
+            yva.append(y[idx])
+        }
+        yhat = k_nearest_neighbors_predict(Xtr, ytr, Xva, k_neighbors)
+        a = accuracy_score(yva, yhat)
+        a_sum = a_sum + a
+        m = m + 1
+    }
+    if m == 0: { return 0.0 }
+    return a_sum / m
+}
+
+# Arabic wrappers
+
+def تقييم_طي_تقاطعي_لوجستي(س, ت, ك=5, lr=0.1, epochs=200, عشوائي=True, بذرة=42): { return k_fold_evaluate_logistic(س, ت, ك, lr, epochs, عشوائي, بذرة) }
+
+def تقييم_طي_تقاطعي_KNN(س, ت, طيات=5, جيران=3, عشوائي=True, بذرة=42): { return k_fold_evaluate_knn(س, ت, طيات, جيران, عشوائي, بذرة) }
+
+
 
 # K-Means++ probabilistic initialization with simple PRNG (LCG)
 
@@ -796,6 +1075,7 @@ def k_means_pp_prob(data, k, max_iters=10, seed=42):
             }
             centers.append(data[chosen])
         }
+
     }
     labels = []
     for i in range(n): { labels.append(0) }
@@ -866,6 +1146,13 @@ def مساحة_ROC(معدلات_موجبة_كاذبة, معدلات_حقيقية
 def تجميع_كي_مينز_PP_احتمالي(بيانات, ك, مرات=10, بذرة=42): { return k_means_pp_prob(بيانات, ك, مرات, بذرة) }
 
 def مراكز_كي_مينز_PP_احتمالية_ابتدائية(بيانات, ك, بذرة=42): { return k_means_pp_prob_init(بيانات, ك, بذرة) }
+
+
+# Arabic wrappers for multi-class metrics
+
+def مصفوفة_الالتباس_متعددة(حقيقة, توقع, تسميات): { return confusion_matrix_multi(حقيقة, توقع, تسميات) }
+
+def تقرير_تصنيف(حقيقة, توقع, تسميات): { return classification_report(حقيقة, توقع, تسميات) }
 
 
 def تدريب_انحدار_لوجستي(س, ت, lr=0.1, epochs=200): { return logistic_regression_train(س, ت, lr, epochs) }

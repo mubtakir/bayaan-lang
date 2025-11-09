@@ -134,6 +134,96 @@ def random_permutation(n, seed=42):
     return perm
 }
 
+
+# Unified PRNG API (module-level state box)
+
+PRNG_BOX = {"state": 42}
+
+# Set global seed
+
+def set_seed(seed):
+{
+    PRNG_BOX["state"] = seed
+    return seed
+}
+
+# Uniform random in [0,1)
+
+def rand():
+{
+    st = lcg_next(PRNG_BOX["state"])
+    PRNG_BOX["state"] = st[0]
+    return st[1]
+}
+
+# Random integer in [a, b]
+
+def randint(a, b):
+{
+    if b < a:
+    {
+        t = a
+        a = b
+        b = t
+    }
+    u = rand()
+    span = (b - a) + 1
+    t = u * span
+    j = 0
+    while (j + 1) <= t:
+    {
+        j = j + 1
+    }
+    return a + j
+}
+
+# Shuffle: returns a new shuffled copy using module PRNG
+
+def shuffle_list(lst):
+{
+    n = len(lst)
+    out = []
+    for i in range(n): { out.append(lst[i]) }
+    for i in range(n - 1, -1, -1):
+    {
+        st = lcg_next(PRNG_BOX["state"])
+        PRNG_BOX["state"] = st[0]
+        u = st[1]
+        t = u * (i + 1)
+        j = 0
+        while (j + 1) <= t: { j = j + 1 }
+        tmp = out[i]
+        out[i] = out[j]
+        out[j] = tmp
+    }
+    return out
+}
+
+# Sample k unique elements (k <= n)
+
+def sample_list(lst, k):
+{
+    out = shuffle_list(lst)
+    n = len(out)
+    if k < 0: { k = 0 }
+    if k > n: { k = n }
+    res = []
+    for i in range(k): { res.append(out[i]) }
+    return res
+}
+
+# Arabic wrappers
+
+def تعيين_بذرة(بذرة): { PRNG_BOX["state"] = بذرة }
+
+def عشوائي_0_1(): { return rand() }
+
+def عشوائي_صحيح_بين(أ, ب): { return randint(أ, ب) }
+
+def خلط_قائمة(قائمة): { return shuffle_list(قائمة) }
+
+def عينة_من_قائمة(قائمة, ك): { return sample_list(قائمة, ك) }
+
 # Train/test split with shuffle using PRNG
 
 def train_test_split_shuffle(X, y, test_ratio=0.25, seed=42):

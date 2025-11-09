@@ -651,3 +651,96 @@ def تدريب_نايف_بايز_نص(نصوص, تسميات, ألفا=1.0): { r
 def توقع_نايف_بايز_نص(نموذج, نص): { return naive_bayes_predict_text(نموذج, نص) }
 
 def احتمال_نايف_بايز_نص(نموذج, نص): { return naive_bayes_predict_proba_text(نموذج, نص) }
+
+
+# --- Bigram Language Model (Laplace smoothing) ---
+
+def bigram_lm_train(docs, alpha=1.0):
+{
+    uni = {}
+    bi = {}
+    vocab = {}
+    for i in range(len(docs)):
+    {
+        txt = docs[i]
+        punct = ".,!?;:"
+        chars = []
+        for ch in txt:
+        {
+            if punct.find(ch) == -1:
+            {
+                chars.append(ch)
+            }
+        }
+        sep0 = ""
+        t2 = sep0.join(chars)
+        t2 = t2.lower()
+        toks = t2.split()
+        for j in range(len(toks)):
+        {
+            w = toks[j]
+            if w in uni: { uni[w] = uni[w] + 1 } else: { uni[w] = 1 }
+            if w in vocab: { vocab[w] = vocab[w] } else: { vocab[w] = 1 }
+            if (j + 1) < len(toks):
+            {
+                w2 = toks[j + 1]
+                if w in bi: { bi[w] = bi[w] } else: { bi[w] = {} }
+                if w2 in bi[w]: { bi[w][w2] = bi[w][w2] + 1 } else: { bi[w][w2] = 1 }
+            }
+        }
+    }
+    V = 0
+    for _ in vocab: { V = V + 1 }
+    model = {"uni": uni, "bi": bi, "V": V, "alpha": alpha}
+    return model
+}
+
+
+def bigram_lm_probability(model, w1, w2):
+{
+    uni = model["uni"]
+    bi = model["bi"]
+    V = model["V"]
+    alpha = model["alpha"]
+    c1 = 0
+    if w1 in uni: { c1 = uni[w1] }
+    c12 = 0
+    if w1 in bi:
+    {
+        if w2 in bi[w1]: { c12 = bi[w1][w2] }
+    }
+    num = c12 + alpha
+    den = c1 + alpha * V
+    if den == 0: { den = 1.0 }
+    return num / den
+}
+
+
+def bigram_lm_predict_next(model, w1, top_n=3):
+{
+    uni = model["uni"]
+    # collect candidates
+    cands = []
+    for w2 in uni:
+    {
+        p = bigram_lm_probability(model, w1, w2)
+        cands.append([p, w2])
+    }
+    cands = sorted(cands)
+    out = []
+    start = len(cands) - top_n
+    if start < 0: { start = 0 }
+    for i in range(len(cands) - 1, start - 1, -1):
+    {
+        out.append(cands[i][1])
+    }
+    return out
+}
+
+# Arabic wrappers
+
+def تدريب_ثنائي_الكلمات(نصوص, ألفا=1.0): { return bigram_lm_train(نصوص, ألفا) }
+
+def احتمال_ثنائي_الكلمات(نموذج, كلمة1, كلمة2): { return bigram_lm_probability(نموذج, كلمة1, كلمة2) }
+
+def أفضل_التالي_ثنائي(نموذج, كلمة1, أعلى=3): { return bigram_lm_predict_next(نموذج, كلمة1, أعلى) }
