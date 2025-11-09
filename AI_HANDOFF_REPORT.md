@@ -575,9 +575,28 @@ Refer to docs/developer_guide.md (handoff appendix) for details.
 
 ### Tests
 - tests/test_ai_nlp_wave11.py → PASS
-- Total: 344/344 tests passing
+- Total: 347/347 tests passing
 
 ### Docs
 - README badge updated to 344 passing tests; status now Waves 1–11 complete
 - ai/AI_LIBRARY_GUIDE.md: new Wave 11 section
+- docs/developer_guide.md: status and tests updated
+
+
+## 📎 Addendum — 2025-11-09 — AI Stdlib Wave 12
+
+### Summary
+- NLP: Added cosine similarity and a unified router; BM25 term-weighted scoring.
+  - cosine_similarity(list1, list2)
+  - similarity(list1, list2, metric) with: jaccard, dice, cosine, overlap
+  - bm25_score_with_term_weights(model, qtext, weights)
+  - Arabic wrapper: تشابه_جيبي(قائمة1, قائمة2)
+
+### Tests
+- tests/test_ai_nlp_wave12.py → PASS
+- Total: 347/347 tests passing
+
+### Docs
+- README badge updated to 347 passing tests; status now Waves 1–12 complete
+- ai/AI_LIBRARY_GUIDE.md: new v12 entries
 - docs/developer_guide.md: status and tests updated

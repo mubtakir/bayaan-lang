@@ -1516,3 +1516,191 @@ def مسافة_ليفنشتاين(نص1, نص2):
     return dp[n][m]
 }
 
+
+
+# --- Wave 12: Similarities + BM25 enhancements ---
+
+# Cosine similarity over token lists (bag-of-words)
+
+def cosine_similarity(list1, list2):
+{
+    counts1 = {}
+    for i in range(len(list1)):
+    {
+        w = list1[i]
+        counts1[w] = counts1.get(w, 0) + 1
+    }
+    counts2 = {}
+    for i in range(len(list2)):
+    {
+        w = list2[i]
+        counts2[w] = counts2.get(w, 0) + 1
+    }
+    dot = 0.0
+    for w in counts1:
+    {
+        v1 = 1.0 * counts1[w]
+        v2 = 1.0 * counts2.get(w, 0)
+        dot = dot + v1 * v2
+    }
+    n1 = 0.0
+    for w in counts1:
+    {
+        v = 1.0 * counts1[w]
+        n1 = n1 + v * v
+    }
+    n2 = 0.0
+    for w in counts2:
+    {
+        v = 1.0 * counts2[w]
+        n2 = n2 + v * v
+    }
+    if n1 <= 0.0 or n2 <= 0.0:
+    {
+        return 0.0
+    }
+    denom = pow(n1, 0.5) * pow(n2, 0.5)
+    if denom == 0.0:
+    {
+        return 0.0
+    }
+    return dot / denom
+}
+
+# Arabic wrapper (duplicate logic to avoid cross-scope issues)
+
+def تشابه_جيبي(قائمة1, قائمة2):
+{
+    counts1 = {}
+    for i in range(len(قائمة1)):
+    {
+        w = قائمة1[i]
+        counts1[w] = counts1.get(w, 0) + 1
+    }
+    counts2 = {}
+    for i in range(len(قائمة2)):
+    {
+        w = قائمة2[i]
+        counts2[w] = counts2.get(w, 0) + 1
+    }
+    dot = 0.0
+    for w in counts1:
+    {
+        v1 = 1.0 * counts1[w]
+        v2 = 1.0 * counts2.get(w, 0)
+        dot = dot + v1 * v2
+    }
+    n1 = 0.0
+    for w in counts1:
+    {
+        v = 1.0 * counts1[w]
+        n1 = n1 + v * v
+    }
+    n2 = 0.0
+    for w in counts2:
+    {
+        v = 1.0 * counts2[w]
+        n2 = n2 + v * v
+    }
+    if n1 <= 0.0 or n2 <= 0.0:
+    {
+        return 0.0
+    }
+    denom = pow(n1, 0.5) * pow(n2, 0.5)
+    if denom == 0.0:
+    {
+        return 0.0
+    }
+    return dot / denom
+}
+
+# Unified similarity router
+
+def similarity(list1, list2, metric):
+{
+    m = metric
+    if m == "jaccard":
+    {
+        return jaccard_similarity(list1, list2)
+    }
+    elif m == "dice":
+    {
+        return dice_similarity(list1, list2)
+    }
+    elif m == "cosine":
+    {
+        return cosine_similarity(list1, list2)
+    }
+    elif m == "overlap":
+    {
+        return overlap_coefficient(list1, list2)
+    }
+    else:
+    {
+        return 0.0
+    }
+}
+
+# BM25: term-weighted scoring variant
+
+def bm25_score_with_term_weights(model, qtext, weights):
+{
+    N = model.get("N", 0)
+    dfs = model.get("df", {})
+    lengths = model.get("lengths", [])
+    avgdl = model.get("avgdl", 1.0)
+    k1 = model.get("k1", 1.5)
+    b = model.get("b", 0.75)
+    counts_list = model.get("counts", [])
+    q_toks = _tok_simple(qtext)
+    q_seen = {}
+    q_terms = []
+    for i in range(len(q_toks)):
+    {
+        w = q_toks[i]
+        if q_seen.get(w, False) == False:
+        {
+            q_seen[w] = True
+            q_terms.append(w)
+        }
+    }
+    e = 2.718281828
+    scores = []
+    for di in range(N):
+    {
+        dl = lengths[di]
+        cnts = counts_list[di]
+        s = 0.0
+        for ti in range(len(q_terms)):
+        {
+            term = q_terms[ti]
+            df = dfs.get(term, 0)
+            if df == 0: { continue }
+            num = (1.0 * N) - df + 0.5
+            den = df + 0.5
+            if den == 0.0: { den = 1.0 }
+            ratio = num / den
+            y = ratio + 1.0
+            lo = -50.0
+            hi = 50.0
+            it = 0
+            while it < 40:
+            {
+                mid = (lo + hi) / 2.0
+                val = pow(e, mid)
+                if val < y: { lo = mid } else: { hi = mid }
+                it = it + 1
+            }
+            idf = (lo + hi) / 2.0
+            tf = cnts.get(term, 0)
+            if tf > 0:
+            {
+                K = k1 * (1.0 - b + b * (dl / avgdl))
+                wmult = 1.0 * weights.get(term, 1.0)
+                s = s + wmult * idf * ( (tf * (k1 + 1.0)) / (tf + K) )
+            }
+        }
+        scores.append(s)
+    }
+    return scores
+}
