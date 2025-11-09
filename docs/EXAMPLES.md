@@ -269,6 +269,8 @@ python main.py your_file.by
 - moving_ball_en.by — Numeric coordinates (x,y), fuzzy energy, bounded temperature
 - action_centric_en.by — Action-first API demo (perform)
 
+- equations_en.by — Equations/constraints: on = 1 - off
+
 - groups_discourse_en.by — Groups and pronoun-like "last" reuse
 
 - virtual_village_en.by — Virtual Village: multi-entity interactions
@@ -278,6 +280,8 @@ python main.py your_file.by
 
 ## أمثلة نظام الكيانات (بالعربية)
 - entity_food_interaction.by — مثال عربي بسيط
+- equations_ar.by — نظام المعادلات: حر = 1 - برد
+
 - groups_discourse_ar.by — المجموعات ومرجع "last/هم" مع نفّذ
 
 - moving_ball_ar.by — إحداثيات عددية (س،ص)، طاقة ضبابية، حرارة بنطاق مخصص

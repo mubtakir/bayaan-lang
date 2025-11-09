@@ -135,6 +135,8 @@ class _Entity:
     # Optional type metadata per key
     state_types: Dict[str, Dict[str, Any]] = field(default_factory=dict)      # key -> {kind: fuzzy|numeric|bounded, min, max}
     property_types: Dict[str, Dict[str, Any]] = field(default_factory=dict)   # key -> {kind: ...}
+    # Optional equations/constraints applied after updates: list of {scope: 'state'|'property', key: str, expr: str}
+    constraints: List[Dict[str, Any]] = field(default_factory=list)
 
 
 # --------------------------- Entity Engine --------------------------------
@@ -148,6 +150,9 @@ class EntityEngine:
         # Groups and discourse helpers
         self.groups: Dict[str, List[str]] = {}
         self._last_participants: List[str] = []
+        # Constraint enforcement guard to avoid recursion
+        self._in_enforce: bool = False
+
     # --------- Type handling (optional) ---------
     def _default_typeinfo(self, kind: str = 'fuzzy') -> Dict[str, Any]:
         if kind == 'numeric':
@@ -304,6 +309,9 @@ class EntityEngine:
         ent.states[key] = val
         self._retractall('state', name, key, None)
         self._assert_fact('state', name, key, ent.states[key])
+        # Enforce equations/constraints if defined
+        if not self._in_enforce:
+            self._enforce_constraints_for(ent)
         return ent.states[key]
 
     def get_state(self, name: str, key: str, default: float = 0.5) -> float:
@@ -328,6 +336,9 @@ class EntityEngine:
         ent.properties[key] = val
         self._retractall('property', name, key, None)
         self._assert_fact('property', name, key, ent.properties[key])
+        # Enforce equations/constraints if defined
+        if not self._in_enforce:
+            self._enforce_constraints_for(ent)
         return ent.properties[key]
 
     def define_action(self, actor_name: str, action_name: str, *, power: float = 1.0,
@@ -630,6 +641,69 @@ class EntityEngine:
 
     def get_group_members(self, name: str) -> List[str]:
         return list(self.groups.get(str(name), []))
+
+
+    # --------- Equations / Constraints API ---------
+    def _gather_vars(self, ent: _Entity) -> Dict[str, float]:
+        vars_map: Dict[str, float] = {}
+        # expose all states and properties as variables by their keys
+        for k, v in ent.states.items():
+            try:
+                vars_map[str(k)] = float(v)
+            except Exception:
+                pass
+        for k, v in ent.properties.items():
+            try:
+                vars_map[str(k)] = float(v)
+            except Exception:
+                pass
+        return vars_map
+
+    def _enforce_constraints_for(self, ent: _Entity) -> None:
+        if not ent or not getattr(ent, 'constraints', None):
+            return
+        # Prevent recursive re-entry while we are enforcing
+        if self._in_enforce:
+            return
+        self._in_enforce = True
+        try:
+            vars_map = self._gather_vars(ent)
+            for c in list(ent.constraints):
+                scope = c.get('scope', 'state')
+                key = c.get('key')
+                expr = c.get('expr')
+                if not key or not isinstance(expr, str):
+                    continue
+                try:
+                    val = float(_SafeExpr.eval(expr, vars_map))
+                except Exception:
+                    continue
+                if scope == 'property':
+                    self.set_property(ent.name, key, val)
+                else:
+                    self.set_state(ent.name, key, val)
+                # refresh vars map for subsequent constraints
+                vars_map[key] = val
+        finally:
+            self._in_enforce = False
+
+    def add_equation(self, entity_name: str, *, scope: str, key: str, expr: str) -> None:
+        ent = self.entities.setdefault(entity_name, _Entity(name=entity_name))
+        scope_norm = 'property' if scope in ('property', 'خاصية') else 'state'
+        ent.constraints.append({'scope': scope_norm, 'key': str(key), 'expr': str(expr)})
+        # enforce once to synchronize
+        self._enforce_constraints_for(ent)
+
+    def add_state_equation(self, entity_name: str, key: str, expr: str) -> None:
+        self.add_equation(entity_name, scope='state', key=key, expr=expr)
+
+    def add_property_equation(self, entity_name: str, key: str, expr: str) -> None:
+        self.add_equation(entity_name, scope='property', key=key, expr=expr)
+
+    def define_complement(self, entity_name: str, *, scope: str, base_key: str, complement_key: str, total: float = 1.0) -> None:
+        # complement_key = total - base_key
+        expr = f"{float(total)} - {base_key}"
+        self.add_equation(entity_name, scope=scope, key=complement_key, expr=expr)
 
 
     @staticmethod

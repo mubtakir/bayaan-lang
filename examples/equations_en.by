@@ -1,0 +1,13 @@
+hybrid {
+  entity Light { "properties": {"on": {"type": "fuzzy", "value": 0.0},
+                                   "off": {"type": "fuzzy", "value": 1.0} } }
+
+  # Equation: on = 1 - off
+  define_equation("Light", "property", "on", "1 - off")
+
+  set_property("Light", "off", 0.3)
+}
+
+# Query
+query property("Light", "on", ?V).
+

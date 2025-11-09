@@ -70,6 +70,52 @@ class HybridInterpreter:
         env['عين_حالة'] = _set_state
         env['عين_خاصية'] = _set_property
 
+        # Equations / constraints helpers
+        def _define_equation(entity, scope, key, expr):
+            engine = self._get_or_create_engine()
+            return engine.add_equation(str(entity), scope=str(scope), key=str(key), expr=str(expr))
+        def _equation_state(entity, key, expr):
+            engine = self._get_or_create_engine()
+            return engine.add_state_equation(str(entity), str(key), str(expr))
+        def _equation_property(entity, key, expr):
+            engine = self._get_or_create_engine()
+            return engine.add_property_equation(str(entity), str(key), str(expr))
+        def _define_complement(entity, scope, base_key, complement_key, total: float = 1.0):
+            engine = self._get_or_create_engine()
+            return engine.define_complement(str(entity), scope=str(scope), base_key=str(base_key), complement_key=str(complement_key), total=float(total))
+        env['define_equation'] = _define_equation
+        env['equation_state'] = _equation_state
+        env['equation_property'] = _equation_property
+        env['define_complement'] = _define_complement
+        env['عرّف_معادلة'] = _define_equation
+        env['معادلة_حالة'] = _equation_state
+        env['معادلة_خاصية'] = _equation_property
+        env['عرّف_متمم'] = _define_complement
+
+        # Concept comparison helper (utility only)
+        def _compare_concepts(before: dict, after: dict, tolerance: float = 0.1):
+            def _num(v):
+                try:
+                    return float(v)
+                except Exception:
+                    return None
+            changes = {}
+            keys = set(before.keys()) | set(after.keys())
+            for k in keys:
+                b = before.get(k)
+                a = after.get(k)
+                bn = _num(b)
+                an = _num(a)
+                if bn is not None and an is not None:
+                    if abs(an - bn) > tolerance:
+                        changes[k] = {'before': bn, 'after': an, 'delta': an - bn}
+                else:
+                    if a != b:
+                        changes[k] = {'before': b, 'after': a}
+            return changes
+        env['compare_concepts'] = _compare_concepts
+        env['قارن_المفاهيم'] = _compare_concepts
+
     def interpret(self, node):
         """Interpret an AST node"""
         if isinstance(node, Program):

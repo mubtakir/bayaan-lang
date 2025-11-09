@@ -178,6 +178,42 @@ hybrid {
 }
 ```
 
+
+### Equations / Constraints — نظام المعادلات
+اربط حالات/خصائص الكيان بمعادلات تُطبَّق تلقائيًا بعد أي تحديث.
+
+- EN helpers:
+  - `define_equation(entity, scope, key, expr)` where `scope` is `state` or `property`
+  - `equation_state(entity, key, expr)` / `equation_property(entity, key, expr)`
+  - `define_complement(entity, scope, base_key, complement_key, total=1.0)` adds `complement_key = total - base_key`
+- AR helpers:
+  - `عرّف_معادلة(الكيان, "حالة|خاصية", المفتاح, "التعبير")`
+  - `معادلة_حالة(...)` / `معادلة_خاصية(...)`
+  - `عرّف_متمم(الكيان, "حالة|خاصية", الأساس, المتمم, المجموع=1.0)`
+
+Notes:
+- استخدم أسماء المفاتيح كمتغيرات داخل التعبير (تُسمح معرفات عربية/إنجليزية)
+- تُفرض المعادلات بعد أي `set_state`/`set_property` أو تأثير فعل
+
+مثال AR:
+```bayan
+hybrid {
+  كيان الطقس { "حالات": {"حر": {"نوع": "ضبابي", "قيمة": 0.0}, "برد": {"نوع": "ضبابي", "قيمة": 1.0}} }
+  عرّف_معادلة("الطقس", "حالة", "حر", "1 - برد")
+  عين_حالة("الطقس", "برد", 0.2)
+}
+query state("الطقس", "حر", ?H).
+```
+مثال EN:
+```bayan
+hybrid {
+  entity Light { "properties": {"on": {"type": "fuzzy", "value": 0.0}, "off": {"type": "fuzzy", "value": 1.0}} }
+  define_equation("Light", "property", "on", "1 - off")
+  set_property("Light", "off", 0.3)
+}
+query property("Light", "on", ?V).
+```
+
 ---
 ## Property/State Types (Optional) — أنواع الخصائص/الحالات (اختياري)
 By default all values are fuzzy [0..1]. You can opt into other kinds per key:
