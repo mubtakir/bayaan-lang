@@ -1,0 +1,204 @@
+# AI/NLP mini library for Bayan (bilingual APIs)
+
+# --- Language detection (very naive) ---
+def detect_language(text):
+{
+    arabic_letters = "ءاأإآبتثجحخدذرزسشصضطظعغفقكلمنهوىييةؤئ"
+    arabic_punct = "،؛؟"
+    for ch in text:
+    {
+        if arabic_letters.find(ch) != -1 or arabic_punct.find(ch) != -1:
+        {
+            return "arabic"
+        }
+    }
+    return "english"
+}
+
+# --- Preprocess and tokenize ---
+def remove_punctuation(text):
+{
+    punct = """.,!?;:…()[]{}"'،؛؟ـ-_/\|@#$%^&*+=~`<>"""
+    chars = []
+    for ch in text:
+    {
+        if punct.find(ch) == -1:
+        {
+            chars.append(ch)
+        }
+    }
+    sep = ""
+    return sep.join(chars)
+}
+
+def preprocess_text(text, language="auto"):
+{
+    if language == "auto":
+    {
+        language = detect_language(text)
+    }
+    text = remove_punctuation(text)
+    text = text.lower()
+    # normalize spaces
+    tmp = text.split()
+    words = []
+    for w in tmp:
+    {
+        if len(w) > 0:
+        {
+            words.append(w)
+        }
+    }
+    sep = " "
+    norm = sep.join(words)
+    return norm
+}
+
+def tokenize_text(text, language="auto"):
+{
+    if language == "auto":
+    {
+        language = detect_language(text)
+    }
+    # naive whitespace tokenization
+    return text.split()
+}
+
+# --- Sentiment (toy) ---
+def detect_sentiment(text):
+{
+    processed = preprocess_text(text, language="auto")
+    words = tokenize_text(processed, language="auto")
+    positive = {"جيد", "رائع", "ممتاز", "جميل", "سعيد", "happy", "good", "excellent", "great", "awesome"}
+    negative = {"سيء", "فظيع", "مزعج", "حزين", "bad", "terrible", "awful", "poor", "horrible"}
+    score = 0
+    for w in words:
+    {
+        if w in positive:
+        {
+            score = score + 1
+        }
+        elif w in negative:
+        {
+            score = score - 1
+        }
+    }
+    if score > 0: { return "positive" }
+    elif score < 0: { return "negative" }
+    else: { return "neutral" }
+}
+
+# --- Arabic wrappers ---
+def تجهيز_نص(نص, لغة="auto"): { return preprocess_text(نص, language=لغة) }
+
+def تجزئة_نص(نص, لغة="auto"): { return tokenize_text(نص, language=لغة) }
+
+def كشف_مشاعر(نص):
+{
+    نتيجة = detect_sentiment(نص)
+    if نتيجة == "positive": { return "إيجابي" }
+    elif نتيجة == "negative": { return "سلبي" }
+    else: { return "محايد" }
+}
+
+
+
+# --- N-grams and TF-IDF (educational) ---
+
+def ngrams_from_tokens(tokens, n):
+{
+    grams = []
+    for i in range(len(tokens) - n + 1):
+    {
+        j = 0
+        parts = []
+        while j < n:
+        {
+            parts.append(tokens[i + j])
+            j = j + 1
+        }
+        sep = " "
+        grams.append(sep.join(parts))
+    }
+    return grams
+}
+
+# Compute simple TF-IDF without logarithms (for portability):
+# idf(term) = 1 + N / (df(term) + 1)
+# tf-idf = (count/len) * idf
+
+def compute_tfidf(docs):
+{
+    N = len(docs)
+    processed_docs = []
+    tokens_list = []
+    for i in range(N):
+    {
+        p = preprocess_text(docs[i], language="auto")
+        toks = tokenize_text(p, language="auto")
+        processed_docs.append(p)
+        tokens_list.append(toks)
+    }
+    # document frequency
+    df = {}
+    for toks in tokens_list:
+    {
+        seen = {}
+        for w in toks:
+        {
+            if w in seen:
+            {
+                # skip
+            }
+            else:
+            {
+                seen[w] = 1
+                if w in df:
+                {
+                    df[w] = df[w] + 1
+                }
+                else:
+                {
+                    df[w] = 1
+                }
+            }
+        }
+    }
+    # idf values (no log)
+    idf = {}
+    for term in df:
+    {
+        idf[term] = 1.0 + (N / (df[term] + 1.0))
+    }
+    # tf-idf per document
+    out = []
+    for toks in tokens_list:
+    {
+        tf = {}
+        for w in toks:
+        {
+            if w in tf:
+            { tf[w] = tf[w] + 1.0 }
+            else:
+            { tf[w] = 1.0 }
+        }
+        total = len(toks)
+        for w in tf:
+        {
+            if w in idf:
+            {
+                tf[w] = (tf[w] / total) * idf[w]
+            }
+            else:
+            {
+                tf[w] = (tf[w] / total)
+            }
+        }
+        out.append(tf)
+    }
+    return out
+}
+
+# Arabic wrapper
+
+def حساب_tfidf(نصوص): { return compute_tfidf(نصوص) }

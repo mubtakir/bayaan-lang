@@ -1,0 +1,231 @@
+# AI/ML mini library for Bayan (bilingual APIs)
+
+# --- Linear Regression ---
+def linear_regression(x, y):
+{
+    n = len(x)
+    if n == 0: { return [0, 0] }
+    mx = sum(x) / n
+    my = sum(y) / n
+    num = 0
+    den = 0
+    for i in range(n):
+    {
+        dx = x[i] - mx
+        dy = y[i] - my
+        num = num + dx * dy
+        den = den + dx * dx
+    }
+    slope = 0
+    if den == 0:
+    {
+        slope = 0
+    }
+    else:
+    {
+        slope = num / den
+    }
+    intercept = my - slope * mx
+    return [slope, intercept]
+}
+
+# --- KNN (predict for a batch of samples) ---
+def euclidean_distance(a, b):
+{
+    s = 0
+    for i in range(len(a)):
+    {
+        d = a[i] - b[i]
+        s = s + d * d
+    }
+    return s ** 0.5
+}
+
+def k_nearest_neighbors_predict(train_data, train_labels, samples, k=3):
+{
+    preds = []
+    for sample in samples:
+    {
+        pairs = []  # [ [dist, label], ... ]
+        for i in range(len(train_data)):
+        {
+            # Inline Euclidean distance to avoid external dependency
+            dist = 0
+            for t in range(len(sample)):
+            {
+                diff = sample[t] - train_data[i][t]
+                dist = dist + diff * diff
+            }
+            dist = pow(dist, 0.5)
+            pairs.append([dist, train_labels[i]])
+        }
+        pairs = sorted(pairs)
+        # vote among first k
+        counts = {}
+        for j in range(k):
+        {
+            lab = pairs[j][1]
+            if lab in counts:
+            {
+                counts[lab] = counts[lab] + 1
+            }
+            else:
+            {
+                counts[lab] = 1
+            }
+        }
+        best_lab = ""
+        best_cnt = -1
+        for lab in counts:
+        {
+            c = counts[lab]
+            if c > best_cnt:
+            {
+                best_cnt = c
+                best_lab = lab
+            }
+        }
+        preds.append(best_lab)
+    }
+    return preds
+}
+
+
+# --- K-Means Clustering (educational) ---
+
+def k_means(data, k, max_iters=10):
+{
+    n = len(data)
+    if n == 0: { return [[], []] }
+    d = len(data[0])
+    # initialize centers as first k points (simple and deterministic)
+    centers = []
+    for c in range(k):
+    {
+        centers.append(data[c])
+    }
+    # labels init
+    labels = []
+    for i in range(n): { labels.append(0) }
+
+    for it in range(max_iters):
+    {
+        changed = 0
+        # assign step
+        for i in range(n):
+        {
+            best = -1
+            best_dist = 0
+            for c in range(k):
+            {
+                dist = 0
+                for j in range(d):
+                {
+                    diff = data[i][j] - centers[c][j]
+                    dist = dist + diff * diff
+                }
+                if best == -1 or dist < best_dist:
+                {
+                    best = c
+                    best_dist = dist
+                }
+            }
+            if labels[i] != best: { changed = changed + 1 }
+            labels[i] = best
+        }
+        # update step
+        new_centers = []
+        counts = []
+        for c in range(k):
+        {
+            vec = []
+            for j in range(d): { vec.append(0.0) }
+            new_centers.append(vec)
+            counts.append(0)
+        }
+        for i in range(n):
+        {
+            lbl = labels[i]
+            counts[lbl] = counts[lbl] + 1
+            for j in range(d):
+            {
+                new_centers[lbl][j] = new_centers[lbl][j] + data[i][j]
+            }
+        }
+        for c in range(k):
+        {
+            if counts[c] > 0:
+            {
+                for j in range(d):
+                {
+                    new_centers[c][j] = new_centers[c][j] / counts[c]
+                }
+            }
+        }
+        centers = new_centers
+        if changed == 0: { break }
+    }
+    return [centers, labels]
+}
+
+# --- Logistic Regression (binary, educational) ---
+
+def logistic_regression_train(X, y, lr=0.1, epochs=200):
+{
+    n = len(X)
+    if n == 0: { return [[0.0], 0.0] }
+    d = len(X[0])
+    # weights init
+    w = []
+    for j in range(d): { w.append(0.0) }
+    b = 0.0
+    e = 2.718281828
+
+    for ep in range(epochs):
+    {
+        for i in range(n):
+        {
+            z = b
+            for j in range(d): { z = z + w[j] * X[i][j] }
+            p = 1.0 / (1.0 + pow(e, -z))
+            err = p - y[i]
+            for j in range(d): { w[j] = w[j] - lr * err * X[i][j] }
+            b = b - lr * err
+        }
+    }
+    return [w, b]
+}
+
+def logistic_regression_predict(X, w, b, threshold=0.5):
+{
+    preds = []
+    e = 2.718281828
+    for i in range(len(X)):
+    {
+        z = b
+        for j in range(len(X[i])): { z = z + w[j] * X[i][j] }
+        p = 1.0 / (1.0 + pow(e, -z))
+        if p >= threshold:
+        { preds.append(1) }
+        else:
+        { preds.append(0) }
+    }
+    return preds
+}
+
+# --- Arabic wrappers ---
+# Arabic aliases for convenience
+
+def انحدار_خطي(س, ص): { return linear_regression(س, ص) }
+
+def توقع_k_متجاور_أقرب(بيانات, تسميات, عينات, k=3): { return k_nearest_neighbors_predict(بيانات, تسميات, عينات, k) }
+
+
+
+# Arabic wrappers for new algorithms
+
+def تجميع_كي_مينز(بيانات, ك, مرات=10): { return k_means(بيانات, ك, مرات) }
+
+def تدريب_انحدار_لوجستي(س, ت, lr=0.1, epochs=200): { return logistic_regression_train(س, ت, lr, epochs) }
+
+def توقع_انحدار_لوجستي(س, اوزان, انحياز, threshold=0.5): { return logistic_regression_predict(س, اوزان, انحياز, threshold) }

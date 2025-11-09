@@ -377,3 +377,28 @@ hybrid {
   author paper.
 }
 ```
+
+
+## Example 15: AI Basics — أساسيات الذكاء الاصطناعي
+
+These examples show simple AI/NLP usage with the standard library (ai.nlp, ai.ml).
+
+```bayan
+hybrid {
+  # English — ML
+  from ai.ml import linear_regression, k_means
+  x = [1,2,3,4,5]
+  y = [2,4,6,8,10]
+  lr = linear_regression(x, y)  # [slope, intercept]
+  res = k_means([[0,0],[0,1],[10,10],[10,11]], 2, 10)
+}
+```
+
+```bayan
+hybrid {
+  # Arabic — NLP
+  import ai.nlp as nlp
+  ن = nlp.تجهيز_نص("المنتج رائع جدًا وسعره مناسب")
+  م = nlp.كشف_مشاعر("هذا المنتج ممتاز ورائع")
+}
+```
