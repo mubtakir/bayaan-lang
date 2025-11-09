@@ -4,7 +4,7 @@
 def detect_language(text):
 {
     arabic_letters = "ءاأإآبتثجحخدذرزسشصضطظعغفقكلمنهوىييةؤئ"
-    arabic_punct = "،؛؟"
+    arabic_punct = "،؛"
     for ch in text:
     {
         if arabic_letters.find(ch) != -1 or arabic_punct.find(ch) != -1:
@@ -15,10 +15,11 @@ def detect_language(text):
     return "english"
 }
 
-# --- Preprocess and tokenize ---
+# --- Preprocess & tokenize ---
 def remove_punctuation(text):
 {
-    punct = """.,!?;:…()[]{}"'،؛؟ـ-_/\|@#$%^&*+=~`<>"""
+    # simplified ASCII-only punctuation list; removed question marks to avoid parser token issues
+    punct = '.,!;:()[]{}-_/|@#$%^&*+=~<>'
     chars = []
     for ch in text:
     {
@@ -265,7 +266,7 @@ def compute_tfidf_log(docs):
     {
         # inline preprocess/tokenize (portable)
         txt = docs[i]
-        punct = ".,!?;:"
+        punct = ".,!;:"
         chars = []
         for ch in txt:
         {
@@ -699,7 +700,7 @@ def naive_bayes_train_text(docs, labels, alpha=1.0):
         else: { class_doc_counts[c] = 1 }
         # inline preprocess/tokenize to avoid from-import scope issues
         txt = docs[i]
-        punct = ".,!?;:"
+        punct = ".,!;:"
         chars = []
         for ch in txt:
         {
@@ -751,7 +752,7 @@ def naive_bayes_predict_text(model, doc):
     for c in classes: { N = N + class_doc_counts[c] }
     # inline preprocess/tokenize
     txt = doc
-    punct = ".,!?;:"
+    punct = ".,!;:"
     chars = []
     for ch in txt:
     {
@@ -805,7 +806,7 @@ def naive_bayes_predict_proba_text(model, doc):
     for c in classes: { N = N + class_doc_counts[c] }
     # inline preprocess/tokenize
     txt = doc
-    punct = ".,!?;:"
+    punct = ".,!;:"
     chars = []
     for ch in txt:
     {
@@ -881,7 +882,7 @@ def bigram_lm_train(docs, alpha=1.0):
     for i in range(len(docs)):
     {
         txt = docs[i]
-        punct = ".,!?;:"
+        punct = ".,!;:"
         chars = []
         for ch in txt:
         {
@@ -944,7 +945,7 @@ def trigram_lm_train(docs, alpha=1.0):
     for i in range(len(docs)):
     {
         txt = docs[i]
-        punct = ".,!?;:"
+        punct = ".,!;:"
         chars = []
         for ch in txt:
         {
@@ -1066,4 +1067,324 @@ def تدريب_ثلاثي_الكلمات(نصوص, ألفا=1.0): { return trigr
 def احتمال_ثلاثي_الكلمات(نموذج, كلمة1, كلمة2, كلمة3): { return trigram_lm_probability(نموذج, كلمة1, كلمة2, كلمة3) }
 
 def أفضل_التالي_ثلاثي(نموذج, كلمة1, كلمة2, أعلى=3): { return trigram_lm_predict_next(نموذج, كلمة1, كلمة2, أعلى) }
+
+
+
+# --- Wave 7: BM25, Jaccard, vocab-limited TF-IDF ---
+
+# Helper: ASCII letters/digits check (top-level; avoid nested defs)
+def _tok_is_alnum_en(c):
+{
+    if c >= "a" and c <= "z": { return True }
+    if c >= "0" and c <= "9": { return True }
+    if c >= "A" and c <= "Z": { return True }
+    return False
+}
+
+
+# Simple alnum tokenizer (lowercase; English letters/digits only for portability)
+
+def _tok_simple(text):
+{
+    s = text
+    t = ""
+    for i in range(len(s)):
+    {
+        c = s[i]
+        if _tok_is_alnum_en(c): { t = t + c.lower() }
+        else: { t = t + " " }
+    }
+    parts = t.split(" ")
+    toks = []
+    for i in range(len(parts)):
+    {
+        if parts[i] != "": { toks.append(parts[i]) }
+    }
+    return toks
+}
+
+
+# BM25 builder: precomputes df, doc lengths and term counts per doc
+
+def bm25_build(docs, k1=1.5, b=0.75):
+{
+    N = len(docs)
+    tokens_list = []
+    lengths = []
+    dfs = {}
+    term_counts = []
+    for i in range(N):
+    {
+        toks = _tok_simple(docs[i])
+        tokens_list.append(toks)
+        lengths.append(len(toks))
+        counts = {}
+        seen = {}
+        for j in range(len(toks)):
+        {
+            w = toks[j]
+            counts[w] = counts.get(w, 0) + 1
+            if seen.get(w, False) == False:
+            {
+                dfs[w] = dfs.get(w, 0) + 1
+                seen[w] = True
+            }
+        }
+        term_counts.append(counts)
+    }
+    # average doc length
+    total_len = 0.0
+    for i in range(len(lengths)): { total_len = total_len + lengths[i] }
+    avgdl = 1.0
+    if N > 0: { avgdl = total_len / (1.0 * N) }
+    model = {"N": N, "df": dfs, "lengths": lengths, "avgdl": avgdl, "k1": k1, "b": b, "counts": term_counts}
+    return model
+}
+
+
+# BM25 scoring for a query string; returns list of scores (one per doc)
+
+def bm25_score(model, qtext):
+{
+    N = model.get("N", 0)
+    dfs = model.get("df", {})
+    lengths = model.get("lengths", [])
+    avgdl = model.get("avgdl", 1.0)
+    k1 = model.get("k1", 1.5)
+    b = model.get("b", 0.75)
+    counts_list = model.get("counts", [])
+    q_toks = _tok_simple(qtext)
+    # precompute query term set (unique)
+    q_seen = {}
+    q_terms = []
+    for i in range(len(q_toks)):
+    {
+        w = q_toks[i]
+        if q_seen.get(w, False) == False:
+        {
+            q_seen[w] = True
+            q_terms.append(w)
+        }
+    }
+    e = 2.718281828
+    scores = []
+    for di in range(N):
+    {
+        dl = lengths[di]
+        cnts = counts_list[di]
+        s = 0.0
+        for ti in range(len(q_terms)):
+        {
+            term = q_terms[ti]
+            df = dfs.get(term, 0)
+            if df == 0: { continue }
+            # idf = ln((N - df + 0.5)/(df + 0.5) + 1)
+            num = (1.0 * N) - df + 0.5
+            den = df + 0.5
+            if den == 0.0: { den = 1.0 }
+            ratio = num / den
+            y = ratio + 1.0
+            lo = -50.0
+            hi = 50.0
+            it = 0
+            while it < 40:
+            {
+                mid = (lo + hi) / 2.0
+                val = pow(e, mid)
+                if val < y: { lo = mid }
+                else: { hi = mid }
+                it = it + 1
+            }
+            idf = (lo + hi) / 2.0
+            tf = cnts.get(term, 0)
+            if tf > 0:
+            {
+                K = k1 * (1.0 - b + b * (dl / avgdl))
+                s = s + idf * ( (tf * (k1 + 1.0)) / (tf + K) )
+            }
+        }
+        scores.append(s)
+    }
+    return scores
+}
+
+# Jaccard similarity for token lists (sets)
+
+def jaccard_similarity(list1, list2):
+{
+    a = {}
+    b = {}
+    for i in range(len(list1)):
+    {
+        a[list1[i]] = 1
+    }
+    for i in range(len(list2)):
+    {
+        b[list2[i]] = 1
+    }
+    inter = 0
+    ua = 0
+    for k in a: { ua = ua + 1 }
+    ub = 0
+    for k in b: { ub = ub + 1 }
+    for k in a:
+    {
+        if b.get(k, 0) != 0: { inter = inter + 1 }
+    }
+    uni = ua + ub - inter
+    if uni == 0: { return 0.0 }
+    return inter / (1.0 * uni)
+}
+
+# Arabic wrappers (Wave 7)
+
+
+
+
+
+# TF-IDF with vocabulary size limit
+
+# compute_tfidf_vocab_limit(docs, max_features=100, sublinear_tf=True, smooth_idf=True)
+# Returns list of dicts restricted to top max_features terms by df then total count
+
+def compute_tfidf_vocab_limit(docs, max_features=100, sublinear_tf=True, smooth_idf=True):
+{
+    n = len(docs)
+    tokens_list = []
+    # tokenize
+    for i in range(n): { tokens_list.append(_tok_simple(docs[i])) }
+    # df and total counts
+    df = {}
+    tot_counts = {}
+    for i in range(n):
+    {
+        seen = {}
+        toks = tokens_list[i]
+        for j in range(len(toks)):
+        {
+            w = toks[j]
+            tot_counts[w] = tot_counts.get(w, 0) + 1
+            if seen.get(w, False) == False:
+            {
+                df[w] = df.get(w, 0) + 1
+                seen[w] = True
+            }
+        }
+    }
+    # build sortable list [df, tot, term]
+    trip = []
+    for term in df:
+    {
+        dfi = df[term]
+        tci = tot_counts.get(term, 0)
+        trip.append([dfi, tci, term])
+    }
+    m = len(trip)
+    # selection sort by df desc, then tot desc, then term asc
+    for i in range(m):
+    {
+        best = i
+        for j in range(i + 1, m):
+        {
+            d1 = trip[j][0]
+            t1 = trip[j][1]
+            s1 = trip[j][2]
+            d2 = trip[best][0]
+            t2 = trip[best][1]
+            s2 = trip[best][2]
+            take = False
+            if d1 > d2: { take = True }
+            elif d1 == d2:
+            {
+                if t1 > t2: { take = True }
+                elif t1 == t2:
+                {
+                    if s1 < s2: { take = True }
+                }
+            }
+            if take == True: { best = j }
+        }
+        tmp = trip[i]
+        trip[i] = trip[best]
+        trip[best] = tmp
+    }
+    # allowed set
+    allowed = {}
+    topk = max_features
+    if topk > m: { topk = m }
+    for i in range(topk):
+    {
+        term = trip[i][2]
+        allowed[term] = True
+    }
+    # idf for allowed terms
+    e = 2.718281828
+    idf = {}
+    for term in allowed:
+    {
+        if smooth_idf == True:
+        {
+            y = 1.0 + (1.0 * n) / (df.get(term, 0) + 1.0)
+        }
+        else:
+        {
+            if df.get(term, 0) == 0: { y = 1.0 }
+            else: { y = (1.0 * n) / df.get(term, 0) }
+        }
+        lo = -50.0
+        hi = 50.0
+        it = 0
+        while it < 40:
+        {
+            mid = (lo + hi) / 2.0
+            val = pow(e, mid)
+            if val < y: { lo = mid } else: { hi = mid }
+            it = it + 1
+        }
+        idf[term] = (lo + hi) / 2.0
+    }
+    # vecs per doc
+    vecs = []
+    for i in range(n):
+    {
+        toks = tokens_list[i]
+        counts = {}
+        for j in range(len(toks)):
+        {
+            w = toks[j]
+            counts[w] = counts.get(w, 0) + 1
+        }
+        vec = {}
+        for w in counts:
+        {
+            if allowed.get(w, False) == True:
+            {
+                cnt = 1.0 * counts[w]
+                tfw = cnt
+                if sublinear_tf == True:
+                {
+                    y = cnt
+                    if y < 1.0: { y = 1.0 }
+                    lo = -50.0
+                    hi = 50.0
+                    it = 0
+                    while it < 40:
+                    {
+                        mid = (lo + hi) / 2.0
+                        val = pow(e, mid)
+                        if val < y: { lo = mid } else: { hi = mid }
+                        it = it + 1
+                    }
+                    ln_cnt = (lo + hi) / 2.0
+                    tfw = 1.0 + ln_cnt
+                }
+                vec[w] = tfw * idf.get(w, 0.0)
+            }
+        }
+        vecs.append(vec)
+    }
+    return vecs
+}
+
+# Arabic wrapper
 

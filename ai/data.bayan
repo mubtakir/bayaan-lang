@@ -393,6 +393,84 @@ def percentile(xs, p):
     return a[i] * (1.0 - w) + a[j] * w
 }
 
+# Quantiles (general list of q in [0,1]) and IQR; Pearson correlation
+
+def quantiles(xs, qs):
+{
+    out = []
+    for i in range(len(qs)):
+    {
+        q = qs[i]
+        if q < 0.0: { q = 0.0 }
+        if q > 1.0: { q = 1.0 }
+        p = q * 100.0
+        out.append(percentile(xs, p))
+    }
+    return out
+}
+
+
+def iqr(xs):
+{
+    n = len(xs)
+    if n == 0: { return 0.0 }
+    a = _copy_and_sort(xs)
+    # Tukey's hinges: median of lower/upper halves (exclude median when odd)
+    q = 0
+    r = n
+    while r >= 2:
+    {
+        r = r - 2
+        q = q + 1
+    }
+    lower = []
+    upper = []
+    if r == 1:
+    {
+        for i in range(q): { lower.append(a[i]) }
+        for i in range(q + 1, n): { upper.append(a[i]) }
+    }
+    else:
+    {
+        for i in range(q): { lower.append(a[i]) }
+        for i in range(q, n): { upper.append(a[i]) }
+    }
+    q1 = median(lower)
+    q3 = median(upper)
+    return q3 - q1
+}
+
+
+def pearson_r(xs, ys):
+{
+    n = len(xs)
+    if n == 0 or len(ys) != n: { return 0.0 }
+    sx = 0.0
+    sy = 0.0
+    for i in range(n):
+    {
+        sx = sx + xs[i]
+        sy = sy + ys[i]
+    }
+    mx = sx / (1.0 * n)
+    my = sy / (1.0 * n)
+    sum_xy = 0.0
+    sum_x2 = 0.0
+    sum_y2 = 0.0
+    for i in range(n):
+    {
+        dx = xs[i] - mx
+        dy = ys[i] - my
+        sum_xy = sum_xy + dx * dy
+        sum_x2 = sum_x2 + dx * dx
+        sum_y2 = sum_y2 + dy * dy
+    }
+    denom = pow(sum_x2, 0.5) * pow(sum_y2, 0.5)
+    if denom == 0.0: { return 0.0 }
+    return sum_xy / denom
+}
+
+
 
 # Descriptive statistics
 
@@ -474,6 +552,7 @@ def data_range(xs):
 
 def zscore_normalize(xs):
 {
+
     n = len(xs)
     if n == 0: { return [] }
     # compute mean inline to avoid cross-module deps at import site
@@ -502,8 +581,33 @@ def zscore_normalize(xs):
     return out
 }
 
+# Min-Max normalization to [0,1]
+
+def minmax_normalize(xs):
+{
+    n = len(xs)
+    if n == 0: { return [] }
+    lo = min_value(xs)
+    hi = max_value(xs)
+    rng = hi - lo
+    out = []
+    if rng == 0.0:
+    {
+        for i in range(n): { out.append(0.0) }
+        return out
+    }
+    for i in range(n):
+    {
+        out.append((xs[i] - lo) / rng)
+    }
+    return out
+}
+
+
 
 # Arabic wrappers
+
+def تطبيع_أدنى_أقصى(قائمة): { return minmax_normalize(قائمة) }
 
 def قراءة_CSV_سطور(سطور, فاصل=","):{ return parse_csv_rows(سطور, فاصل) }
 
@@ -530,6 +634,15 @@ def وسيط(قائمة): { return median(قائمة) }
 
 def مئين(قائمة, نسبة): { return percentile(قائمة, نسبة) }
 
+# Wave 7 Arabic wrappers (Data)
+
+def نسب_مئوية_متعددة(قائمة, نسب): { return quantiles(قائمة, نسب) }
+
+def مدى_ربيعي(قائمة): { return iqr(قائمة) }
+
+def ارتباط_بيرسون(س, ص): { return pearson_r(س, ص) }
+
+
 
 # --- Simple PRNG (LCG) and shuffling/splitting ---
 
@@ -537,6 +650,7 @@ def lcg_next(state):
 {
     a = 1103515245
     c = 12345
+
     m = 2147483648  # 2^31
     state = (a * state + c) % m
     u = state / m

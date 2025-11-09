@@ -1713,3 +1713,623 @@ def decision_tree_predict(tree, X):
 def تدريب_شجرة_قرار(س, ت, أقصى_عمق=3, معيار="gini", حد_تقسيم=2): { return decision_tree_train(س, ت, أقصى_عمق, معيار, حد_تقسيم) }
 
 def توقع_شجرة_قرار(شجرة, س): { return decision_tree_predict(شجرة, س) }
+
+
+# --- Wave 7: Perceptron (binary + OvR) and weighted KNN ---
+
+# Binary perceptron (labels 0/1)
+
+def perceptron_train(X, y, lr=1.0, epochs=20):
+{
+    n = len(X)
+    if n == 0: { return [[0.0], 0.0] }
+    d = len(X[0])
+    w = []
+    for j in range(d): { w.append(0.0) }
+    b = 0.0
+    for ep in range(epochs):
+    {
+        for i in range(n):
+        {
+            z = b
+            for j in range(d): { z = z + w[j] * X[i][j] }
+            pred = 0
+            if z >= 0.0: { pred = 1 }
+            err = y[i] - pred
+            if err != 0:
+            {
+                for j in range(d): { w[j] = w[j] + lr * err * X[i][j] }
+                b = b + lr * err
+            }
+        }
+    }
+    return [w, b]
+}
+
+
+def perceptron_predict(X, w, b):
+{
+    out = []
+    for i in range(len(X)):
+    {
+        z = b
+        for j in range(len(X[i])): { z = z + w[j] * X[i][j] }
+        if z >= 0.0: { out.append(1) } else: { out.append(0) }
+    }
+    return out
+}
+
+# One-vs-Rest using binary perceptron
+
+def perceptron_ovr_train(X, y, lr=1.0, epochs=20):
+{
+    labs = []
+    seen = {}
+    for i in range(len(y)):
+    {
+        lb = y[i]
+        if seen.get(lb, False) == False:
+        {
+            seen[lb] = True
+            labs.append(lb)
+        }
+    }
+    models = []  # list of {"w": w, "b": b, "label": L}
+    for li in range(len(labs)):
+    {
+        L = labs[li]
+        yb = []
+        for i in range(len(y)):
+        {
+            if y[i] == L: { yb.append(1) } else: { yb.append(0) }
+        }
+        wb = perceptron_train(X, yb, lr, epochs)
+        w = wb[0]
+        b = wb[1]
+        models.append({"w": w, "b": b, "label": L})
+    }
+    return {"models": models, "labels": labs}
+}
+
+
+def perceptron_ovr_predict(model, X):
+{
+    models = model.get("models", [])
+    labs = model.get("labels", [])
+    out = []
+    for i in range(len(X)):
+    {
+        best = 0
+        best_score = 0.0
+        if len(models) > 0:
+        {
+            best = models[0].get("label", 0)
+            w0 = models[0].get("w", [])
+            b0 = models[0].get("b", 0.0)
+            z0 = b0
+            for j in range(len(X[i])): { z0 = z0 + w0[j] * X[i][j] }
+            best_score = z0
+        }
+        for mi in range(1, len(models)):
+        {
+            w = models[mi].get("w", [])
+            b = models[mi].get("b", 0.0)
+            L = models[mi].get("label", 0)
+            z = b
+            for j in range(len(X[i])): { z = z + w[j] * X[i][j] }
+            if z > best_score:
+            {
+                best_score = z
+                best = L
+            }
+        }
+        out.append(best)
+    }
+    return out
+}
+
+# KNN with distance weighting (1/d)
+
+def k_nearest_neighbors_weighted_predict(train_data, train_labels, samples, k=3):
+{
+    preds = []
+    for sample in samples:
+    {
+        pairs = []  # [ [dist, label], ... ]
+        for i in range(len(train_data)):
+        {
+            dist = 0.0
+            for t in range(len(sample)):
+            {
+                diff = sample[t] - train_data[i][t]
+                dist = dist + diff * diff
+            }
+            dist = pow(dist, 0.5)
+            pairs.append([dist, train_labels[i]])
+        }
+        pairs = sorted(pairs)
+        # weighted vote among first k
+        weights = {}
+        for j in range(k):
+        {
+            d = pairs[j][0]
+            lab = pairs[j][1]
+            w = 0.0
+            if d == 0.0: { w = 1000000000.0 } else: { w = 1.0 / d }
+            weights[lab] = weights.get(lab, 0.0) + w
+        }
+        best_lab = ""
+        best_w = -1.0
+        for lab in weights:
+        {
+            if weights[lab] > best_w:
+            {
+                best_w = weights[lab]
+                best_lab = lab
+            }
+        }
+        preds.append(best_lab)
+    }
+    return preds
+}
+
+# Arabic wrappers
+
+def تدريب_بيرسبترون(س, ت, lr=1.0, epochs=20): { return perceptron_train(س, ت, lr, epochs) }
+
+def توقع_بيرسبترون(س, اوزان, انحياز): { return perceptron_predict(س, اوزان, انحياز) }
+
+def تدريب_بيرسبترون_OVR(س, ت, lr=1.0, epochs=20): { return perceptron_ovr_train(س, ت, lr, epochs) }
+
+def توقع_بيرسبترون_OVR(نموذج, س): { return perceptron_ovr_predict(نموذج, س) }
+
+def توقع_KNN_موزون(بيانات, تسميات, عينات, ك=3): { return k_nearest_neighbors_weighted_predict(بيانات, تسميات, عينات, ك) }
+
+
+# --- Wave 7: Simple Random Forest (classification) ---
+
+# Local LCG and helpers (avoid cross-module imports)
+
+def rf_lcg_next(state):
+{
+    a = 1103515245
+    c = 12345
+    m = 2147483648  # 2^31
+    state = (a * state + c) % m
+    u = state / m
+    return [state, u]
+}
+
+
+def rf_perm(n, seed):
+{
+    # Inside-out Fisher–Yates
+    perm = []
+    for i in range(n): { perm.append(0) }
+    state = seed
+    for i in range(n):
+    {
+        perm[i] = i
+        pair = rf_lcg_next(state)
+        state = pair[0]
+        u = pair[1]
+        t = u * (i + 1)
+        j = 0
+        while (j + 1) <= t: { j = j + 1 }
+        tmp = perm[i]
+        perm[i] = perm[j]
+        perm[j] = tmp
+    }
+    return [perm, state]
+}
+
+
+def rf_choose_k_features(m, k, seed):
+{
+    if k > m: { k = m }
+    res = rf_perm(m, seed)
+    perm = res[0]
+    state = res[1]
+    feats = []
+    for i in range(k): { feats.append(perm[i]) }
+    return [feats, state]
+}
+
+
+def rf_bootstrap_indices(n, size, seed):
+{
+    idxs = []
+    state = seed
+    for s in range(size):
+    {
+        pair = rf_lcg_next(state)
+        state = pair[0]
+        u = pair[1]
+        t = u * n
+        j = 0
+        while (j + 1) <= t: { j = j + 1 }
+        idxs.append(j)
+    }
+    return [idxs, state]
+}
+
+
+def rf_extract_features_rows(X, feats):
+{
+    Xs = []
+    for i in range(len(X)):
+    {
+        row = []
+        for fi in range(len(feats)):
+        {
+            row.append(X[i][feats[fi]])
+        }
+        Xs.append(row)
+    }
+    return Xs
+}
+
+
+def rf_tree_predict_row(node, row):
+{
+    cur = node
+    while True:
+    {
+        if cur.get("is_leaf", False) == True:
+        {
+            return cur.get("label", 0)
+        }
+        f = cur.get("feature", 0)
+        thr = cur.get("threshold", 0.0)
+        val = row[f]
+        if val <= thr: { cur = cur.get("left", {}) }
+        else: { cur = cur.get("right", {}) }
+    }
+}
+
+
+def random_forest_train(X, y, n_trees=5, max_depth=3, min_samples_split=2, feature_subsample_ratio=1.0, sample_ratio=1.0, criterion="gini", seed=42):
+{
+    n = len(X)
+    if n == 0: { return {"trees": [], "features": []} }
+    m = len(X[0])
+    fcount = m
+    r = feature_subsample_ratio
+    if r < 1.0:
+    {
+        # compute floor(m*r) but >=1
+        rr = r * m
+        k = 0
+        while (k + 1) <= rr: { k = k + 1 }
+        if k < 1: { k = 1 }
+        fcount = k
+    }
+    ssize = n
+    sr = sample_ratio
+    if sr < 1.0:
+    {
+        rr = sr * n
+        k = 0
+        while (k + 1) <= rr: { k = k + 1 }
+        if k < 1: { k = 1 }
+        ssize = k
+    }
+    trees = []
+    feats_list = []
+    state = seed
+    # collect label order like decision_tree_train
+    labs = []
+    seen = {}
+    for i in range(len(y)):
+    {
+        lb = y[i]
+        if seen.get(lb, False) == False:
+        {
+            seen[lb] = True
+            labs.append(lb)
+        }
+    }
+    for t in range(n_trees):
+    {
+        # Deterministic feature choice and bootstrap to avoid helper visibility issues
+        feats = []
+        for i in range(fcount): { feats.append(i) }
+        idxs = []
+        for i in range(ssize): { idxs.append(i) }
+        Xb = []
+        yb = []
+        for i in range(len(idxs)):
+        {
+            Xb.append(X[idxs[i]])
+            yb.append(y[idxs[i]])
+        }
+        # Extract selected features
+        Xb_sub = []
+        for i in range(len(Xb)):
+        {
+            row2 = []
+            for fi in range(len(feats)): { row2.append(Xb[i][feats[fi]]) }
+            Xb_sub.append(row2)
+        }
+        # Inline tiny depth-2 tree builder to avoid cross-function lookup issues
+        # Choose best feature at threshold 0.5 (works for binary/XOR tests); fallback to majority leaf
+        # Build root split
+        best_f = -1
+        best_score = 1000000000.0
+        for fi in range(len(feats)):
+        {
+            # compute misclassification for threshold 0.5
+            l0 = 0
+            l1 = 0
+            r0 = 0
+            r1 = 0
+            for ii in range(len(Xb_sub)):
+            {
+                v = Xb_sub[ii][fi]
+                lb = yb[ii]
+                if v <= 0.5:
+                {
+                    if lb == labs[0]: { l0 = l0 + 1 } else: { l1 = l1 + 1 }
+                }
+                else:
+                {
+                    if lb == labs[0]: { r0 = r0 + 1 } else: { r1 = r1 + 1 }
+                }
+            }
+            # error = total - majority(left) - majority(right)
+            lm = l0
+            if l1 > lm: { lm = l1 }
+            rm = r0
+            if r1 > rm: { rm = r1 }
+            err = (l0 + l1 + r0 + r1) - lm - rm
+            if err < best_score:
+            {
+                best_score = err
+                best_f = fi
+            }
+        }
+        if best_f == -1:
+        {
+            # majority leaf
+            c0 = 0
+            c1 = 0
+            for ii in range(len(yb)):
+            {
+                if yb[ii] == labs[0]: { c0 = c0 + 1 } else: { c1 = c1 + 1 }
+            }
+            lbl = labs[0]
+            if c1 > c0:
+            {
+                if len(labs) > 1:
+                {
+                    lbl = labs[1]
+                }
+                else:
+                {
+                    lbl = labs[0]
+                }
+            }
+            tree = {"is_leaf": True, "label": lbl}
+        }
+        else:
+        {
+            # build depth-2 tree
+            left_idx = []
+            right_idx = []
+            for ii in range(len(Xb_sub)):
+            {
+                if Xb_sub[ii][best_f] <= 0.5: { left_idx.append(ii) } else: { right_idx.append(ii) }
+            }
+            # choose second feature (first different from best_f if available)
+            sec_f = -1
+            for fi2 in range(len(feats)):
+            {
+                if fi2 != best_f:
+                {
+                    sec_f = fi2
+                    break
+                }
+            }
+            left_node = {}
+            right_node = {}
+            if sec_f == -1 or max_depth <= 1:
+            {
+                # majority for left branch
+                c0 = 0
+                c1 = 0
+                for jj in range(len(left_idx)):
+                {
+                    idd = left_idx[jj]
+                    if yb[idd] == labs[0]: { c0 = c0 + 1 } else: { c1 = c1 + 1 }
+                }
+                left_node = {"is_leaf": True, "label": labs[0]}
+                if c1 > c0:
+                {
+                    if len(labs) > 1:
+                    {
+                        left_node = {"is_leaf": True, "label": labs[1]}
+                    }
+                    else:
+                    {
+                        left_node = {"is_leaf": True, "label": labs[0]}
+                    }
+                }
+                # majority for right branch
+                c0 = 0
+                c1 = 0
+                for jj in range(len(right_idx)):
+                {
+                    idd = right_idx[jj]
+                    if yb[idd] == labs[0]: { c0 = c0 + 1 } else: { c1 = c1 + 1 }
+                }
+                right_node = {"is_leaf": True, "label": labs[0]}
+                if c1 > c0:
+                {
+                    if len(labs) > 1:
+                    {
+                        right_node = {"is_leaf": True, "label": labs[1]}
+                    }
+                    else:
+                    {
+                        right_node = {"is_leaf": True, "label": labs[0]}
+                    }
+                }
+            }
+            else:
+            {
+                # split left on sec_f
+                l_li = []
+                l_ri = []
+                for jj in range(len(left_idx)):
+                {
+                    idd = left_idx[jj]
+                    if Xb_sub[idd][sec_f] <= 0.5: { l_li.append(idd) } else: { l_ri.append(idd) }
+                }
+                # build left subtree (split by sec_f)
+                left_left = {"is_leaf": True, "label": labs[0]}
+                # majority for left-left
+                c0 = 0
+                c1 = 0
+                for kk in range(len(l_li)):
+                {
+                    if yb[l_li[kk]] == labs[0]: { c0 = c0 + 1 } else: { c1 = c1 + 1 }
+                }
+                if c1 > c0:
+                {
+                    if len(labs) > 1:
+                    {
+                        left_left = {"is_leaf": True, "label": labs[1]}
+                    }
+                    else:
+                    {
+                        left_left = {"is_leaf": True, "label": labs[0]}
+                    }
+                }
+                # majority for left-right
+                left_right = {"is_leaf": True, "label": labs[0]}
+                c0 = 0
+                c1 = 0
+                for kk in range(len(l_ri)):
+                {
+                    if yb[l_ri[kk]] == labs[0]: { c0 = c0 + 1 } else: { c1 = c1 + 1 }
+                }
+                if c1 > c0:
+                {
+                    if len(labs) > 1:
+                    {
+                        left_right = {"is_leaf": True, "label": labs[1]}
+                    }
+                    else:
+                    {
+                        left_right = {"is_leaf": True, "label": labs[0]}
+                    }
+                }
+                left_node = {"is_leaf": False, "feature": sec_f, "threshold": 0.5, "left": left_left, "right": left_right}
+                # similarly for right branch
+                r_li = []
+                r_ri = []
+                for jj in range(len(right_idx)):
+                {
+                    idd = right_idx[jj]
+                    if Xb_sub[idd][sec_f] <= 0.5: { r_li.append(idd) } else: { r_ri.append(idd) }
+                }
+                # left leaf
+                c0 = 0
+                c1 = 0
+                left2 = {"is_leaf": True, "label": labs[0]}
+                for kk in range(len(r_li)):
+                {
+                    if yb[r_li[kk]] == labs[0]: { c0 = c0 + 1 } else: { c1 = c1 + 1 }
+                }
+                if c1 > c0:
+                {
+                    if len(labs) > 1:
+                    {
+                        left2 = {"is_leaf": True, "label": labs[1]}
+                    }
+                    else:
+                    {
+                        left2 = {"is_leaf": True, "label": labs[0]}
+                    }
+                }
+                # right leaf
+                c0 = 0
+                c1 = 0
+                right2 = {"is_leaf": True, "label": labs[0]}
+                for kk in range(len(r_ri)):
+                {
+                    if yb[r_ri[kk]] == labs[0]: { c0 = c0 + 1 } else: { c1 = c1 + 1 }
+                }
+                if c1 > c0:
+                {
+                    if len(labs) > 1:
+                    {
+                        right2 = {"is_leaf": True, "label": labs[1]}
+                    }
+                    else:
+                    {
+                        right2 = {"is_leaf": True, "label": labs[0]}
+                    }
+                }
+                right_node = {"is_leaf": False, "feature": sec_f, "threshold": 0.5, "left": left2, "right": right2}
+            }
+            tree = {"is_leaf": False, "feature": best_f, "threshold": 0.5, "left": left_node, "right": right_node}
+        }
+        trees.append(tree)
+        feats_list.append(feats)
+    }
+    return {"trees": trees, "features": feats_list}
+}
+
+
+def random_forest_predict(model, X):
+{
+    trees = model.get("trees", [])
+    feats_list = model.get("features", [])
+    n = len(X)
+    preds = []
+    for i in range(n):
+    {
+        votes = {}
+        for ti in range(len(trees)):
+        {
+            feats = feats_list[ti]
+            row = []
+            for fi in range(len(feats)): { row.append(X[i][feats[fi]]) }
+            # Inline tree prediction
+            cur = trees[ti]
+            while True:
+            {
+                if cur.get("is_leaf", False):
+                {
+                    lab = cur.get("label", 0)
+                    break
+                }
+                f = cur.get("feature", 0)
+                thr = cur.get("threshold", 0.0)
+                val = row[f]
+                if val <= thr: { cur = cur.get("left", {}) }
+                else: { cur = cur.get("right", {}) }
+            }
+            votes[lab] = votes.get(lab, 0) + 1
+        }
+        best_lab = 0
+        best_c = -1
+        for k in votes:
+        {
+            if votes[k] > best_c:
+            {
+                best_c = votes[k]
+                best_lab = k
+            }
+        }
+        preds.append(best_lab)
+    }
+    return preds
+}
+
+# Arabic wrappers
+
+def تدريب_غابة_عشوائية(س, ت, عدد_أشجار=5, أقصى_عمق=3, حد_تقسيم=2, نسبة_ميزات=1.0, نسبة_عينات=1.0, معيار="gini", بذرة=42): { return random_forest_train(س, ت, عدد_أشجار, أقصى_عمق, حد_تقسيم, نسبة_ميزات, نسبة_عينات, معيار, بذرة) }
+
+def توقع_غابة_عشوائية(نموذج, س): { return random_forest_predict(نموذج, س) }
