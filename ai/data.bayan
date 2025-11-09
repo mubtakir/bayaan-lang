@@ -862,6 +862,161 @@ def تجزئة_عرض_متساوي(قائمة, صناديق): { return bin_equal
 def ترميز_واحد_ساخن(فهارس, عدد_فئات): { return one_hot_encode(فهارس, عدد_فئات) }
 
 
+# Wave 10: Encoders (fit/transform)
+
+# Label Encoder
+
+def label_encoder_fit(xs):
+{
+    vocab = []
+    seen = {}
+    for i in range(len(xs)):
+    {
+        v = xs[i]
+        if v in seen:
+        { }
+        else:
+        {
+            seen[v] = 1
+            vocab.append(v)
+        }
+    }
+    return vocab
+}
+
+
+def label_encoder_transform(xs, vocab):
+{
+    idx_map = {}
+    for i in range(len(vocab)):
+    {
+        idx_map[vocab[i]] = i
+    }
+    out = []
+    for i in range(len(xs)):
+    {
+        v = xs[i]
+        if v in idx_map:
+        { out.append(idx_map[v]) }
+        else:
+        { out.append(-1) }
+    }
+    return out
+}
+
+
+# Frequency Encoder
+
+def frequency_encoder_fit(xs):
+{
+    n = len(xs)
+    counts = {}
+    for i in range(n):
+    {
+        v = xs[i]
+        if v in counts:
+        { counts[v] = counts[v] + 1 }
+        else:
+        { counts[v] = 1 }
+    }
+    freqs = {}
+    if n == 0:
+    { return freqs }
+    for k in counts:
+    {
+        freqs[k] = counts[k] / (1.0 * n)
+    }
+    return freqs
+}
+
+
+def frequency_encoder_transform(xs, freqs):
+{
+    out = []
+    for i in range(len(xs)):
+    {
+        v = xs[i]
+        if v in freqs:
+        { out.append(freqs[v]) }
+        else:
+        { out.append(0.0) }
+    }
+    return out
+}
+
+
+# Target Encoder (mean encoding)
+
+def target_encoder_fit(xs, ys):
+{
+    n = len(xs)
+    if len(ys) != n: { return {"means": {}, "global": 0.0} }
+    sums = {}
+    counts = {}
+    total = 0.0
+    for i in range(n):
+    {
+        v = xs[i]
+        y = ys[i]
+        total = total + y
+        if v in sums:
+        {
+            sums[v] = sums[v] + y
+            counts[v] = counts[v] + 1
+        }
+        else:
+        {
+            sums[v] = y
+            counts[v] = 1
+        }
+    }
+    g = 0.0
+    if n > 0: { g = total / (1.0 * n) }
+    means = {}
+    for k in sums:
+    {
+        c = counts[k]
+        if c == 0:
+        { means[k] = g }
+        else:
+        { means[k] = sums[k] / (1.0 * c) }
+    }
+    return {"means": means, "global": g}
+}
+
+
+def target_encoder_transform(xs, enc):
+{
+    means = enc["means"]
+    g = enc["global"]
+    out = []
+    for i in range(len(xs)):
+    {
+        v = xs[i]
+        if v in means:
+        { out.append(means[v]) }
+        else:
+        { out.append(g) }
+    }
+    return out
+}
+
+
+# Arabic wrappers (Wave 10)
+
+def ملاءمة_ترميز_تسميات(قائمة): { return label_encoder_fit(قائمة) }
+
+def تحويل_ترميز_تسميات(قائمة, مفردات): { return label_encoder_transform(قائمة, مفردات) }
+
+def ملاءمة_ترميز_تكرار(قائمة): { return frequency_encoder_fit(قائمة) }
+
+def تحويل_ترميز_تكرار(قائمة, تكرارات): { return frequency_encoder_transform(قائمة, تكرارات) }
+
+def ملاءمة_ترميز_هدفي(قيم, أهداف): { return target_encoder_fit(قيم, أهداف) }
+
+def تحويل_ترميز_هدفي(قيم, مشفر): { return target_encoder_transform(قيم, مشفر) }
+
+
 
 
 # Wave 8 Arabic wrappers (Scalers)

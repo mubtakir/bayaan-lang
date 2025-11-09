@@ -534,6 +534,25 @@ def visit_withstatement(self, node):
 - All Wave 9 tests are passing; docs and badges updated (341/341).
 
 ### Bayan Syntax Reminders
+
+## 📎 Addendum — 2025-11-09 — AI Stdlib Wave 10
+
+### Summary
+- Data encoders added with fit/transform pattern:
+  - label_encoder_fit(xs) / label_encoder_transform(xs, vocab)
+  - frequency_encoder_fit(xs) / frequency_encoder_transform(xs, freqs)
+  - target_encoder_fit(xs, ys) / target_encoder_transform(xs, enc)
+- Arabic wrappers provided for all encoders.
+
+### Tests
+- tests/test_ai_data_wave10.py → PASS
+- Total: 342/342 tests passing
+
+### Docs
+- README badge updated to 342 passing tests; status now Waves 1–10 complete
+- ai/AI_LIBRARY_GUIDE.md: new Wave 10 section + updated handoff status
+- docs/developer_guide.md: status and tests updated
+
 - Always place a colon after if/elif/else/for/while; never use semicolons.
 - Reserved: "query"; avoid as identifiers.
 - No list comprehensions; use explicit loops.
