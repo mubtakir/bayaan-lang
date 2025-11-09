@@ -229,6 +229,31 @@ def ngrams_range_from_tokens(tokens, n_min, n_max):
     return grams
 }
 
+# Character n-grams from raw text (no preprocessing)
+
+def char_ngrams(text, n_min, n_max):
+{
+    s = text
+    out = []
+    for n in range(n_min, n_max + 1):
+    {
+        L = len(s)
+        max_i = L - n + 1
+        if max_i < 0: { max_i = 0 }
+        for i in range(max_i):
+        {
+            j = i + n
+            out.append(s[i:j])
+        }
+    }
+    return out
+}
+
+# Arabic wrapper
+
+def محارف_انجرام(نص, ادنى, اقصى): { return char_ngrams(نص, ادنى, اقصى) }
+
+
 # Compute TF-IDF with sublinear tf and log-like idf (using binary-search ln)
 # tf = 1 + ln(count), idf = ln(1 + N/(df+1)), smoothing by +1
 
@@ -384,6 +409,30 @@ def arabic_light_stem_tokens(tokens):
 
 def حساب_tfidf_لوغ(نصوص): { return compute_tfidf_log(نصوص) }
 
+
+# Normalized log-TFIDF (L2-normalized vectors)
+
+def compute_tfidf_log_norm(docs):
+{
+    vecs = compute_tfidf_log(docs)
+    out = []
+    for i in range(len(vecs)):
+    {
+        v = vecs[i]
+        norm2 = 0.0
+        for t in v: { norm2 = norm2 + v[t] * v[t] }
+        if norm2 > 0.0: { norm = pow(norm2, 0.5) } else: { norm = 1.0 }
+        v2 = {}
+        for t in v: { v2[t] = v[t] / norm }
+        out.append(v2)
+    }
+    return out
+}
+
+# Arabic wrapper
+
+def حساب_tfidf_لوغ_مطبع(نصوص): { return compute_tfidf_log_norm(نصوص) }
+
 def انجرام_مدى_من_كلمات(كلمات, ادنى, اقصى): { return ngrams_range_from_tokens(كلمات, ادنى, اقصى) }
 
 def تطبيع_عربي(نص): { return normalize_arabic(نص) }
@@ -395,6 +444,50 @@ def تجذيع_عربي_خفيف_كلمات(كلمات): { return arabic_light_s
 
 # Small educational stopwords lists
 EN_STOPWORDS = {"the", "is", "a", "an", "and", "or", "to", "in", "of", "this", "that", "it", "for", "on", "with", "as", "by", "be", "are", "was", "were", "been", "has", "have", "had", "do", "does", "did", "not", "but", "if", "then", "so", "because", "very", "can", "could", "would", "should", "from", "into", "over", "under", "again", "further", "more", "most", "at", "about", "up", "down", "out", "off", "than"}
+
+# Extended stopwords (for stricter filtering). Used only by remove_stopwords_extended
+
+EN_STOPWORDS_EXT = {"really", "just", "we", "our", "you", "your", "i", "me", "my", "mine", "ours", "us", "them", "they", "he", "she", "him", "her", "too", "very", "much", "many", "such", "one", "two", "three"}
+AR_STOPWORDS_EXT = {"او", "الى", "انا", "نحن", "انت", "انتم", "انتن", "هو", "هي", "هم", "هن", "ذلكم", "ذلكن", "هؤلاء", "اولئك", "كما", "اي", "ايضا", "لدينا", "لدي", "هذا", "هذه", "هناك", "هنا"}
+
+# Remove with extended lists (does not alter base remove_stopwords behavior)
+
+def remove_stopwords_extended(text, language="auto"):
+{
+    if language == "auto": { language = detect_language(text) }
+    p = preprocess_text(text, language)
+    toks = tokenize_text(p, language)
+    out = []
+    for w in toks:
+    {
+        skip = False
+        if language == "arabic":
+        {
+            if w in AR_STOPWORDS: { skip = True }
+            else:
+            {
+                if w in AR_STOPWORDS_EXT: { skip = True }
+            }
+        }
+        else:
+        {
+            if w in EN_STOPWORDS: { skip = True }
+            else:
+            {
+                if w in EN_STOPWORDS_EXT: { skip = True }
+            }
+        }
+        if skip: { }
+        else: { out.append(w) }
+    }
+    sep = " "
+    return sep.join(out)
+}
+
+# Arabic wrapper
+
+def إزالة_كلمات_شائعة_موسعة(نص, لغة="auto"): { return remove_stopwords_extended(نص, language=لغة) }
+
 AR_STOPWORDS = {"هذا", "هذه", "ذلك", "تلك", "و", "أو", "في", "على", "من", "إلى", "عن", "مع", "كما", "ال", "هو", "هي", "أن", "إن", "كان", "كانت", "يكون", "لقد", "لكن", "ليس", "بل", "ثم", "قد", "كل", "ما", "لم", "لن", "إنما", "إذا", "ف", "ب", "ك", "ل", "هناك", "هنا", "أيضا", "بين", "أكثر", "أقل"}
 
 # Remove stopwords from text after preprocessing
@@ -715,6 +808,102 @@ def bigram_lm_probability(model, w1, w2):
     return num / den
 }
 
+# --- Trigram Language Model (Laplace smoothing) ---
+
+def trigram_lm_train(docs, alpha=1.0):
+{
+    uni = {}
+    bi = {}
+    tri = {}
+    vocab = {}
+    for i in range(len(docs)):
+    {
+        txt = docs[i]
+        punct = ".,!?;:"
+        chars = []
+        for ch in txt:
+        {
+            if punct.find(ch) == -1:
+            {
+                chars.append(ch)
+            }
+        }
+        sep0 = ""
+        t2 = sep0.join(chars)
+        t2 = t2.lower()
+        toks = t2.split()
+        for j in range(len(toks)):
+        {
+            w0 = toks[j]
+            if w0 in uni: { uni[w0] = uni[w0] + 1 } else: { uni[w0] = 1 }
+            if w0 in vocab: { vocab[w0] = vocab[w0] } else: { vocab[w0] = 1 }
+            if (j + 1) < len(toks):
+            {
+                w1 = toks[j + 1]
+                if w0 in bi: { bi[w0] = bi[w0] } else: { bi[w0] = {} }
+                if w1 in bi[w0]: { bi[w0][w1] = bi[w0][w1] + 1 } else: { bi[w0][w1] = 1 }
+            }
+            if (j + 2) < len(toks):
+            {
+                w1b = toks[j + 1]
+                w2b = toks[j + 2]
+                if w0 in tri: { tri[w0] = tri[w0] } else: { tri[w0] = {} }
+                if w1b in tri[w0]: { tri[w0][w1b] = tri[w0][w1b] } else: { tri[w0][w1b] = {} }
+                if w2b in tri[w0][w1b]: { tri[w0][w1b][w2b] = tri[w0][w1b][w2b] + 1 } else: { tri[w0][w1b][w2b] = 1 }
+            }
+        }
+    }
+    V = 0
+    for _ in vocab: { V = V + 1 }
+    model = {"uni": uni, "bi": bi, "tri": tri, "V": V, "alpha": alpha}
+    return model
+}
+
+
+def trigram_lm_probability(model, w1, w2, w3):
+{
+    tri = model["tri"]
+    uni = model["uni"]
+    V = model["V"]
+    alpha = model["alpha"]
+    c12 = 0
+    c123 = 0
+    if w1 in tri:
+    {
+        if w2 in tri[w1]:
+        {
+            for w in tri[w1][w2]: { c12 = c12 + tri[w1][w2][w] }
+            if w3 in tri[w1][w2]: { c123 = tri[w1][w2][w3] }
+        }
+    }
+    num = c123 + alpha
+    den = c12 + alpha * V
+    if den == 0: { den = 1.0 }
+    return num / den
+}
+
+
+def trigram_lm_predict_next(model, w1, w2, top_n=3):
+{
+    uni = model["uni"]
+    cands = []
+    for w3 in uni:
+    {
+        p = trigram_lm_probability(model, w1, w2, w3)
+        cands.append([p, w3])
+    }
+    cands = sorted(cands)
+    out = []
+    start = len(cands) - top_n
+    if start < 0: { start = 0 }
+    for i in range(len(cands) - 1, start - 1, -1):
+    {
+        out.append(cands[i][1])
+    }
+    return out
+}
+
+
 
 def bigram_lm_predict_next(model, w1, top_n=3):
 {
@@ -744,3 +933,12 @@ def تدريب_ثنائي_الكلمات(نصوص, ألفا=1.0): { return bigra
 def احتمال_ثنائي_الكلمات(نموذج, كلمة1, كلمة2): { return bigram_lm_probability(نموذج, كلمة1, كلمة2) }
 
 def أفضل_التالي_ثنائي(نموذج, كلمة1, أعلى=3): { return bigram_lm_predict_next(نموذج, كلمة1, أعلى) }
+
+# Trigram Arabic wrappers
+
+def تدريب_ثلاثي_الكلمات(نصوص, ألفا=1.0): { return trigram_lm_train(نصوص, ألفا) }
+
+def احتمال_ثلاثي_الكلمات(نموذج, كلمة1, كلمة2, كلمة3): { return trigram_lm_probability(نموذج, كلمة1, كلمة2, كلمة3) }
+
+def أفضل_التالي_ثلاثي(نموذج, كلمة1, كلمة2, أعلى=3): { return trigram_lm_predict_next(نموذج, كلمة1, كلمة2, أعلى) }
+

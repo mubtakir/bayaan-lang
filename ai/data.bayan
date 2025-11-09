@@ -51,6 +51,102 @@ def to_csv_rows(rows, delimiter=","):
     return out
 }
 
+# Read CSV from a single string (lines separated by \n); educational parser
+
+def read_csv_string(text, delimiter=","):
+{
+    lines = []
+    cur = ""
+    for i in range(len(text)):
+    {
+        ch = text[i]
+        if ch == "\n":
+        {
+            lines.append(cur)
+            cur = ""
+        }
+        else:
+        {
+            if ch == "\r": { }
+            else: { cur = cur + ch }
+        }
+    }
+    lines.append(cur)
+    return parse_csv_rows(lines, delimiter)
+}
+
+# Write CSV to a single string (lines joined by \n)
+
+def write_csv_string(rows, delimiter=","):
+{
+    lines = to_csv_rows(rows, delimiter)
+    nl = "\n"
+    return nl.join(lines)
+}
+
+# Median and percentile (with simple selection sort)
+
+def _copy_and_sort(xs):
+{
+    n = len(xs)
+    ys = []
+    for i in range(n): { ys.append(xs[i]) }
+
+
+    # selection sort
+    for i in range(n):
+    {
+        min_idx = i
+        for j in range(i + 1, n):
+        {
+            if ys[j] < ys[min_idx]: { min_idx = j }
+        }
+        tmp = ys[i]
+        ys[i] = ys[min_idx]
+        ys[min_idx] = tmp
+    }
+    return ys
+}
+
+def median(xs):
+{
+    n = len(xs)
+    if n == 0: { return 0.0 }
+    a = _copy_and_sort(xs)
+    # q = floor(n/2) via repeated subtraction by 2
+    q = 0
+    r = n
+    while r >= 2:
+    {
+        r = r - 2
+        q = q + 1
+    }
+    # r == 0 (even) or 1 (odd)
+    if r == 1: { return a[q] }
+    # even: average of a[q-1], a[q]
+    i1 = q - 1
+    if i1 < 0: { i1 = 0 }
+    return (a[i1] + a[q]) / 2.0
+}
+
+def percentile(xs, p):
+{
+    n = len(xs)
+    if n == 0: { return 0.0 }
+    if p < 0.0: { p = 0.0 }
+    if p > 100.0: { p = 100.0 }
+    a = _copy_and_sort(xs)
+    # pos = (p/100) * (n-1)
+    pos = (p / 100.0) * (n - 1)
+    i = 0
+    while (i + 1) <= pos: { i = i + 1 }
+    j = i + 1
+    if j >= n: { j = i }
+    w = pos - i
+    return a[i] * (1.0 - w) + a[j] * w
+}
+
+
 # Descriptive statistics
 
 def mean(xs):
@@ -86,11 +182,26 @@ def قراءة_CSV_سطور(سطور, فاصل=","):{ return parse_csv_rows(سط
 
 def كتابة_CSV_سطور(صفوف, فاصل=","):{ return to_csv_rows(صفوف, فاصل) }
 
+# CSV text wrappers (Arabic)
+
+def قراءة_CSV_نص(نص, فاصل=","):{ return read_csv_string(نص, فاصل) }
+
+def كتابة_CSV_نص(صفوف, فاصل=","):{ return write_csv_string(صفوف, فاصل) }
+
+
+
+
 def متوسط(قائمة): { return mean(قائمة) }
 
 def تباين(قائمة): { return variance(قائمة) }
 
 def انحراف_معياري(قائمة): { return stddev(قائمة) }
+
+# Additional Arabic wrappers for stats
+
+def وسيط(قائمة): { return median(قائمة) }
+
+def مئين(قائمة, نسبة): { return percentile(قائمة, نسبة) }
 
 
 # --- Simple PRNG (LCG) and shuffling/splitting ---

@@ -634,11 +634,36 @@ def classification_report(y_true, y_pred, labels):
     if (tp_total + fn_total) > 0: { micro_r = tp_total / (tp_total + fn_total) }
     if (micro_p + micro_r) > 0.0: { micro_f = 2.0 * micro_p * micro_r / (micro_p + micro_r) }
     acc = accuracy_score(y_true, y_pred)
+    # weighted averages by support
+    supp_sum = 0
+    for li in range(m):
+    {
+        L = labs[li]
+        supp_sum = supp_sum + per_class[L]["support"]
+    }
+    w_p = 0.0
+    w_r = 0.0
+    w_f = 0.0
+    if supp_sum > 0:
+    {
+        for li in range(m):
+        {
+            L = labs[li]
+            s = per_class[L]["support"]
+            w_p = w_p + per_class[L]["precision"] * s
+            w_r = w_r + per_class[L]["recall"] * s
+            w_f = w_f + per_class[L]["f1"] * s
+        }
+        w_p = w_p / supp_sum
+        w_r = w_r / supp_sum
+        w_f = w_f / supp_sum
+    }
     rep = {}
     rep["per_class"] = per_class
     rep["labels"] = labs
     rep["macro_avg"] = {"precision": macro_p, "recall": macro_r, "f1": macro_f}
     rep["micro_avg"] = {"precision": micro_p, "recall": micro_r, "f1": micro_f}
+    rep["weighted_avg"] = {"precision": w_p, "recall": w_r, "f1": w_f}
     rep["accuracy"] = acc
     return rep
 }
@@ -902,11 +927,62 @@ def k_fold_evaluate_knn(X, y, k_folds=5, k_neighbors=3, shuffle=True, seed=42):
     return a_sum / m
 }
 
+# Generic K-Fold CV for accuracy (model = "logistic" or "knn")
+
+def k_fold_cross_val_accuracy(X, y, model="logistic", k_folds=5, lr=0.1, epochs=200, k_neighbors=3, shuffle=True, seed=42):
+{
+    n = len(X)
+    folds = k_fold_indices(n, k_folds, shuffle, seed)
+    a_sum = 0.0
+    m = 0
+    for fi in range(len(folds)):
+    {
+        tr_idx = folds[fi][0]
+        va_idx = folds[fi][1]
+        Xtr = []
+        ytr = []
+        for i in range(len(tr_idx)):
+        {
+            idx = tr_idx[i]
+            Xtr.append(X[idx])
+            ytr.append(y[idx])
+        }
+        Xva = []
+        yva = []
+        for i in range(len(va_idx)):
+        {
+            idx = va_idx[i]
+            Xva.append(X[idx])
+            yva.append(y[idx])
+        }
+        if model == "logistic":
+        {
+            wb = logistic_regression_train(Xtr, ytr, lr, epochs)
+            w = wb[0]
+            b = wb[1]
+            yhat = logistic_regression_predict(Xva, w, b, 0.5)
+        }
+        else:
+        {
+            # default to KNN
+            yhat = k_nearest_neighbors_predict(Xtr, ytr, Xva, k_neighbors)
+        }
+        a = accuracy_score(yva, yhat)
+        a_sum = a_sum + a
+        m = m + 1
+    }
+    if m == 0: { return 0.0 }
+    return a_sum / m
+}
+
 # Arabic wrappers
 
 def تقييم_طي_تقاطعي_لوجستي(س, ت, ك=5, lr=0.1, epochs=200, عشوائي=True, بذرة=42): { return k_fold_evaluate_logistic(س, ت, ك, lr, epochs, عشوائي, بذرة) }
 
 def تقييم_طي_تقاطعي_KNN(س, ت, طيات=5, جيران=3, عشوائي=True, بذرة=42): { return k_fold_evaluate_knn(س, ت, طيات, جيران, عشوائي, بذرة) }
+
+def تقييم_طي_تقاطعي_عام(س, ت, نموذج="logistic", طيات=5, lr=0.1, epochs=200, جيران=3, عشوائي=True, بذرة=42): { return k_fold_cross_val_accuracy(س, ت, نموذج, طيات, lr, epochs, جيران, عشوائي, بذرة) }
+
 
 
 
