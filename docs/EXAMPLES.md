@@ -341,3 +341,39 @@ python main.py your_file.by
 - moving_ball_ar.by — إحداثيات عددية (س،ص)، طاقة ضبابية، حرارة بنطاق مخصص
 - action_centric_ar.by — نمط التنفيذ أولًا (نفذ)
 - virtual_village_ar.by — قرية افتراضية: كيانات متعددة وتفاعلات
+
+
+## Example 14: Built-in head hints — تلميحات الرؤوس الافتراضية
+
+These examples rely on built-in head hints to infer relations automatically:
+- belongs (order=BA): مالك/owner
+- of (order=AB): عصير/juice، باب/door، صورة/picture، صورة فوتوغرافية/photo، كاتب/writer، مدير/manager، رئيس، مؤلف/author، كتاب/book
+
+```bayan
+hybrid {
+  # Arabic
+  عصير البرتقال.
+  باب الغرفة.
+  مالك السيارة.
+  كاتب الرواية.
+  مدير الشركة.
+  رئيس القسم.
+  مؤلف القصيدة.
+  كتاب الفيزياء.
+}
+```
+
+```bayan
+hybrid {
+  # English
+  owner house.
+  juice orange.
+  door room.
+  picture moon.
+  photo cat.
+  book physics.
+  writer novel.
+  manager company.
+  author paper.
+}
+```
