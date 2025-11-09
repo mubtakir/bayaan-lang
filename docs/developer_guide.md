@@ -172,7 +172,7 @@
 - لذلك تم بناء مكتبة AI/ML تعليمية بالكامل داخل بيان (بدون تبعيات خارجية)، بثنائية عربية/إنجليزية، مع اختبارات شاملة.
 
 ### أين وصلنا؟ (وضع الموجات)
-- Waves 1–10: مكتملة ومُوثّقة ومُمَرَّرة بالاختبارات (342/342 ناجحة).
+- Waves 1–11: مكتملة ومُوثّقة ومُمَرَّرة بالاختبارات (344/344 ناجحة).
   - Data: CSV/JSON I/O، إحصاء وصفي (mean/var/std/median/percentile)، PRNG، scalers (standard/robust/minmax) fit+transform.
   - NLP: TF-IDF (خيارات/لوغ/حدود مفردات)، BM25، تشابه Jaccard/Dice، تجهيز نص عربي أساسي.
   - ML: الانحدار الخطي/اللوجستي، KNN (عادي/موزون)، K-means (+k-means++ احتمال)، Perceptron (+OvR)، أشجار قرار، غابة عشوائية، قياسات ROC/AUC وتقارير تصنيف.
@@ -184,17 +184,21 @@
 
 - Wave 10: مكتملة (Data encoders: label/frequency/target) مع نمط fit/transform وأغلفة عربية.
 
+- Wave 11: مكتملة (NLP: levenshtein_distance + مسافة_ليفنشتاين).
 
 ### حالة الاختبارات (وقت التسليم)
-- المجموع المُمَرّر حالياً: 342/342 (Waves 1–10).
+- المجموع المُمَرّر حالياً: 344/344 (Waves 1–11).
 - Wave 9:
   - tests/test_ai_data_wave9.py: PASS.
   - tests/test_ai_ml_wave9.py: PASS.
   - tests/test_ai_nlp_wave9.py: PASS.
 - Wave 10:
   - tests/test_ai_data_wave10.py: PASS.
+- Wave 11:
+  - tests/test_ai_nlp_wave11.py: PASS.
 
 ### إنجازات Wave 9
+
 1) إتمام ML OvR + Bagging:
    - ملف: ai/ml.bayan
    - التحقّقات النحوية: وُضعت ":" بعد كل if/elif/else/for/while وبدون ";".
@@ -208,7 +212,7 @@
    - أُضيفت: تجزئة_عرض_متساوي، ترميز_واحد_ساخن في ai/data.bayan → PASS.
 
 4) التوثيق والشارات:
-   - ai/AI_LIBRARY_GUIDE.md و README.md محدّثان إلى 342/342.
+   - ai/AI_LIBRARY_GUIDE.md و README.md محدّثان إلى 344/344.
 
 ### تذكير مهم — «Cheat‑Sheet» نحو بيان
 - ضع ":" بعد كلمات التحكّم (if/elif/else/for/while).

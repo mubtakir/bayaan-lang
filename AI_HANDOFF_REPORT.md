@@ -564,3 +564,20 @@ def visit_withstatement(self, node):
 - ML: Platt scaling; multiclass logistic OvR; generic Bagging wrapper.
 
 Refer to docs/developer_guide.md (handoff appendix) for details.
+
+
+## 📎 Addendum — 2025-11-09 — AI Stdlib Wave 11
+
+### Summary
+- NLP: Added Levenshtein edit distance:
+  - levenshtein_distance(s1, s2)
+  - Arabic wrapper: مسافة_ليفنشتاين(نص1, نص2)
+
+### Tests
+- tests/test_ai_nlp_wave11.py → PASS
+- Total: 344/344 tests passing
+
+### Docs
+- README badge updated to 344 passing tests; status now Waves 1–11 complete
+- ai/AI_LIBRARY_GUIDE.md: new Wave 11 section
+- docs/developer_guide.md: status and tests updated

@@ -1440,3 +1440,79 @@ def compute_tfidf_vocab_limit(docs, max_features=100, sublinear_tf=True, smooth_
 
 # Arabic wrapper
 
+
+# --- Wave 11: NLP Enhancements ---
+
+# Levenshtein edit distance (dynamic programming)
+
+def levenshtein_distance(s1, s2):
+{
+    n = len(s1)
+    m = len(s2)
+    # dp matrix (n+1) x (m+1)
+    dp = []
+    for i in range(n + 1):
+    {
+        row = []
+        for j in range(m + 1):
+        {
+            row.append(0)
+        }
+        dp.append(row)
+    }
+    for i in range(n + 1): { dp[i][0] = i }
+    for j in range(m + 1): { dp[0][j] = j }
+    for i in range(1, n + 1):
+    {
+        for j in range(1, m + 1):
+        {
+            cost = 0
+            if s1[i - 1] == s2[j - 1]: { cost = 0 } else: { cost = 1 }
+            a = dp[i - 1][j] + 1      # deletion
+            b = dp[i][j - 1] + 1      # insertion
+            c = dp[i - 1][j - 1] + cost  # substitution
+            best = a
+            if b < best: { best = b }
+            if c < best: { best = c }
+            dp[i][j] = best
+        }
+    }
+    return dp[n][m]
+}
+
+# Arabic wrapper
+
+def مسافة_ليفنشتاين(نص1, نص2):
+{
+    s1 = نص1
+    s2 = نص2
+    n = len(s1)
+    m = len(s2)
+    dp = []
+    for i in range(n + 1):
+    {
+        row = []
+        for j in range(m + 1):
+        { row.append(0) }
+        dp.append(row)
+    }
+    for i in range(n + 1): { dp[i][0] = i }
+    for j in range(m + 1): { dp[0][j] = j }
+    for i in range(1, n + 1):
+    {
+        for j in range(1, m + 1):
+        {
+            cost = 0
+            if s1[i - 1] == s2[j - 1]: { cost = 0 } else: { cost = 1 }
+            a = dp[i - 1][j] + 1
+            b = dp[i][j - 1] + 1
+            c = dp[i - 1][j - 1] + cost
+            best = a
+            if b < best: { best = b }
+            if c < best: { best = c }
+            dp[i][j] = best
+        }
+    }
+    return dp[n][m]
+}
+
