@@ -91,6 +91,8 @@ python web_ide/app.py
 - Run whole file or only the selected code
 - Error messages with stack traces, RTL-friendly UI
 - Theme and font controls, keyboard shortcuts (Ctrl/Cmd+S to save, Ctrl/Cmd+Enter to run)
+- AI autocompletion (Arabic/English) with function docs; filter by language and domain (ai.ml / ai.nlp / ai.data / logic)
+- Examples browser with search and domain filters (ai.ml / ai.nlp / ai.data / logic / mixed / unknown); hover tooltips and domain badges in the list
 
 ## 🧩 Syntax: Blocks and Indentation
 
@@ -405,6 +407,22 @@ hybrid {
 ```bash
 python -m bayan examples/hello.by
 ```
+
+
+## 🧰 محرر ويب مدمج (لمن لا يمكنه تثبيت بيئات عمل أخرى)
+
+```bash
+python web_ide/app.py
+# ثم افتح المتصفح: http://127.0.0.1:5001/ide
+```
+
+- إنشاء/إعادة تسمية/حذف/حفظ الملفات (web_ide/user_scripts)
+- تشغيل الملف كله أو التحديد فقط
+- رسائل أخطاء واضحة، واجهة مناسبة للاتجاه من اليمين لليسار
+- تحكم بالثيم وحجم الخط، اختصارات لوحة المفاتيح
+- إكمال ذكي ثنائي اللغة مع وصف للدوال، وتصفية حسب اللغة والمجال (ai.ml / ai.nlp / ai.data)
+- مستعرض أمثلة مع بحث وتصفية حسب المجال (ai.ml / ai.nlp / ai.data / logic / mixed / unknown) ووصف عند المرور وشارة مجال بجانب الاسم
+
 
 ---
 

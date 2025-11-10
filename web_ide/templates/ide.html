@@ -44,6 +44,7 @@
           <option value="ai.ml">ai.ml</option>
           <option value="ai.nlp">ai.nlp</option>
           <option value="ai.data">ai.data</option>
+          <option value="logic">logic</option>
           <option value="mixed">mixed</option>
           <option value="unknown">unknown</option>
         </select>
@@ -59,6 +60,7 @@
           <option value="ai.ml">ai.ml</option>
           <option value="ai.nlp">ai.nlp</option>
           <option value="ai.data">ai.data</option>
+          <option value="logic">logic</option>
         </select>
         <div class="vr mx-2"></div>
         <label class="form-label m-0 me-1">السمة</label>
@@ -74,6 +76,9 @@
           <option>16</option>
           <option>18</option>
         </select>
+      <div id="example-info" class="px-3 py-1 text-muted small"></div>
+      <div id="ac-info" class="px-3 py-1 text-muted small"></div>
+
       </div>
       <div id="editor" style="height: 55vh; width: 100%"></div>
       <div class="card-body">
@@ -253,6 +258,23 @@
     {caption:'تطبيع_أدنى_أقصى', value:'تطبيع_أدنى_أقصى', meta:'ai.ar', docText:'Arabic alias: minmax_normalize.'},
     {caption:'تطبيع_Z', value:'تطبيع_Z', meta:'ai.ar', docText:'Arabic alias: zscore_normalize.'},
     {caption:'ترتيب_عشوائي', value:'ترتيب_عشوائي', meta:'ai.ar', docText:'Arabic alias: random_permutation.'},
+
+    // LOGIC (language/hybrid helpers)
+    {caption:'fact', value:'fact ', meta:'logic', score:70, docText:'Define a logic fact (ends with a dot).'},
+    {caption:'rule', value:'rule ', meta:'logic', score:70, docText:'Define a logic rule: head :- body.'},
+    {caption:'query', value:'query ', meta:'logic', score:70, docText:'Run a logic query; results shown in output.'},
+    {caption:'assertz', value:'assertz(', meta:'logic', score:65, docText:'Dynamically add a fact at runtime.'},
+    {caption:'retract', value:'retract(', meta:'logic', score:65, docText:'Dynamically remove a fact at runtime.'},
+    {caption:'entity', value:'entity ', meta:'logic', score:60, docText:'Define an entity (states/properties/actions).'},
+    {caption:'apply', value:'apply ', meta:'logic', score:60, docText:'Apply an action to a target entity.'},
+
+    // Arabic aliases (logic)
+    {caption:'حقيقة', value:'حقيقة ', meta:'logic', score:70, docText:'تعريف حقيقة منطقية تنتهي بنقطة.', ar:true},
+    {caption:'قاعدة', value:'قاعدة ', meta:'logic', score:70, docText:'تعريف قاعدة: الرأس :- الجسم.', ar:true},
+    {caption:'استعلام', value:'استعلام ', meta:'logic', score:70, docText:'تنفيذ استعلام منطقي وعرض النتائج.', ar:true},
+    {caption:'كيان', value:'كيان ', meta:'logic', score:60, docText:'تعريف كيان بخصائص/حالات/أفعال.', ar:true},
+    {caption:'طبق', value:'طبق ', meta:'logic', score:60, docText:'تطبيق فعل على كيان مستهدف.', ar:true},
+
     {caption:'تقسيم_عشوائي_تدريب_اختبار', value:'تقسيم_عشوائي_تدريب_اختبار', meta:'ai.ar', docText:'Arabic alias: train_test_split_shuffle.'}
   ];
   const isArabicName = (s) => /[^\x00-\x7F]/.test(s || '');
@@ -423,6 +445,17 @@
       applyExamplesFilter();
     } catch (e) {}
   }
+  function domainEmoji(d){
+    switch(d){
+      case 'ai.ml': return '🟩';
+      case 'ai.nlp': return '🟦';
+      case 'ai.data': return '🟨';
+      case 'logic': return '🟪';
+      case 'mixed': return '🟧';
+      default: return '⚪';
+    }
+  }
+
 
   function renderExamples(list) {
     const sel = document.getElementById('sel-examples');
@@ -430,7 +463,9 @@
     list.forEach(it => {
       const opt = document.createElement('option');
       opt.value = it.name;
-      opt.textContent = it.name;
+      const domLabel = (it.domain || 'unknown');
+      const badge = domainEmoji(domLabel);
+      opt.textContent = `${badge} [${domLabel}] ${it.name}`;
       if (it.desc) opt.title = it.desc;
       else opt.title = it.name;
       sel.appendChild(opt);
@@ -444,6 +479,50 @@
     if (dom !== 'all') list = list.filter(it => (it.domain || 'unknown') === dom);
     if (q) list = list.filter(it => (it.name || '').toLowerCase().includes(q));
     renderExamples(list);
+    updateExampleInfo();
+  }
+
+  function updateExampleInfo() {
+    try {
+      const el = document.getElementById('example-info');
+      const sel = document.getElementById('sel-examples');
+      if (!el || !sel) return;
+      const name = sel.value;
+      const it = (examplesMaster || []).find(x => x.name === name);
+      if (it) {
+        const domLabel = (it.domain || 'unknown');
+        const badge = domainEmoji(domLabel);
+        el.textContent = `مثال: ${badge} [${domLabel}] ${it.name} — ${it.desc || ''}`;
+      } else el.textContent = '';
+    } catch (e) {}
+  }
+
+  function setAcInfo(t) {
+    const el = document.getElementById('ac-info');
+    if (el) el.textContent = t ? ('وصف الإكمال: ' + t) : '';
+  }
+
+  function setupAutocompleteInfo() {
+    try {
+      editor.commands.on('afterExec', function(e) {
+        if (e && e.command && e.command.name === 'startAutocomplete') {
+          const compl = editor.completer;
+          const popup = compl && compl.popup;
+          if (popup && !popup._descHook) {
+            popup._descHook = true;
+            popup.on('changeSelection', function() {
+              try {
+                const row = popup.getRow();
+                const data = popup.data;
+                const it = data && data[row];
+                const t = (it && (it.docText || it.caption || '')) || '';
+                setAcInfo(t);
+              } catch (_) {}
+            });
+          }
+        }
+      });
+    } catch (e) {}
   }
 
   function setupShortcuts() {
@@ -517,6 +596,9 @@
   document.getElementById('sel-ac-lang').onchange = (e) => { completionLangMode = e.target.value; };
   document.getElementById('sel-examples-domain').onchange = applyExamplesFilter;
   document.getElementById('inp-example-filter').oninput = applyExamplesFilter;
+  document.getElementById('sel-examples').onchange = updateExampleInfo;
+  setupAutocompleteInfo();
+
 
   // init
   refreshFiles();
