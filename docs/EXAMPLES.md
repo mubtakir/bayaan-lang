@@ -2,7 +2,7 @@
 
 
 > IDE Preview Tips (2025-11-10) — نصيحة معاينة IDE:
-> The Web IDE supports multi‑output preview (SVG and data:image/*). Use the toolbar: Prev/Next to switch outputs, Copy to clipboard, and Download to save.
+> The Web IDE supports multi‑output preview (SVG and data:image/*). Use the toolbar: Prev/Next, Play/Pause with FPS, Copy, and Download.
 
 ## Example 1: Family Relations - العلاقات العائلية
 

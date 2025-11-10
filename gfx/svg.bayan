@@ -89,6 +89,37 @@ def svg_circle_anim(cx, cy, r, fill, stroke, animate_attr, values, dur="2s", rep
     return "<circle cx='" + str(cx) + "' cy='" + str(cy) + "' r='" + str(r) + "' fill='" + str(fill) + "' stroke='" + str(stroke) + "' stroke-width='" + str(stroke_width) + "'>" + inner + "</circle>"
 }
 
+# Generic SMIL helpers
+
+def svg_animate(attribute, values, dur="2s", repeatCount="indefinite", keyTimes="", calcMode=""):
+{
+    extra = ""
+    if keyTimes != "": { extra = extra + " keyTimes='" + str(keyTimes) + "'" }
+    if calcMode != "": { extra = extra + " calcMode='" + str(calcMode) + "'" }
+    return "<animate attributeName='" + str(attribute) + "' values='" + str(values) + "' dur='" + str(dur) + "' repeatCount='" + str(repeatCount) + "'" + extra + "/>"
+}
+
+
+def svg_animate_transform(type, from_val, to_val, dur="2s", repeatCount="indefinite"):
+{
+    return "<animateTransform attributeName='transform' type='" + str(type) + "' from='" + str(from_val) + "' to='" + str(to_val) + "' dur='" + str(dur) + "' repeatCount='" + str(repeatCount) + "'/>"
+}
+
+
+def svg_animate_motion(path_d, dur="2s", repeatCount="indefinite", rotate="auto"):
+{
+    return "<animateMotion path='" + str(path_d) + "' dur='" + str(dur) + "' repeatCount='" + str(repeatCount) + "' rotate='" + str(rotate) + "'/>"
+}
+
+# Convenience: wrap inner in a rotating group using animateTransform
+
+def svg_rotating_group(inner, cx, cy, from_deg=0, to_deg=360, dur="4s", repeatCount="indefinite"):
+{
+    anim = svg_animate_transform("rotate", str(from_deg) + " " + str(cx) + " " + str(cy), str(to_deg) + " " + str(cx) + " " + str(cy), dur, repeatCount)
+    return "<g>" + inner + anim + "</g>"
+}
+
+
 # Free drawing pen (path builder)
 
 def pen_new():
@@ -144,6 +175,24 @@ def لف_SVG(عرض, ارتفاع, داخل): { return svg_wrap(عرض, ارتف
 def مستطيل(س, ص, عرض, ارتفاع, تعبئة="#dddddd", حد="#000000", سماكة=1): { return svg_rect(س, ص, عرض, ارتفاع, تعبئة, حد, سماكة) }
 
 def دائرة(مركز_س, مركز_ص, نصف_قطر, تعبئة="#88c", حد="#000", سماكة=1): { return svg_circle(مركز_س, مركز_ص, نصف_قطر, تعبئة, حد, سماكة) }
+
+
+# Arabic SMIL wrappers
+
+def حرك_SVG(خاصية, قيم, مدة="2s", تكرار="indefinite", أزمنة="", وضع=""):
+{ return svg_animate(خاصية, قيم, مدة, تكرار, أزمنة, وضع) }
+
+
+def تحويل_متحرك(نوع, من, إلى, مدة="2s", تكرار="indefinite"):
+{ return svg_animate_transform(نوع, من, إلى, مدة, تكرار) }
+
+
+def تحريك_مسار(مسار, مدة="2s", تكرار="indefinite", تدوير="auto"):
+{ return svg_animate_motion(مسار, مدة, تكرار, تدوير) }
+
+
+def مجموعة_دوران(داخل, مركز_س, مركز_ص, من=0, إلى=360, مدة="4s", تكرار="indefinite"):
+{ return svg_rotating_group(داخل, مركز_س, مركز_ص, من, إلى, مدة, تكرار) }
 
 def خط(س1, ص1, س2, ص2, حد="#222", سماكة=1): { return svg_line(س1, ص1, س2, ص2, حد, سماكة) }
 

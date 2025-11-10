@@ -92,8 +92,18 @@
           <div class="btn-group btn-group-sm" role="group">
             <button class="btn btn-outline-secondary" id="btn-prev-output">سابق</button>
             <button class="btn btn-outline-secondary" id="btn-next-output">التالي</button>
+            <button class="btn btn-outline-primary" id="btn-toggle-play">تشغيل</button>
             <button class="btn btn-outline-info" id="btn-copy-output">نسخ</button>
             <button class="btn btn-outline-success" id="btn-download-output">تنزيل</button>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <label class="form-label m-0 small">FPS</label>
+            <select id="sel-play-fps" class="form-select form-select-sm" style="width:auto">
+              <option value="2">2</option>
+              <option value="6" selected>6</option>
+              <option value="12">12</option>
+              <option value="24">24</option>
+            </select>
           </div>
         </div>
 
@@ -437,12 +447,18 @@
   const btnNextOutput = document.getElementById('btn-next-output');
   const btnCopyOutput = document.getElementById('btn-copy-output');
   const btnDownloadOutput = document.getElementById('btn-download-output');
+  const btnTogglePlay = document.getElementById('btn-toggle-play');
+  const selPlayFps = document.getElementById('sel-play-fps');
   let previewItems = [];
   let previewIndex = 0;
+  let playTimer = null;
+  let playFps = 6;
   if (btnPrevOutput) btnPrevOutput.addEventListener('click', () => { if (previewIndex > 0) { previewIndex--; renderPreview(); } });
   if (btnNextOutput) btnNextOutput.addEventListener('click', () => { if (previewIndex < (previewItems.length - 1)) { previewIndex++; renderPreview(); } });
   if (btnCopyOutput) btnCopyOutput.addEventListener('click', () => copyCurrentOutput());
   if (btnDownloadOutput) btnDownloadOutput.addEventListener('click', () => downloadCurrentOutput());
+  if (btnTogglePlay) btnTogglePlay.addEventListener('click', () => togglePlayback());
+  if (selPlayFps) selPlayFps.addEventListener('change', () => { try{ playFps = Math.max(1, parseInt(selPlayFps.value, 10) || 6); if (playTimer){ stopPlayback(); startPlayback(); } }catch(_){}});
 
 
   // Static keyword completer
@@ -520,7 +536,13 @@
       return m ? m[0] : '';
     } catch (_) { return ''; }
   }
-  function setToolbarVisible(v){ try{ if (previewToolbar) previewToolbar.style.display = v ? '' : 'none'; }catch(_){} }
+  function setToolbarVisible(v){
+    try{
+      if (previewToolbar) previewToolbar.style.display = v ? '' : 'none';
+      if (!v){ if (typeof stopPlayback === 'function') stopPlayback(); }
+      if (typeof updatePlayButton === 'function') updatePlayButton();
+    }catch(_){}
+  }
   function collectOutputs(s){
     const items = [];
     try{
@@ -545,6 +567,7 @@
       if (previewStatus) previewStatus.textContent = `${previewIndex+1}/${previewItems.length}`;
       if (btnPrevOutput) btnPrevOutput.disabled = (previewIndex <= 0);
       if (btnNextOutput) btnNextOutput.disabled = (previewIndex >= previewItems.length-1);
+      if (typeof updatePlayButton === 'function') updatePlayButton();
     }catch(_){ }
     setToolbarVisible(true);
     if (it.type === 'svg'){
@@ -587,6 +610,35 @@
       }
     }catch(_){ }
   }
+  function updatePlayButton(){
+    try{
+      if (!btnTogglePlay) return;
+      const canPlay = (previewItems && previewItems.length > 1);
+      btnTogglePlay.disabled = !canPlay;
+      btnTogglePlay.textContent = playTimer ? 'إيقاف' : 'تشغيل';
+    }catch(_){ }
+  }
+  function startPlayback(){
+    try{
+      if (playTimer) return;
+      if (!previewItems || previewItems.length < 2) return;
+      const interval = Math.max(16, Math.floor(1000 / (playFps || 6)));
+      playTimer = setInterval(() => {
+        try{
+          previewIndex = (previewIndex + 1) % previewItems.length;
+          renderPreview();
+        }catch(_){ }
+      }, interval);
+      updatePlayButton();
+    }catch(_){ }
+  }
+  function stopPlayback(){
+    try{
+      if (playTimer){ clearInterval(playTimer); playTimer = null; }
+      updatePlayButton();
+    }catch(_){ }
+  }
+  function togglePlayback(){ try{ if (playTimer) stopPlayback(); else startPlayback(); }catch(_){ } }
   function downloadCurrentOutput(){
     try{
       const it = previewItems && previewItems[previewIndex]; if (!it) return;
@@ -603,6 +655,7 @@
   async function run(code) {
     outputPre.textContent = '...';
     if (previewDiv) { previewDiv.innerHTML = ''; }
+    if (typeof stopPlayback === 'function') stopPlayback();
     previewItems = [];
     previewIndex = 0;
     setToolbarVisible(false);
