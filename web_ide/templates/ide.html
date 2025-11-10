@@ -44,6 +44,13 @@
           <option value="ar">العربية</option>
           <option value="en">English</option>
         </select>
+        <label class="form-label m-0 me-1">مجال الإكمال</label>
+        <select id="sel-ac-domain" class="form-select form-select-sm" style="width:auto">
+          <option value="all" selected>الكل</option>
+          <option value="ai.ml">ai.ml</option>
+          <option value="ai.nlp">ai.nlp</option>
+          <option value="ai.data">ai.data</option>
+        </select>
         <div class="vr mx-2"></div>
         <label class="form-label m-0 me-1">السمة</label>
         <select id="sel-theme" class="form-select form-select-sm" style="width:auto">
@@ -240,24 +247,26 @@
     {caption:'تقسيم_عشوائي_تدريب_اختبار', value:'تقسيم_عشوائي_تدريب_اختبار', meta:'ai.ar', docText:'Arabic alias: train_test_split_shuffle.'}
   ];
   const isArabicName = (s) => /[^\x00-\x7F]/.test(s || '');
-let completionLangMode = 'all';
-const aiCompleter = {
-  getCompletions: function(editor, session, pos, prefix, callback) {
-    const compsRaw = aiCompletions.map(it => ({
-      caption: it.caption,
-      value: it.value,
-      meta: it.meta,
-      score: it.score || 80,
-      docText: it.docText,
-      ar: (typeof it.ar === 'boolean' ? it.ar : isArabicName(it.caption))
-    }));
-    let comps = compsRaw;
-    if (completionLangMode === 'ar') comps = compsRaw.filter(c => c.ar);
-    else if (completionLangMode === 'en') comps = compsRaw.filter(c => !c.ar);
-    callback(null, comps);
-  }
-};
-langTools.addCompleter(aiCompleter);
+  let completionLangMode = 'all';
+  let completionDomainMode = 'all';
+  const aiCompleter = {
+    getCompletions: function(editor, session, pos, prefix, callback) {
+      const compsRaw = aiCompletions.map(it => ({
+        caption: it.caption,
+        value: it.value,
+        meta: it.meta,
+        score: it.score || 80,
+        docText: it.docText,
+        ar: (typeof it.ar === 'boolean' ? it.ar : isArabicName(it.caption))
+      }));
+      let comps = compsRaw;
+      if (completionLangMode === 'ar') comps = comps.filter(c => c.ar);
+      else if (completionLangMode === 'en') comps = comps.filter(c => !c.ar);
+      if (completionDomainMode !== 'all') comps = comps.filter(c => (c.meta || '') === completionDomainMode);
+      callback(null, comps);
+    }
+  };
+  langTools.addCompleter(aiCompleter);
 
 
   // Dynamic: load all AI functions (English + Arabic) from backend and merge
@@ -275,6 +284,13 @@ langTools.addCompleter(aiCompleter);
             ar: !!fn.ar
           });
           seen.add(fn.name);
+        } else {
+          const i = aiCompletions.findIndex(c => c.caption === fn.name);
+          if (i >= 0) {
+            if (fn.meta) aiCompletions[i].meta = fn.meta;
+            if (!aiCompletions[i].docText && fn.doc) aiCompletions[i].docText = fn.doc;
+            if (typeof aiCompletions[i].ar !== 'boolean') aiCompletions[i].ar = !!fn.ar;
+          }
         }
       });
     }).catch(() => {});
@@ -406,6 +422,8 @@ langTools.addCompleter(aiCompleter);
       const opt = document.createElement('option');
       opt.value = it.name;
       opt.textContent = it.name;
+      if (it.desc) opt.title = it.desc;
+      else opt.title = it.name;
       sel.appendChild(opt);
     });
   }
@@ -483,6 +501,7 @@ langTools.addCompleter(aiCompleter);
   document.getElementById('sel-theme').onchange = (e) => editor.setTheme(e.target.value);
   document.getElementById('sel-fontsize').onchange = (e) => editor.setFontSize(parseInt(e.target.value, 10) || 14);
 
+  document.getElementById('sel-ac-domain').onchange = (e) => { completionDomainMode = e.target.value; };
   document.getElementById('sel-ac-lang').onchange = (e) => { completionLangMode = e.target.value; };
   document.getElementById('inp-example-filter').oninput = applyExamplesFilter;
 

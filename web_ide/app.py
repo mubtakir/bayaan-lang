@@ -216,6 +216,21 @@ def _extract_first_bayan_block(text: str) -> str | None:
     return text[start:end].strip()
 
 
+def _extract_first_heading(text: str) -> str | None:
+    try:
+        for line in text.splitlines():
+            s = line.lstrip()
+            if s.startswith('#'):
+                # strip leading hashes and spaces
+                s2 = s.lstrip('#').strip()
+                if s2:
+                    return s2
+        return None
+    except Exception:
+        return None
+
+
+
 @app.get('/api/ide/examples')
 def api_ide_examples():
     items = []
@@ -230,7 +245,8 @@ def api_ide_examples():
                         txt = f.read()
                     has_bayan = ("```bayan" in txt)
                     if has_bayan:
-                        items.append({'name': name})
+                        desc = _extract_first_heading(txt) or ''
+                        items.append({'name': name, 'desc': desc})
                 except Exception:
                     continue
     except Exception:
