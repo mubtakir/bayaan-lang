@@ -38,6 +38,21 @@ def img_to_data_uri(img, fmt="PNG"):
     return gfx_img_py.to_data_uri(img, fmt)
 }
 
+
+# Animated GIF export
+
+def img_gif_from_frames(frames, duration_ms=100, loop=0):
+{
+    return gfx_img_py.to_gif_data_uri(frames, int(duration_ms), int(loop))
+}
+
+# Arabic wrappers for GIF
+
+def صورة_متحركة_من_إطارات(إطارات, مدة=100, تكرار=0):
+{
+    return img_gif_from_frames(إطارات, مدة, تكرار)
+}
+
 # Arabic wrappers
 
 def لوحة(عرض, ارتفاع, خلفية="#ffffff"):

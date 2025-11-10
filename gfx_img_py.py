@@ -100,3 +100,43 @@ def to_data_uri(img, fmt: str = "PNG") -> str:
     mime = 'image/png' if format_upper == 'PNG' else 'image/jpeg'
     return f"data:{mime};base64,{b64}"
 
+
+
+
+def to_gif_data_uri(frames, duration_ms: int = 100, loop: int = 0) -> str:
+    """Create an animated GIF from a list of PIL Images and return as data URI.
+    duration_ms: duration per frame in milliseconds
+    loop: number of loops (0 = infinite)
+    """
+    _ensure_pillow()
+    if not isinstance(frames, (list, tuple)) or len(frames) == 0:
+        raise ValueError("to_gif_data_uri: frames must be a non-empty list of images")
+    # Ensure all frames are PIL Images and convert to palette mode for GIF
+    conv = []
+    for fr in frames:
+        if getattr(fr, "__class__", None).__name__ != "Image":
+            # Best-effort: try Image.fromarray or accept if it has .convert
+            try:
+                fr = fr.convert("RGBA")  # type: ignore
+            except Exception:
+                raise TypeError("to_gif_data_uri: frame is not a PIL Image")
+        # Convert to 'P' palette for better size; fallback to RGB
+        try:
+            fr_p = fr.convert("P", palette=Image.ADAPTIVE)
+        except Exception:
+            fr_p = fr.convert("RGB")
+        conv.append(fr_p)
+    first, rest = conv[0], conv[1:]
+    bio = io.BytesIO()
+    first.save(
+        bio,
+        format="GIF",
+        save_all=True,
+        append_images=rest,
+        duration=int(duration_ms),
+        loop=int(loop),
+        optimize=True,
+        disposal=2,
+    )
+    b64 = base64.b64encode(bio.getvalue()).decode("ascii")
+    return f"data:image/gif;base64,{b64}"
