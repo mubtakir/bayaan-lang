@@ -22,9 +22,17 @@ python -m eval_framework.cli \
 ```
 python -m eval_framework.cli \
   --dataset datasets/alignment/sample_social_interactions.jsonl \
-  --pred predictions.jsonl \
+  --pred eval_framework/examples/predictions.sample.jsonl \
   --out metrics.json --pretty
 ```
+
+## Predictions format (JSONL)
+One object per line with at least:
+- `id`: string matching a reference example id
+- `bayan_code`: model-generated or proposed Bayan snippet
+
+Sample file (3 lines):
+- eval_framework/examples/predictions.sample.jsonl
 
 ## Reported Metrics
 - syntax_valid_rate: Fraction of snippets whose Bayan syntax parses
