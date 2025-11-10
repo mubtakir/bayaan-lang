@@ -1,0 +1,48 @@
+{
+  "metadata": {
+    "name": "Social Interactions Template",
+    "version": "1.0",
+    "license": "CC BY 4.0",
+    "description": "Convert human context to Bayaan entities/actions with expected logical effects"
+  },
+  "structure": {
+    "logical_context": "",
+    "human_description": "",
+    "expected_output": {
+      "action": "",
+      "value": 0.0,
+      "effect": ""
+    }
+  },
+  "output_format": "strict_json",
+  "examples": [
+    {
+      "logical_context": "Entity Ahmed { states: hunger=0.9, trust=0.4 };\nEntity Mohammed { properties: kindness=0.85 }",
+      "human_description": "Mohammed notices Ahmed is hungry and unsure, and decides to help kindly",
+      "expected_output": {
+        "action": "serve_meal",
+        "value": 0.7,
+        "effect": "Ahmed.hunger = Ahmed.hunger - (0.4 * value); Ahmed.trust = Ahmed.trust + 0.2"
+      }
+    },
+    {
+      "logical_context": "Entity Layla { states: sadness=0.85 };\nEntity Youssef { properties: empathy=0.9 }",
+      "human_description": "Youssef notices Layla's sadness and tries to comfort her",
+      "expected_output": {
+        "action": "comfort",
+        "value": 0.8,
+        "effect": "Layla.sadness = Layla.sadness * (1 - 0.3 * value)"
+      }
+    },
+    {
+      "logical_context": "Entity Team { states: cohesion=0.5 }",
+      "human_description": "The manager cheers the team before delivery",
+      "expected_output": {
+        "action": "encourage",
+        "value": 0.6,
+        "effect": "Team.cohesion = Team.cohesion + 0.25 * value"
+      }
+    }
+  ]
+}
+

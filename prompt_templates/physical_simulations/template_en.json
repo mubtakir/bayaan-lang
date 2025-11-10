@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "name": "Physical Simulations Template",
+    "version": "1.0",
+    "license": "CC BY 4.0",
+    "description": "Model simple physical interactions (force, mass, velocity, heat) into logical effects"
+  },
+  "structure": {
+    "logical_context": "",
+    "human_description": "",
+    "expected_output": {
+      "action": "",
+      "value": 0.0,
+      "effect": ""
+    }
+  },
+  "output_format": "strict_json",
+  "examples": [
+    {
+      "logical_context": "Entity Ball { properties: mass=0.5, velocity=0.0 }",
+      "human_description": "A person pushes the ball forward with medium strength",
+      "expected_output": {
+        "action": "push",
+        "value": 0.6,
+        "effect": "Ball.velocity = Ball.velocity + (force/mass) * value"
+      }
+    },
+    {
+      "logical_context": "Entity Water { states: temperature=0.3 }",
+      "human_description": "Heat the water slightly",
+      "expected_output": {
+        "action": "heat",
+        "value": 0.5,
+        "effect": "Water.temperature = Water.temperature + 0.4 * value"
+      }
+    }
+  ]
+}
+
