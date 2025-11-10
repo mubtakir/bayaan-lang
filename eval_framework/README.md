@@ -35,12 +35,33 @@ python -m eval_framework.cli \
   --lang-filter ar --split-filter train --pretty
 ```
 
-4) Baseline: echo reference (generates predictions identical to reference)
+4) Dump failing examples (اختياري):
+- كتابة المعرفات فقط:
+```
+python -m eval_framework.cli \
+  --dataset datasets/alignment/sample_social_interactions.jsonl \
+  --dump-fail eval_framework/results/failing_ids.jsonl --dump-mode ids
+```
+- كتابة السجلات كاملة (JSONL):
+```
+python -m eval_framework.cli \
+  --dataset datasets/alignment/sample_social_interactions.jsonl \
+  --dump-fail eval_framework/results/failing_full.jsonl --dump-mode full
+```
+
+5) Baseline: echo reference (generates predictions identical to reference)
 ```
 python -m eval_framework.baselines.echo_ref \
   --dataset datasets/alignment/sample_social_interactions.jsonl \
   --out eval_framework/examples/predictions.sample.jsonl
 ```
+
+## Output structure
+- dataset_metrics:
+  - counts (إجمالي + per split + per lang)
+  - syntax_valid_rate, logic.{…}
+  - per_lang.{ar,en}.{count, syntax_valid_rate, logic.{…}}
+  - per_split.{train,val,test}.{count, syntax_valid_rate, logic.{…}}
 
 ## Predictions format (JSONL)
 One object per line with at least:

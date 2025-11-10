@@ -65,26 +65,70 @@ def dataset_quality_metrics(examples: List[Dict]) -> Dict:
     langs = Counter(e.get("lang", "?") for e in examples)
     splits = Counter(e.get("split", "?") for e in examples)
 
-    # Syntax
-    ok_syntax = 0
+    # Global counters
+    ok_syntax = ent_ok = act_ok = st_ok = no_ctr = all_ok = 0
+
+    # Grouped counters
+    grp_lang: Dict[str, Dict[str, int]] = {}
+    grp_split: Dict[str, Dict[str, int]] = {}
+
+    def _ensure(d: Dict[str, Dict[str, int]], k: str) -> Dict[str, int]:
+        if k not in d:
+            d[k] = {"n": 0, "syn": 0, "ent": 0, "act": 0, "st": 0, "noc": 0, "all": 0}
+        return d[k]
+
+    # One pass
     for e in examples:
         code = e.get("bayan_code", "")
-        res = check_syntax(code)
-        ok_syntax += 1 if res.ok else 0
+        lang = e.get("lang", "?")
+        split = e.get("split", "?")
 
-    # Logic checks
-    ent_ok = act_ok = st_ok = no_ctr = all_ok = 0
-    for e in examples:
+        syn_ok = check_syntax(code).ok
+        ok_syntax += 1 if syn_ok else 0
+
         chk = validate_example(e)
-        ent_ok += 1 if chk.entities_ok else 0
-        act_ok += 1 if chk.actions_ok else 0
-        st_ok += 1 if chk.states_ok else 0
-        no_ctr += 1 if chk.no_contradiction else 0
-        if chk.entities_ok and chk.actions_ok and chk.states_ok and chk.no_contradiction:
-            all_ok += 1
+        ent = 1 if chk.entities_ok else 0
+        act = 1 if chk.actions_ok else 0
+        stt = 1 if chk.states_ok else 0
+        noc = 1 if chk.no_contradiction else 0
+        allp = 1 if (ent and act and stt and noc) else 0
 
-    def rate(x: int) -> float:
-        return round(x / n, 4) if n else 0.0
+        ent_ok += ent
+        act_ok += act
+        st_ok += stt
+        no_ctr += noc
+        all_ok += allp
+
+        gl = _ensure(grp_lang, lang)
+        gs = _ensure(grp_split, split)
+        gl["n"] += 1; gs["n"] += 1
+        gl["syn"] += 1 if syn_ok else 0; gs["syn"] += 1 if syn_ok else 0
+        gl["ent"] += ent; gs["ent"] += ent
+        gl["act"] += act; gs["act"] += act
+        gl["st"] += stt; gs["st"] += stt
+        gl["noc"] += noc; gs["noc"] += noc
+        gl["all"] += allp; gs["all"] += allp
+
+    def rate(x: int, d: int | None = None) -> float:
+        denom = n if d is None else d
+        return round((x / denom) if denom else 0.0, 4)
+
+    def pack_group(dd: Dict[str, Dict[str, int]]) -> Dict[str, Dict[str, float]]:
+        out: Dict[str, Dict[str, float]] = {}
+        for k, v in dd.items():
+            nn = v.get("n", 0)
+            out[k] = {
+                "count": nn,
+                "syntax_valid_rate": rate(v.get("syn", 0), nn),
+                "logic": {
+                    "entities_ok_rate": rate(v.get("ent", 0), nn),
+                    "actions_ok_rate": rate(v.get("act", 0), nn),
+                    "states_ok_rate": rate(v.get("st", 0), nn),
+                    "no_contradiction_rate": rate(v.get("noc", 0), nn),
+                    "all_pass_rate": rate(v.get("all", 0), nn),
+                },
+            }
+        return out
 
     return {
         "counts": {"total": n, **dict(langs), **{f"split_{k}": v for k, v in splits.items()}},
@@ -96,6 +140,8 @@ def dataset_quality_metrics(examples: List[Dict]) -> Dict:
             "no_contradiction_rate": rate(no_ctr),
             "all_pass_rate": rate(all_ok),
         },
+        "per_lang": pack_group(grp_lang),
+        "per_split": pack_group(grp_split),
     }
 
 

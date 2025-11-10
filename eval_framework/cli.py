@@ -24,6 +24,8 @@ def main() -> None:
     ap.add_argument("--pretty", action="store_true", help="Pretty-print JSON")
     ap.add_argument("--lang-filter", default="", help="Optional: comma-separated subset of languages to include (ar,en)")
     ap.add_argument("--split-filter", default="", help="Optional: comma-separated subset of splits to include (train,val,test)")
+    ap.add_argument("--dump-fail", default="", help="Optional: write failing examples to this JSONL file (ids or full objects)")
+    ap.add_argument("--dump-mode", choices=["ids", "full"], default="ids", help="Dump ids only or full JSON objects")
     args = ap.parse_args()
 
     ref = load_jsonl(args.dataset)
@@ -51,6 +53,23 @@ def main() -> None:
     if args.pred:
         pred = load_jsonl(args.pred)
         out["prediction_metrics"] = prediction_metrics(ref, pred)
+
+    # Optional: dump failing examples
+    if args.dump_fail:
+        dump_path = Path(args.dump_fail)
+        dump_path.parent.mkdir(parents=True, exist_ok=True)
+        with dump_path.open("w", encoding="utf-8", newline="\n") as f:
+            from .syntax_checker import check_syntax
+            from .logic_validator import validate_example
+            for r in ref:
+                syn_ok = check_syntax(r.get("bayan_code", "")).ok
+                chk = validate_example(r)
+                all_ok = syn_ok and chk.entities_ok and chk.actions_ok and chk.states_ok and chk.no_contradiction
+                if not all_ok:
+                    if args.dump_mode == "ids":
+                        f.write(json.dumps({"id": r.get("id")}, ensure_ascii=False) + "\n")
+                    else:
+                        f.write(json.dumps(r, ensure_ascii=False) + "\n")
 
     text = json.dumps(out, ensure_ascii=False, indent=2 if args.pretty else None)
     if args.out:
