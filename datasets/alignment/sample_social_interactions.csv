@@ -1,501 +1,501 @@
 natural_text,bayan_code,logic_explanation,lang,entities,actions,states,split,id
-أحمد في البيت يقوم بفعل 'اعتذار' مع محمد,أحمد.اعتذار(محمد); محمد.غضب -= 0.2; محمد.ثقة += 0.1,الاعتذار يقلل الغضب ويزيد الثقة قليلًا,ar,"[""أحمد"", ""محمد""]","[""اعتذار""]","[""غضب"", ""ثقة""]",train,ex001
-in the park: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex002
-ليلى في العمل يقوم بفعل 'اعتذار' مع يوسف,ليلى.اعتذار(يوسف); يوسف.غضب -= 0.2; يوسف.ثقة += 0.1,الاعتذار يقلل الغضب ويزيد الثقة قليلًا,ar,"[""ليلى"", ""يوسف""]","[""اعتذار""]","[""غضب"", ""ثقة""]",train,ex003
-Mohammed at the hospital performs 'apologize' with Youssef,Mohammed.apologize(Youssef); Youssef.anger -= 0.2; Youssef.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Mohammed"", ""Youssef""]","[""apologize""]","[""anger"", ""trust""]",train,ex004
-مريم في البيت يقوم بفعل 'تهنئة' مع أحمد,مريم.تهنئة(أحمد); أحمد.سعادة += 0.2,التهنئة ترفع السعادة,ar,"[""مريم"", ""أحمد""]","[""تهنئة""]","[""سعادة""]",train,ex005
-Ahmed in the park performs 'apologize' with Ali,Ahmed.apologize(Ali); Ali.anger -= 0.2; Ali.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Ahmed"", ""Ali""]","[""apologize""]","[""anger"", ""trust""]",train,ex006
-في السوق: سحب على كرة_معدنية,كرة_معدنية.سحب(); كرة_معدنية.سرعة += 0.1; كرة_معدنية.طاقة -= 0.05,السحب يغير السرعة وقد يقلل الطاقة,ar,"[""كرة_معدنية""]","[""سحب""]","[""سرعة"", ""طاقة""]",train,ex007
-in the park: push on Box,Box.push(); Box.speed += 0.2; Box.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Box""]","[""push""]","[""speed"", ""energy""]",train,ex008
-ليلى في المدرسة يقوم بفعل 'تهنئة' مع فاطمة,ليلى.تهنئة(فاطمة); فاطمة.سعادة += 0.2,التهنئة ترفع السعادة,ar,"[""ليلى"", ""فاطمة""]","[""تهنئة""]","[""سعادة""]",train,ex009
-at work: heat on MetalBall,MetalBall.heat(); MetalBall.temperature += 0.3; MetalBall.energy -= 0.05,Heating raises temperature,en,"[""MetalBall""]","[""heat""]","[""temperature"", ""energy""]",train,ex010
-في الحديقة: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex011
-at the market: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex012
-يوسف في المستشفى يقوم بفعل 'اعتذار' مع مريم,يوسف.اعتذار(مريم); مريم.غضب -= 0.2; مريم.ثقة += 0.1,الاعتذار يقلل الغضب ويزيد الثقة قليلًا,ar,"[""يوسف"", ""مريم""]","[""اعتذار""]","[""غضب"", ""ثقة""]",train,ex013
-in the park: cool on Object,Object.cool(); Object.temperature -= 0.3,Cooling lowers temperature,en,"[""Object""]","[""cool""]","[""temperature""]",train,ex014
-في الحديقة: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex015
-Khaled at work performs 'advise' with Maryam,Khaled.advise(Maryam); Maryam.focus += 0.2,Advice to stay calm improves focus,en,"[""Khaled"", ""Maryam""]","[""advise""]","[""focus""]",train,ex016
-في السوق: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex017
-Maryam at work performs 'advise' with Sarah,Maryam.advise(Sarah); Sarah.focus += 0.2,Advice to stay calm improves focus,en,"[""Maryam"", ""Sarah""]","[""advise""]","[""focus""]",train,ex018
-في البيت: تسخين على سيارة,سيارة.تسخين(); سيارة.حرارة += 0.3; سيارة.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""سيارة""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex019
-in the park: cool on Box,Box.cool(); Box.temperature -= 0.3,Cooling lowers temperature,en,"[""Box""]","[""cool""]","[""temperature""]",train,ex020
-في العمل: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex021
-in the park: pull on Box,Box.pull(); Box.speed += 0.1; Box.energy -= 0.05,Pulling changes speed and may reduce energy,en,"[""Box""]","[""pull""]","[""speed"", ""energy""]",train,ex022
-في العمل: تسخين على كرة,كرة.تسخين(); كرة.حرارة += 0.3; كرة.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""كرة""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex023
-in the park: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex024
-فاطمة في المستشفى يقوم بفعل 'تقديم_وجبة' مع ليلى,فاطمة.تقديم_وجبة(ليلى); ليلى.جوع -= 0.4; ليلى.امتنان += 0.3,الطعام يقلل الجوع ويزيد الامتنان,ar,"[""فاطمة"", ""ليلى""]","[""تقديم_وجبة""]","[""جوع"", ""امتنان""]",train,ex025
-at the market: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex026
-في المستشفى: سحب على جسم,جسم.سحب(); جسم.سرعة += 0.1; جسم.طاقة -= 0.05,السحب يغير السرعة وقد يقلل الطاقة,ar,"[""جسم""]","[""سحب""]","[""سرعة"", ""طاقة""]",train,ex027
-at the hospital: push on Ball,Ball.push(); Ball.speed += 0.2; Ball.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Ball""]","[""push""]","[""speed"", ""energy""]",train,ex028
-في المدرسة: تسريع على صندوق,صندوق.تسريع(); صندوق.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""صندوق""]","[""تسريع""]","[""سرعة""]",train,ex029
-in the park: cool on Box,Box.cool(); Box.temperature -= 0.3,Cooling lowers temperature,en,"[""Box""]","[""cool""]","[""temperature""]",train,ex030
-فاطمة في الحديقة يقوم بفعل 'تهنئة' مع سارة,فاطمة.تهنئة(سارة); سارة.سعادة += 0.2,التهنئة ترفع السعادة,ar,"[""فاطمة"", ""سارة""]","[""تهنئة""]","[""سعادة""]",train,ex031
-Youssef at the hospital performs 'advise' with Noor,Youssef.advise(Noor); Noor.focus += 0.2,Advice to stay calm improves focus,en,"[""Youssef"", ""Noor""]","[""advise""]","[""focus""]",train,ex032
-في المدرسة: دفع على جسم,جسم.دفع(); جسم.سرعة += 0.2; جسم.طاقة -= 0.05,الدفع يزيد السرعة وفق القوة والكتلة,ar,"[""جسم""]","[""دفع""]","[""سرعة"", ""طاقة""]",train,ex033
-Youssef in the park performs 'comfort' with Sarah,Youssef.comfort(Sarah); Sarah.sadness -= 0.3,Comforting reduces sadness,en,"[""Youssef"", ""Sarah""]","[""comfort""]","[""sadness""]",train,ex034
-في المدرسة: تبريد على سيارة,سيارة.تبريد(); سيارة.حرارة -= 0.3,التبريد يخفض الحرارة,ar,"[""سيارة""]","[""تبريد""]","[""حرارة""]",train,ex035
-Ali at home performs 'serve_meal' with Sarah,Ali.serve_meal(Sarah); Sarah.hunger -= 0.4; Sarah.gratitude += 0.3,Serving food reduces hunger and increases gratitude,en,"[""Ali"", ""Sarah""]","[""serve_meal""]","[""hunger"", ""gratitude""]",train,ex036
-في البيت: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex037
-Ali at the market performs 'apologize' with Fatimah,Ali.apologize(Fatimah); Fatimah.anger -= 0.2; Fatimah.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Ali"", ""Fatimah""]","[""apologize""]","[""anger"", ""trust""]",train,ex038
-في الحديقة: تسريع على صندوق,صندوق.تسريع(); صندوق.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""صندوق""]","[""تسريع""]","[""سرعة""]",train,ex039
-Ali at home performs 'apologize' with Youssef,Ali.apologize(Youssef); Youssef.anger -= 0.2; Youssef.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Ali"", ""Youssef""]","[""apologize""]","[""anger"", ""trust""]",train,ex040
-في الحديقة: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex041
-at the market: cool on Box,Box.cool(); Box.temperature -= 0.3,Cooling lowers temperature,en,"[""Box""]","[""cool""]","[""temperature""]",train,ex042
-سارة في البيت يقوم بفعل 'اعتذار' مع مريم,سارة.اعتذار(مريم); مريم.غضب -= 0.2; مريم.ثقة += 0.1,الاعتذار يقلل الغضب ويزيد الثقة قليلًا,ar,"[""سارة"", ""مريم""]","[""اعتذار""]","[""غضب"", ""ثقة""]",train,ex043
-Sarah at school performs 'advise' with Maryam,Sarah.advise(Maryam); Maryam.focus += 0.2,Advice to stay calm improves focus,en,"[""Sarah"", ""Maryam""]","[""advise""]","[""focus""]",train,ex044
-في السوق: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",train,ex045
-Sarah at the market performs 'encourage' with Maryam,Sarah.encourage(Maryam); Maryam.trust += 0.25,Encouragement increases trust,en,"[""Sarah"", ""Maryam""]","[""encourage""]","[""trust""]",train,ex046
-علي في المستشفى يقوم بفعل 'مواساة' مع محمد,علي.مواساة(محمد); محمد.حزن -= 0.3,المواساة تقلل الحزن,ar,"[""علي"", ""محمد""]","[""مواساة""]","[""حزن""]",train,ex047
-in the park: cool on Object,Object.cool(); Object.temperature -= 0.3,Cooling lowers temperature,en,"[""Object""]","[""cool""]","[""temperature""]",train,ex048
-خالد في البيت يقوم بفعل 'تقديم_وجبة' مع سارة,خالد.تقديم_وجبة(سارة); سارة.جوع -= 0.4; سارة.امتنان += 0.3,الطعام يقلل الجوع ويزيد الامتنان,ar,"[""خالد"", ""سارة""]","[""تقديم_وجبة""]","[""جوع"", ""امتنان""]",train,ex049
-Youssef at home performs 'apologize' with Layla,Youssef.apologize(Layla); Layla.anger -= 0.2; Layla.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Youssef"", ""Layla""]","[""apologize""]","[""anger"", ""trust""]",train,ex050
-يوسف في البيت يقوم بفعل 'مواساة' مع أحمد,يوسف.مواساة(أحمد); أحمد.حزن -= 0.3,المواساة تقلل الحزن,ar,"[""يوسف"", ""أحمد""]","[""مواساة""]","[""حزن""]",train,ex051
-Youssef at home performs 'apologize' with Ahmed,Youssef.apologize(Ahmed); Ahmed.anger -= 0.2; Ahmed.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Youssef"", ""Ahmed""]","[""apologize""]","[""anger"", ""trust""]",train,ex052
-في المدرسة: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex053
-at home: heat on Water,Water.heat(); Water.temperature += 0.3; Water.energy -= 0.05,Heating raises temperature,en,"[""Water""]","[""heat""]","[""temperature"", ""energy""]",train,ex054
-يوسف في الحديقة يقوم بفعل 'تهنئة' مع علي,يوسف.تهنئة(علي); علي.سعادة += 0.2,التهنئة ترفع السعادة,ar,"[""يوسف"", ""علي""]","[""تهنئة""]","[""سعادة""]",train,ex055
-Ali at the hospital performs 'advise' with Sarah,Ali.advise(Sarah); Sarah.focus += 0.2,Advice to stay calm improves focus,en,"[""Ali"", ""Sarah""]","[""advise""]","[""focus""]",train,ex056
-في البيت: تبريد على ماء,ماء.تبريد(); ماء.حرارة -= 0.3,التبريد يخفض الحرارة,ar,"[""ماء""]","[""تبريد""]","[""حرارة""]",train,ex057
-Ahmed in the park performs 'encourage' with Youssef,Ahmed.encourage(Youssef); Youssef.trust += 0.25,Encouragement increases trust,en,"[""Ahmed"", ""Youssef""]","[""encourage""]","[""trust""]",train,ex058
-يوسف في المستشفى يقوم بفعل 'نصح' مع خالد,يوسف.نصح(خالد); خالد.تركيز += 0.2,النصح بالهدوء يحسن التركيز,ar,"[""يوسف"", ""خالد""]","[""نصح""]","[""تركيز""]",train,ex059
-at work: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex060
-أحمد في العمل يقوم بفعل 'اعتذار' مع يوسف,أحمد.اعتذار(يوسف); يوسف.غضب -= 0.2; يوسف.ثقة += 0.1,الاعتذار يقلل الغضب ويزيد الثقة قليلًا,ar,"[""أحمد"", ""يوسف""]","[""اعتذار""]","[""غضب"", ""ثقة""]",train,ex061
-at school: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex062
-محمد في البيت يقوم بفعل 'مواساة' مع يوسف,محمد.مواساة(يوسف); يوسف.حزن -= 0.3,المواساة تقلل الحزن,ar,"[""محمد"", ""يوسف""]","[""مواساة""]","[""حزن""]",train,ex063
-Khaled at home performs 'encourage' with Ahmed,Khaled.encourage(Ahmed); Ahmed.trust += 0.25,Encouragement increases trust,en,"[""Khaled"", ""Ahmed""]","[""encourage""]","[""trust""]",train,ex064
-ليلى في السوق يقوم بفعل 'نصح' مع سارة,ليلى.نصح(سارة); سارة.تركيز += 0.2,النصح بالهدوء يحسن التركيز,ar,"[""ليلى"", ""سارة""]","[""نصح""]","[""تركيز""]",train,ex065
-Layla at home performs 'encourage' with Youssef,Layla.encourage(Youssef); Youssef.trust += 0.25,Encouragement increases trust,en,"[""Layla"", ""Youssef""]","[""encourage""]","[""trust""]",train,ex066
-في البيت: دفع على ماء,ماء.دفع(); ماء.سرعة += 0.2; ماء.طاقة -= 0.05,الدفع يزيد السرعة وفق القوة والكتلة,ar,"[""ماء""]","[""دفع""]","[""سرعة"", ""طاقة""]",train,ex067
-Ahmed at the market performs 'serve_meal' with Ali,Ahmed.serve_meal(Ali); Ali.hunger -= 0.4; Ali.gratitude += 0.3,Serving food reduces hunger and increases gratitude,en,"[""Ahmed"", ""Ali""]","[""serve_meal""]","[""hunger"", ""gratitude""]",train,ex068
-في الحديقة: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex069
-in the park: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex070
-أحمد في المستشفى يقوم بفعل 'مواساة' مع فاطمة,أحمد.مواساة(فاطمة); فاطمة.حزن -= 0.3,المواساة تقلل الحزن,ar,"[""أحمد"", ""فاطمة""]","[""مواساة""]","[""حزن""]",train,ex071
-at work: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex072
-في المستشفى: سحب على جسم,جسم.سحب(); جسم.سرعة += 0.1; جسم.طاقة -= 0.05,السحب يغير السرعة وقد يقلل الطاقة,ar,"[""جسم""]","[""سحب""]","[""سرعة"", ""طاقة""]",train,ex073
-at work: push on Box,Box.push(); Box.speed += 0.2; Box.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Box""]","[""push""]","[""speed"", ""energy""]",train,ex074
-في البيت: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex075
-at the market: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex076
-ليلى في العمل يقوم بفعل 'اعتذار' مع خالد,ليلى.اعتذار(خالد); خالد.غضب -= 0.2; خالد.ثقة += 0.1,الاعتذار يقلل الغضب ويزيد الثقة قليلًا,ar,"[""ليلى"", ""خالد""]","[""اعتذار""]","[""غضب"", ""ثقة""]",train,ex077
-at the hospital: push on MetalBall,MetalBall.push(); MetalBall.speed += 0.2; MetalBall.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""MetalBall""]","[""push""]","[""speed"", ""energy""]",train,ex078
-في العمل: دفع على ماء,ماء.دفع(); ماء.سرعة += 0.2; ماء.طاقة -= 0.05,الدفع يزيد السرعة وفق القوة والكتلة,ar,"[""ماء""]","[""دفع""]","[""سرعة"", ""طاقة""]",train,ex079
-Ahmed in the park performs 'apologize' with Maryam,Ahmed.apologize(Maryam); Maryam.anger -= 0.2; Maryam.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Ahmed"", ""Maryam""]","[""apologize""]","[""anger"", ""trust""]",train,ex080
-يوسف في المستشفى يقوم بفعل 'تهنئة' مع فاطمة,يوسف.تهنئة(فاطمة); فاطمة.سعادة += 0.2,التهنئة ترفع السعادة,ar,"[""يوسف"", ""فاطمة""]","[""تهنئة""]","[""سعادة""]",train,ex081
-Mohammed in the park performs 'serve_meal' with Sarah,Mohammed.serve_meal(Sarah); Sarah.hunger -= 0.4; Sarah.gratitude += 0.3,Serving food reduces hunger and increases gratitude,en,"[""Mohammed"", ""Sarah""]","[""serve_meal""]","[""hunger"", ""gratitude""]",train,ex082
-في الحديقة: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex083
-at work: push on Car,Car.push(); Car.speed += 0.2; Car.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Car""]","[""push""]","[""speed"", ""energy""]",train,ex084
-في السوق: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex085
-at home: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex086
-في المدرسة: تسخين على كرة_معدنية,كرة_معدنية.تسخين(); كرة_معدنية.حرارة += 0.3; كرة_معدنية.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""كرة_معدنية""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex087
-Ali at home performs 'serve_meal' with Layla,Ali.serve_meal(Layla); Layla.hunger -= 0.4; Layla.gratitude += 0.3,Serving food reduces hunger and increases gratitude,en,"[""Ali"", ""Layla""]","[""serve_meal""]","[""hunger"", ""gratitude""]",train,ex088
-في المدرسة: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex089
-Youssef at home performs 'congratulate' with Layla,Youssef.congratulate(Layla); Layla.happiness += 0.2,Congratulations increase happiness,en,"[""Youssef"", ""Layla""]","[""congratulate""]","[""happiness""]",train,ex090
-خالد في الحديقة يقوم بفعل 'مواساة' مع يوسف,خالد.مواساة(يوسف); يوسف.حزن -= 0.3,المواساة تقلل الحزن,ar,"[""خالد"", ""يوسف""]","[""مواساة""]","[""حزن""]",train,ex091
-Ali at work performs 'apologize' with Maryam,Ali.apologize(Maryam); Maryam.anger -= 0.2; Maryam.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Ali"", ""Maryam""]","[""apologize""]","[""anger"", ""trust""]",train,ex092
-في البيت: تبريد على صندوق,صندوق.تبريد(); صندوق.حرارة -= 0.3,التبريد يخفض الحرارة,ar,"[""صندوق""]","[""تبريد""]","[""حرارة""]",train,ex093
-at the market: accelerate on MetalBall,MetalBall.accelerate(); MetalBall.speed += 0.25,Acceleration raises speed,en,"[""MetalBall""]","[""accelerate""]","[""speed""]",train,ex094
-ليلى في السوق يقوم بفعل 'تقديم_وجبة' مع سارة,ليلى.تقديم_وجبة(سارة); سارة.جوع -= 0.4; سارة.امتنان += 0.3,الطعام يقلل الجوع ويزيد الامتنان,ar,"[""ليلى"", ""سارة""]","[""تقديم_وجبة""]","[""جوع"", ""امتنان""]",train,ex095
-Noor at work performs 'advise' with Sarah,Noor.advise(Sarah); Sarah.focus += 0.2,Advice to stay calm improves focus,en,"[""Noor"", ""Sarah""]","[""advise""]","[""focus""]",train,ex096
-فاطمة في المدرسة يقوم بفعل 'تشجيع' مع يوسف,فاطمة.تشجيع(يوسف); يوسف.ثقة += 0.25,التشجيع يرفع الثقة,ar,"[""فاطمة"", ""يوسف""]","[""تشجيع""]","[""ثقة""]",train,ex097
-at the market: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex098
-في البيت: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex099
-Sarah at the market performs 'encourage' with Layla,Sarah.encourage(Layla); Layla.trust += 0.25,Encouragement increases trust,en,"[""Sarah"", ""Layla""]","[""encourage""]","[""trust""]",train,ex100
-في الحديقة: تسريع على ماء,ماء.تسريع(); ماء.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""ماء""]","[""تسريع""]","[""سرعة""]",train,ex101
-at work: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex102
-في المستشفى: تسريع على كرة,كرة.تسريع(); كرة.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""كرة""]","[""تسريع""]","[""سرعة""]",train,ex103
-at the hospital: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex104
-يوسف في المستشفى يقوم بفعل 'اعتذار' مع نور,يوسف.اعتذار(نور); نور.غضب -= 0.2; نور.ثقة += 0.1,الاعتذار يقلل الغضب ويزيد الثقة قليلًا,ar,"[""يوسف"", ""نور""]","[""اعتذار""]","[""غضب"", ""ثقة""]",train,ex105
-in the park: cool on MetalBall,MetalBall.cool(); MetalBall.temperature -= 0.3,Cooling lowers temperature,en,"[""MetalBall""]","[""cool""]","[""temperature""]",train,ex106
-نور في المدرسة يقوم بفعل 'تقديم_وجبة' مع فاطمة,نور.تقديم_وجبة(فاطمة); فاطمة.جوع -= 0.4; فاطمة.امتنان += 0.3,الطعام يقلل الجوع ويزيد الامتنان,ar,"[""نور"", ""فاطمة""]","[""تقديم_وجبة""]","[""جوع"", ""امتنان""]",train,ex107
-at the hospital: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex108
-يوسف في الحديقة يقوم بفعل 'تشجيع' مع سارة,يوسف.تشجيع(سارة); سارة.ثقة += 0.25,التشجيع يرفع الثقة,ar,"[""يوسف"", ""سارة""]","[""تشجيع""]","[""ثقة""]",train,ex109
-at home: heat on Car,Car.heat(); Car.temperature += 0.3; Car.energy -= 0.05,Heating raises temperature,en,"[""Car""]","[""heat""]","[""temperature"", ""energy""]",train,ex110
-علي في البيت يقوم بفعل 'تشجيع' مع فاطمة,علي.تشجيع(فاطمة); فاطمة.ثقة += 0.25,التشجيع يرفع الثقة,ar,"[""علي"", ""فاطمة""]","[""تشجيع""]","[""ثقة""]",train,ex111
-at work: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex112
-ليلى في البيت يقوم بفعل 'تهنئة' مع فاطمة,ليلى.تهنئة(فاطمة); فاطمة.سعادة += 0.2,التهنئة ترفع السعادة,ar,"[""ليلى"", ""فاطمة""]","[""تهنئة""]","[""سعادة""]",train,ex113
-Maryam at the hospital performs 'encourage' with Fatimah,Maryam.encourage(Fatimah); Fatimah.trust += 0.25,Encouragement increases trust,en,"[""Maryam"", ""Fatimah""]","[""encourage""]","[""trust""]",train,ex114
-في السوق: سحب على كرة,كرة.سحب(); كرة.سرعة += 0.1; كرة.طاقة -= 0.05,السحب يغير السرعة وقد يقلل الطاقة,ar,"[""كرة""]","[""سحب""]","[""سرعة"", ""طاقة""]",train,ex115
-in the park: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex116
-في الحديقة: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",train,ex117
-Khaled in the park performs 'comfort' with Sarah,Khaled.comfort(Sarah); Sarah.sadness -= 0.3,Comforting reduces sadness,en,"[""Khaled"", ""Sarah""]","[""comfort""]","[""sadness""]",train,ex118
-نور في العمل يقوم بفعل 'تهنئة' مع مريم,نور.تهنئة(مريم); مريم.سعادة += 0.2,التهنئة ترفع السعادة,ar,"[""نور"", ""مريم""]","[""تهنئة""]","[""سعادة""]",train,ex119
-at the market: accelerate on Car,Car.accelerate(); Car.speed += 0.25,Acceleration raises speed,en,"[""Car""]","[""accelerate""]","[""speed""]",train,ex120
-محمد في المستشفى يقوم بفعل 'تشجيع' مع سارة,محمد.تشجيع(سارة); سارة.ثقة += 0.25,التشجيع يرفع الثقة,ar,"[""محمد"", ""سارة""]","[""تشجيع""]","[""ثقة""]",train,ex121
-at the market: pull on Water,Water.pull(); Water.speed += 0.1; Water.energy -= 0.05,Pulling changes speed and may reduce energy,en,"[""Water""]","[""pull""]","[""speed"", ""energy""]",train,ex122
-في الحديقة: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex123
-at the market: pull on Car,Car.pull(); Car.speed += 0.1; Car.energy -= 0.05,Pulling changes speed and may reduce energy,en,"[""Car""]","[""pull""]","[""speed"", ""energy""]",train,ex124
-في العمل: دفع على كرة,كرة.دفع(); كرة.سرعة += 0.2; كرة.طاقة -= 0.05,الدفع يزيد السرعة وفق القوة والكتلة,ar,"[""كرة""]","[""دفع""]","[""سرعة"", ""طاقة""]",train,ex125
-in the park: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex126
-في المدرسة: تبريد على جسم,جسم.تبريد(); جسم.حرارة -= 0.3,التبريد يخفض الحرارة,ar,"[""جسم""]","[""تبريد""]","[""حرارة""]",train,ex127
-Ahmed at home performs 'advise' with Maryam,Ahmed.advise(Maryam); Maryam.focus += 0.2,Advice to stay calm improves focus,en,"[""Ahmed"", ""Maryam""]","[""advise""]","[""focus""]",train,ex128
-نور في المدرسة يقوم بفعل 'مواساة' مع ليلى,نور.مواساة(ليلى); ليلى.حزن -= 0.3,المواساة تقلل الحزن,ar,"[""نور"", ""ليلى""]","[""مواساة""]","[""حزن""]",train,ex129
-at school: cool on Water,Water.cool(); Water.temperature -= 0.3,Cooling lowers temperature,en,"[""Water""]","[""cool""]","[""temperature""]",train,ex130
-في البيت: تبريد على كرة,كرة.تبريد(); كرة.حرارة -= 0.3,التبريد يخفض الحرارة,ar,"[""كرة""]","[""تبريد""]","[""حرارة""]",train,ex131
-Mohammed at the hospital performs 'comfort' with Ahmed,Mohammed.comfort(Ahmed); Ahmed.sadness -= 0.3,Comforting reduces sadness,en,"[""Mohammed"", ""Ahmed""]","[""comfort""]","[""sadness""]",train,ex132
-فاطمة في المستشفى يقوم بفعل 'تقديم_وجبة' مع مريم,فاطمة.تقديم_وجبة(مريم); مريم.جوع -= 0.4; مريم.امتنان += 0.3,الطعام يقلل الجوع ويزيد الامتنان,ar,"[""فاطمة"", ""مريم""]","[""تقديم_وجبة""]","[""جوع"", ""امتنان""]",train,ex133
-at work: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex134
-في العمل: تسريع على صندوق,صندوق.تسريع(); صندوق.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""صندوق""]","[""تسريع""]","[""سرعة""]",train,ex135
-Fatimah at home performs 'apologize' with Sarah,Fatimah.apologize(Sarah); Sarah.anger -= 0.2; Sarah.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Fatimah"", ""Sarah""]","[""apologize""]","[""anger"", ""trust""]",train,ex136
-في السوق: تبريد على صندوق,صندوق.تبريد(); صندوق.حرارة -= 0.3,التبريد يخفض الحرارة,ar,"[""صندوق""]","[""تبريد""]","[""حرارة""]",train,ex137
-at the market: cool on Car,Car.cool(); Car.temperature -= 0.3,Cooling lowers temperature,en,"[""Car""]","[""cool""]","[""temperature""]",train,ex138
-في العمل: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",train,ex139
-at work: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex140
-محمد في المستشفى يقوم بفعل 'تهنئة' مع سارة,محمد.تهنئة(سارة); سارة.سعادة += 0.2,التهنئة ترفع السعادة,ar,"[""محمد"", ""سارة""]","[""تهنئة""]","[""سعادة""]",train,ex141
-in the park: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex142
-محمد في المستشفى يقوم بفعل 'مواساة' مع خالد,محمد.مواساة(خالد); خالد.حزن -= 0.3,المواساة تقلل الحزن,ar,"[""محمد"", ""خالد""]","[""مواساة""]","[""حزن""]",train,ex143
-Ali at school performs 'comfort' with Mohammed,Ali.comfort(Mohammed); Mohammed.sadness -= 0.3,Comforting reduces sadness,en,"[""Ali"", ""Mohammed""]","[""comfort""]","[""sadness""]",train,ex144
-يوسف في العمل يقوم بفعل 'تهنئة' مع نور,يوسف.تهنئة(نور); نور.سعادة += 0.2,التهنئة ترفع السعادة,ar,"[""يوسف"", ""نور""]","[""تهنئة""]","[""سعادة""]",train,ex145
-Noor at the hospital performs 'serve_meal' with Maryam,Noor.serve_meal(Maryam); Maryam.hunger -= 0.4; Maryam.gratitude += 0.3,Serving food reduces hunger and increases gratitude,en,"[""Noor"", ""Maryam""]","[""serve_meal""]","[""hunger"", ""gratitude""]",train,ex146
-في الحديقة: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex147
-at school: cool on Water,Water.cool(); Water.temperature -= 0.3,Cooling lowers temperature,en,"[""Water""]","[""cool""]","[""temperature""]",train,ex148
-في السوق: سحب على كرة_معدنية,كرة_معدنية.سحب(); كرة_معدنية.سرعة += 0.1; كرة_معدنية.طاقة -= 0.05,السحب يغير السرعة وقد يقلل الطاقة,ar,"[""كرة_معدنية""]","[""سحب""]","[""سرعة"", ""طاقة""]",train,ex149
-at work: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex150
-في البيت: سحب على كرة_معدنية,كرة_معدنية.سحب(); كرة_معدنية.سرعة += 0.1; كرة_معدنية.طاقة -= 0.05,السحب يغير السرعة وقد يقلل الطاقة,ar,"[""كرة_معدنية""]","[""سحب""]","[""سرعة"", ""طاقة""]",train,ex151
-Mohammed in the park performs 'comfort' with Ali,Mohammed.comfort(Ali); Ali.sadness -= 0.3,Comforting reduces sadness,en,"[""Mohammed"", ""Ali""]","[""comfort""]","[""sadness""]",train,ex152
-في السوق: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex153
-at school: push on Object,Object.push(); Object.speed += 0.2; Object.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Object""]","[""push""]","[""speed"", ""energy""]",train,ex154
-في العمل: تسخين على جسم,جسم.تسخين(); جسم.حرارة += 0.3; جسم.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""جسم""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex155
-at work: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex156
-في المدرسة: تبريد على ماء,ماء.تبريد(); ماء.حرارة -= 0.3,التبريد يخفض الحرارة,ar,"[""ماء""]","[""تبريد""]","[""حرارة""]",train,ex157
-Noor at home performs 'congratulate' with Maryam,Noor.congratulate(Maryam); Maryam.happiness += 0.2,Congratulations increase happiness,en,"[""Noor"", ""Maryam""]","[""congratulate""]","[""happiness""]",train,ex158
-في العمل: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex159
-Ali at school performs 'advise' with Noor,Ali.advise(Noor); Noor.focus += 0.2,Advice to stay calm improves focus,en,"[""Ali"", ""Noor""]","[""advise""]","[""focus""]",train,ex160
-فاطمة في الحديقة يقوم بفعل 'نصح' مع أحمد,فاطمة.نصح(أحمد); أحمد.تركيز += 0.2,النصح بالهدوء يحسن التركيز,ar,"[""فاطمة"", ""أحمد""]","[""نصح""]","[""تركيز""]",train,ex161
-at the market: accelerate on Water,Water.accelerate(); Water.speed += 0.25,Acceleration raises speed,en,"[""Water""]","[""accelerate""]","[""speed""]",train,ex162
-في المستشفى: دفع على كرة,كرة.دفع(); كرة.سرعة += 0.2; كرة.طاقة -= 0.05,الدفع يزيد السرعة وفق القوة والكتلة,ar,"[""كرة""]","[""دفع""]","[""سرعة"", ""طاقة""]",train,ex163
-at work: accelerate on MetalBall,MetalBall.accelerate(); MetalBall.speed += 0.25,Acceleration raises speed,en,"[""MetalBall""]","[""accelerate""]","[""speed""]",train,ex164
-في العمل: تسخين على كرة,كرة.تسخين(); كرة.حرارة += 0.3; كرة.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""كرة""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex165
-at home: pull on Ball,Ball.pull(); Ball.speed += 0.1; Ball.energy -= 0.05,Pulling changes speed and may reduce energy,en,"[""Ball""]","[""pull""]","[""speed"", ""energy""]",train,ex166
-علي في المستشفى يقوم بفعل 'تشجيع' مع نور,علي.تشجيع(نور); نور.ثقة += 0.25,التشجيع يرفع الثقة,ar,"[""علي"", ""نور""]","[""تشجيع""]","[""ثقة""]",train,ex167
-in the park: cool on Car,Car.cool(); Car.temperature -= 0.3,Cooling lowers temperature,en,"[""Car""]","[""cool""]","[""temperature""]",train,ex168
-في المدرسة: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex169
-at the market: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex170
-يوسف في الحديقة يقوم بفعل 'تشجيع' مع ليلى,يوسف.تشجيع(ليلى); ليلى.ثقة += 0.25,التشجيع يرفع الثقة,ar,"[""يوسف"", ""ليلى""]","[""تشجيع""]","[""ثقة""]",train,ex171
-at the market: pull on Ball,Ball.pull(); Ball.speed += 0.1; Ball.energy -= 0.05,Pulling changes speed and may reduce energy,en,"[""Ball""]","[""pull""]","[""speed"", ""energy""]",train,ex172
-في الحديقة: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex173
-Noor at home performs 'congratulate' with Maryam,Noor.congratulate(Maryam); Maryam.happiness += 0.2,Congratulations increase happiness,en,"[""Noor"", ""Maryam""]","[""congratulate""]","[""happiness""]",train,ex174
-علي في المدرسة يقوم بفعل 'نصح' مع أحمد,علي.نصح(أحمد); أحمد.تركيز += 0.2,النصح بالهدوء يحسن التركيز,ar,"[""علي"", ""أحمد""]","[""نصح""]","[""تركيز""]",train,ex175
-Layla at school performs 'encourage' with Maryam,Layla.encourage(Maryam); Maryam.trust += 0.25,Encouragement increases trust,en,"[""Layla"", ""Maryam""]","[""encourage""]","[""trust""]",train,ex176
-في المدرسة: تسريع على صندوق,صندوق.تسريع(); صندوق.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""صندوق""]","[""تسريع""]","[""سرعة""]",train,ex177
-Ali at school performs 'advise' with Noor,Ali.advise(Noor); Noor.focus += 0.2,Advice to stay calm improves focus,en,"[""Ali"", ""Noor""]","[""advise""]","[""focus""]",train,ex178
-في العمل: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex179
-at work: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex180
-في المدرسة: تبريد على صندوق,صندوق.تبريد(); صندوق.حرارة -= 0.3,التبريد يخفض الحرارة,ar,"[""صندوق""]","[""تبريد""]","[""حرارة""]",train,ex181
-Sarah at the hospital performs 'apologize' with Maryam,Sarah.apologize(Maryam); Maryam.anger -= 0.2; Maryam.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Sarah"", ""Maryam""]","[""apologize""]","[""anger"", ""trust""]",train,ex182
-في الحديقة: تبريد على ماء,ماء.تبريد(); ماء.حرارة -= 0.3,التبريد يخفض الحرارة,ar,"[""ماء""]","[""تبريد""]","[""حرارة""]",train,ex183
-at school: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex184
-في الحديقة: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex185
-Fatimah at the hospital performs 'congratulate' with Sarah,Fatimah.congratulate(Sarah); Sarah.happiness += 0.2,Congratulations increase happiness,en,"[""Fatimah"", ""Sarah""]","[""congratulate""]","[""happiness""]",train,ex186
-مريم في العمل يقوم بفعل 'تقديم_وجبة' مع علي,مريم.تقديم_وجبة(علي); علي.جوع -= 0.4; علي.امتنان += 0.3,الطعام يقلل الجوع ويزيد الامتنان,ar,"[""مريم"", ""علي""]","[""تقديم_وجبة""]","[""جوع"", ""امتنان""]",train,ex187
-at school: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex188
-سارة في المدرسة يقوم بفعل 'نصح' مع محمد,سارة.نصح(محمد); محمد.تركيز += 0.2,النصح بالهدوء يحسن التركيز,ar,"[""سارة"", ""محمد""]","[""نصح""]","[""تركيز""]",train,ex189
-Khaled at the market performs 'congratulate' with Noor,Khaled.congratulate(Noor); Noor.happiness += 0.2,Congratulations increase happiness,en,"[""Khaled"", ""Noor""]","[""congratulate""]","[""happiness""]",train,ex190
-في البيت: تسخين على سيارة,سيارة.تسخين(); سيارة.حرارة += 0.3; سيارة.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""سيارة""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex191
-at the hospital: cool on Box,Box.cool(); Box.temperature -= 0.3,Cooling lowers temperature,en,"[""Box""]","[""cool""]","[""temperature""]",train,ex192
-في المستشفى: تسريع على صندوق,صندوق.تسريع(); صندوق.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""صندوق""]","[""تسريع""]","[""سرعة""]",train,ex193
-at the hospital: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex194
-فاطمة في المستشفى يقوم بفعل 'تهنئة' مع علي,فاطمة.تهنئة(علي); علي.سعادة += 0.2,التهنئة ترفع السعادة,ar,"[""فاطمة"", ""علي""]","[""تهنئة""]","[""سعادة""]",train,ex195
-at home: heat on Ball,Ball.heat(); Ball.temperature += 0.3; Ball.energy -= 0.05,Heating raises temperature,en,"[""Ball""]","[""heat""]","[""temperature"", ""energy""]",train,ex196
-ليلى في المدرسة يقوم بفعل 'تشجيع' مع علي,ليلى.تشجيع(علي); علي.ثقة += 0.25,التشجيع يرفع الثقة,ar,"[""ليلى"", ""علي""]","[""تشجيع""]","[""ثقة""]",train,ex197
-Maryam at work performs 'apologize' with Fatimah,Maryam.apologize(Fatimah); Fatimah.anger -= 0.2; Fatimah.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Maryam"", ""Fatimah""]","[""apologize""]","[""anger"", ""trust""]",train,ex198
-نور في العمل يقوم بفعل 'نصح' مع خالد,نور.نصح(خالد); خالد.تركيز += 0.2,النصح بالهدوء يحسن التركيز,ar,"[""نور"", ""خالد""]","[""نصح""]","[""تركيز""]",train,ex199
-at the market: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex200
-في العمل: تسريع على ماء,ماء.تسريع(); ماء.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""ماء""]","[""تسريع""]","[""سرعة""]",train,ex201
-at the market: cool on Box,Box.cool(); Box.temperature -= 0.3,Cooling lowers temperature,en,"[""Box""]","[""cool""]","[""temperature""]",train,ex202
-في الحديقة: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex203
-at work: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex204
-في البيت: سحب على صندوق,صندوق.سحب(); صندوق.سرعة += 0.1; صندوق.طاقة -= 0.05,السحب يغير السرعة وقد يقلل الطاقة,ar,"[""صندوق""]","[""سحب""]","[""سرعة"", ""طاقة""]",train,ex205
-at the market: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex206
-نور في الحديقة يقوم بفعل 'نصح' مع يوسف,نور.نصح(يوسف); يوسف.تركيز += 0.2,النصح بالهدوء يحسن التركيز,ar,"[""نور"", ""يوسف""]","[""نصح""]","[""تركيز""]",train,ex207
-Khaled at the hospital performs 'serve_meal' with Noor,Khaled.serve_meal(Noor); Noor.hunger -= 0.4; Noor.gratitude += 0.3,Serving food reduces hunger and increases gratitude,en,"[""Khaled"", ""Noor""]","[""serve_meal""]","[""hunger"", ""gratitude""]",train,ex208
-في السوق: تسريع على سيارة,سيارة.تسريع(); سيارة.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""سيارة""]","[""تسريع""]","[""سرعة""]",train,ex209
-Mohammed at work performs 'serve_meal' with Noor,Mohammed.serve_meal(Noor); Noor.hunger -= 0.4; Noor.gratitude += 0.3,Serving food reduces hunger and increases gratitude,en,"[""Mohammed"", ""Noor""]","[""serve_meal""]","[""hunger"", ""gratitude""]",train,ex210
-في المدرسة: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex211
-at the hospital: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex212
-في الحديقة: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex213
-at home: push on Object,Object.push(); Object.speed += 0.2; Object.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Object""]","[""push""]","[""speed"", ""energy""]",train,ex214
-في السوق: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex215
-in the park: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex216
-في السوق: دفع على صندوق,صندوق.دفع(); صندوق.سرعة += 0.2; صندوق.طاقة -= 0.05,الدفع يزيد السرعة وفق القوة والكتلة,ar,"[""صندوق""]","[""دفع""]","[""سرعة"", ""طاقة""]",train,ex217
-at work: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex218
-في السوق: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex219
-Noor at work performs 'serve_meal' with Ali,Noor.serve_meal(Ali); Ali.hunger -= 0.4; Ali.gratitude += 0.3,Serving food reduces hunger and increases gratitude,en,"[""Noor"", ""Ali""]","[""serve_meal""]","[""hunger"", ""gratitude""]",train,ex220
-في الحديقة: سحب على كرة,كرة.سحب(); كرة.سرعة += 0.1; كرة.طاقة -= 0.05,السحب يغير السرعة وقد يقلل الطاقة,ar,"[""كرة""]","[""سحب""]","[""سرعة"", ""طاقة""]",train,ex221
-at the market: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex222
-سارة في المدرسة يقوم بفعل 'نصح' مع محمد,سارة.نصح(محمد); محمد.تركيز += 0.2,النصح بالهدوء يحسن التركيز,ar,"[""سارة"", ""محمد""]","[""نصح""]","[""تركيز""]",train,ex223
-in the park: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex224
-محمد في الحديقة يقوم بفعل 'مواساة' مع نور,محمد.مواساة(نور); نور.حزن -= 0.3,المواساة تقلل الحزن,ar,"[""محمد"", ""نور""]","[""مواساة""]","[""حزن""]",train,ex225
-at school: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex226
-أحمد في السوق يقوم بفعل 'تقديم_وجبة' مع ليلى,أحمد.تقديم_وجبة(ليلى); ليلى.جوع -= 0.4; ليلى.امتنان += 0.3,الطعام يقلل الجوع ويزيد الامتنان,ar,"[""أحمد"", ""ليلى""]","[""تقديم_وجبة""]","[""جوع"", ""امتنان""]",train,ex227
-at home: heat on Water,Water.heat(); Water.temperature += 0.3; Water.energy -= 0.05,Heating raises temperature,en,"[""Water""]","[""heat""]","[""temperature"", ""energy""]",train,ex228
-خالد في البيت يقوم بفعل 'اعتذار' مع سارة,خالد.اعتذار(سارة); سارة.غضب -= 0.2; سارة.ثقة += 0.1,الاعتذار يقلل الغضب ويزيد الثقة قليلًا,ar,"[""خالد"", ""سارة""]","[""اعتذار""]","[""غضب"", ""ثقة""]",train,ex229
-in the park: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex230
-في المستشفى: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex231
-at school: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex232
-في العمل: تبريد على سيارة,سيارة.تبريد(); سيارة.حرارة -= 0.3,التبريد يخفض الحرارة,ar,"[""سيارة""]","[""تبريد""]","[""حرارة""]",train,ex233
-at the hospital: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex234
-نور في البيت يقوم بفعل 'مواساة' مع خالد,نور.مواساة(خالد); خالد.حزن -= 0.3,المواساة تقلل الحزن,ar,"[""نور"", ""خالد""]","[""مواساة""]","[""حزن""]",train,ex235
-at the market: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex236
-نور في المدرسة يقوم بفعل 'تهنئة' مع مريم,نور.تهنئة(مريم); مريم.سعادة += 0.2,التهنئة ترفع السعادة,ar,"[""نور"", ""مريم""]","[""تهنئة""]","[""سعادة""]",train,ex237
-at the market: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex238
-علي في البيت يقوم بفعل 'تقديم_وجبة' مع خالد,علي.تقديم_وجبة(خالد); خالد.جوع -= 0.4; خالد.امتنان += 0.3,الطعام يقلل الجوع ويزيد الامتنان,ar,"[""علي"", ""خالد""]","[""تقديم_وجبة""]","[""جوع"", ""امتنان""]",train,ex239
-at the market: accelerate on Water,Water.accelerate(); Water.speed += 0.25,Acceleration raises speed,en,"[""Water""]","[""accelerate""]","[""speed""]",train,ex240
-في البيت: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",train,ex241
-Maryam at the hospital performs 'encourage' with Noor,Maryam.encourage(Noor); Noor.trust += 0.25,Encouragement increases trust,en,"[""Maryam"", ""Noor""]","[""encourage""]","[""trust""]",train,ex242
-يوسف في المستشفى يقوم بفعل 'تقديم_وجبة' مع نور,يوسف.تقديم_وجبة(نور); نور.جوع -= 0.4; نور.امتنان += 0.3,الطعام يقلل الجوع ويزيد الامتنان,ar,"[""يوسف"", ""نور""]","[""تقديم_وجبة""]","[""جوع"", ""امتنان""]",train,ex243
-at the market: accelerate on Box,Box.accelerate(); Box.speed += 0.25,Acceleration raises speed,en,"[""Box""]","[""accelerate""]","[""speed""]",train,ex244
-في الحديقة: تسخين على سيارة,سيارة.تسخين(); سيارة.حرارة += 0.3; سيارة.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""سيارة""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex245
-in the park: push on Water,Water.push(); Water.speed += 0.2; Water.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Water""]","[""push""]","[""speed"", ""energy""]",train,ex246
-يوسف في العمل يقوم بفعل 'تقديم_وجبة' مع مريم,يوسف.تقديم_وجبة(مريم); مريم.جوع -= 0.4; مريم.امتنان += 0.3,الطعام يقلل الجوع ويزيد الامتنان,ar,"[""يوسف"", ""مريم""]","[""تقديم_وجبة""]","[""جوع"", ""امتنان""]",train,ex247
-in the park: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex248
-أحمد في المستشفى يقوم بفعل 'تشجيع' مع نور,أحمد.تشجيع(نور); نور.ثقة += 0.25,التشجيع يرفع الثقة,ar,"[""أحمد"", ""نور""]","[""تشجيع""]","[""ثقة""]",train,ex249
-Fatimah in the park performs 'comfort' with Layla,Fatimah.comfort(Layla); Layla.sadness -= 0.3,Comforting reduces sadness,en,"[""Fatimah"", ""Layla""]","[""comfort""]","[""sadness""]",train,ex250
-في السوق: تسريع على جسم,جسم.تسريع(); جسم.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""جسم""]","[""تسريع""]","[""سرعة""]",train,ex251
-in the park: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex252
-في الحديقة: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",train,ex253
-in the park: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex254
-في الحديقة: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex255
-Ahmed at school performs 'advise' with Maryam,Ahmed.advise(Maryam); Maryam.focus += 0.2,Advice to stay calm improves focus,en,"[""Ahmed"", ""Maryam""]","[""advise""]","[""focus""]",train,ex256
-في الحديقة: تسخين على سيارة,سيارة.تسخين(); سيارة.حرارة += 0.3; سيارة.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""سيارة""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex257
-at school: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex258
-مريم في البيت يقوم بفعل 'تهنئة' مع ليلى,مريم.تهنئة(ليلى); ليلى.سعادة += 0.2,التهنئة ترفع السعادة,ar,"[""مريم"", ""ليلى""]","[""تهنئة""]","[""سعادة""]",train,ex259
-at the hospital: pull on Object,Object.pull(); Object.speed += 0.1; Object.energy -= 0.05,Pulling changes speed and may reduce energy,en,"[""Object""]","[""pull""]","[""speed"", ""energy""]",train,ex260
-علي في العمل يقوم بفعل 'اعتذار' مع ليلى,علي.اعتذار(ليلى); ليلى.غضب -= 0.2; ليلى.ثقة += 0.1,الاعتذار يقلل الغضب ويزيد الثقة قليلًا,ar,"[""علي"", ""ليلى""]","[""اعتذار""]","[""غضب"", ""ثقة""]",train,ex261
-at the hospital: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex262
-مريم في الحديقة يقوم بفعل 'تشجيع' مع نور,مريم.تشجيع(نور); نور.ثقة += 0.25,التشجيع يرفع الثقة,ar,"[""مريم"", ""نور""]","[""تشجيع""]","[""ثقة""]",train,ex263
-at home: push on Water,Water.push(); Water.speed += 0.2; Water.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Water""]","[""push""]","[""speed"", ""energy""]",train,ex264
-محمد في الحديقة يقوم بفعل 'مواساة' مع خالد,محمد.مواساة(خالد); خالد.حزن -= 0.3,المواساة تقلل الحزن,ar,"[""محمد"", ""خالد""]","[""مواساة""]","[""حزن""]",train,ex265
-in the park: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex266
-في العمل: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex267
-at school: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex268
-في المدرسة: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex269
-Maryam at home performs 'serve_meal' with Ali,Maryam.serve_meal(Ali); Ali.hunger -= 0.4; Ali.gratitude += 0.3,Serving food reduces hunger and increases gratitude,en,"[""Maryam"", ""Ali""]","[""serve_meal""]","[""hunger"", ""gratitude""]",train,ex270
-ليلى في البيت يقوم بفعل 'اعتذار' مع مريم,ليلى.اعتذار(مريم); مريم.غضب -= 0.2; مريم.ثقة += 0.1,الاعتذار يقلل الغضب ويزيد الثقة قليلًا,ar,"[""ليلى"", ""مريم""]","[""اعتذار""]","[""غضب"", ""ثقة""]",train,ex271
-at school: heat on MetalBall,MetalBall.heat(); MetalBall.temperature += 0.3; MetalBall.energy -= 0.05,Heating raises temperature,en,"[""MetalBall""]","[""heat""]","[""temperature"", ""energy""]",train,ex272
-سارة في العمل يقوم بفعل 'تقديم_وجبة' مع نور,سارة.تقديم_وجبة(نور); نور.جوع -= 0.4; نور.امتنان += 0.3,الطعام يقلل الجوع ويزيد الامتنان,ar,"[""سارة"", ""نور""]","[""تقديم_وجبة""]","[""جوع"", ""امتنان""]",train,ex273
-at the market: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex274
-فاطمة في المدرسة يقوم بفعل 'تهنئة' مع سارة,فاطمة.تهنئة(سارة); سارة.سعادة += 0.2,التهنئة ترفع السعادة,ar,"[""فاطمة"", ""سارة""]","[""تهنئة""]","[""سعادة""]",train,ex275
-in the park: cool on MetalBall,MetalBall.cool(); MetalBall.temperature -= 0.3,Cooling lowers temperature,en,"[""MetalBall""]","[""cool""]","[""temperature""]",train,ex276
-في المدرسة: تبريد على ماء,ماء.تبريد(); ماء.حرارة -= 0.3,التبريد يخفض الحرارة,ar,"[""ماء""]","[""تبريد""]","[""حرارة""]",train,ex277
-at school: push on Object,Object.push(); Object.speed += 0.2; Object.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Object""]","[""push""]","[""speed"", ""energy""]",train,ex278
-في المدرسة: تبريد على ماء,ماء.تبريد(); ماء.حرارة -= 0.3,التبريد يخفض الحرارة,ar,"[""ماء""]","[""تبريد""]","[""حرارة""]",train,ex279
-at the hospital: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex280
-علي في البيت يقوم بفعل 'نصح' مع خالد,علي.نصح(خالد); خالد.تركيز += 0.2,النصح بالهدوء يحسن التركيز,ar,"[""علي"", ""خالد""]","[""نصح""]","[""تركيز""]",train,ex281
-Layla at work performs 'advise' with Ali,Layla.advise(Ali); Ali.focus += 0.2,Advice to stay calm improves focus,en,"[""Layla"", ""Ali""]","[""advise""]","[""focus""]",train,ex282
-في البيت: سحب على كرة_معدنية,كرة_معدنية.سحب(); كرة_معدنية.سرعة += 0.1; كرة_معدنية.طاقة -= 0.05,السحب يغير السرعة وقد يقلل الطاقة,ar,"[""كرة_معدنية""]","[""سحب""]","[""سرعة"", ""طاقة""]",train,ex283
-at school: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex284
-في البيت: تسريع على صندوق,صندوق.تسريع(); صندوق.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""صندوق""]","[""تسريع""]","[""سرعة""]",train,ex285
-in the park: push on Water,Water.push(); Water.speed += 0.2; Water.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Water""]","[""push""]","[""speed"", ""energy""]",train,ex286
-في المستشفى: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex287
-Noor at the market performs 'comfort' with Fatimah,Noor.comfort(Fatimah); Fatimah.sadness -= 0.3,Comforting reduces sadness,en,"[""Noor"", ""Fatimah""]","[""comfort""]","[""sadness""]",train,ex288
-في العمل: تسخين على كرة,كرة.تسخين(); كرة.حرارة += 0.3; كرة.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""كرة""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex289
-at school: heat on MetalBall,MetalBall.heat(); MetalBall.temperature += 0.3; MetalBall.energy -= 0.05,Heating raises temperature,en,"[""MetalBall""]","[""heat""]","[""temperature"", ""energy""]",train,ex290
-يوسف في المدرسة يقوم بفعل 'مواساة' مع مريم,يوسف.مواساة(مريم); مريم.حزن -= 0.3,المواساة تقلل الحزن,ar,"[""يوسف"", ""مريم""]","[""مواساة""]","[""حزن""]",train,ex291
-Noor at the hospital performs 'congratulate' with Mohammed,Noor.congratulate(Mohammed); Mohammed.happiness += 0.2,Congratulations increase happiness,en,"[""Noor"", ""Mohammed""]","[""congratulate""]","[""happiness""]",train,ex292
-في المدرسة: تسريع على كرة_معدنية,كرة_معدنية.تسريع(); كرة_معدنية.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""كرة_معدنية""]","[""تسريع""]","[""سرعة""]",train,ex293
-at the market: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex294
-في العمل: سحب على جسم,جسم.سحب(); جسم.سرعة += 0.1; جسم.طاقة -= 0.05,السحب يغير السرعة وقد يقلل الطاقة,ar,"[""جسم""]","[""سحب""]","[""سرعة"", ""طاقة""]",train,ex295
-Sarah at the hospital performs 'apologize' with Mohammed,Sarah.apologize(Mohammed); Mohammed.anger -= 0.2; Mohammed.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Sarah"", ""Mohammed""]","[""apologize""]","[""anger"", ""trust""]",train,ex296
-في المستشفى: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",train,ex297
-at the market: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex298
-خالد في المستشفى يقوم بفعل 'تشجيع' مع أحمد,خالد.تشجيع(أحمد); أحمد.ثقة += 0.25,التشجيع يرفع الثقة,ar,"[""خالد"", ""أحمد""]","[""تشجيع""]","[""ثقة""]",train,ex299
-Khaled at the hospital performs 'encourage' with Ali,Khaled.encourage(Ali); Ali.trust += 0.25,Encouragement increases trust,en,"[""Khaled"", ""Ali""]","[""encourage""]","[""trust""]",train,ex300
-محمد في المدرسة يقوم بفعل 'مواساة' مع أحمد,محمد.مواساة(أحمد); أحمد.حزن -= 0.3,المواساة تقلل الحزن,ar,"[""محمد"", ""أحمد""]","[""مواساة""]","[""حزن""]",train,ex301
-Layla at the market performs 'apologize' with Sarah,Layla.apologize(Sarah); Sarah.anger -= 0.2; Sarah.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Layla"", ""Sarah""]","[""apologize""]","[""anger"", ""trust""]",train,ex302
-في المستشفى: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex303
-at the hospital: push on Water,Water.push(); Water.speed += 0.2; Water.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Water""]","[""push""]","[""speed"", ""energy""]",train,ex304
-يوسف في الحديقة يقوم بفعل 'تقديم_وجبة' مع علي,يوسف.تقديم_وجبة(علي); علي.جوع -= 0.4; علي.امتنان += 0.3,الطعام يقلل الجوع ويزيد الامتنان,ar,"[""يوسف"", ""علي""]","[""تقديم_وجبة""]","[""جوع"", ""امتنان""]",train,ex305
-at home: cool on Ball,Ball.cool(); Ball.temperature -= 0.3,Cooling lowers temperature,en,"[""Ball""]","[""cool""]","[""temperature""]",train,ex306
-ليلى في المدرسة يقوم بفعل 'اعتذار' مع علي,ليلى.اعتذار(علي); علي.غضب -= 0.2; علي.ثقة += 0.1,الاعتذار يقلل الغضب ويزيد الثقة قليلًا,ar,"[""ليلى"", ""علي""]","[""اعتذار""]","[""غضب"", ""ثقة""]",train,ex307
-at the hospital: accelerate on Box,Box.accelerate(); Box.speed += 0.25,Acceleration raises speed,en,"[""Box""]","[""accelerate""]","[""speed""]",train,ex308
-فاطمة في الحديقة يقوم بفعل 'تهنئة' مع أحمد,فاطمة.تهنئة(أحمد); أحمد.سعادة += 0.2,التهنئة ترفع السعادة,ar,"[""فاطمة"", ""أحمد""]","[""تهنئة""]","[""سعادة""]",train,ex309
-at home: heat on Car,Car.heat(); Car.temperature += 0.3; Car.energy -= 0.05,Heating raises temperature,en,"[""Car""]","[""heat""]","[""temperature"", ""energy""]",train,ex310
-في المدرسة: دفع على كرة_معدنية,كرة_معدنية.دفع(); كرة_معدنية.سرعة += 0.2; كرة_معدنية.طاقة -= 0.05,الدفع يزيد السرعة وفق القوة والكتلة,ar,"[""كرة_معدنية""]","[""دفع""]","[""سرعة"", ""طاقة""]",train,ex311
-Noor in the park performs 'advise' with Youssef,Noor.advise(Youssef); Youssef.focus += 0.2,Advice to stay calm improves focus,en,"[""Noor"", ""Youssef""]","[""advise""]","[""focus""]",train,ex312
-محمد في البيت يقوم بفعل 'تهنئة' مع نور,محمد.تهنئة(نور); نور.سعادة += 0.2,التهنئة ترفع السعادة,ar,"[""محمد"", ""نور""]","[""تهنئة""]","[""سعادة""]",train,ex313
-at the market: push on Ball,Ball.push(); Ball.speed += 0.2; Ball.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Ball""]","[""push""]","[""speed"", ""energy""]",train,ex314
-في المستشفى: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",train,ex315
-at the hospital: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex316
-في الحديقة: تسريع على ماء,ماء.تسريع(); ماء.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""ماء""]","[""تسريع""]","[""سرعة""]",train,ex317
-Fatimah at the market performs 'congratulate' with Ali,Fatimah.congratulate(Ali); Ali.happiness += 0.2,Congratulations increase happiness,en,"[""Fatimah"", ""Ali""]","[""congratulate""]","[""happiness""]",train,ex318
-يوسف في البيت يقوم بفعل 'تشجيع' مع علي,يوسف.تشجيع(علي); علي.ثقة += 0.25,التشجيع يرفع الثقة,ar,"[""يوسف"", ""علي""]","[""تشجيع""]","[""ثقة""]",train,ex319
-at home: accelerate on Car,Car.accelerate(); Car.speed += 0.25,Acceleration raises speed,en,"[""Car""]","[""accelerate""]","[""speed""]",train,ex320
-محمد في الحديقة يقوم بفعل 'تهنئة' مع فاطمة,محمد.تهنئة(فاطمة); فاطمة.سعادة += 0.2,التهنئة ترفع السعادة,ar,"[""محمد"", ""فاطمة""]","[""تهنئة""]","[""سعادة""]",train,ex321
-at home: pull on Car,Car.pull(); Car.speed += 0.1; Car.energy -= 0.05,Pulling changes speed and may reduce energy,en,"[""Car""]","[""pull""]","[""speed"", ""energy""]",train,ex322
-في المستشفى: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex323
-Youssef at home performs 'advise' with Layla,Youssef.advise(Layla); Layla.focus += 0.2,Advice to stay calm improves focus,en,"[""Youssef"", ""Layla""]","[""advise""]","[""focus""]",train,ex324
-في الحديقة: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex325
-Mohammed at the market performs 'advise' with Layla,Mohammed.advise(Layla); Layla.focus += 0.2,Advice to stay calm improves focus,en,"[""Mohammed"", ""Layla""]","[""advise""]","[""focus""]",train,ex326
-في السوق: تسخين على كرة_معدنية,كرة_معدنية.تسخين(); كرة_معدنية.حرارة += 0.3; كرة_معدنية.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""كرة_معدنية""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex327
-in the park: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex328
-في المدرسة: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex329
-at school: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex330
-في المدرسة: تبريد على كرة,كرة.تبريد(); كرة.حرارة -= 0.3,التبريد يخفض الحرارة,ar,"[""كرة""]","[""تبريد""]","[""حرارة""]",train,ex331
-in the park: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex332
-في المستشفى: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex333
-Ali at work performs 'apologize' with Ahmed,Ali.apologize(Ahmed); Ahmed.anger -= 0.2; Ahmed.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Ali"", ""Ahmed""]","[""apologize""]","[""anger"", ""trust""]",train,ex334
-علي في المدرسة يقوم بفعل 'تهنئة' مع ليلى,علي.تهنئة(ليلى); ليلى.سعادة += 0.2,التهنئة ترفع السعادة,ar,"[""علي"", ""ليلى""]","[""تهنئة""]","[""سعادة""]",train,ex335
-in the park: heat on Box,Box.heat(); Box.temperature += 0.3; Box.energy -= 0.05,Heating raises temperature,en,"[""Box""]","[""heat""]","[""temperature"", ""energy""]",train,ex336
-يوسف في العمل يقوم بفعل 'تشجيع' مع أحمد,يوسف.تشجيع(أحمد); أحمد.ثقة += 0.25,التشجيع يرفع الثقة,ar,"[""يوسف"", ""أحمد""]","[""تشجيع""]","[""ثقة""]",train,ex337
-at school: heat on Water,Water.heat(); Water.temperature += 0.3; Water.energy -= 0.05,Heating raises temperature,en,"[""Water""]","[""heat""]","[""temperature"", ""energy""]",train,ex338
-في المستشفى: تسريع على سيارة,سيارة.تسريع(); سيارة.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""سيارة""]","[""تسريع""]","[""سرعة""]",train,ex339
-in the park: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex340
-نور في السوق يقوم بفعل 'تقديم_وجبة' مع سارة,نور.تقديم_وجبة(سارة); سارة.جوع -= 0.4; سارة.امتنان += 0.3,الطعام يقلل الجوع ويزيد الامتنان,ar,"[""نور"", ""سارة""]","[""تقديم_وجبة""]","[""جوع"", ""امتنان""]",train,ex341
-Ali at the market performs 'serve_meal' with Layla,Ali.serve_meal(Layla); Layla.hunger -= 0.4; Layla.gratitude += 0.3,Serving food reduces hunger and increases gratitude,en,"[""Ali"", ""Layla""]","[""serve_meal""]","[""hunger"", ""gratitude""]",train,ex342
-فاطمة في العمل يقوم بفعل 'نصح' مع سارة,فاطمة.نصح(سارة); سارة.تركيز += 0.2,النصح بالهدوء يحسن التركيز,ar,"[""فاطمة"", ""سارة""]","[""نصح""]","[""تركيز""]",train,ex343
-in the park: accelerate on Car,Car.accelerate(); Car.speed += 0.25,Acceleration raises speed,en,"[""Car""]","[""accelerate""]","[""speed""]",train,ex344
-في العمل: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",train,ex345
-at work: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex346
-في الحديقة: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",train,ex347
-Maryam at the market performs 'comfort' with Ahmed,Maryam.comfort(Ahmed); Ahmed.sadness -= 0.3,Comforting reduces sadness,en,"[""Maryam"", ""Ahmed""]","[""comfort""]","[""sadness""]",train,ex348
-مريم في المدرسة يقوم بفعل 'تشجيع' مع ليلى,مريم.تشجيع(ليلى); ليلى.ثقة += 0.25,التشجيع يرفع الثقة,ar,"[""مريم"", ""ليلى""]","[""تشجيع""]","[""ثقة""]",train,ex349
-Khaled in the park performs 'apologize' with Fatimah,Khaled.apologize(Fatimah); Fatimah.anger -= 0.2; Fatimah.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Khaled"", ""Fatimah""]","[""apologize""]","[""anger"", ""trust""]",train,ex350
-يوسف في الحديقة يقوم بفعل 'مواساة' مع محمد,يوسف.مواساة(محمد); محمد.حزن -= 0.3,المواساة تقلل الحزن,ar,"[""يوسف"", ""محمد""]","[""مواساة""]","[""حزن""]",train,ex351
-at school: push on MetalBall,MetalBall.push(); MetalBall.speed += 0.2; MetalBall.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""MetalBall""]","[""push""]","[""speed"", ""energy""]",train,ex352
-في المستشفى: تسريع على كرة_معدنية,كرة_معدنية.تسريع(); كرة_معدنية.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""كرة_معدنية""]","[""تسريع""]","[""سرعة""]",train,ex353
-Youssef at the market performs 'advise' with Fatimah,Youssef.advise(Fatimah); Fatimah.focus += 0.2,Advice to stay calm improves focus,en,"[""Youssef"", ""Fatimah""]","[""advise""]","[""focus""]",train,ex354
-في السوق: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex355
-in the park: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex356
-في العمل: تسريع على ماء,ماء.تسريع(); ماء.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""ماء""]","[""تسريع""]","[""سرعة""]",train,ex357
-at the hospital: push on Ball,Ball.push(); Ball.speed += 0.2; Ball.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Ball""]","[""push""]","[""speed"", ""energy""]",train,ex358
-في المدرسة: تسريع على جسم,جسم.تسريع(); جسم.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""جسم""]","[""تسريع""]","[""سرعة""]",train,ex359
-at the market: push on MetalBall,MetalBall.push(); MetalBall.speed += 0.2; MetalBall.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""MetalBall""]","[""push""]","[""speed"", ""energy""]",train,ex360
-نور في العمل يقوم بفعل 'نصح' مع يوسف,نور.نصح(يوسف); يوسف.تركيز += 0.2,النصح بالهدوء يحسن التركيز,ar,"[""نور"", ""يوسف""]","[""نصح""]","[""تركيز""]",train,ex361
-at the market: cool on Box,Box.cool(); Box.temperature -= 0.3,Cooling lowers temperature,en,"[""Box""]","[""cool""]","[""temperature""]",train,ex362
-في العمل: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex363
-Mohammed at school performs 'advise' with Layla,Mohammed.advise(Layla); Layla.focus += 0.2,Advice to stay calm improves focus,en,"[""Mohammed"", ""Layla""]","[""advise""]","[""focus""]",train,ex364
+أحمد في السوق يقوم بفعل 'تقديم_وجبة' مع ليلى,أحمد.تقديم_وجبة(ليلى); ليلى.جوع -= 0.4; ليلى.امتنان += 0.3,الطعام يقلل الجوع ويزيد الامتنان,ar,"[""أحمد"", ""ليلى""]","[""تقديم_وجبة""]","[""جوع"", ""امتنان""]",train,ex001
+on the bus: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex002
+نور في المترو يقوم بفعل 'تشجيع' مع ليلى,نور.تشجيع(ليلى); ليلى.ثقة += 0.25,التشجيع يرفع الثقة,ar,"[""نور"", ""ليلى""]","[""تشجيع""]","[""ثقة""]",train,ex003
+at school: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex004
+نور في البيت يقوم بفعل 'اعتناء' مع محمد,نور.اعتناء(محمد); محمد.راحة += 0.2; محمد.خوف -= 0.1,الاعتناء يرفع الراحة ويقلل الخوف,ar,"[""نور"", ""محمد""]","[""اعتناء""]","[""راحة"", ""خوف""]",train,ex005
+Ali at work performs 'reassure' with Youssef,Ali.reassure(Youssef); Youssef.fear -= 0.25,Reassurance reduces fear,en,"[""Ali"", ""Youssef""]","[""reassure""]","[""fear""]",train,ex006
+في الحافلة: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex007
+Fatimah on the bus performs 'care_for' with Youssef,Fatimah.care_for(Youssef); Youssef.comfort += 0.2; Youssef.fear -= 0.1,Care increases comfort and reduces fear,en,"[""Fatimah"", ""Youssef""]","[""care_for""]","[""comfort"", ""fear""]",train,ex008
+فاطمة في المترو يقوم بفعل 'إرشاد' مع خالد,فاطمة.إرشاد(خالد); خالد.ثقة += 0.15,الإرشاد يحسن الثقة,ar,"[""فاطمة"", ""خالد""]","[""إرشاد""]","[""ثقة""]",train,ex009
+in the metro: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex010
+في المستشفى: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex011
+Maryam at work performs 'encourage' with Layla,Maryam.encourage(Layla); Layla.trust += 0.25,Encouragement increases trust,en,"[""Maryam"", ""Layla""]","[""encourage""]","[""trust""]",train,ex012
+في العمل: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",train,ex013
+at work: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex014
+محمد في السوق يقوم بفعل 'اعتناء' مع فاطمة,محمد.اعتناء(فاطمة); فاطمة.راحة += 0.2; فاطمة.خوف -= 0.1,الاعتناء يرفع الراحة ويقلل الخوف,ar,"[""محمد"", ""فاطمة""]","[""اعتناء""]","[""راحة"", ""خوف""]",train,ex015
+in the park: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex016
+يوسف في المستشفى يقوم بفعل 'مساعدة' مع خالد,يوسف.مساعدة(خالد); خالد.توتر -= 0.2; خالد.امتنان += 0.2,المساعدة تقلل التوتر وتزيد الامتنان,ar,"[""يوسف"", ""خالد""]","[""مساعدة""]","[""توتر"", ""امتنان""]",train,ex017
+Khaled in the park performs 'guide' with Ali,Khaled.guide(Ali); Ali.trust += 0.15,Guidance improves trust,en,"[""Khaled"", ""Ali""]","[""guide""]","[""trust""]",train,ex018
+يوسف في العمل يقوم بفعل 'تقديم_وجبة' مع علي,يوسف.تقديم_وجبة(علي); علي.جوع -= 0.4; علي.امتنان += 0.3,الطعام يقلل الجوع ويزيد الامتنان,ar,"[""يوسف"", ""علي""]","[""تقديم_وجبة""]","[""جوع"", ""امتنان""]",train,ex019
+in the metro: cool on Ball,Ball.cool(); Ball.temperature -= 0.3,Cooling lowers temperature,en,"[""Ball""]","[""cool""]","[""temperature""]",train,ex020
+فاطمة في المدرسة يقوم بفعل 'توجيه' مع علي,فاطمة.توجيه(علي); علي.تركيز += 0.15,التوجيه يحسن التركيز,ar,"[""فاطمة"", ""علي""]","[""توجيه""]","[""تركيز""]",train,ex021
+at home: push on Ball,Ball.push(); Ball.speed += 0.2; Ball.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Ball""]","[""push""]","[""speed"", ""energy""]",train,ex022
+خالد في المستشفى يقوم بفعل 'طمأنة' مع سارة,خالد.طمأنة(سارة); سارة.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""خالد"", ""سارة""]","[""طمأنة""]","[""خوف""]",train,ex023
+Ahmed at school performs 'care_for' with Fatimah,Ahmed.care_for(Fatimah); Fatimah.comfort += 0.2; Fatimah.fear -= 0.1,Care increases comfort and reduces fear,en,"[""Ahmed"", ""Fatimah""]","[""care_for""]","[""comfort"", ""fear""]",train,ex024
+فاطمة في المدرسة يقوم بفعل 'اعتناء' مع علي,فاطمة.اعتناء(علي); علي.راحة += 0.2; علي.خوف -= 0.1,الاعتناء يرفع الراحة ويقلل الخوف,ar,"[""فاطمة"", ""علي""]","[""اعتناء""]","[""راحة"", ""خوف""]",train,ex025
+in the park: brake on Car,Car.brake(); Car.speed -= 0.25,Braking reduces speed,en,"[""Car""]","[""brake""]","[""speed""]",train,ex026
+في الحديقة: تسريع على جسم,جسم.تسريع(); جسم.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""جسم""]","[""تسريع""]","[""سرعة""]",train,ex027
+Sarah at work performs 'care_for' with Maryam,Sarah.care_for(Maryam); Maryam.comfort += 0.2; Maryam.fear -= 0.1,Care increases comfort and reduces fear,en,"[""Sarah"", ""Maryam""]","[""care_for""]","[""comfort"", ""fear""]",train,ex028
+في العمل: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex029
+in the metro: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex030
+في السوق: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex031
+Ahmed in the metro performs 'care_for' with Ali,Ahmed.care_for(Ali); Ali.comfort += 0.2; Ali.fear -= 0.1,Care increases comfort and reduces fear,en,"[""Ahmed"", ""Ali""]","[""care_for""]","[""comfort"", ""fear""]",train,ex032
+في المترو: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex033
+Youssef on the bus performs 'advise' with Fatimah,Youssef.advise(Fatimah); Fatimah.focus += 0.2,Advice to stay calm improves focus,en,"[""Youssef"", ""Fatimah""]","[""advise""]","[""focus""]",train,ex034
+في البيت: دفع على كرة_معدنية,كرة_معدنية.دفع(); كرة_معدنية.سرعة += 0.2; كرة_معدنية.طاقة -= 0.05,الدفع يزيد السرعة وفق القوة والكتلة,ar,"[""كرة_معدنية""]","[""دفع""]","[""سرعة"", ""طاقة""]",train,ex035
+at the market: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex036
+في العمل: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex037
+in the park: accelerate on Car,Car.accelerate(); Car.speed += 0.25,Acceleration raises speed,en,"[""Car""]","[""accelerate""]","[""speed""]",train,ex038
+في الحافلة: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex039
+at school: push on Object,Object.push(); Object.speed += 0.2; Object.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Object""]","[""push""]","[""speed"", ""energy""]",train,ex040
+في الحديقة: تسخين على سيارة,سيارة.تسخين(); سيارة.حرارة += 0.3; سيارة.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""سيارة""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex041
+at school: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex042
+في البيت: تسخين على كرة_معدنية,كرة_معدنية.تسخين(); كرة_معدنية.حرارة += 0.3; كرة_معدنية.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""كرة_معدنية""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex043
+Ali at the hospital performs 'guide' with Noor,Ali.guide(Noor); Noor.trust += 0.15,Guidance improves trust,en,"[""Ali"", ""Noor""]","[""guide""]","[""trust""]",train,ex044
+في المدرسة: دفع على ماء,ماء.دفع(); ماء.سرعة += 0.2; ماء.طاقة -= 0.05,الدفع يزيد السرعة وفق القوة والكتلة,ar,"[""ماء""]","[""دفع""]","[""سرعة"", ""طاقة""]",train,ex045
+at work: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex046
+فاطمة في الحافلة يقوم بفعل 'اعتذار' مع نور,فاطمة.اعتذار(نور); نور.غضب -= 0.2; نور.ثقة += 0.1,الاعتذار يقلل الغضب ويزيد الثقة قليلًا,ar,"[""فاطمة"", ""نور""]","[""اعتذار""]","[""غضب"", ""ثقة""]",train,ex047
+Khaled at school performs 'complain' with Ali,Khaled.complain(Ali); Ali.anger += 0.2; Ali.trust -= 0.1,Complaint increases anger and reduces trust,en,"[""Khaled"", ""Ali""]","[""complain""]","[""anger"", ""trust""]",train,ex048
+في الحديقة: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",train,ex049
+Noor at school performs 'care_for' with Youssef,Noor.care_for(Youssef); Youssef.comfort += 0.2; Youssef.fear -= 0.1,Care increases comfort and reduces fear,en,"[""Noor"", ""Youssef""]","[""care_for""]","[""comfort"", ""fear""]",train,ex050
+سارة في السوق يقوم بفعل 'شكوى' مع نور,سارة.شكوى(نور); نور.غضب += 0.2; نور.ثقة -= 0.1,الشكوى ترفع الغضب وتقلل الثقة,ar,"[""سارة"", ""نور""]","[""شكوى""]","[""غضب"", ""ثقة""]",train,ex051
+at work: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex052
+مريم في العمل يقوم بفعل 'توجيه' مع خالد,مريم.توجيه(خالد); خالد.تركيز += 0.15,التوجيه يحسن التركيز,ar,"[""مريم"", ""خالد""]","[""توجيه""]","[""تركيز""]",train,ex053
+on the bus: accelerate on Box,Box.accelerate(); Box.speed += 0.25,Acceleration raises speed,en,"[""Box""]","[""accelerate""]","[""speed""]",train,ex054
+فاطمة في المترو يقوم بفعل 'مساعدة' مع علي,فاطمة.مساعدة(علي); علي.توتر -= 0.2; علي.امتنان += 0.2,المساعدة تقلل التوتر وتزيد الامتنان,ar,"[""فاطمة"", ""علي""]","[""مساعدة""]","[""توتر"", ""امتنان""]",train,ex055
+at school: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex056
+في المستشفى: تسخين على جسم,جسم.تسخين(); جسم.حرارة += 0.3; جسم.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""جسم""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex057
+in the metro: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex058
+في المستشفى: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex059
+Ali in the park performs 'advise' with Sarah,Ali.advise(Sarah); Sarah.focus += 0.2,Advice to stay calm improves focus,en,"[""Ali"", ""Sarah""]","[""advise""]","[""focus""]",train,ex060
+في السوق: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex061
+at home: cool on MetalBall,MetalBall.cool(); MetalBall.temperature -= 0.3,Cooling lowers temperature,en,"[""MetalBall""]","[""cool""]","[""temperature""]",train,ex062
+في المستشفى: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex063
+at work: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex064
+محمد في المستشفى يقوم بفعل 'مساعدة' مع أحمد,محمد.مساعدة(أحمد); أحمد.توتر -= 0.2; أحمد.امتنان += 0.2,المساعدة تقلل التوتر وتزيد الامتنان,ar,"[""محمد"", ""أحمد""]","[""مساعدة""]","[""توتر"", ""امتنان""]",train,ex065
+Sarah in the metro performs 'advise' with Fatimah,Sarah.advise(Fatimah); Fatimah.focus += 0.2,Advice to stay calm improves focus,en,"[""Sarah"", ""Fatimah""]","[""advise""]","[""focus""]",train,ex066
+في المستشفى: تبريد على سيارة,سيارة.تبريد(); سيارة.حرارة -= 0.3,التبريد يخفض الحرارة,ar,"[""سيارة""]","[""تبريد""]","[""حرارة""]",train,ex067
+at the market: push on Ball,Ball.push(); Ball.speed += 0.2; Ball.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Ball""]","[""push""]","[""speed"", ""energy""]",train,ex068
+في المدرسة: سحب على كرة_معدنية,كرة_معدنية.سحب(); كرة_معدنية.سرعة += 0.1; كرة_معدنية.طاقة -= 0.05,السحب يغير السرعة وقد يقلل الطاقة,ar,"[""كرة_معدنية""]","[""سحب""]","[""سرعة"", ""طاقة""]",train,ex069
+Layla at school performs 'direct' with Ali,Layla.direct(Ali); Ali.focus += 0.15,Direction improves focus,en,"[""Layla"", ""Ali""]","[""direct""]","[""focus""]",train,ex070
+في المستشفى: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex071
+in the park: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex072
+في السوق: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",train,ex073
+at work: accelerate on Water,Water.accelerate(); Water.speed += 0.25,Acceleration raises speed,en,"[""Water""]","[""accelerate""]","[""speed""]",train,ex074
+ليلى في العمل يقوم بفعل 'توجيه' مع علي,ليلى.توجيه(علي); علي.تركيز += 0.15,التوجيه يحسن التركيز,ar,"[""ليلى"", ""علي""]","[""توجيه""]","[""تركيز""]",train,ex075
+on the bus: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex076
+في المستشفى: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex077
+Ahmed at work performs 'advise' with Fatimah,Ahmed.advise(Fatimah); Fatimah.focus += 0.2,Advice to stay calm improves focus,en,"[""Ahmed"", ""Fatimah""]","[""advise""]","[""focus""]",train,ex078
+في المستشفى: تسخين على كرة_معدنية,كرة_معدنية.تسخين(); كرة_معدنية.حرارة += 0.3; كرة_معدنية.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""كرة_معدنية""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex079
+at the market: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex080
+في السوق: سحب على جسم,جسم.سحب(); جسم.سرعة += 0.1; جسم.طاقة -= 0.05,السحب يغير السرعة وقد يقلل الطاقة,ar,"[""جسم""]","[""سحب""]","[""سرعة"", ""طاقة""]",train,ex081
+Mohammed in the park performs 'encourage' with Ali,Mohammed.encourage(Ali); Ali.trust += 0.25,Encouragement increases trust,en,"[""Mohammed"", ""Ali""]","[""encourage""]","[""trust""]",train,ex082
+مريم في العمل يقوم بفعل 'تشجيع' مع محمد,مريم.تشجيع(محمد); محمد.ثقة += 0.25,التشجيع يرفع الثقة,ar,"[""مريم"", ""محمد""]","[""تشجيع""]","[""ثقة""]",train,ex083
+Ali in the metro performs 'apologize' with Youssef,Ali.apologize(Youssef); Youssef.anger -= 0.2; Youssef.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Ali"", ""Youssef""]","[""apologize""]","[""anger"", ""trust""]",train,ex084
+أحمد في البيت يقوم بفعل 'طمأنة' مع يوسف,أحمد.طمأنة(يوسف); يوسف.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""أحمد"", ""يوسف""]","[""طمأنة""]","[""خوف""]",train,ex085
+Maryam at work performs 'apologize' with Noor,Maryam.apologize(Noor); Noor.anger -= 0.2; Noor.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Maryam"", ""Noor""]","[""apologize""]","[""anger"", ""trust""]",train,ex086
+في المترو: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",train,ex087
+Mohammed at work performs 'assist' with Ali,Mohammed.assist(Ali); Ali.stress -= 0.2; Ali.gratitude += 0.2,Assistance reduces stress and increases gratitude,en,"[""Mohammed"", ""Ali""]","[""assist""]","[""stress"", ""gratitude""]",train,ex088
+في الحديقة: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex089
+in the park: accelerate on Car,Car.accelerate(); Car.speed += 0.25,Acceleration raises speed,en,"[""Car""]","[""accelerate""]","[""speed""]",train,ex090
+في السوق: تبريد على صندوق,صندوق.تبريد(); صندوق.حرارة -= 0.3,التبريد يخفض الحرارة,ar,"[""صندوق""]","[""تبريد""]","[""حرارة""]",train,ex091
+at work: brake on Box,Box.brake(); Box.speed -= 0.25,Braking reduces speed,en,"[""Box""]","[""brake""]","[""speed""]",train,ex092
+في السوق: تسريع على صندوق,صندوق.تسريع(); صندوق.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""صندوق""]","[""تسريع""]","[""سرعة""]",train,ex093
+Ali at school performs 'congratulate' with Maryam,Ali.congratulate(Maryam); Maryam.happiness += 0.2,Congratulations increase happiness,en,"[""Ali"", ""Maryam""]","[""congratulate""]","[""happiness""]",train,ex094
+في الحديقة: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",train,ex095
+at work: push on Box,Box.push(); Box.speed += 0.2; Box.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Box""]","[""push""]","[""speed"", ""energy""]",train,ex096
+علي في العمل يقوم بفعل 'اعتذار' مع خالد,علي.اعتذار(خالد); خالد.غضب -= 0.2; خالد.ثقة += 0.1,الاعتذار يقلل الغضب ويزيد الثقة قليلًا,ar,"[""علي"", ""خالد""]","[""اعتذار""]","[""غضب"", ""ثقة""]",train,ex097
+at work: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex098
+يوسف في السوق يقوم بفعل 'طمأنة' مع علي,يوسف.طمأنة(علي); علي.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""يوسف"", ""علي""]","[""طمأنة""]","[""خوف""]",train,ex099
+Layla in the park performs 'congratulate' with Sarah,Layla.congratulate(Sarah); Sarah.happiness += 0.2,Congratulations increase happiness,en,"[""Layla"", ""Sarah""]","[""congratulate""]","[""happiness""]",train,ex100
+في المدرسة: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",train,ex101
+Layla in the park performs 'advise' with Noor,Layla.advise(Noor); Noor.focus += 0.2,Advice to stay calm improves focus,en,"[""Layla"", ""Noor""]","[""advise""]","[""focus""]",train,ex102
+في الحافلة: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",train,ex103
+at home: cool on Car,Car.cool(); Car.temperature -= 0.3,Cooling lowers temperature,en,"[""Car""]","[""cool""]","[""temperature""]",train,ex104
+في البيت: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex105
+Layla at the market performs 'advise' with Maryam,Layla.advise(Maryam); Maryam.focus += 0.2,Advice to stay calm improves focus,en,"[""Layla"", ""Maryam""]","[""advise""]","[""focus""]",train,ex106
+في العمل: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",train,ex107
+Ali in the metro performs 'complain' with Noor,Ali.complain(Noor); Noor.anger += 0.2; Noor.trust -= 0.1,Complaint increases anger and reduces trust,en,"[""Ali"", ""Noor""]","[""complain""]","[""anger"", ""trust""]",train,ex108
+أحمد في العمل يقوم بفعل 'شكوى' مع مريم,أحمد.شكوى(مريم); مريم.غضب += 0.2; مريم.ثقة -= 0.1,الشكوى ترفع الغضب وتقلل الثقة,ar,"[""أحمد"", ""مريم""]","[""شكوى""]","[""غضب"", ""ثقة""]",train,ex109
+Layla in the park performs 'encourage' with Ahmed,Layla.encourage(Ahmed); Ahmed.trust += 0.25,Encouragement increases trust,en,"[""Layla"", ""Ahmed""]","[""encourage""]","[""trust""]",train,ex110
+محمد في المدرسة يقوم بفعل 'طمأنة' مع ليلى,محمد.طمأنة(ليلى); ليلى.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""محمد"", ""ليلى""]","[""طمأنة""]","[""خوف""]",train,ex111
+at the market: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex112
+محمد في الحافلة يقوم بفعل 'نصح' مع علي,محمد.نصح(علي); علي.تركيز += 0.2,النصح بالهدوء يحسن التركيز,ar,"[""محمد"", ""علي""]","[""نصح""]","[""تركيز""]",train,ex113
+Sarah in the metro performs 'congratulate' with Ali,Sarah.congratulate(Ali); Ali.happiness += 0.2,Congratulations increase happiness,en,"[""Sarah"", ""Ali""]","[""congratulate""]","[""happiness""]",train,ex114
+خالد في البيت يقوم بفعل 'نصح' مع سارة,خالد.نصح(سارة); سارة.تركيز += 0.2,النصح بالهدوء يحسن التركيز,ar,"[""خالد"", ""سارة""]","[""نصح""]","[""تركيز""]",train,ex115
+in the park: accelerate on Ball,Ball.accelerate(); Ball.speed += 0.25,Acceleration raises speed,en,"[""Ball""]","[""accelerate""]","[""speed""]",train,ex116
+في الحافلة: تسريع على جسم,جسم.تسريع(); جسم.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""جسم""]","[""تسريع""]","[""سرعة""]",train,ex117
+Layla at work performs 'reassure' with Mohammed,Layla.reassure(Mohammed); Mohammed.fear -= 0.25,Reassurance reduces fear,en,"[""Layla"", ""Mohammed""]","[""reassure""]","[""fear""]",train,ex118
+محمد في المدرسة يقوم بفعل 'إرشاد' مع مريم,محمد.إرشاد(مريم); مريم.ثقة += 0.15,الإرشاد يحسن الثقة,ar,"[""محمد"", ""مريم""]","[""إرشاد""]","[""ثقة""]",train,ex119
+on the bus: heat on Box,Box.heat(); Box.temperature += 0.3; Box.energy -= 0.05,Heating raises temperature,en,"[""Box""]","[""heat""]","[""temperature"", ""energy""]",train,ex120
+يوسف في البيت يقوم بفعل 'اعتذار' مع ليلى,يوسف.اعتذار(ليلى); ليلى.غضب -= 0.2; ليلى.ثقة += 0.1,الاعتذار يقلل الغضب ويزيد الثقة قليلًا,ar,"[""يوسف"", ""ليلى""]","[""اعتذار""]","[""غضب"", ""ثقة""]",train,ex121
+at the market: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex122
+في المترو: تسخين على صندوق,صندوق.تسخين(); صندوق.حرارة += 0.3; صندوق.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""صندوق""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex123
+on the bus: push on Car,Car.push(); Car.speed += 0.2; Car.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Car""]","[""push""]","[""speed"", ""energy""]",train,ex124
+في المترو: تبريد على ماء,ماء.تبريد(); ماء.حرارة -= 0.3,التبريد يخفض الحرارة,ar,"[""ماء""]","[""تبريد""]","[""حرارة""]",train,ex125
+Layla at the hospital performs 'complain' with Noor,Layla.complain(Noor); Noor.anger += 0.2; Noor.trust -= 0.1,Complaint increases anger and reduces trust,en,"[""Layla"", ""Noor""]","[""complain""]","[""anger"", ""trust""]",train,ex126
+نور في الحافلة يقوم بفعل 'مواساة' مع مريم,نور.مواساة(مريم); مريم.حزن -= 0.3,المواساة تقلل الحزن,ar,"[""نور"", ""مريم""]","[""مواساة""]","[""حزن""]",train,ex127
+Layla at school performs 'congratulate' with Ali,Layla.congratulate(Ali); Ali.happiness += 0.2,Congratulations increase happiness,en,"[""Layla"", ""Ali""]","[""congratulate""]","[""happiness""]",train,ex128
+في الحافلة: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex129
+Youssef at the hospital performs 'assist' with Mohammed,Youssef.assist(Mohammed); Mohammed.stress -= 0.2; Mohammed.gratitude += 0.2,Assistance reduces stress and increases gratitude,en,"[""Youssef"", ""Mohammed""]","[""assist""]","[""stress"", ""gratitude""]",train,ex130
+في البيت: دفع على كرة,كرة.دفع(); كرة.سرعة += 0.2; كرة.طاقة -= 0.05,الدفع يزيد السرعة وفق القوة والكتلة,ar,"[""كرة""]","[""دفع""]","[""سرعة"", ""طاقة""]",train,ex131
+on the bus: cool on Box,Box.cool(); Box.temperature -= 0.3,Cooling lowers temperature,en,"[""Box""]","[""cool""]","[""temperature""]",train,ex132
+في الحديقة: سحب على ماء,ماء.سحب(); ماء.سرعة += 0.1; ماء.طاقة -= 0.05,السحب يغير السرعة وقد يقلل الطاقة,ar,"[""ماء""]","[""سحب""]","[""سرعة"", ""طاقة""]",train,ex133
+at the hospital: accelerate on Water,Water.accelerate(); Water.speed += 0.25,Acceleration raises speed,en,"[""Water""]","[""accelerate""]","[""speed""]",train,ex134
+ليلى في المدرسة يقوم بفعل 'نصح' مع نور,ليلى.نصح(نور); نور.تركيز += 0.2,النصح بالهدوء يحسن التركيز,ar,"[""ليلى"", ""نور""]","[""نصح""]","[""تركيز""]",train,ex135
+at the market: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex136
+محمد في العمل يقوم بفعل 'نصح' مع ليلى,محمد.نصح(ليلى); ليلى.تركيز += 0.2,النصح بالهدوء يحسن التركيز,ar,"[""محمد"", ""ليلى""]","[""نصح""]","[""تركيز""]",train,ex137
+Ali at work performs 'complain' with Layla,Ali.complain(Layla); Layla.anger += 0.2; Layla.trust -= 0.1,Complaint increases anger and reduces trust,en,"[""Ali"", ""Layla""]","[""complain""]","[""anger"", ""trust""]",train,ex138
+في السوق: تبريد على سيارة,سيارة.تبريد(); سيارة.حرارة -= 0.3,التبريد يخفض الحرارة,ar,"[""سيارة""]","[""تبريد""]","[""حرارة""]",train,ex139
+at work: pull on Car,Car.pull(); Car.speed += 0.1; Car.energy -= 0.05,Pulling changes speed and may reduce energy,en,"[""Car""]","[""pull""]","[""speed"", ""energy""]",train,ex140
+أحمد في العمل يقوم بفعل 'إرشاد' مع سارة,أحمد.إرشاد(سارة); سارة.ثقة += 0.15,الإرشاد يحسن الثقة,ar,"[""أحمد"", ""سارة""]","[""إرشاد""]","[""ثقة""]",train,ex141
+Ahmed in the metro performs 'direct' with Mohammed,Ahmed.direct(Mohammed); Mohammed.focus += 0.15,Direction improves focus,en,"[""Ahmed"", ""Mohammed""]","[""direct""]","[""focus""]",train,ex142
+في المترو: تسخين على جسم,جسم.تسخين(); جسم.حرارة += 0.3; جسم.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""جسم""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex143
+at home: heat on MetalBall,MetalBall.heat(); MetalBall.temperature += 0.3; MetalBall.energy -= 0.05,Heating raises temperature,en,"[""MetalBall""]","[""heat""]","[""temperature"", ""energy""]",train,ex144
+علي في المستشفى يقوم بفعل 'نصح' مع ليلى,علي.نصح(ليلى); ليلى.تركيز += 0.2,النصح بالهدوء يحسن التركيز,ar,"[""علي"", ""ليلى""]","[""نصح""]","[""تركيز""]",train,ex145
+at the market: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex146
+سارة في المستشفى يقوم بفعل 'مساعدة' مع ليلى,سارة.مساعدة(ليلى); ليلى.توتر -= 0.2; ليلى.امتنان += 0.2,المساعدة تقلل التوتر وتزيد الامتنان,ar,"[""سارة"", ""ليلى""]","[""مساعدة""]","[""توتر"", ""امتنان""]",train,ex147
+in the metro: push on Car,Car.push(); Car.speed += 0.2; Car.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Car""]","[""push""]","[""speed"", ""energy""]",train,ex148
+في المستشفى: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",train,ex149
+Khaled at school performs 'congratulate' with Fatimah,Khaled.congratulate(Fatimah); Fatimah.happiness += 0.2,Congratulations increase happiness,en,"[""Khaled"", ""Fatimah""]","[""congratulate""]","[""happiness""]",train,ex150
+سارة في البيت يقوم بفعل 'إرشاد' مع فاطمة,سارة.إرشاد(فاطمة); فاطمة.ثقة += 0.15,الإرشاد يحسن الثقة,ar,"[""سارة"", ""فاطمة""]","[""إرشاد""]","[""ثقة""]",train,ex151
+Youssef at home performs 'advise' with Mohammed,Youssef.advise(Mohammed); Mohammed.focus += 0.2,Advice to stay calm improves focus,en,"[""Youssef"", ""Mohammed""]","[""advise""]","[""focus""]",train,ex152
+سارة في الحديقة يقوم بفعل 'طمأنة' مع ليلى,سارة.طمأنة(ليلى); ليلى.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""سارة"", ""ليلى""]","[""طمأنة""]","[""خوف""]",train,ex153
+Maryam on the bus performs 'complain' with Sarah,Maryam.complain(Sarah); Sarah.anger += 0.2; Sarah.trust -= 0.1,Complaint increases anger and reduces trust,en,"[""Maryam"", ""Sarah""]","[""complain""]","[""anger"", ""trust""]",train,ex154
+ليلى في المستشفى يقوم بفعل 'تقديم_وجبة' مع محمد,ليلى.تقديم_وجبة(محمد); محمد.جوع -= 0.4; محمد.امتنان += 0.3,الطعام يقلل الجوع ويزيد الامتنان,ar,"[""ليلى"", ""محمد""]","[""تقديم_وجبة""]","[""جوع"", ""امتنان""]",train,ex155
+on the bus: brake on Box,Box.brake(); Box.speed -= 0.25,Braking reduces speed,en,"[""Box""]","[""brake""]","[""speed""]",train,ex156
+محمد في المستشفى يقوم بفعل 'مساعدة' مع أحمد,محمد.مساعدة(أحمد); أحمد.توتر -= 0.2; أحمد.امتنان += 0.2,المساعدة تقلل التوتر وتزيد الامتنان,ar,"[""محمد"", ""أحمد""]","[""مساعدة""]","[""توتر"", ""امتنان""]",train,ex157
+Ali at the market performs 'reassure' with Layla,Ali.reassure(Layla); Layla.fear -= 0.25,Reassurance reduces fear,en,"[""Ali"", ""Layla""]","[""reassure""]","[""fear""]",train,ex158
+في الحافلة: تبريد على كرة_معدنية,كرة_معدنية.تبريد(); كرة_معدنية.حرارة -= 0.3,التبريد يخفض الحرارة,ar,"[""كرة_معدنية""]","[""تبريد""]","[""حرارة""]",train,ex159
+Youssef at school performs 'serve_meal' with Maryam,Youssef.serve_meal(Maryam); Maryam.hunger -= 0.4; Maryam.gratitude += 0.3,Serving food reduces hunger and increases gratitude,en,"[""Youssef"", ""Maryam""]","[""serve_meal""]","[""hunger"", ""gratitude""]",train,ex160
+في الحديقة: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex161
+Sarah at school performs 'reassure' with Layla,Sarah.reassure(Layla); Layla.fear -= 0.25,Reassurance reduces fear,en,"[""Sarah"", ""Layla""]","[""reassure""]","[""fear""]",train,ex162
+في السوق: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex163
+at the hospital: heat on Object,Object.heat(); Object.temperature += 0.3; Object.energy -= 0.05,Heating raises temperature,en,"[""Object""]","[""heat""]","[""temperature"", ""energy""]",train,ex164
+خالد في المترو يقوم بفعل 'تشجيع' مع مريم,خالد.تشجيع(مريم); مريم.ثقة += 0.25,التشجيع يرفع الثقة,ar,"[""خالد"", ""مريم""]","[""تشجيع""]","[""ثقة""]",train,ex165
+in the metro: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex166
+نور في المستشفى يقوم بفعل 'تقديم_وجبة' مع ليلى,نور.تقديم_وجبة(ليلى); ليلى.جوع -= 0.4; ليلى.امتنان += 0.3,الطعام يقلل الجوع ويزيد الامتنان,ar,"[""نور"", ""ليلى""]","[""تقديم_وجبة""]","[""جوع"", ""امتنان""]",train,ex167
+at home: pull on MetalBall,MetalBall.pull(); MetalBall.speed += 0.1; MetalBall.energy -= 0.05,Pulling changes speed and may reduce energy,en,"[""MetalBall""]","[""pull""]","[""speed"", ""energy""]",train,ex168
+في المترو: سحب على كرة,كرة.سحب(); كرة.سرعة += 0.1; كرة.طاقة -= 0.05,السحب يغير السرعة وقد يقلل الطاقة,ar,"[""كرة""]","[""سحب""]","[""سرعة"", ""طاقة""]",train,ex169
+at the market: pull on Ball,Ball.pull(); Ball.speed += 0.1; Ball.energy -= 0.05,Pulling changes speed and may reduce energy,en,"[""Ball""]","[""pull""]","[""speed"", ""energy""]",train,ex170
+في العمل: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",train,ex171
+Ali at home performs 'complain' with Khaled,Ali.complain(Khaled); Khaled.anger += 0.2; Khaled.trust -= 0.1,Complaint increases anger and reduces trust,en,"[""Ali"", ""Khaled""]","[""complain""]","[""anger"", ""trust""]",train,ex172
+في الحافلة: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex173
+Sarah at work performs 'serve_meal' with Ali,Sarah.serve_meal(Ali); Ali.hunger -= 0.4; Ali.gratitude += 0.3,Serving food reduces hunger and increases gratitude,en,"[""Sarah"", ""Ali""]","[""serve_meal""]","[""hunger"", ""gratitude""]",train,ex174
+ليلى في الحافلة يقوم بفعل 'طمأنة' مع نور,ليلى.طمأنة(نور); نور.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""ليلى"", ""نور""]","[""طمأنة""]","[""خوف""]",train,ex175
+in the metro: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex176
+نور في المستشفى يقوم بفعل 'طمأنة' مع ليلى,نور.طمأنة(ليلى); ليلى.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""نور"", ""ليلى""]","[""طمأنة""]","[""خوف""]",train,ex177
+at the hospital: heat on Water,Water.heat(); Water.temperature += 0.3; Water.energy -= 0.05,Heating raises temperature,en,"[""Water""]","[""heat""]","[""temperature"", ""energy""]",train,ex178
+محمد في الحافلة يقوم بفعل 'طمأنة' مع مريم,محمد.طمأنة(مريم); مريم.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""محمد"", ""مريم""]","[""طمأنة""]","[""خوف""]",train,ex179
+at work: brake on Water,Water.brake(); Water.speed -= 0.25,Braking reduces speed,en,"[""Water""]","[""brake""]","[""speed""]",train,ex180
+أحمد في البيت يقوم بفعل 'نصح' مع يوسف,أحمد.نصح(يوسف); يوسف.تركيز += 0.2,النصح بالهدوء يحسن التركيز,ar,"[""أحمد"", ""يوسف""]","[""نصح""]","[""تركيز""]",train,ex181
+at school: brake on Object,Object.brake(); Object.speed -= 0.25,Braking reduces speed,en,"[""Object""]","[""brake""]","[""speed""]",train,ex182
+في المستشفى: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",train,ex183
+Sarah at work performs 'apologize' with Ali,Sarah.apologize(Ali); Ali.anger -= 0.2; Ali.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Sarah"", ""Ali""]","[""apologize""]","[""anger"", ""trust""]",train,ex184
+مريم في البيت يقوم بفعل 'تشجيع' مع ليلى,مريم.تشجيع(ليلى); ليلى.ثقة += 0.25,التشجيع يرفع الثقة,ar,"[""مريم"", ""ليلى""]","[""تشجيع""]","[""ثقة""]",train,ex185
+Noor at the market performs 'direct' with Ali,Noor.direct(Ali); Ali.focus += 0.15,Direction improves focus,en,"[""Noor"", ""Ali""]","[""direct""]","[""focus""]",train,ex186
+محمد في المستشفى يقوم بفعل 'مواساة' مع خالد,محمد.مواساة(خالد); خالد.حزن -= 0.3,المواساة تقلل الحزن,ar,"[""محمد"", ""خالد""]","[""مواساة""]","[""حزن""]",train,ex187
+Youssef in the metro performs 'serve_meal' with Noor,Youssef.serve_meal(Noor); Noor.hunger -= 0.4; Noor.gratitude += 0.3,Serving food reduces hunger and increases gratitude,en,"[""Youssef"", ""Noor""]","[""serve_meal""]","[""hunger"", ""gratitude""]",train,ex188
+في المدرسة: تسخين على كرة,كرة.تسخين(); كرة.حرارة += 0.3; كرة.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""كرة""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex189
+at school: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex190
+في المدرسة: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex191
+Youssef in the metro performs 'complain' with Sarah,Youssef.complain(Sarah); Sarah.anger += 0.2; Sarah.trust -= 0.1,Complaint increases anger and reduces trust,en,"[""Youssef"", ""Sarah""]","[""complain""]","[""anger"", ""trust""]",train,ex192
+ليلى في العمل يقوم بفعل 'اعتذار' مع علي,ليلى.اعتذار(علي); علي.غضب -= 0.2; علي.ثقة += 0.1,الاعتذار يقلل الغضب ويزيد الثقة قليلًا,ar,"[""ليلى"", ""علي""]","[""اعتذار""]","[""غضب"", ""ثقة""]",train,ex193
+Layla at school performs 'direct' with Sarah,Layla.direct(Sarah); Sarah.focus += 0.15,Direction improves focus,en,"[""Layla"", ""Sarah""]","[""direct""]","[""focus""]",train,ex194
+خالد في السوق يقوم بفعل 'اعتناء' مع علي,خالد.اعتناء(علي); علي.راحة += 0.2; علي.خوف -= 0.1,الاعتناء يرفع الراحة ويقلل الخوف,ar,"[""خالد"", ""علي""]","[""اعتناء""]","[""راحة"", ""خوف""]",train,ex195
+Layla at home performs 'care_for' with Noor,Layla.care_for(Noor); Noor.comfort += 0.2; Noor.fear -= 0.1,Care increases comfort and reduces fear,en,"[""Layla"", ""Noor""]","[""care_for""]","[""comfort"", ""fear""]",train,ex196
+في المستشفى: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex197
+Ali at school performs 'care_for' with Mohammed,Ali.care_for(Mohammed); Mohammed.comfort += 0.2; Mohammed.fear -= 0.1,Care increases comfort and reduces fear,en,"[""Ali"", ""Mohammed""]","[""care_for""]","[""comfort"", ""fear""]",train,ex198
+في المترو: سحب على جسم,جسم.سحب(); جسم.سرعة += 0.1; جسم.طاقة -= 0.05,السحب يغير السرعة وقد يقلل الطاقة,ar,"[""جسم""]","[""سحب""]","[""سرعة"", ""طاقة""]",train,ex199
+in the park: accelerate on Water,Water.accelerate(); Water.speed += 0.25,Acceleration raises speed,en,"[""Water""]","[""accelerate""]","[""speed""]",train,ex200
+في البيت: دفع على سيارة,سيارة.دفع(); سيارة.سرعة += 0.2; سيارة.طاقة -= 0.05,الدفع يزيد السرعة وفق القوة والكتلة,ar,"[""سيارة""]","[""دفع""]","[""سرعة"", ""طاقة""]",train,ex201
+on the bus: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex202
+في العمل: تبريد على صندوق,صندوق.تبريد(); صندوق.حرارة -= 0.3,التبريد يخفض الحرارة,ar,"[""صندوق""]","[""تبريد""]","[""حرارة""]",train,ex203
+at home: pull on Box,Box.pull(); Box.speed += 0.1; Box.energy -= 0.05,Pulling changes speed and may reduce energy,en,"[""Box""]","[""pull""]","[""speed"", ""energy""]",train,ex204
+ليلى في العمل يقوم بفعل 'تهنئة' مع خالد,ليلى.تهنئة(خالد); خالد.سعادة += 0.2,التهنئة ترفع السعادة,ar,"[""ليلى"", ""خالد""]","[""تهنئة""]","[""سعادة""]",train,ex205
+at work: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex206
+سارة في الحديقة يقوم بفعل 'تشجيع' مع ليلى,سارة.تشجيع(ليلى); ليلى.ثقة += 0.25,التشجيع يرفع الثقة,ar,"[""سارة"", ""ليلى""]","[""تشجيع""]","[""ثقة""]",train,ex207
+on the bus: accelerate on MetalBall,MetalBall.accelerate(); MetalBall.speed += 0.25,Acceleration raises speed,en,"[""MetalBall""]","[""accelerate""]","[""speed""]",train,ex208
+يوسف في البيت يقوم بفعل 'مساعدة' مع محمد,يوسف.مساعدة(محمد); محمد.توتر -= 0.2; محمد.امتنان += 0.2,المساعدة تقلل التوتر وتزيد الامتنان,ar,"[""يوسف"", ""محمد""]","[""مساعدة""]","[""توتر"", ""امتنان""]",train,ex209
+Sarah at the market performs 'apologize' with Ali,Sarah.apologize(Ali); Ali.anger -= 0.2; Ali.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Sarah"", ""Ali""]","[""apologize""]","[""anger"", ""trust""]",train,ex210
+في البيت: تسخين على صندوق,صندوق.تسخين(); صندوق.حرارة += 0.3; صندوق.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""صندوق""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex211
+at the market: pull on Water,Water.pull(); Water.speed += 0.1; Water.energy -= 0.05,Pulling changes speed and may reduce energy,en,"[""Water""]","[""pull""]","[""speed"", ""energy""]",train,ex212
+في البيت: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex213
+in the metro: push on Box,Box.push(); Box.speed += 0.2; Box.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Box""]","[""push""]","[""speed"", ""energy""]",train,ex214
+في الحافلة: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex215
+at the market: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex216
+في المدرسة: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex217
+Ahmed on the bus performs 'care_for' with Fatimah,Ahmed.care_for(Fatimah); Fatimah.comfort += 0.2; Fatimah.fear -= 0.1,Care increases comfort and reduces fear,en,"[""Ahmed"", ""Fatimah""]","[""care_for""]","[""comfort"", ""fear""]",train,ex218
+في المترو: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex219
+at work: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex220
+سارة في الحديقة يقوم بفعل 'اعتناء' مع خالد,سارة.اعتناء(خالد); خالد.راحة += 0.2; خالد.خوف -= 0.1,الاعتناء يرفع الراحة ويقلل الخوف,ar,"[""سارة"", ""خالد""]","[""اعتناء""]","[""راحة"", ""خوف""]",train,ex221
+in the park: brake on Object,Object.brake(); Object.speed -= 0.25,Braking reduces speed,en,"[""Object""]","[""brake""]","[""speed""]",train,ex222
+في العمل: تسخين على كرة_معدنية,كرة_معدنية.تسخين(); كرة_معدنية.حرارة += 0.3; كرة_معدنية.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""كرة_معدنية""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex223
+in the park: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex224
+في المدرسة: تسخين على ماء,ماء.تسخين(); ماء.حرارة += 0.3; ماء.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""ماء""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex225
+Fatimah in the park performs 'complain' with Maryam,Fatimah.complain(Maryam); Maryam.anger += 0.2; Maryam.trust -= 0.1,Complaint increases anger and reduces trust,en,"[""Fatimah"", ""Maryam""]","[""complain""]","[""anger"", ""trust""]",train,ex226
+في الحافلة: تسخين على سيارة,سيارة.تسخين(); سيارة.حرارة += 0.3; سيارة.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""سيارة""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex227
+at the market: accelerate on Car,Car.accelerate(); Car.speed += 0.25,Acceleration raises speed,en,"[""Car""]","[""accelerate""]","[""speed""]",train,ex228
+في المترو: سحب على سيارة,سيارة.سحب(); سيارة.سرعة += 0.1; سيارة.طاقة -= 0.05,السحب يغير السرعة وقد يقلل الطاقة,ar,"[""سيارة""]","[""سحب""]","[""سرعة"", ""طاقة""]",train,ex229
+at the hospital: pull on Object,Object.pull(); Object.speed += 0.1; Object.energy -= 0.05,Pulling changes speed and may reduce energy,en,"[""Object""]","[""pull""]","[""speed"", ""energy""]",train,ex230
+في البيت: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",train,ex231
+in the park: pull on Ball,Ball.pull(); Ball.speed += 0.1; Ball.energy -= 0.05,Pulling changes speed and may reduce energy,en,"[""Ball""]","[""pull""]","[""speed"", ""energy""]",train,ex232
+في المترو: تسخين على سيارة,سيارة.تسخين(); سيارة.حرارة += 0.3; سيارة.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""سيارة""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex233
+Fatimah at home performs 'encourage' with Layla,Fatimah.encourage(Layla); Layla.trust += 0.25,Encouragement increases trust,en,"[""Fatimah"", ""Layla""]","[""encourage""]","[""trust""]",train,ex234
+في العمل: دفع على ماء,ماء.دفع(); ماء.سرعة += 0.2; ماء.طاقة -= 0.05,الدفع يزيد السرعة وفق القوة والكتلة,ar,"[""ماء""]","[""دفع""]","[""سرعة"", ""طاقة""]",train,ex235
+Layla at school performs 'direct' with Maryam,Layla.direct(Maryam); Maryam.focus += 0.15,Direction improves focus,en,"[""Layla"", ""Maryam""]","[""direct""]","[""focus""]",train,ex236
+في البيت: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex237
+Mohammed at work performs 'apologize' with Khaled,Mohammed.apologize(Khaled); Khaled.anger -= 0.2; Khaled.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Mohammed"", ""Khaled""]","[""apologize""]","[""anger"", ""trust""]",train,ex238
+في العمل: سحب على جسم,جسم.سحب(); جسم.سرعة += 0.1; جسم.طاقة -= 0.05,السحب يغير السرعة وقد يقلل الطاقة,ar,"[""جسم""]","[""سحب""]","[""سرعة"", ""طاقة""]",train,ex239
+at the hospital: pull on Water,Water.pull(); Water.speed += 0.1; Water.energy -= 0.05,Pulling changes speed and may reduce energy,en,"[""Water""]","[""pull""]","[""speed"", ""energy""]",train,ex240
+فاطمة في العمل يقوم بفعل 'مواساة' مع علي,فاطمة.مواساة(علي); علي.حزن -= 0.3,المواساة تقلل الحزن,ar,"[""فاطمة"", ""علي""]","[""مواساة""]","[""حزن""]",train,ex241
+Ahmed in the metro performs 'reassure' with Sarah,Ahmed.reassure(Sarah); Sarah.fear -= 0.25,Reassurance reduces fear,en,"[""Ahmed"", ""Sarah""]","[""reassure""]","[""fear""]",train,ex242
+في المترو: تسريع على كرة,كرة.تسريع(); كرة.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""كرة""]","[""تسريع""]","[""سرعة""]",train,ex243
+in the metro: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex244
+خالد في السوق يقوم بفعل 'تقديم_وجبة' مع نور,خالد.تقديم_وجبة(نور); نور.جوع -= 0.4; نور.امتنان += 0.3,الطعام يقلل الجوع ويزيد الامتنان,ar,"[""خالد"", ""نور""]","[""تقديم_وجبة""]","[""جوع"", ""امتنان""]",train,ex245
+Ahmed at the market performs 'congratulate' with Sarah,Ahmed.congratulate(Sarah); Sarah.happiness += 0.2,Congratulations increase happiness,en,"[""Ahmed"", ""Sarah""]","[""congratulate""]","[""happiness""]",train,ex246
+في المدرسة: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex247
+on the bus: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex248
+مريم في السوق يقوم بفعل 'مساعدة' مع خالد,مريم.مساعدة(خالد); خالد.توتر -= 0.2; خالد.امتنان += 0.2,المساعدة تقلل التوتر وتزيد الامتنان,ar,"[""مريم"", ""خالد""]","[""مساعدة""]","[""توتر"", ""امتنان""]",train,ex249
+at work: cool on MetalBall,MetalBall.cool(); MetalBall.temperature -= 0.3,Cooling lowers temperature,en,"[""MetalBall""]","[""cool""]","[""temperature""]",train,ex250
+علي في الحافلة يقوم بفعل 'مواساة' مع ليلى,علي.مواساة(ليلى); ليلى.حزن -= 0.3,المواساة تقلل الحزن,ar,"[""علي"", ""ليلى""]","[""مواساة""]","[""حزن""]",train,ex251
+Khaled at the market performs 'assist' with Noor,Khaled.assist(Noor); Noor.stress -= 0.2; Noor.gratitude += 0.2,Assistance reduces stress and increases gratitude,en,"[""Khaled"", ""Noor""]","[""assist""]","[""stress"", ""gratitude""]",train,ex252
+علي في الحديقة يقوم بفعل 'اعتناء' مع خالد,علي.اعتناء(خالد); خالد.راحة += 0.2; خالد.خوف -= 0.1,الاعتناء يرفع الراحة ويقلل الخوف,ar,"[""علي"", ""خالد""]","[""اعتناء""]","[""راحة"", ""خوف""]",train,ex253
+in the park: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex254
+في المستشفى: تسخين على كرة,كرة.تسخين(); كرة.حرارة += 0.3; كرة.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""كرة""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex255
+in the metro: heat on MetalBall,MetalBall.heat(); MetalBall.temperature += 0.3; MetalBall.energy -= 0.05,Heating raises temperature,en,"[""MetalBall""]","[""heat""]","[""temperature"", ""energy""]",train,ex256
+محمد في المستشفى يقوم بفعل 'نصح' مع فاطمة,محمد.نصح(فاطمة); فاطمة.تركيز += 0.2,النصح بالهدوء يحسن التركيز,ar,"[""محمد"", ""فاطمة""]","[""نصح""]","[""تركيز""]",train,ex257
+Youssef at the hospital performs 'care_for' with Layla,Youssef.care_for(Layla); Layla.comfort += 0.2; Layla.fear -= 0.1,Care increases comfort and reduces fear,en,"[""Youssef"", ""Layla""]","[""care_for""]","[""comfort"", ""fear""]",train,ex258
+في البيت: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex259
+at the hospital: brake on Box,Box.brake(); Box.speed -= 0.25,Braking reduces speed,en,"[""Box""]","[""brake""]","[""speed""]",train,ex260
+نور في الحديقة يقوم بفعل 'إرشاد' مع علي,نور.إرشاد(علي); علي.ثقة += 0.15,الإرشاد يحسن الثقة,ar,"[""نور"", ""علي""]","[""إرشاد""]","[""ثقة""]",train,ex261
+at home: cool on Object,Object.cool(); Object.temperature -= 0.3,Cooling lowers temperature,en,"[""Object""]","[""cool""]","[""temperature""]",train,ex262
+محمد في المدرسة يقوم بفعل 'توجيه' مع أحمد,محمد.توجيه(أحمد); أحمد.تركيز += 0.15,التوجيه يحسن التركيز,ar,"[""محمد"", ""أحمد""]","[""توجيه""]","[""تركيز""]",train,ex263
+at school: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex264
+في السوق: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex265
+Sarah on the bus performs 'serve_meal' with Ahmed,Sarah.serve_meal(Ahmed); Ahmed.hunger -= 0.4; Ahmed.gratitude += 0.3,Serving food reduces hunger and increases gratitude,en,"[""Sarah"", ""Ahmed""]","[""serve_meal""]","[""hunger"", ""gratitude""]",train,ex266
+في الحديقة: تسخين على سيارة,سيارة.تسخين(); سيارة.حرارة += 0.3; سيارة.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""سيارة""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex267
+at home: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex268
+في السوق: سحب على جسم,جسم.سحب(); جسم.سرعة += 0.1; جسم.طاقة -= 0.05,السحب يغير السرعة وقد يقلل الطاقة,ar,"[""جسم""]","[""سحب""]","[""سرعة"", ""طاقة""]",train,ex269
+Ahmed at the market performs 'advise' with Mohammed,Ahmed.advise(Mohammed); Mohammed.focus += 0.2,Advice to stay calm improves focus,en,"[""Ahmed"", ""Mohammed""]","[""advise""]","[""focus""]",train,ex270
+محمد في الحافلة يقوم بفعل 'اعتناء' مع علي,محمد.اعتناء(علي); علي.راحة += 0.2; علي.خوف -= 0.1,الاعتناء يرفع الراحة ويقلل الخوف,ar,"[""محمد"", ""علي""]","[""اعتناء""]","[""راحة"", ""خوف""]",train,ex271
+at home: pull on Ball,Ball.pull(); Ball.speed += 0.1; Ball.energy -= 0.05,Pulling changes speed and may reduce energy,en,"[""Ball""]","[""pull""]","[""speed"", ""energy""]",train,ex272
+خالد في المترو يقوم بفعل 'مواساة' مع يوسف,خالد.مواساة(يوسف); يوسف.حزن -= 0.3,المواساة تقلل الحزن,ar,"[""خالد"", ""يوسف""]","[""مواساة""]","[""حزن""]",train,ex273
+Youssef at the market performs 'advise' with Sarah,Youssef.advise(Sarah); Sarah.focus += 0.2,Advice to stay calm improves focus,en,"[""Youssef"", ""Sarah""]","[""advise""]","[""focus""]",train,ex274
+ليلى في السوق يقوم بفعل 'اعتناء' مع أحمد,ليلى.اعتناء(أحمد); أحمد.راحة += 0.2; أحمد.خوف -= 0.1,الاعتناء يرفع الراحة ويقلل الخوف,ar,"[""ليلى"", ""أحمد""]","[""اعتناء""]","[""راحة"", ""خوف""]",train,ex275
+at home: heat on MetalBall,MetalBall.heat(); MetalBall.temperature += 0.3; MetalBall.energy -= 0.05,Heating raises temperature,en,"[""MetalBall""]","[""heat""]","[""temperature"", ""energy""]",train,ex276
+مريم في المترو يقوم بفعل 'تشجيع' مع يوسف,مريم.تشجيع(يوسف); يوسف.ثقة += 0.25,التشجيع يرفع الثقة,ar,"[""مريم"", ""يوسف""]","[""تشجيع""]","[""ثقة""]",train,ex277
+Ali at the hospital performs 'guide' with Youssef,Ali.guide(Youssef); Youssef.trust += 0.15,Guidance improves trust,en,"[""Ali"", ""Youssef""]","[""guide""]","[""trust""]",train,ex278
+أحمد في المستشفى يقوم بفعل 'اعتذار' مع مريم,أحمد.اعتذار(مريم); مريم.غضب -= 0.2; مريم.ثقة += 0.1,الاعتذار يقلل الغضب ويزيد الثقة قليلًا,ar,"[""أحمد"", ""مريم""]","[""اعتذار""]","[""غضب"", ""ثقة""]",train,ex279
+Khaled in the metro performs 'reassure' with Noor,Khaled.reassure(Noor); Noor.fear -= 0.25,Reassurance reduces fear,en,"[""Khaled"", ""Noor""]","[""reassure""]","[""fear""]",train,ex280
+في الحديقة: تسخين على كرة_معدنية,كرة_معدنية.تسخين(); كرة_معدنية.حرارة += 0.3; كرة_معدنية.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""كرة_معدنية""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex281
+at the hospital: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex282
+أحمد في البيت يقوم بفعل 'إرشاد' مع محمد,أحمد.إرشاد(محمد); محمد.ثقة += 0.15,الإرشاد يحسن الثقة,ar,"[""أحمد"", ""محمد""]","[""إرشاد""]","[""ثقة""]",train,ex283
+at the hospital: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex284
+أحمد في الحافلة يقوم بفعل 'نصح' مع مريم,أحمد.نصح(مريم); مريم.تركيز += 0.2,النصح بالهدوء يحسن التركيز,ar,"[""أحمد"", ""مريم""]","[""نصح""]","[""تركيز""]",train,ex285
+Maryam at the hospital performs 'reassure' with Sarah,Maryam.reassure(Sarah); Sarah.fear -= 0.25,Reassurance reduces fear,en,"[""Maryam"", ""Sarah""]","[""reassure""]","[""fear""]",train,ex286
+أحمد في الحديقة يقوم بفعل 'تشجيع' مع سارة,أحمد.تشجيع(سارة); سارة.ثقة += 0.25,التشجيع يرفع الثقة,ar,"[""أحمد"", ""سارة""]","[""تشجيع""]","[""ثقة""]",train,ex287
+at the hospital: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex288
+في الحافلة: دفع على صندوق,صندوق.دفع(); صندوق.سرعة += 0.2; صندوق.طاقة -= 0.05,الدفع يزيد السرعة وفق القوة والكتلة,ar,"[""صندوق""]","[""دفع""]","[""سرعة"", ""طاقة""]",train,ex289
+Ahmed in the park performs 'apologize' with Layla,Ahmed.apologize(Layla); Layla.anger -= 0.2; Layla.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Ahmed"", ""Layla""]","[""apologize""]","[""anger"", ""trust""]",train,ex290
+في العمل: تسريع على كرة_معدنية,كرة_معدنية.تسريع(); كرة_معدنية.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""كرة_معدنية""]","[""تسريع""]","[""سرعة""]",train,ex291
+Ali in the metro performs 'encourage' with Khaled,Ali.encourage(Khaled); Khaled.trust += 0.25,Encouragement increases trust,en,"[""Ali"", ""Khaled""]","[""encourage""]","[""trust""]",train,ex292
+أحمد في السوق يقوم بفعل 'توجيه' مع محمد,أحمد.توجيه(محمد); محمد.تركيز += 0.15,التوجيه يحسن التركيز,ar,"[""أحمد"", ""محمد""]","[""توجيه""]","[""تركيز""]",train,ex293
+at work: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex294
+خالد في العمل يقوم بفعل 'مواساة' مع فاطمة,خالد.مواساة(فاطمة); فاطمة.حزن -= 0.3,المواساة تقلل الحزن,ar,"[""خالد"", ""فاطمة""]","[""مواساة""]","[""حزن""]",train,ex295
+Ali at the market performs 'apologize' with Mohammed,Ali.apologize(Mohammed); Mohammed.anger -= 0.2; Mohammed.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Ali"", ""Mohammed""]","[""apologize""]","[""anger"", ""trust""]",train,ex296
+مريم في البيت يقوم بفعل 'مساعدة' مع علي,مريم.مساعدة(علي); علي.توتر -= 0.2; علي.امتنان += 0.2,المساعدة تقلل التوتر وتزيد الامتنان,ar,"[""مريم"", ""علي""]","[""مساعدة""]","[""توتر"", ""امتنان""]",train,ex297
+Layla on the bus performs 'direct' with Ali,Layla.direct(Ali); Ali.focus += 0.15,Direction improves focus,en,"[""Layla"", ""Ali""]","[""direct""]","[""focus""]",train,ex298
+أحمد في البيت يقوم بفعل 'اعتذار' مع سارة,أحمد.اعتذار(سارة); سارة.غضب -= 0.2; سارة.ثقة += 0.1,الاعتذار يقلل الغضب ويزيد الثقة قليلًا,ar,"[""أحمد"", ""سارة""]","[""اعتذار""]","[""غضب"", ""ثقة""]",train,ex299
+at the hospital: brake on Water,Water.brake(); Water.speed -= 0.25,Braking reduces speed,en,"[""Water""]","[""brake""]","[""speed""]",train,ex300
+في المدرسة: تسخين على ماء,ماء.تسخين(); ماء.حرارة += 0.3; ماء.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""ماء""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex301
+at school: push on Car,Car.push(); Car.speed += 0.2; Car.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Car""]","[""push""]","[""speed"", ""energy""]",train,ex302
+في الحديقة: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex303
+Maryam on the bus performs 'direct' with Layla,Maryam.direct(Layla); Layla.focus += 0.15,Direction improves focus,en,"[""Maryam"", ""Layla""]","[""direct""]","[""focus""]",train,ex304
+فاطمة في الحديقة يقوم بفعل 'طمأنة' مع ليلى,فاطمة.طمأنة(ليلى); ليلى.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""فاطمة"", ""ليلى""]","[""طمأنة""]","[""خوف""]",train,ex305
+Maryam at home performs 'encourage' with Fatimah,Maryam.encourage(Fatimah); Fatimah.trust += 0.25,Encouragement increases trust,en,"[""Maryam"", ""Fatimah""]","[""encourage""]","[""trust""]",train,ex306
+في السوق: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",train,ex307
+at the hospital: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex308
+في المدرسة: تسخين على كرة,كرة.تسخين(); كرة.حرارة += 0.3; كرة.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""كرة""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex309
+on the bus: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex310
+في الحافلة: تسخين على كرة_معدنية,كرة_معدنية.تسخين(); كرة_معدنية.حرارة += 0.3; كرة_معدنية.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""كرة_معدنية""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex311
+at work: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex312
+في المدرسة: سحب على كرة_معدنية,كرة_معدنية.سحب(); كرة_معدنية.سرعة += 0.1; كرة_معدنية.طاقة -= 0.05,السحب يغير السرعة وقد يقلل الطاقة,ar,"[""كرة_معدنية""]","[""سحب""]","[""سرعة"", ""طاقة""]",train,ex313
+in the metro: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex314
+نور في المستشفى يقوم بفعل 'تقديم_وجبة' مع مريم,نور.تقديم_وجبة(مريم); مريم.جوع -= 0.4; مريم.امتنان += 0.3,الطعام يقلل الجوع ويزيد الامتنان,ar,"[""نور"", ""مريم""]","[""تقديم_وجبة""]","[""جوع"", ""امتنان""]",train,ex315
+Layla in the metro performs 'guide' with Ali,Layla.guide(Ali); Ali.trust += 0.15,Guidance improves trust,en,"[""Layla"", ""Ali""]","[""guide""]","[""trust""]",train,ex316
+خالد في المدرسة يقوم بفعل 'مساعدة' مع مريم,خالد.مساعدة(مريم); مريم.توتر -= 0.2; مريم.امتنان += 0.2,المساعدة تقلل التوتر وتزيد الامتنان,ar,"[""خالد"", ""مريم""]","[""مساعدة""]","[""توتر"", ""امتنان""]",train,ex317
+at home: pull on Car,Car.pull(); Car.speed += 0.1; Car.energy -= 0.05,Pulling changes speed and may reduce energy,en,"[""Car""]","[""pull""]","[""speed"", ""energy""]",train,ex318
+في المترو: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",train,ex319
+at home: pull on Car,Car.pull(); Car.speed += 0.1; Car.energy -= 0.05,Pulling changes speed and may reduce energy,en,"[""Car""]","[""pull""]","[""speed"", ""energy""]",train,ex320
+في الحديقة: تبريد على جسم,جسم.تبريد(); جسم.حرارة -= 0.3,التبريد يخفض الحرارة,ar,"[""جسم""]","[""تبريد""]","[""حرارة""]",train,ex321
+Khaled in the metro performs 'comfort' with Noor,Khaled.comfort(Noor); Noor.sadness -= 0.3,Comforting reduces sadness,en,"[""Khaled"", ""Noor""]","[""comfort""]","[""sadness""]",train,ex322
+في المدرسة: سحب على صندوق,صندوق.سحب(); صندوق.سرعة += 0.1; صندوق.طاقة -= 0.05,السحب يغير السرعة وقد يقلل الطاقة,ar,"[""صندوق""]","[""سحب""]","[""سرعة"", ""طاقة""]",train,ex323
+at work: accelerate on Water,Water.accelerate(); Water.speed += 0.25,Acceleration raises speed,en,"[""Water""]","[""accelerate""]","[""speed""]",train,ex324
+في المترو: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex325
+Khaled at school performs 'apologize' with Maryam,Khaled.apologize(Maryam); Maryam.anger -= 0.2; Maryam.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Khaled"", ""Maryam""]","[""apologize""]","[""anger"", ""trust""]",train,ex326
+خالد في العمل يقوم بفعل 'تهنئة' مع أحمد,خالد.تهنئة(أحمد); أحمد.سعادة += 0.2,التهنئة ترفع السعادة,ar,"[""خالد"", ""أحمد""]","[""تهنئة""]","[""سعادة""]",train,ex327
+at home: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex328
+في البيت: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex329
+in the park: pull on Box,Box.pull(); Box.speed += 0.1; Box.energy -= 0.05,Pulling changes speed and may reduce energy,en,"[""Box""]","[""pull""]","[""speed"", ""energy""]",train,ex330
+في المدرسة: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex331
+in the metro: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex332
+في المدرسة: تسخين على ماء,ماء.تسخين(); ماء.حرارة += 0.3; ماء.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""ماء""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex333
+Mohammed in the metro performs 'serve_meal' with Sarah,Mohammed.serve_meal(Sarah); Sarah.hunger -= 0.4; Sarah.gratitude += 0.3,Serving food reduces hunger and increases gratitude,en,"[""Mohammed"", ""Sarah""]","[""serve_meal""]","[""hunger"", ""gratitude""]",train,ex334
+في المترو: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex335
+in the park: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex336
+في العمل: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex337
+at the hospital: cool on Water,Water.cool(); Water.temperature -= 0.3,Cooling lowers temperature,en,"[""Water""]","[""cool""]","[""temperature""]",train,ex338
+في المدرسة: سحب على جسم,جسم.سحب(); جسم.سرعة += 0.1; جسم.طاقة -= 0.05,السحب يغير السرعة وقد يقلل الطاقة,ar,"[""جسم""]","[""سحب""]","[""سرعة"", ""طاقة""]",train,ex339
+at the hospital: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex340
+في العمل: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex341
+Maryam in the park performs 'apologize' with Ali,Maryam.apologize(Ali); Ali.anger -= 0.2; Ali.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Maryam"", ""Ali""]","[""apologize""]","[""anger"", ""trust""]",train,ex342
+نور في العمل يقوم بفعل 'تقديم_وجبة' مع مريم,نور.تقديم_وجبة(مريم); مريم.جوع -= 0.4; مريم.امتنان += 0.3,الطعام يقلل الجوع ويزيد الامتنان,ar,"[""نور"", ""مريم""]","[""تقديم_وجبة""]","[""جوع"", ""امتنان""]",train,ex343
+Layla on the bus performs 'care_for' with Ahmed,Layla.care_for(Ahmed); Ahmed.comfort += 0.2; Ahmed.fear -= 0.1,Care increases comfort and reduces fear,en,"[""Layla"", ""Ahmed""]","[""care_for""]","[""comfort"", ""fear""]",train,ex344
+علي في المستشفى يقوم بفعل 'شكوى' مع خالد,علي.شكوى(خالد); خالد.غضب += 0.2; خالد.ثقة -= 0.1,الشكوى ترفع الغضب وتقلل الثقة,ar,"[""علي"", ""خالد""]","[""شكوى""]","[""غضب"", ""ثقة""]",train,ex345
+at the hospital: brake on MetalBall,MetalBall.brake(); MetalBall.speed -= 0.25,Braking reduces speed,en,"[""MetalBall""]","[""brake""]","[""speed""]",train,ex346
+في الحافلة: تبريد على جسم,جسم.تبريد(); جسم.حرارة -= 0.3,التبريد يخفض الحرارة,ar,"[""جسم""]","[""تبريد""]","[""حرارة""]",train,ex347
+Mohammed in the metro performs 'complain' with Fatimah,Mohammed.complain(Fatimah); Fatimah.anger += 0.2; Fatimah.trust -= 0.1,Complaint increases anger and reduces trust,en,"[""Mohammed"", ""Fatimah""]","[""complain""]","[""anger"", ""trust""]",train,ex348
+علي في السوق يقوم بفعل 'شكوى' مع سارة,علي.شكوى(سارة); سارة.غضب += 0.2; سارة.ثقة -= 0.1,الشكوى ترفع الغضب وتقلل الثقة,ar,"[""علي"", ""سارة""]","[""شكوى""]","[""غضب"", ""ثقة""]",train,ex349
+Layla at the hospital performs 'complain' with Ali,Layla.complain(Ali); Ali.anger += 0.2; Ali.trust -= 0.1,Complaint increases anger and reduces trust,en,"[""Layla"", ""Ali""]","[""complain""]","[""anger"", ""trust""]",train,ex350
+في المستشفى: تبريد على كرة_معدنية,كرة_معدنية.تبريد(); كرة_معدنية.حرارة -= 0.3,التبريد يخفض الحرارة,ar,"[""كرة_معدنية""]","[""تبريد""]","[""حرارة""]",train,ex351
+Youssef at work performs 'complain' with Maryam,Youssef.complain(Maryam); Maryam.anger += 0.2; Maryam.trust -= 0.1,Complaint increases anger and reduces trust,en,"[""Youssef"", ""Maryam""]","[""complain""]","[""anger"", ""trust""]",train,ex352
+في الحافلة: سحب على كرة,كرة.سحب(); كرة.سرعة += 0.1; كرة.طاقة -= 0.05,السحب يغير السرعة وقد يقلل الطاقة,ar,"[""كرة""]","[""سحب""]","[""سرعة"", ""طاقة""]",train,ex353
+at work: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex354
+في المترو: تبريد على كرة_معدنية,كرة_معدنية.تبريد(); كرة_معدنية.حرارة -= 0.3,التبريد يخفض الحرارة,ar,"[""كرة_معدنية""]","[""تبريد""]","[""حرارة""]",train,ex355
+Sarah in the metro performs 'direct' with Fatimah,Sarah.direct(Fatimah); Fatimah.focus += 0.15,Direction improves focus,en,"[""Sarah"", ""Fatimah""]","[""direct""]","[""focus""]",train,ex356
+في المستشفى: تسريع على ماء,ماء.تسريع(); ماء.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""ماء""]","[""تسريع""]","[""سرعة""]",train,ex357
+at home: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex358
+مريم في المترو يقوم بفعل 'تشجيع' مع محمد,مريم.تشجيع(محمد); محمد.ثقة += 0.25,التشجيع يرفع الثقة,ar,"[""مريم"", ""محمد""]","[""تشجيع""]","[""ثقة""]",train,ex359
+at the hospital: brake on Car,Car.brake(); Car.speed -= 0.25,Braking reduces speed,en,"[""Car""]","[""brake""]","[""speed""]",train,ex360
+في الحديقة: تبريد على ماء,ماء.تبريد(); ماء.حرارة -= 0.3,التبريد يخفض الحرارة,ar,"[""ماء""]","[""تبريد""]","[""حرارة""]",train,ex361
+Layla at the market performs 'reassure' with Ali,Layla.reassure(Ali); Ali.fear -= 0.25,Reassurance reduces fear,en,"[""Layla"", ""Ali""]","[""reassure""]","[""fear""]",train,ex362
+خالد في السوق يقوم بفعل 'مواساة' مع محمد,خالد.مواساة(محمد); محمد.حزن -= 0.3,المواساة تقلل الحزن,ar,"[""خالد"", ""محمد""]","[""مواساة""]","[""حزن""]",train,ex363
+Noor at the hospital performs 'encourage' with Mohammed,Noor.encourage(Mohammed); Mohammed.trust += 0.25,Encouragement increases trust,en,"[""Noor"", ""Mohammed""]","[""encourage""]","[""trust""]",train,ex364
 في الحديقة: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex365
-at work: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex366
-نور في السوق يقوم بفعل 'تهنئة' مع علي,نور.تهنئة(علي); علي.سعادة += 0.2,التهنئة ترفع السعادة,ar,"[""نور"", ""علي""]","[""تهنئة""]","[""سعادة""]",train,ex367
-at home: pull on Ball,Ball.pull(); Ball.speed += 0.1; Ball.energy -= 0.05,Pulling changes speed and may reduce energy,en,"[""Ball""]","[""pull""]","[""speed"", ""energy""]",train,ex368
-في المدرسة: دفع على سيارة,سيارة.دفع(); سيارة.سرعة += 0.2; سيارة.طاقة -= 0.05,الدفع يزيد السرعة وفق القوة والكتلة,ar,"[""سيارة""]","[""دفع""]","[""سرعة"", ""طاقة""]",train,ex369
-at the hospital: heat on Object,Object.heat(); Object.temperature += 0.3; Object.energy -= 0.05,Heating raises temperature,en,"[""Object""]","[""heat""]","[""temperature"", ""energy""]",train,ex370
-في السوق: تسخين على جسم,جسم.تسخين(); جسم.حرارة += 0.3; جسم.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""جسم""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex371
-at school: push on Water,Water.push(); Water.speed += 0.2; Water.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Water""]","[""push""]","[""speed"", ""energy""]",train,ex372
-في الحديقة: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex373
-at the hospital: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex374
-في البيت: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex375
-at work: pull on Car,Car.pull(); Car.speed += 0.1; Car.energy -= 0.05,Pulling changes speed and may reduce energy,en,"[""Car""]","[""pull""]","[""speed"", ""energy""]",train,ex376
-علي في البيت يقوم بفعل 'تقديم_وجبة' مع ليلى,علي.تقديم_وجبة(ليلى); ليلى.جوع -= 0.4; ليلى.امتنان += 0.3,الطعام يقلل الجوع ويزيد الامتنان,ar,"[""علي"", ""ليلى""]","[""تقديم_وجبة""]","[""جوع"", ""امتنان""]",train,ex377
-Ahmed at home performs 'serve_meal' with Youssef,Ahmed.serve_meal(Youssef); Youssef.hunger -= 0.4; Youssef.gratitude += 0.3,Serving food reduces hunger and increases gratitude,en,"[""Ahmed"", ""Youssef""]","[""serve_meal""]","[""hunger"", ""gratitude""]",train,ex378
-محمد في البيت يقوم بفعل 'اعتذار' مع ليلى,محمد.اعتذار(ليلى); ليلى.غضب -= 0.2; ليلى.ثقة += 0.1,الاعتذار يقلل الغضب ويزيد الثقة قليلًا,ar,"[""محمد"", ""ليلى""]","[""اعتذار""]","[""غضب"", ""ثقة""]",train,ex379
-in the park: cool on Car,Car.cool(); Car.temperature -= 0.3,Cooling lowers temperature,en,"[""Car""]","[""cool""]","[""temperature""]",train,ex380
-يوسف في البيت يقوم بفعل 'تقديم_وجبة' مع مريم,يوسف.تقديم_وجبة(مريم); مريم.جوع -= 0.4; مريم.امتنان += 0.3,الطعام يقلل الجوع ويزيد الامتنان,ar,"[""يوسف"", ""مريم""]","[""تقديم_وجبة""]","[""جوع"", ""امتنان""]",train,ex381
-at the market: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex382
-خالد في السوق يقوم بفعل 'تهنئة' مع نور,خالد.تهنئة(نور); نور.سعادة += 0.2,التهنئة ترفع السعادة,ar,"[""خالد"", ""نور""]","[""تهنئة""]","[""سعادة""]",train,ex383
-Mohammed at the hospital performs 'serve_meal' with Youssef,Mohammed.serve_meal(Youssef); Youssef.hunger -= 0.4; Youssef.gratitude += 0.3,Serving food reduces hunger and increases gratitude,en,"[""Mohammed"", ""Youssef""]","[""serve_meal""]","[""hunger"", ""gratitude""]",train,ex384
-يوسف في المدرسة يقوم بفعل 'اعتذار' مع فاطمة,يوسف.اعتذار(فاطمة); فاطمة.غضب -= 0.2; فاطمة.ثقة += 0.1,الاعتذار يقلل الغضب ويزيد الثقة قليلًا,ar,"[""يوسف"", ""فاطمة""]","[""اعتذار""]","[""غضب"", ""ثقة""]",train,ex385
-at the market: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex386
-في السوق: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",train,ex387
-at the hospital: heat on Object,Object.heat(); Object.temperature += 0.3; Object.energy -= 0.05,Heating raises temperature,en,"[""Object""]","[""heat""]","[""temperature"", ""energy""]",train,ex388
-في العمل: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex389
-at school: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex390
-علي في السوق يقوم بفعل 'مواساة' مع فاطمة,علي.مواساة(فاطمة); فاطمة.حزن -= 0.3,المواساة تقلل الحزن,ar,"[""علي"", ""فاطمة""]","[""مواساة""]","[""حزن""]",train,ex391
-in the park: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex392
-في المستشفى: سحب على كرة_معدنية,كرة_معدنية.سحب(); كرة_معدنية.سرعة += 0.1; كرة_معدنية.طاقة -= 0.05,السحب يغير السرعة وقد يقلل الطاقة,ar,"[""كرة_معدنية""]","[""سحب""]","[""سرعة"", ""طاقة""]",train,ex393
-at the hospital: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex394
-في المستشفى: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex395
-at work: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex396
-في المستشفى: دفع على جسم,جسم.دفع(); جسم.سرعة += 0.2; جسم.طاقة -= 0.05,الدفع يزيد السرعة وفق القوة والكتلة,ar,"[""جسم""]","[""دفع""]","[""سرعة"", ""طاقة""]",train,ex397
-Noor at work performs 'apologize' with Fatimah,Noor.apologize(Fatimah); Fatimah.anger -= 0.2; Fatimah.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Noor"", ""Fatimah""]","[""apologize""]","[""anger"", ""trust""]",train,ex398
-في الحديقة: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex399
-at the market: accelerate on Car,Car.accelerate(); Car.speed += 0.25,Acceleration raises speed,en,"[""Car""]","[""accelerate""]","[""speed""]",train,ex400
-ليلى في المدرسة يقوم بفعل 'نصح' مع خالد,ليلى.نصح(خالد); خالد.تركيز += 0.2,النصح بالهدوء يحسن التركيز,ar,"[""ليلى"", ""خالد""]","[""نصح""]","[""تركيز""]",val,ex401
-in the park: cool on Box,Box.cool(); Box.temperature -= 0.3,Cooling lowers temperature,en,"[""Box""]","[""cool""]","[""temperature""]",val,ex402
-في العمل: تسخين على ماء,ماء.تسخين(); ماء.حرارة += 0.3; ماء.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""ماء""]","[""تسخين""]","[""حرارة"", ""طاقة""]",val,ex403
-at the market: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",val,ex404
-علي في البيت يقوم بفعل 'تشجيع' مع محمد,علي.تشجيع(محمد); محمد.ثقة += 0.25,التشجيع يرفع الثقة,ar,"[""علي"", ""محمد""]","[""تشجيع""]","[""ثقة""]",val,ex405
-at school: push on Box,Box.push(); Box.speed += 0.2; Box.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Box""]","[""push""]","[""speed"", ""energy""]",val,ex406
-ليلى في الحديقة يقوم بفعل 'تقديم_وجبة' مع مريم,ليلى.تقديم_وجبة(مريم); مريم.جوع -= 0.4; مريم.امتنان += 0.3,الطعام يقلل الجوع ويزيد الامتنان,ar,"[""ليلى"", ""مريم""]","[""تقديم_وجبة""]","[""جوع"", ""امتنان""]",val,ex407
-Mohammed at home performs 'advise' with Ali,Mohammed.advise(Ali); Ali.focus += 0.2,Advice to stay calm improves focus,en,"[""Mohammed"", ""Ali""]","[""advise""]","[""focus""]",val,ex408
-فاطمة في المدرسة يقوم بفعل 'تهنئة' مع علي,فاطمة.تهنئة(علي); علي.سعادة += 0.2,التهنئة ترفع السعادة,ar,"[""فاطمة"", ""علي""]","[""تهنئة""]","[""سعادة""]",val,ex409
-Noor at work performs 'encourage' with Sarah,Noor.encourage(Sarah); Sarah.trust += 0.25,Encouragement increases trust,en,"[""Noor"", ""Sarah""]","[""encourage""]","[""trust""]",val,ex410
-نور في المدرسة يقوم بفعل 'مواساة' مع علي,نور.مواساة(علي); علي.حزن -= 0.3,المواساة تقلل الحزن,ar,"[""نور"", ""علي""]","[""مواساة""]","[""حزن""]",val,ex411
-at the market: push on Box,Box.push(); Box.speed += 0.2; Box.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Box""]","[""push""]","[""speed"", ""energy""]",val,ex412
-في العمل: دفع على كرة_معدنية,كرة_معدنية.دفع(); كرة_معدنية.سرعة += 0.2; كرة_معدنية.طاقة -= 0.05,الدفع يزيد السرعة وفق القوة والكتلة,ar,"[""كرة_معدنية""]","[""دفع""]","[""سرعة"", ""طاقة""]",val,ex413
-at the hospital: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",val,ex414
-في المستشفى: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",val,ex415
-Noor at work performs 'apologize' with Fatimah,Noor.apologize(Fatimah); Fatimah.anger -= 0.2; Fatimah.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Noor"", ""Fatimah""]","[""apologize""]","[""anger"", ""trust""]",val,ex416
-في المستشفى: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",val,ex417
-at the market: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",val,ex418
-مريم في السوق يقوم بفعل 'نصح' مع يوسف,مريم.نصح(يوسف); يوسف.تركيز += 0.2,النصح بالهدوء يحسن التركيز,ar,"[""مريم"", ""يوسف""]","[""نصح""]","[""تركيز""]",val,ex419
-at work: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",val,ex420
-أحمد في السوق يقوم بفعل 'تقديم_وجبة' مع ليلى,أحمد.تقديم_وجبة(ليلى); ليلى.جوع -= 0.4; ليلى.امتنان += 0.3,الطعام يقلل الجوع ويزيد الامتنان,ar,"[""أحمد"", ""ليلى""]","[""تقديم_وجبة""]","[""جوع"", ""امتنان""]",val,ex421
-in the park: accelerate on Ball,Ball.accelerate(); Ball.speed += 0.25,Acceleration raises speed,en,"[""Ball""]","[""accelerate""]","[""speed""]",val,ex422
-يوسف في الحديقة يقوم بفعل 'تشجيع' مع مريم,يوسف.تشجيع(مريم); مريم.ثقة += 0.25,التشجيع يرفع الثقة,ar,"[""يوسف"", ""مريم""]","[""تشجيع""]","[""ثقة""]",val,ex423
-Fatimah at school performs 'encourage' with Khaled,Fatimah.encourage(Khaled); Khaled.trust += 0.25,Encouragement increases trust,en,"[""Fatimah"", ""Khaled""]","[""encourage""]","[""trust""]",val,ex424
-في الحديقة: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",val,ex425
-Khaled in the park performs 'encourage' with Layla,Khaled.encourage(Layla); Layla.trust += 0.25,Encouragement increases trust,en,"[""Khaled"", ""Layla""]","[""encourage""]","[""trust""]",val,ex426
-في المستشفى: تبريد على كرة_معدنية,كرة_معدنية.تبريد(); كرة_معدنية.حرارة -= 0.3,التبريد يخفض الحرارة,ar,"[""كرة_معدنية""]","[""تبريد""]","[""حرارة""]",val,ex427
-Fatimah at work performs 'encourage' with Mohammed,Fatimah.encourage(Mohammed); Mohammed.trust += 0.25,Encouragement increases trust,en,"[""Fatimah"", ""Mohammed""]","[""encourage""]","[""trust""]",val,ex428
-في المستشفى: تسخين على صندوق,صندوق.تسخين(); صندوق.حرارة += 0.3; صندوق.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""صندوق""]","[""تسخين""]","[""حرارة"", ""طاقة""]",val,ex429
-at school: accelerate on MetalBall,MetalBall.accelerate(); MetalBall.speed += 0.25,Acceleration raises speed,en,"[""MetalBall""]","[""accelerate""]","[""speed""]",val,ex430
-في الحديقة: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",val,ex431
-Youssef at school performs 'encourage' with Ali,Youssef.encourage(Ali); Ali.trust += 0.25,Encouragement increases trust,en,"[""Youssef"", ""Ali""]","[""encourage""]","[""trust""]",val,ex432
-في المستشفى: تسخين على ماء,ماء.تسخين(); ماء.حرارة += 0.3; ماء.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""ماء""]","[""تسخين""]","[""حرارة"", ""طاقة""]",val,ex433
-Sarah at the hospital performs 'advise' with Layla,Sarah.advise(Layla); Layla.focus += 0.2,Advice to stay calm improves focus,en,"[""Sarah"", ""Layla""]","[""advise""]","[""focus""]",val,ex434
-سارة في المدرسة يقوم بفعل 'مواساة' مع خالد,سارة.مواساة(خالد); خالد.حزن -= 0.3,المواساة تقلل الحزن,ar,"[""سارة"", ""خالد""]","[""مواساة""]","[""حزن""]",val,ex435
-Maryam at work performs 'apologize' with Mohammed,Maryam.apologize(Mohammed); Mohammed.anger -= 0.2; Mohammed.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Maryam"", ""Mohammed""]","[""apologize""]","[""anger"", ""trust""]",val,ex436
-في المدرسة: تسريع على كرة_معدنية,كرة_معدنية.تسريع(); كرة_معدنية.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""كرة_معدنية""]","[""تسريع""]","[""سرعة""]",val,ex437
-at work: heat on MetalBall,MetalBall.heat(); MetalBall.temperature += 0.3; MetalBall.energy -= 0.05,Heating raises temperature,en,"[""MetalBall""]","[""heat""]","[""temperature"", ""energy""]",val,ex438
-في العمل: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",val,ex439
-Youssef at the hospital performs 'comfort' with Khaled,Youssef.comfort(Khaled); Khaled.sadness -= 0.3,Comforting reduces sadness,en,"[""Youssef"", ""Khaled""]","[""comfort""]","[""sadness""]",val,ex440
-في العمل: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",val,ex441
-Khaled at home performs 'serve_meal' with Noor,Khaled.serve_meal(Noor); Noor.hunger -= 0.4; Noor.gratitude += 0.3,Serving food reduces hunger and increases gratitude,en,"[""Khaled"", ""Noor""]","[""serve_meal""]","[""hunger"", ""gratitude""]",val,ex442
-في البيت: سحب على ماء,ماء.سحب(); ماء.سرعة += 0.1; ماء.طاقة -= 0.05,السحب يغير السرعة وقد يقلل الطاقة,ar,"[""ماء""]","[""سحب""]","[""سرعة"", ""طاقة""]",val,ex443
-Fatimah at home performs 'congratulate' with Maryam,Fatimah.congratulate(Maryam); Maryam.happiness += 0.2,Congratulations increase happiness,en,"[""Fatimah"", ""Maryam""]","[""congratulate""]","[""happiness""]",val,ex444
-في العمل: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",val,ex445
-Sarah at the hospital performs 'advise' with Maryam,Sarah.advise(Maryam); Maryam.focus += 0.2,Advice to stay calm improves focus,en,"[""Sarah"", ""Maryam""]","[""advise""]","[""focus""]",val,ex446
-ليلى في السوق يقوم بفعل 'نصح' مع نور,ليلى.نصح(نور); نور.تركيز += 0.2,النصح بالهدوء يحسن التركيز,ar,"[""ليلى"", ""نور""]","[""نصح""]","[""تركيز""]",val,ex447
-Youssef at home performs 'apologize' with Ali,Youssef.apologize(Ali); Ali.anger -= 0.2; Ali.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Youssef"", ""Ali""]","[""apologize""]","[""anger"", ""trust""]",val,ex448
-في المستشفى: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",val,ex449
-at the hospital: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",val,ex450
-مريم في البيت يقوم بفعل 'تهنئة' مع أحمد,مريم.تهنئة(أحمد); أحمد.سعادة += 0.2,التهنئة ترفع السعادة,ar,"[""مريم"", ""أحمد""]","[""تهنئة""]","[""سعادة""]",test,ex451
-at work: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",test,ex452
-محمد في السوق يقوم بفعل 'تقديم_وجبة' مع علي,محمد.تقديم_وجبة(علي); علي.جوع -= 0.4; علي.امتنان += 0.3,الطعام يقلل الجوع ويزيد الامتنان,ar,"[""محمد"", ""علي""]","[""تقديم_وجبة""]","[""جوع"", ""امتنان""]",test,ex453
-Mohammed at home performs 'encourage' with Khaled,Mohammed.encourage(Khaled); Khaled.trust += 0.25,Encouragement increases trust,en,"[""Mohammed"", ""Khaled""]","[""encourage""]","[""trust""]",test,ex454
-في المستشفى: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",test,ex455
-Youssef at home performs 'comfort' with Mohammed,Youssef.comfort(Mohammed); Mohammed.sadness -= 0.3,Comforting reduces sadness,en,"[""Youssef"", ""Mohammed""]","[""comfort""]","[""sadness""]",test,ex456
-في المدرسة: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",test,ex457
-at school: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",test,ex458
-يوسف في المستشفى يقوم بفعل 'تشجيع' مع علي,يوسف.تشجيع(علي); علي.ثقة += 0.25,التشجيع يرفع الثقة,ar,"[""يوسف"", ""علي""]","[""تشجيع""]","[""ثقة""]",test,ex459
-at school: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",test,ex460
-في المستشفى: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",test,ex461
-Ahmed in the park performs 'serve_meal' with Layla,Ahmed.serve_meal(Layla); Layla.hunger -= 0.4; Layla.gratitude += 0.3,Serving food reduces hunger and increases gratitude,en,"[""Ahmed"", ""Layla""]","[""serve_meal""]","[""hunger"", ""gratitude""]",test,ex462
-في السوق: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",test,ex463
-at the hospital: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",test,ex464
-أحمد في الحديقة يقوم بفعل 'نصح' مع مريم,أحمد.نصح(مريم); مريم.تركيز += 0.2,النصح بالهدوء يحسن التركيز,ar,"[""أحمد"", ""مريم""]","[""نصح""]","[""تركيز""]",test,ex465
-at home: cool on Object,Object.cool(); Object.temperature -= 0.3,Cooling lowers temperature,en,"[""Object""]","[""cool""]","[""temperature""]",test,ex466
-في المدرسة: دفع على سيارة,سيارة.دفع(); سيارة.سرعة += 0.2; سيارة.طاقة -= 0.05,الدفع يزيد السرعة وفق القوة والكتلة,ar,"[""سيارة""]","[""دفع""]","[""سرعة"", ""طاقة""]",test,ex467
-Ahmed at the hospital performs 'comfort' with Maryam,Ahmed.comfort(Maryam); Maryam.sadness -= 0.3,Comforting reduces sadness,en,"[""Ahmed"", ""Maryam""]","[""comfort""]","[""sadness""]",test,ex468
-في العمل: تسريع على سيارة,سيارة.تسريع(); سيارة.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""سيارة""]","[""تسريع""]","[""سرعة""]",test,ex469
-at school: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",test,ex470
-في المستشفى: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",test,ex471
-at school: push on Water,Water.push(); Water.speed += 0.2; Water.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Water""]","[""push""]","[""speed"", ""energy""]",test,ex472
-في البيت: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",test,ex473
-Fatimah at school performs 'serve_meal' with Noor,Fatimah.serve_meal(Noor); Noor.hunger -= 0.4; Noor.gratitude += 0.3,Serving food reduces hunger and increases gratitude,en,"[""Fatimah"", ""Noor""]","[""serve_meal""]","[""hunger"", ""gratitude""]",test,ex474
-في العمل: تسريع على صندوق,صندوق.تسريع(); صندوق.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""صندوق""]","[""تسريع""]","[""سرعة""]",test,ex475
-Ahmed at the hospital performs 'apologize' with Ali,Ahmed.apologize(Ali); Ali.anger -= 0.2; Ali.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Ahmed"", ""Ali""]","[""apologize""]","[""anger"", ""trust""]",test,ex476
-في السوق: سحب على كرة_معدنية,كرة_معدنية.سحب(); كرة_معدنية.سرعة += 0.1; كرة_معدنية.طاقة -= 0.05,السحب يغير السرعة وقد يقلل الطاقة,ar,"[""كرة_معدنية""]","[""سحب""]","[""سرعة"", ""طاقة""]",test,ex477
-at work: push on Box,Box.push(); Box.speed += 0.2; Box.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Box""]","[""push""]","[""speed"", ""energy""]",test,ex478
-ليلى في البيت يقوم بفعل 'اعتذار' مع سارة,ليلى.اعتذار(سارة); سارة.غضب -= 0.2; سارة.ثقة += 0.1,الاعتذار يقلل الغضب ويزيد الثقة قليلًا,ar,"[""ليلى"", ""سارة""]","[""اعتذار""]","[""غضب"", ""ثقة""]",test,ex479
-Khaled at the market performs 'apologize' with Mohammed,Khaled.apologize(Mohammed); Mohammed.anger -= 0.2; Mohammed.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Khaled"", ""Mohammed""]","[""apologize""]","[""anger"", ""trust""]",test,ex480
-محمد في العمل يقوم بفعل 'اعتذار' مع علي,محمد.اعتذار(علي); علي.غضب -= 0.2; علي.ثقة += 0.1,الاعتذار يقلل الغضب ويزيد الثقة قليلًا,ar,"[""محمد"", ""علي""]","[""اعتذار""]","[""غضب"", ""ثقة""]",test,ex481
-Ali at home performs 'serve_meal' with Fatimah,Ali.serve_meal(Fatimah); Fatimah.hunger -= 0.4; Fatimah.gratitude += 0.3,Serving food reduces hunger and increases gratitude,en,"[""Ali"", ""Fatimah""]","[""serve_meal""]","[""hunger"", ""gratitude""]",test,ex482
-نور في البيت يقوم بفعل 'تهنئة' مع أحمد,نور.تهنئة(أحمد); أحمد.سعادة += 0.2,التهنئة ترفع السعادة,ar,"[""نور"", ""أحمد""]","[""تهنئة""]","[""سعادة""]",test,ex483
-in the park: heat on Water,Water.heat(); Water.temperature += 0.3; Water.energy -= 0.05,Heating raises temperature,en,"[""Water""]","[""heat""]","[""temperature"", ""energy""]",test,ex484
-في المدرسة: تسخين على كرة,كرة.تسخين(); كرة.حرارة += 0.3; كرة.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""كرة""]","[""تسخين""]","[""حرارة"", ""طاقة""]",test,ex485
-Layla in the park performs 'congratulate' with Sarah,Layla.congratulate(Sarah); Sarah.happiness += 0.2,Congratulations increase happiness,en,"[""Layla"", ""Sarah""]","[""congratulate""]","[""happiness""]",test,ex486
-في العمل: دفع على كرة_معدنية,كرة_معدنية.دفع(); كرة_معدنية.سرعة += 0.2; كرة_معدنية.طاقة -= 0.05,الدفع يزيد السرعة وفق القوة والكتلة,ar,"[""كرة_معدنية""]","[""دفع""]","[""سرعة"", ""طاقة""]",test,ex487
-at the market: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",test,ex488
-في المدرسة: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",test,ex489
-at the market: accelerate on Water,Water.accelerate(); Water.speed += 0.25,Acceleration raises speed,en,"[""Water""]","[""accelerate""]","[""speed""]",test,ex490
-خالد في البيت يقوم بفعل 'تهنئة' مع نور,خالد.تهنئة(نور); نور.سعادة += 0.2,التهنئة ترفع السعادة,ar,"[""خالد"", ""نور""]","[""تهنئة""]","[""سعادة""]",test,ex491
-at the hospital: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",test,ex492
-خالد في البيت يقوم بفعل 'تهنئة' مع محمد,خالد.تهنئة(محمد); محمد.سعادة += 0.2,التهنئة ترفع السعادة,ar,"[""خالد"", ""محمد""]","[""تهنئة""]","[""سعادة""]",test,ex493
-Ahmed at school performs 'comfort' with Maryam,Ahmed.comfort(Maryam); Maryam.sadness -= 0.3,Comforting reduces sadness,en,"[""Ahmed"", ""Maryam""]","[""comfort""]","[""sadness""]",test,ex494
-سارة في السوق يقوم بفعل 'تشجيع' مع أحمد,سارة.تشجيع(أحمد); أحمد.ثقة += 0.25,التشجيع يرفع الثقة,ar,"[""سارة"", ""أحمد""]","[""تشجيع""]","[""ثقة""]",test,ex495
-Ali at home performs 'apologize' with Youssef,Ali.apologize(Youssef); Youssef.anger -= 0.2; Youssef.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Ali"", ""Youssef""]","[""apologize""]","[""anger"", ""trust""]",test,ex496
-في المدرسة: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",test,ex497
-Sarah at school performs 'encourage' with Maryam,Sarah.encourage(Maryam); Maryam.trust += 0.25,Encouragement increases trust,en,"[""Sarah"", ""Maryam""]","[""encourage""]","[""trust""]",test,ex498
-ليلى في السوق يقوم بفعل 'تقديم_وجبة' مع مريم,ليلى.تقديم_وجبة(مريم); مريم.جوع -= 0.4; مريم.امتنان += 0.3,الطعام يقلل الجوع ويزيد الامتنان,ar,"[""ليلى"", ""مريم""]","[""تقديم_وجبة""]","[""جوع"", ""امتنان""]",test,ex499
-in the park: cool on Box,Box.cool(); Box.temperature -= 0.3,Cooling lowers temperature,en,"[""Box""]","[""cool""]","[""temperature""]",test,ex500
+Mohammed at the hospital performs 'serve_meal' with Noor,Mohammed.serve_meal(Noor); Noor.hunger -= 0.4; Noor.gratitude += 0.3,Serving food reduces hunger and increases gratitude,en,"[""Mohammed"", ""Noor""]","[""serve_meal""]","[""hunger"", ""gratitude""]",train,ex366
+فاطمة في الحافلة يقوم بفعل 'إرشاد' مع محمد,فاطمة.إرشاد(محمد); محمد.ثقة += 0.15,الإرشاد يحسن الثقة,ar,"[""فاطمة"", ""محمد""]","[""إرشاد""]","[""ثقة""]",train,ex367
+at home: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex368
+في السوق: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex369
+Mohammed in the metro performs 'reassure' with Maryam,Mohammed.reassure(Maryam); Maryam.fear -= 0.25,Reassurance reduces fear,en,"[""Mohammed"", ""Maryam""]","[""reassure""]","[""fear""]",train,ex370
+مريم في المستشفى يقوم بفعل 'نصح' مع أحمد,مريم.نصح(أحمد); أحمد.تركيز += 0.2,النصح بالهدوء يحسن التركيز,ar,"[""مريم"", ""أحمد""]","[""نصح""]","[""تركيز""]",train,ex371
+at home: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex372
+في البيت: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",train,ex373
+on the bus: heat on Car,Car.heat(); Car.temperature += 0.3; Car.energy -= 0.05,Heating raises temperature,en,"[""Car""]","[""heat""]","[""temperature"", ""energy""]",train,ex374
+في السوق: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex375
+at school: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",train,ex376
+في العمل: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex377
+at the market: cool on Object,Object.cool(); Object.temperature -= 0.3,Cooling lowers temperature,en,"[""Object""]","[""cool""]","[""temperature""]",train,ex378
+في السوق: تسريع على ماء,ماء.تسريع(); ماء.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""ماء""]","[""تسريع""]","[""سرعة""]",train,ex379
+on the bus: cool on Ball,Ball.cool(); Ball.temperature -= 0.3,Cooling lowers temperature,en,"[""Ball""]","[""cool""]","[""temperature""]",train,ex380
+علي في المدرسة يقوم بفعل 'توجيه' مع نور,علي.توجيه(نور); نور.تركيز += 0.15,التوجيه يحسن التركيز,ar,"[""علي"", ""نور""]","[""توجيه""]","[""تركيز""]",train,ex381
+in the metro: cool on Water,Water.cool(); Water.temperature -= 0.3,Cooling lowers temperature,en,"[""Water""]","[""cool""]","[""temperature""]",train,ex382
+في المستشفى: تسريع على ماء,ماء.تسريع(); ماء.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""ماء""]","[""تسريع""]","[""سرعة""]",train,ex383
+in the park: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",train,ex384
+في الحافلة: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex385
+at school: brake on Ball,Ball.brake(); Ball.speed -= 0.25,Braking reduces speed,en,"[""Ball""]","[""brake""]","[""speed""]",train,ex386
+في الحديقة: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex387
+Layla in the park performs 'care_for' with Maryam,Layla.care_for(Maryam); Maryam.comfort += 0.2; Maryam.fear -= 0.1,Care increases comfort and reduces fear,en,"[""Layla"", ""Maryam""]","[""care_for""]","[""comfort"", ""fear""]",train,ex388
+في المدرسة: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",train,ex389
+Maryam at the market performs 'encourage' with Ali,Maryam.encourage(Ali); Ali.trust += 0.25,Encouragement increases trust,en,"[""Maryam"", ""Ali""]","[""encourage""]","[""trust""]",train,ex390
+في المستشفى: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",train,ex391
+at the hospital: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",train,ex392
+في الحافلة: تسخين على صندوق,صندوق.تسخين(); صندوق.حرارة += 0.3; صندوق.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""صندوق""]","[""تسخين""]","[""حرارة"", ""طاقة""]",train,ex393
+Mohammed in the park performs 'reassure' with Noor,Mohammed.reassure(Noor); Noor.fear -= 0.25,Reassurance reduces fear,en,"[""Mohammed"", ""Noor""]","[""reassure""]","[""fear""]",train,ex394
+في المترو: دفع على سيارة,سيارة.دفع(); سيارة.سرعة += 0.2; سيارة.طاقة -= 0.05,الدفع يزيد السرعة وفق القوة والكتلة,ar,"[""سيارة""]","[""دفع""]","[""سرعة"", ""طاقة""]",train,ex395
+Ahmed at school performs 'advise' with Khaled,Ahmed.advise(Khaled); Khaled.focus += 0.2,Advice to stay calm improves focus,en,"[""Ahmed"", ""Khaled""]","[""advise""]","[""focus""]",train,ex396
+في الحديقة: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex397
+at the hospital: accelerate on Ball,Ball.accelerate(); Ball.speed += 0.25,Acceleration raises speed,en,"[""Ball""]","[""accelerate""]","[""speed""]",train,ex398
+في السوق: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",train,ex399
+at home: brake on MetalBall,MetalBall.brake(); MetalBall.speed -= 0.25,Braking reduces speed,en,"[""MetalBall""]","[""brake""]","[""speed""]",train,ex400
+في المدرسة: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",val,ex401
+Ahmed at school performs 'assist' with Ali,Ahmed.assist(Ali); Ali.stress -= 0.2; Ali.gratitude += 0.2,Assistance reduces stress and increases gratitude,en,"[""Ahmed"", ""Ali""]","[""assist""]","[""stress"", ""gratitude""]",val,ex402
+في المدرسة: تسريع على صندوق,صندوق.تسريع(); صندوق.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""صندوق""]","[""تسريع""]","[""سرعة""]",val,ex403
+Youssef in the park performs 'comfort' with Sarah,Youssef.comfort(Sarah); Sarah.sadness -= 0.3,Comforting reduces sadness,en,"[""Youssef"", ""Sarah""]","[""comfort""]","[""sadness""]",val,ex404
+في المدرسة: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",val,ex405
+at the market: cool on Ball,Ball.cool(); Ball.temperature -= 0.3,Cooling lowers temperature,en,"[""Ball""]","[""cool""]","[""temperature""]",val,ex406
+في السوق: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",val,ex407
+at the market: heat on Object,Object.heat(); Object.temperature += 0.3; Object.energy -= 0.05,Heating raises temperature,en,"[""Object""]","[""heat""]","[""temperature"", ""energy""]",val,ex408
+في الحديقة: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",val,ex409
+Maryam in the park performs 'congratulate' with Ali,Maryam.congratulate(Ali); Ali.happiness += 0.2,Congratulations increase happiness,en,"[""Maryam"", ""Ali""]","[""congratulate""]","[""happiness""]",val,ex410
+في المترو: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",val,ex411
+at the hospital: accelerate on Car,Car.accelerate(); Car.speed += 0.25,Acceleration raises speed,en,"[""Car""]","[""accelerate""]","[""speed""]",val,ex412
+في العمل: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",val,ex413
+in the metro: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",val,ex414
+في الحديقة: سحب على صندوق,صندوق.سحب(); صندوق.سرعة += 0.1; صندوق.طاقة -= 0.05,السحب يغير السرعة وقد يقلل الطاقة,ar,"[""صندوق""]","[""سحب""]","[""سرعة"", ""طاقة""]",val,ex415
+in the metro: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",val,ex416
+علي في الحديقة يقوم بفعل 'اعتناء' مع مريم,علي.اعتناء(مريم); مريم.راحة += 0.2; مريم.خوف -= 0.1,الاعتناء يرفع الراحة ويقلل الخوف,ar,"[""علي"", ""مريم""]","[""اعتناء""]","[""راحة"", ""خوف""]",val,ex417
+Ali at school performs 'congratulate' with Ahmed,Ali.congratulate(Ahmed); Ahmed.happiness += 0.2,Congratulations increase happiness,en,"[""Ali"", ""Ahmed""]","[""congratulate""]","[""happiness""]",val,ex418
+في البيت: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",val,ex419
+Fatimah at school performs 'apologize' with Ali,Fatimah.apologize(Ali); Ali.anger -= 0.2; Ali.trust += 0.1,Apology reduces anger and slightly increases trust,en,"[""Fatimah"", ""Ali""]","[""apologize""]","[""anger"", ""trust""]",val,ex420
+في السوق: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",val,ex421
+Layla in the park performs 'assist' with Khaled,Layla.assist(Khaled); Khaled.stress -= 0.2; Khaled.gratitude += 0.2,Assistance reduces stress and increases gratitude,en,"[""Layla"", ""Khaled""]","[""assist""]","[""stress"", ""gratitude""]",val,ex422
+في البيت: تسريع على ماء,ماء.تسريع(); ماء.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""ماء""]","[""تسريع""]","[""سرعة""]",val,ex423
+Mohammed at school performs 'comfort' with Khaled,Mohammed.comfort(Khaled); Khaled.sadness -= 0.3,Comforting reduces sadness,en,"[""Mohammed"", ""Khaled""]","[""comfort""]","[""sadness""]",val,ex424
+في العمل: تسخين على جسم,جسم.تسخين(); جسم.حرارة += 0.3; جسم.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""جسم""]","[""تسخين""]","[""حرارة"", ""طاقة""]",val,ex425
+at work: brake on Box,Box.brake(); Box.speed -= 0.25,Braking reduces speed,en,"[""Box""]","[""brake""]","[""speed""]",val,ex426
+في المترو: سحب على سيارة,سيارة.سحب(); سيارة.سرعة += 0.1; سيارة.طاقة -= 0.05,السحب يغير السرعة وقد يقلل الطاقة,ar,"[""سيارة""]","[""سحب""]","[""سرعة"", ""طاقة""]",val,ex427
+Youssef on the bus performs 'assist' with Ali,Youssef.assist(Ali); Ali.stress -= 0.2; Ali.gratitude += 0.2,Assistance reduces stress and increases gratitude,en,"[""Youssef"", ""Ali""]","[""assist""]","[""stress"", ""gratitude""]",val,ex428
+فاطمة في العمل يقوم بفعل 'تقديم_وجبة' مع نور,فاطمة.تقديم_وجبة(نور); نور.جوع -= 0.4; نور.امتنان += 0.3,الطعام يقلل الجوع ويزيد الامتنان,ar,"[""فاطمة"", ""نور""]","[""تقديم_وجبة""]","[""جوع"", ""امتنان""]",val,ex429
+at work: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",val,ex430
+في الحافلة: دفع على كرة,كرة.دفع(); كرة.سرعة += 0.2; كرة.طاقة -= 0.05,الدفع يزيد السرعة وفق القوة والكتلة,ar,"[""كرة""]","[""دفع""]","[""سرعة"", ""طاقة""]",val,ex431
+at school: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",val,ex432
+في الحافلة: دفع على صندوق,صندوق.دفع(); صندوق.سرعة += 0.2; صندوق.طاقة -= 0.05,الدفع يزيد السرعة وفق القوة والكتلة,ar,"[""صندوق""]","[""دفع""]","[""سرعة"", ""طاقة""]",val,ex433
+in the metro: brake on Box,Box.brake(); Box.speed -= 0.25,Braking reduces speed,en,"[""Box""]","[""brake""]","[""speed""]",val,ex434
+ليلى في المستشفى يقوم بفعل 'طمأنة' مع نور,ليلى.طمأنة(نور); نور.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""ليلى"", ""نور""]","[""طمأنة""]","[""خوف""]",val,ex435
+in the park: push on Box,Box.push(); Box.speed += 0.2; Box.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Box""]","[""push""]","[""speed"", ""energy""]",val,ex436
+يوسف في الحديقة يقوم بفعل 'إرشاد' مع نور,يوسف.إرشاد(نور); نور.ثقة += 0.15,الإرشاد يحسن الثقة,ar,"[""يوسف"", ""نور""]","[""إرشاد""]","[""ثقة""]",val,ex437
+at the market: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",val,ex438
+سارة في المترو يقوم بفعل 'طمأنة' مع خالد,سارة.طمأنة(خالد); خالد.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""سارة"", ""خالد""]","[""طمأنة""]","[""خوف""]",val,ex439
+at school: push on Car,Car.push(); Car.speed += 0.2; Car.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Car""]","[""push""]","[""speed"", ""energy""]",val,ex440
+في المترو: تبريد على كرة,كرة.تبريد(); كرة.حرارة -= 0.3,التبريد يخفض الحرارة,ar,"[""كرة""]","[""تبريد""]","[""حرارة""]",val,ex441
+in the metro: cool on MetalBall,MetalBall.cool(); MetalBall.temperature -= 0.3,Cooling lowers temperature,en,"[""MetalBall""]","[""cool""]","[""temperature""]",val,ex442
+في الحديقة: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",val,ex443
+in the metro: push on Object,Object.push(); Object.speed += 0.2; Object.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Object""]","[""push""]","[""speed"", ""energy""]",val,ex444
+علي في العمل يقوم بفعل 'مساعدة' مع ليلى,علي.مساعدة(ليلى); ليلى.توتر -= 0.2; ليلى.امتنان += 0.2,المساعدة تقلل التوتر وتزيد الامتنان,ar,"[""علي"", ""ليلى""]","[""مساعدة""]","[""توتر"", ""امتنان""]",val,ex445
+at the market: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",val,ex446
+في المدرسة: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",val,ex447
+Mohammed at school performs 'congratulate' with Khaled,Mohammed.congratulate(Khaled); Khaled.happiness += 0.2,Congratulations increase happiness,en,"[""Mohammed"", ""Khaled""]","[""congratulate""]","[""happiness""]",val,ex448
+فاطمة في المستشفى يقوم بفعل 'اعتناء' مع يوسف,فاطمة.اعتناء(يوسف); يوسف.راحة += 0.2; يوسف.خوف -= 0.1,الاعتناء يرفع الراحة ويقلل الخوف,ar,"[""فاطمة"", ""يوسف""]","[""اعتناء""]","[""راحة"", ""خوف""]",val,ex449
+at home: brake on Ball,Ball.brake(); Ball.speed -= 0.25,Braking reduces speed,en,"[""Ball""]","[""brake""]","[""speed""]",val,ex450
+محمد في المترو يقوم بفعل 'اعتناء' مع نور,محمد.اعتناء(نور); نور.راحة += 0.2; نور.خوف -= 0.1,الاعتناء يرفع الراحة ويقلل الخوف,ar,"[""محمد"", ""نور""]","[""اعتناء""]","[""راحة"", ""خوف""]",test,ex451
+at the market: cool on Box,Box.cool(); Box.temperature -= 0.3,Cooling lowers temperature,en,"[""Box""]","[""cool""]","[""temperature""]",test,ex452
+سارة في البيت يقوم بفعل 'مواساة' مع خالد,سارة.مواساة(خالد); خالد.حزن -= 0.3,المواساة تقلل الحزن,ar,"[""سارة"", ""خالد""]","[""مواساة""]","[""حزن""]",test,ex453
+in the metro: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",test,ex454
+فاطمة في البيت يقوم بفعل 'مواساة' مع يوسف,فاطمة.مواساة(يوسف); يوسف.حزن -= 0.3,المواساة تقلل الحزن,ar,"[""فاطمة"", ""يوسف""]","[""مواساة""]","[""حزن""]",test,ex455
+on the bus: accelerate on MetalBall,MetalBall.accelerate(); MetalBall.speed += 0.25,Acceleration raises speed,en,"[""MetalBall""]","[""accelerate""]","[""speed""]",test,ex456
+خالد في المستشفى يقوم بفعل 'اعتذار' مع مريم,خالد.اعتذار(مريم); مريم.غضب -= 0.2; مريم.ثقة += 0.1,الاعتذار يقلل الغضب ويزيد الثقة قليلًا,ar,"[""خالد"", ""مريم""]","[""اعتذار""]","[""غضب"", ""ثقة""]",test,ex457
+in the park: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",test,ex458
+في المستشفى: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",test,ex459
+at work: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",test,ex460
+في العمل: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",test,ex461
+at the hospital: push on Object,Object.push(); Object.speed += 0.2; Object.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Object""]","[""push""]","[""speed"", ""energy""]",test,ex462
+في المدرسة: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",test,ex463
+Ahmed at school performs 'direct' with Mohammed,Ahmed.direct(Mohammed); Mohammed.focus += 0.15,Direction improves focus,en,"[""Ahmed"", ""Mohammed""]","[""direct""]","[""focus""]",test,ex464
+في الحافلة: تسخين على سيارة,سيارة.تسخين(); سيارة.حرارة += 0.3; سيارة.طاقة -= 0.05,التسخين يرفع الحرارة,ar,"[""سيارة""]","[""تسخين""]","[""حرارة"", ""طاقة""]",test,ex465
+at home: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",test,ex466
+في المستشفى: تبريد على كرة,كرة.تبريد(); كرة.حرارة -= 0.3,التبريد يخفض الحرارة,ar,"[""كرة""]","[""تبريد""]","[""حرارة""]",test,ex467
+Layla at home performs 'care_for' with Khaled,Layla.care_for(Khaled); Khaled.comfort += 0.2; Khaled.fear -= 0.1,Care increases comfort and reduces fear,en,"[""Layla"", ""Khaled""]","[""care_for""]","[""comfort"", ""fear""]",test,ex468
+في الحديقة: معلّم يقوم بـنصح لـ طالب,معلّم.نصح(طالب); طالب.تركيز += 0.2,النصح يحسن تركيز الطالب,ar,"[""معلّم"", ""طالب""]","[""نصح""]","[""تركيز""]",test,ex469
+at home: heat on Ball,Ball.heat(); Ball.temperature += 0.3; Ball.energy -= 0.05,Heating raises temperature,en,"[""Ball""]","[""heat""]","[""temperature"", ""energy""]",test,ex470
+في البيت: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",test,ex471
+at the market: Teacher performs advise for Student,Teacher.advise(Student); Student.focus += 0.2,Advice improves student focus,en,"[""Teacher"", ""Student""]","[""advise""]","[""focus""]",test,ex472
+في السوق: دفع على صندوق,صندوق.دفع(); صندوق.سرعة += 0.2; صندوق.طاقة -= 0.05,الدفع يزيد السرعة وفق القوة والكتلة,ar,"[""صندوق""]","[""دفع""]","[""سرعة"", ""طاقة""]",test,ex473
+Fatimah at school performs 'direct' with Mohammed,Fatimah.direct(Mohammed); Mohammed.focus += 0.15,Direction improves focus,en,"[""Fatimah"", ""Mohammed""]","[""direct""]","[""focus""]",test,ex474
+خالد في الحافلة يقوم بفعل 'تهنئة' مع علي,خالد.تهنئة(علي); علي.سعادة += 0.2,التهنئة ترفع السعادة,ar,"[""خالد"", ""علي""]","[""تهنئة""]","[""سعادة""]",test,ex475
+at work: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",test,ex476
+في المستشفى: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",test,ex477
+at school: push on Ball,Ball.push(); Ball.speed += 0.2; Ball.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Ball""]","[""push""]","[""speed"", ""energy""]",test,ex478
+في المترو: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",test,ex479
+Ali at school performs 'care_for' with Youssef,Ali.care_for(Youssef); Youssef.comfort += 0.2; Youssef.fear -= 0.1,Care increases comfort and reduces fear,en,"[""Ali"", ""Youssef""]","[""care_for""]","[""comfort"", ""fear""]",test,ex480
+في السوق: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",test,ex481
+at the hospital: heat on Box,Box.heat(); Box.temperature += 0.3; Box.energy -= 0.05,Heating raises temperature,en,"[""Box""]","[""heat""]","[""temperature"", ""energy""]",test,ex482
+نور في الحافلة يقوم بفعل 'تقديم_وجبة' مع محمد,نور.تقديم_وجبة(محمد); محمد.جوع -= 0.4; محمد.امتنان += 0.3,الطعام يقلل الجوع ويزيد الامتنان,ar,"[""نور"", ""محمد""]","[""تقديم_وجبة""]","[""جوع"", ""امتنان""]",test,ex483
+at work: Doctor performs reassure for Patient,Doctor.reassure(Patient); Patient.fear -= 0.25,Reassurance reduces fear,en,"[""Doctor"", ""Patient""]","[""reassure""]","[""fear""]",test,ex484
+خالد في السوق يقوم بفعل 'تشجيع' مع علي,خالد.تشجيع(علي); علي.ثقة += 0.25,التشجيع يرفع الثقة,ar,"[""خالد"", ""علي""]","[""تشجيع""]","[""ثقة""]",test,ex485
+at home: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",test,ex486
+في البيت: تسريع على كرة,كرة.تسريع(); كرة.سرعة += 0.25,التسريع يرفع السرعة,ar,"[""كرة""]","[""تسريع""]","[""سرعة""]",test,ex487
+Layla at the hospital performs 'assist' with Sarah,Layla.assist(Sarah); Sarah.stress -= 0.2; Sarah.gratitude += 0.2,Assistance reduces stress and increases gratitude,en,"[""Layla"", ""Sarah""]","[""assist""]","[""stress"", ""gratitude""]",test,ex488
+محمد في الحديقة يقوم بفعل 'اعتذار' مع مريم,محمد.اعتذار(مريم); مريم.غضب -= 0.2; مريم.ثقة += 0.1,الاعتذار يقلل الغضب ويزيد الثقة قليلًا,ar,"[""محمد"", ""مريم""]","[""اعتذار""]","[""غضب"", ""ثقة""]",test,ex489
+at the market: Coach performs encourage for Runner,Coach.encourage(Runner); Runner.speed += 0.2,Encouragement increases runner speed,en,"[""Coach"", ""Runner""]","[""encourage""]","[""speed""]",test,ex490
+في المستشفى: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",test,ex491
+Maryam at home performs 'encourage' with Ali,Maryam.encourage(Ali); Ali.trust += 0.25,Encouragement increases trust,en,"[""Maryam"", ""Ali""]","[""encourage""]","[""trust""]",test,ex492
+في البيت: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",test,ex493
+at the hospital: accelerate on Box,Box.accelerate(); Box.speed += 0.25,Acceleration raises speed,en,"[""Box""]","[""accelerate""]","[""speed""]",test,ex494
+في الحافلة: تبريد على صندوق,صندوق.تبريد(); صندوق.حرارة -= 0.3,التبريد يخفض الحرارة,ar,"[""صندوق""]","[""تبريد""]","[""حرارة""]",test,ex495
+Ali at the market performs 'complain' with Youssef,Ali.complain(Youssef); Youssef.anger += 0.2; Youssef.trust -= 0.1,Complaint increases anger and reduces trust,en,"[""Ali"", ""Youssef""]","[""complain""]","[""anger"", ""trust""]",test,ex496
+في المدرسة: طبيب يقوم بـطمأنة لـ مريض,طبيب.طمأنة(مريض); مريض.خوف -= 0.25,الطمأنة تقلل الخوف,ar,"[""طبيب"", ""مريض""]","[""طمأنة""]","[""خوف""]",test,ex497
+at the hospital: push on Ball,Ball.push(); Ball.speed += 0.2; Ball.energy -= 0.05,Pushing increases speed based on force and mass,en,"[""Ball""]","[""push""]","[""speed"", ""energy""]",test,ex498
+في الحديقة: مدرب يقوم بـتشجيع لـ عدّاء,مدرب.تشجيع(عدّاء); عدّاء.سرعة += 0.2,التشجيع يرفع سرعة العدّاء,ar,"[""مدرب"", ""عدّاء""]","[""تشجيع""]","[""سرعة""]",test,ex499
+on the bus: cool on Ball,Ball.cool(); Ball.temperature -= 0.3,Cooling lowers temperature,en,"[""Ball""]","[""cool""]","[""temperature""]",test,ex500

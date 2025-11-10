@@ -12,6 +12,7 @@ Schema per line:
 Splits: train (1..400), val (401..450), test (451..500)
 """
 from __future__ import annotations
+import argparse
 import csv
 import json
 import random
@@ -32,7 +33,7 @@ EN_NAMES = [
     "Ahmed", "Mohammed", "Khaled", "Sarah", "Maryam", "Layla", "Youssef", "Noor", "Ali", "Fatimah",
 ]
 
-# Social actions/states
+# Social actions/states (expanded)
 AR_SOCIAL_ACTIONS = [
     ("تقديم_وجبة", "الطعام يقلل الجوع ويزيد الامتنان", [("جوع", -0.4), ("امتنان", +0.3)]),
     ("مواساة", "المواساة تقلل الحزن", [("حزن", -0.3)]),
@@ -40,6 +41,12 @@ AR_SOCIAL_ACTIONS = [
     ("نصح", "النصح بالهدوء يحسن التركيز", [("تركيز", +0.2)]),
     ("اعتذار", "الاعتذار يقلل الغضب ويزيد الثقة قليلًا", [("غضب", -0.2), ("ثقة", +0.1)]),
     ("تهنئة", "التهنئة ترفع السعادة", [("سعادة", +0.2)]),
+    ("إرشاد", "الإرشاد يحسن الثقة", [("ثقة", +0.15)]),
+    ("توجيه", "التوجيه يحسن التركيز", [("تركيز", +0.15)]),
+    ("مساعدة", "المساعدة تقلل التوتر وتزيد الامتنان", [("توتر", -0.2), ("امتنان", +0.2)]),
+    ("اعتناء", "الاعتناء يرفع الراحة ويقلل الخوف", [("راحة", +0.2), ("خوف", -0.1)]),
+    ("شكوى", "الشكوى ترفع الغضب وتقلل الثقة", [("غضب", +0.2), ("ثقة", -0.1)]),
+    ("طمأنة", "الطمأنة تقلل الخوف", [("خوف", -0.25)]),
 ]
 EN_SOCIAL_ACTIONS = [
     ("serve_meal", "Serving food reduces hunger and increases gratitude", [("hunger", -0.4), ("gratitude", +0.3)]),
@@ -48,6 +55,12 @@ EN_SOCIAL_ACTIONS = [
     ("advise", "Advice to stay calm improves focus", [("focus", +0.2)]),
     ("apologize", "Apology reduces anger and slightly increases trust", [("anger", -0.2), ("trust", +0.1)]),
     ("congratulate", "Congratulations increase happiness", [("happiness", +0.2)]),
+    ("guide", "Guidance improves trust", [("trust", +0.15)]),
+    ("direct", "Direction improves focus", [("focus", +0.15)]),
+    ("assist", "Assistance reduces stress and increases gratitude", [("stress", -0.2), ("gratitude", +0.2)]),
+    ("care_for", "Care increases comfort and reduces fear", [("comfort", +0.2), ("fear", -0.1)]),
+    ("complain", "Complaint increases anger and reduces trust", [("anger", +0.2), ("trust", -0.1)]),
+    ("reassure", "Reassurance reduces fear", [("fear", -0.25)]),
 ]
 
 # Physical actions/states
@@ -64,6 +77,7 @@ EN_PHYS_ACTIONS = [
     ("heat", "Heating raises temperature", [("temperature", +0.3), ("energy", -0.05)]),
     ("cool", "Cooling lowers temperature", [("temperature", -0.3)]),
     ("accelerate", "Acceleration raises speed", [("speed", +0.25)]),
+    ("brake", "Braking reduces speed", [("speed", -0.25)]),
 ]
 
 AR_PHYS_ENTITIES = ["كرة", "جسم", "ماء", "صندوق", "سيارة", "كرة_معدنية"]
@@ -81,8 +95,8 @@ EN_MIXED = [
     ("Doctor", "Patient", "reassure", "fear", -0.25, "Reassurance reduces fear"),
 ]
 
-CONTEXTS_AR = ["في المدرسة", "في المستشفى", "في السوق", "في البيت", "في العمل", "في الحديقة"]
-CONTEXTS_EN = ["at school", "at the hospital", "at the market", "at home", "at work", "in the park"]
+CONTEXTS_AR = ["في المدرسة", "في المستشفى", "في السوق", "في البيت", "في العمل", "في الحديقة", "في المترو", "في الحافلة"]
+CONTEXTS_EN = ["at school", "at the hospital", "at the market", "at home", "at work", "in the park", "in the metro", "on the bus"]
 
 @dataclass
 class Example:
@@ -329,17 +343,24 @@ def write_csv(examples: list[Example], path: Path) -> None:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description="Generate Bayan alignment dataset (JSONL+CSV)")
+    parser.add_argument("--total", type=int, default=500, help="Total number of examples (default: 500)")
+    parser.add_argument("--seed", type=int, default=42, help="RNG seed (default: 42)")
+    args = parser.parse_args()
+
+    random.seed(args.seed)
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    examples = gen_examples(500)
+
+    examples = gen_examples(args.total)
     write_jsonl(examples, JSONL_PATH)
     write_csv(examples, CSV_PATH)
+
     # Quick validation
     assert JSONL_PATH.exists() and CSV_PATH.exists()
-    # Ensure 500 lines
     with JSONL_PATH.open("r", encoding="utf-8") as f:
         cnt = sum(1 for _ in f)
-    assert cnt == 500, f"Expected 500 lines, got {cnt}"
-    print("Generated:", JSONL_PATH, CSV_PATH)
+    assert cnt == args.total, f"Expected {args.total} lines, got {cnt}"
+    print("Generated:", JSONL_PATH, CSV_PATH, "(total=", args.total, ")")
 
 
 if __name__ == "__main__":
