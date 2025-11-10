@@ -652,3 +652,22 @@ Refer to docs/developer_guide.md (handoff appendix) for details.
 - Follow Bayan syntax rules strictly (no semicolons, always colon after control keywords).
 - In Naive Bayes, initialization avoids the literal `None` to fit Bayan runtime.
 - README, AI_LIBRARY_GUIDE.md, and docs/developer_guide.md updated to 358/358 and Wave 14 entries.
+
+
+
+## 📎 Addendum — 2025-11-10 — AI Stdlib Wave 15
+
+### Summary
+- NLP: Added string similarities and char-ngrams metric
+  - jaro_similarity(s1, s2)
+  - jaro_winkler_similarity(s1, s2, p=0.1, max_prefix=4)
+  - dice_char_ngrams(text1, text2, n=2)
+  - Arabic wrappers: تشابه_جارو، تشابه_جارو_وينكلر، دايس_محارف
+
+### Tests
+- tests/test_ai_nlp_wave15.py → PASS (3 tests)
+- Total: 361/361 tests passing
+
+### Notes
+- Kept implementations educational and dependency-free.
+- similarity() router left unchanged to avoid type ambiguity (list vs string). Direct functions provided with Arabic wrappers.

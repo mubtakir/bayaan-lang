@@ -1854,3 +1854,152 @@ def jaccard_char_ngrams(text1, text2, n=3):
 def طول_LCS(نص1, نص2): { return lcs_length(نص1, نص2) }
 
 def جاكارد_محارف(نص1, نص2, ن=3): { return jaccard_char_ngrams(نص1, نص2, ن) }
+
+
+# --- Wave 15: String similarities (Jaro, Jaro–Winkler) + Dice over char n-grams ---
+
+# Jaro similarity between two strings
+
+def jaro_similarity(s1, s2):
+{
+    n = len(s1)
+    m = len(s2)
+    if n == 0 and m == 0: { return 1.0 }
+    if n == 0 or m == 0: { return 0.0 }
+    if s1 == s2: { return 1.0 }
+    # match distance = floor(max(n,m)/2) - 1
+    mm = n
+    if m > n: { mm = m }
+    half = 0
+    r = mm
+    while r >= 2:
+    {
+        r = r - 2
+        half = half + 1
+    }
+    md = half - 1
+    if md < 0: { md = 0 }
+    matched1 = []
+    matched2 = []
+    for i in range(n): { matched1.append(0) }
+    for j in range(m): { matched2.append(0) }
+    matches = 0
+    i = 0
+    while i < n:
+    {
+        start = i - md
+        if start < 0: { start = 0 }
+        end = i + md + 1
+        if end > m: { end = m }
+        j = start
+        found = 0
+        while j < end:
+        {
+            if matched2[j] == 0 and s1[i] == s2[j]:
+            {
+                matched1[i] = 1
+                matched2[j] = 1
+                matches = matches + 1
+                found = 1
+                break
+            }
+            j = j + 1
+        }
+        i = i + 1
+    }
+    if matches == 0: { return 0.0 }
+    # count transpositions
+    t = 0
+    k = 0
+    i = 0
+    while i < n:
+    {
+        if matched1[i] == 1:
+        {
+            while k < m and matched2[k] == 0: { k = k + 1 }
+            if k < m:
+            {
+                if s1[i] != s2[k]: { t = t + 1 }
+                k = k + 1
+            }
+        }
+        i = i + 1
+    }
+    t2 = t / 2.0
+    fn = n * 1.0
+    fm = m * 1.0
+    mmf = matches * 1.0
+    a = mmf / fn
+    b = mmf / fm
+    c = (mmf - t2) / mmf
+    return (a + b + c) / 3.0
+}
+
+# Jaro–Winkler similarity
+
+def jaro_winkler_similarity(s1, s2, p=0.1, max_prefix=4):
+{
+    j = jaro_similarity(s1, s2)
+    # common prefix length up to max_prefix
+    l = 0
+    i = 0
+    n1 = len(s1)
+    n2 = len(s2)
+    limit = max_prefix
+    if limit > n1: { limit = n1 }
+    if limit > n2: { limit = n2 }
+    while i < limit:
+    {
+        if s1[i] == s2[i]: { l = l + 1 }
+        else: { break }
+        i = i + 1
+    }
+    return j + (l * p * (1.0 - j))
+}
+
+# Sørensen–Dice over character n-grams (set-based)
+
+def dice_char_ngrams(text1, text2, n=2):
+{
+    set1 = {}
+    set2 = {}
+    L1 = len(text1)
+    max1 = L1 - n + 1
+    if max1 < 0: { max1 = 0 }
+    i = 0
+    while i < max1:
+    {
+        j = i + n
+        g = text1[i:j]
+        set1[g] = 1
+        i = i + 1
+    }
+    L2 = len(text2)
+    max2 = L2 - n + 1
+    if max2 < 0: { max2 = 0 }
+    i = 0
+    while i < max2:
+    {
+        j = i + n
+        g = text2[i:j]
+        set2[g] = 1
+        i = i + 1
+    }
+    inter = 0
+    s1sz = 0
+    s2sz = 0
+    for k in set1: { s1sz = s1sz + 1 }
+    for k in set2: { s2sz = s2sz + 1 }
+    for k in set1: { if k in set2: { inter = inter + 1 } }
+    denom = s1sz + s2sz
+    if denom == 0: { return 0.0 }
+    return (2.0 * inter) / (denom * 1.0)
+}
+
+# Arabic wrappers (Wave 15)
+
+def تشابه_جارو(نص1, نص2): { return jaro_similarity(نص1, نص2) }
+
+def تشابه_جارو_وينكلر(نص1, نص2, معامل=0.1, حد_بادئة=4): { return jaro_winkler_similarity(نص1, نص2, معامل, حد_بادئة) }
+
+def دايس_محارف(نص1, نص2, ن=2): { return dice_char_ngrams(نص1, نص2, ن) }

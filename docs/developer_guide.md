@@ -172,7 +172,7 @@
 - لذلك تم بناء مكتبة AI/ML تعليمية بالكامل داخل بيان (بدون تبعيات خارجية)، بثنائية عربية/إنجليزية، مع اختبارات شاملة.
 
 ### أين وصلنا؟ (وضع الموجات)
-- Waves 1–14: مكتملة ومُوثّقة ومُمَرَّرة بالاختبارات (358/358 ناجحة).
+- Waves 1–15: مكتملة ومُوثّقة ومُمَرَّرة بالاختبارات (361/361 ناجحة).
   - Data: CSV/JSON I/O، إحصاء وصفي (mean/var/std/median/percentile)، PRNG، scalers (standard/robust/minmax) fit+transform.
   - NLP: TF-IDF (خيارات/لوغ/حدود مفردات)، BM25، تشابه Jaccard/Dice، تجهيز نص عربي أساسي.
   - ML: الانحدار الخطي/اللوجستي، KNN (عادي/موزون)، K-means (+k-means++ احتمال)، Perceptron (+OvR)، أشجار قرار، غابة عشوائية، قياسات ROC/AUC وتقارير تصنيف.
@@ -193,7 +193,7 @@
 
 
 ### حالة الاختبارات (وقت التسليم)
-- المجموع المُمَرّر حالياً: 358/358 (Waves 1–14).
+- المجموع المُمَرّر حالياً: 361/361 (Waves 1–15).
 - Wave 9:
   - tests/test_ai_data_wave9.py: PASS.
   - tests/test_ai_ml_wave9.py: PASS.
@@ -210,6 +210,9 @@
 
 - Wave 14:
   - tests/test_ai_nlp_wave14.py: PASS.
+- Wave 15:
+  - tests/test_ai_nlp_wave15.py: PASS.
+
   - tests/test_ai_ml_wave14_nb.py: PASS.
 
 

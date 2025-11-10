@@ -142,6 +142,17 @@ Arabic wrappers (v14 ML):
 
 
 
+New (v15):
+- jaro_similarity(s1, s2)
+- jaro_winkler_similarity(s1, s2, p=0.1, max_prefix=4)
+- dice_char_ngrams(text1, text2, n=2)
+
+Arabic wrappers (v15):
+- تشابه_جارو(نص1, نص2)
+- تشابه_جارو_وينكلر(نص1, نص2, معامل=0.1, حد_بادئة=4)
+- دايس_محارف(نص1, نص2, ن=2)
+
+
 Arabic wrappers:
 - تجهيز_نص(نص, لغة="auto")
 - تجزئة_نص(نص, لغة="auto")
@@ -474,5 +485,5 @@ Arabic wrappers:
 - مسافة_ليفنشتاين(نص1, نص2)
 
 ### Handoff status
-- Waves 1–14: complete, 358 tests passing.
-- All Wave 9–14 tests are passing.
+- Waves 1–15: complete, 361 tests passing.
+- All Wave 9–15 tests are passing.
