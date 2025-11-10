@@ -224,6 +224,10 @@ hybrid {
 
 ## 📚 Documentation
 
+### Handoff (One-page)
+- Quick handoff for the next model: [NEXT_MODEL_BRIEFING.md](NEXT_MODEL_BRIEFING.md)
+
+
 ### Tutorials (Arabic)
 - [Part 1: Introduction](docs/01_INTRODUCTION_AR.md) - What is Bayan, features, installation
 - [Part 2: Procedural & OOP](docs/02_PROCEDURAL_OOP_AR.md) - From beginner to expert

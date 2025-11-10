@@ -4,6 +4,12 @@
 
 ---
 
+
+## 📎 ملفات التسليم (Handoff)
+- [NEXT_MODEL_BRIEFING.md](../NEXT_MODEL_BRIEFING.md) — موجز تنفيذي صفحة واحدة
+- [AI_HANDOFF_REPORT.md](../AI_HANDOFF_REPORT.md) — تقرير التسليم مفصل
+- [AI_CONTINUATION_GUIDE.md](../AI_CONTINUATION_GUIDE.md) — دليل الاستمرار للموديل التالي
+
 ## 📚 الوثائق الأساسية
 
 ### 1. [basics.md](basics.md) - أساسيات اللغة

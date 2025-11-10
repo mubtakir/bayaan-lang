@@ -406,6 +406,9 @@ hybrid {
 
 ## ملحق — gfx/IDE وتسليم العمل (2025-11-10)
 
+> ملخص صفحة واحدة (One‑Page): راجع [NEXT_MODEL_BRIEFING.md](../NEXT_MODEL_BRIEFING.md) لنسخة موجزة قابلة للتأشير.
+
+
 ### الملخص الحالي
 - وحدات الرسوم أضيفت:
   - gfx/svg.bayan: أشكال أساسية (rect/circle/line/text/group) + أشكال متقدمة (triangle/ellipse/cylinder/sphere) + قلم رسم حر (pen_*) + حركات SVG بسيطة + أغلفة عربية كاملة.
