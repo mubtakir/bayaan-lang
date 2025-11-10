@@ -21,6 +21,20 @@ Contents (English)
 
 ## البدء السريع (Getting started)
 
+
+### رسومات سريعة (Graphics Quick Start)
+- في IDE، تُعرض SVG وdata:image/* في لوحة المعاينة.
+- عند طباعة عدة إطارات، استعمل شريط الأدوات: تشغيل/إيقاف + FPS لتقليد التحريك.
+- تحريك SVG أصلي (SMIL): svg_animate / svg_animate_motion / svg_animate_transform (+ أغلفة عربية).
+- تصدير GIF متحرك من إطارات Raster: img_gif_from_frames.
+
+مثال وجيز:
+```bayan
+include "gfx/svg.bayan"
+print(svg_wrap(160, 160, svg_rotating_group(svg_circle(80,80,50,"none","#2c3e50",6),80,80,0,360,"4s","indefinite")))
+```
+> للمزيد من الأمثلة: راجع docs/EXAMPLES.md (قسم Graphics).
+
 يمكن كتابة ملفات «بيان» بامتداد `.bayan` واستيرادها داخل برنامج أكبر، أو تشغيلها عبر مفسّر بايثون مضمّن في المستودع.
 
 - ملف بسيط:

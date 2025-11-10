@@ -5,6 +5,22 @@
 > The Web IDE supports multi‑output preview (SVG and data:image/*). Use the toolbar: Prev/Next, Play/Pause with FPS, Copy, and Download.
 
 
+### ⚡ Graphics — Quick Guide
+- Preview toolbar: Prev/Next, Play/Pause with FPS, Copy, Download.
+- SMIL in SVG: svg_animate · svg_animate_motion · svg_animate_transform · svg_rotating_group
+  - Arabic wrappers: حرك_SVG · تحريك_مسار · تحويل_متحرك · مجموعة_دوران
+- Multi‑frame sequences: print multiple SVG/images and use Play/FPS.
+- Animated GIF export: img_gif_from_frames / صورة_متحركة_من_إطارات (data:image/gif).
+
+Examples:
+- Rotating logo (SMIL): examples/svg_rotating_logo.md
+- Wave autoplay (multi‑frame): examples/svg_wave_autoplay.md
+- Particle sparkles (multi‑frame): examples/svg_particle_sparkles.md
+- Motion path (SMIL): examples/svg_motion_path.md
+- 3D cube frames (multi‑frame): examples/svg_3d_cube_frames.md
+- Bouncing ball GIF: examples/gif_bouncing_ball.md
+
+
 ### New — Graphics/Animation examples (2025-11-10)
 - examples/svg_rotating_logo.md — SMIL rotation
 - examples/svg_wave_autoplay.md — multi-frame sine wave (use Play/Pause + FPS)
