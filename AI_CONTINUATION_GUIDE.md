@@ -7,6 +7,9 @@
 
 ---
 
+> موجز صفحة واحدة (One‑Page): [NEXT_MODEL_BRIEFING.md](NEXT_MODEL_BRIEFING.md) — Snapshot سريع للبدء.
+
+
 
 > Addendum (2025-11-09) — AI Stdlib Handoff Summary
 >

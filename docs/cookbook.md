@@ -17,6 +17,9 @@ def run(code, filename="<mem>"):
 
 ---
 
+> IDE Tip (2025-11-10): In the Web IDE, outputs like SVG and data:image/* appear in the Preview panel. Use the toolbar (Prev/Next, Copy, Download) when multiple outputs are printed.
+
+
 ## 1) مرحبًا يا عالم
 ```bayan
 print("Hello, Bayan!")

@@ -1,5 +1,9 @@
 # Bayan Language Examples - أمثلة لغة بيان
 
+
+> IDE Preview Tips (2025-11-10) — نصيحة معاينة IDE:
+> The Web IDE supports multi‑output preview (SVG and data:image/*). Use the toolbar: Prev/Next to switch outputs, Copy to clipboard, and Download to save.
+
 ## Example 1: Family Relations - العلاقات العائلية
 
 This example demonstrates logical programming with facts and rules.
