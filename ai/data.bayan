@@ -1250,3 +1250,49 @@ def train_test_split_shuffle(X, y, test_ratio=0.25, seed=42):
 def ترتيب_عشوائي(n, بذرة=42): { return random_permutation(n, بذرة) }
 
 def تقسيم_عشوائي_تدريب_اختبار(س, ت, نسبة_اختبار=0.25, بذرة=42): { return train_test_split_shuffle(س, ت, نسبة_اختبار, بذرة) }
+
+
+# --- Wave 17: Simple Pipeline utilities ---
+
+# Each step: [name, fit_fn, transform_fn, params]
+# fit_fn(X, params) -> model
+# transform_fn(X, model) -> X_transformed
+
+def pipeline_fit_transform(steps, X):
+{
+    X_cur = X
+    models = []
+    for si in range(len(steps)):
+    {
+        step = steps[si]
+        name = step[0]
+        fit_fn = step[1]
+        trans_fn = step[2]
+        params = step[3]
+        model = fit_fn(X_cur, params)
+        models.append(model)
+        X_cur = trans_fn(X_cur, model)
+    }
+    return [X_cur, models]
+}
+
+
+def pipeline_transform(steps, X, models):
+{
+    X_cur = X
+    for si in range(len(steps)):
+    {
+        step = steps[si]
+        trans_fn = step[2]
+        model = models[si]
+        X_cur = trans_fn(X_cur, model)
+    }
+    return X_cur
+}
+
+# Arabic wrappers (Wave 17)
+
+def pipeline_fit_transform_ar(steps, X): { return pipeline_fit_transform(steps, X) }
+
+def pipeline_transform_ar(steps, X, models): { return pipeline_transform(steps, X, models) }
+

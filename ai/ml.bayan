@@ -3276,3 +3276,307 @@ def naive_bayes_predict(model, docs_tokens):
 def تدريب_بايز_متعدد(وثائق, تسميات, ألفا=1.0): { return naive_bayes_train(وثائق, تسميات, ألفا) }
 
 def توقع_بايز_متعدد(نموذج, وثائق): { return naive_bayes_predict(نموذج, وثائق) }
+
+
+# --- Wave 17: PCA + VarianceThreshold ---
+
+# Helper: dot product
+def _dot_vec(a, b):
+{
+    s = 0.0
+    for i in range(len(a)):
+    {
+        s = s + a[i] * b[i]
+    }
+    return s
+}
+
+# Helper: matrix-vector product (square matrix)
+def _matvec(A, v):
+{
+    n = len(A)
+    out = []
+    for i in range(n): { out.append(0.0) }
+    for i in range(n):
+    {
+        s = 0.0
+        for j in range(n): { s = s + A[i][j] * v[j] }
+        out[i] = s
+    }
+    return out
+}
+
+# Helper: vector L2 norm
+def _norm_vec(v):
+{
+    s = 0.0
+    for i in range(len(v)):
+    {
+        s = s + v[i] * v[i]
+    }
+    return pow(s, 0.5)
+}
+
+# Power iteration for symmetric matrices (returns [eigvec, eigval])
+def _power_iteration(A, iters=40):
+{
+    n = len(A)
+    v = []
+    for i in range(n): { v.append(1.0) }
+    # normalize
+    nv = _norm_vec(v)
+    if nv == 0.0: { nv = 1.0 }
+    for i in range(n): { v[i] = v[i] / nv }
+    lam = 0.0
+    for t in range(iters):
+    {
+        w = _matvec(A, v)
+        lam = _dot_vec(v, w)
+        nw = _norm_vec(w)
+        if nw == 0.0: { break }
+        for i in range(n): { v[i] = w[i] / nw }
+    }
+    # final Rayleigh
+    w2 = _matvec(A, v)
+    lam = _dot_vec(v, w2)
+    return [v, lam]
+}
+
+# Compute mean vector of X (n x d)
+def _mean_vector(X):
+{
+    n = len(X)
+    d = 0
+    if n > 0: { d = len(X[0]) }
+    m = []
+    for j in range(d): { m.append(0.0) }
+    if n == 0: { return m }
+    for i in range(n):
+    {
+        for j in range(d): { m[j] = m[j] + X[i][j] }
+    }
+    for j in range(d): { m[j] = m[j] / (1.0 * n) }
+    return m
+}
+
+# Compute covariance matrix (d x d) with divisor n (population)
+def _cov_matrix(X, mean_vec):
+{
+    n = len(X)
+    d = 0
+    if n > 0: { d = len(X[0]) }
+    C = []
+    for j in range(d):
+    {
+        row = []
+        for k in range(d): { row.append(0.0) }
+        C.append(row)
+    }
+    if n == 0 or d == 0: { return C }
+    for i in range(n):
+    {
+        for j in range(d):
+        {
+            xj = X[i][j] - mean_vec[j]
+            for k in range(d):
+            {
+                xk = X[i][k] - mean_vec[k]
+                C[j][k] = C[j][k] + xj * xk
+            }
+        }
+    }
+    for j in range(d):
+    {
+        for k in range(d): { C[j][k] = C[j][k] / (1.0 * n) }
+    }
+    return C
+}
+
+# PCA fit: returns [components, mean]
+# components: list of top-k eigenvectors (each length d)
+def pca_fit(X, n_components):
+{
+    n = len(X)
+    d = 0
+    if n > 0: { d = len(X[0]) }
+    k = n_components
+    if k < 0: { k = 0 }
+    if k > d: { k = d }
+    mean_vec = _mean_vector(X)
+    A = _cov_matrix(X, mean_vec)
+    comps = []
+    # deflation loop
+    for t in range(k):
+    {
+        # power iteration on current matrix A
+        pi = _power_iteration(A, 50)
+        v = pi[0]
+        lam = pi[1]
+        # guard
+        if lam <= 0.000000000001:
+        {
+            break
+        }
+        # store component (normalized)
+        comp = []
+        # ensure normalization (defensive)
+        nv = _norm_vec(v)
+        if nv == 0.0: { nv = 1.0 }
+        for j in range(d): { comp.append(v[j] / nv) }
+        comps.append(comp)
+        # deflate A = A - lam * v v^T
+        for i in range(d):
+        {
+            for j in range(d):
+            {
+                A[i][j] = A[i][j] - lam * v[i] * v[j]
+            }
+        }
+    }
+    return [comps, mean_vec]
+}
+
+# PCA transform: project X to coords along provided components and mean
+def pca_transform(X, components, mean_vec):
+{
+    n = len(X)
+    k = len(components)
+    d = 0
+    if k > 0: { d = len(components[0]) }
+    out = []
+    for i in range(n):
+    {
+        row = []
+        # build centered x
+        xc = []
+        for j in range(d): { xc.append(X[i][j] - mean_vec[j]) }
+        for c in range(k):
+        {
+            comp = components[c]
+            s = 0.0
+            for j in range(d): { s = s + xc[j] * comp[j] }
+            row.append(s)
+        }
+        out.append(row)
+    }
+    return out
+}
+
+# VarianceThreshold (fit): per-column variance vs threshold (strict >)
+def variance_threshold_fit(X, thr):
+{
+    n = len(X)
+    d = 0
+    if n > 0: { d = len(X[0]) }
+    if thr < 0.0: { thr = 0.0 }
+    # means
+    means = []
+    for j in range(d): { means.append(0.0) }
+    for i in range(n):
+    {
+        for j in range(d): { means[j] = means[j] + X[i][j] }
+    }
+    for j in range(d):
+    {
+        if n > 0:
+        {
+            means[j] = means[j] / (1.0 * n)
+        }
+        else:
+        {
+            means[j] = 0.0
+        }
+    }
+    # variances
+    vars = []
+    for j in range(d): { vars.append(0.0) }
+    for i in range(n):
+    {
+        for j in range(d):
+        {
+            diff = X[i][j] - means[j]
+            vars[j] = vars[j] + diff * diff
+        }
+    }
+    for j in range(d):
+    {
+        if n > 0:
+        {
+            vars[j] = vars[j] / (1.0 * n)
+        }
+        else:
+        {
+            vars[j] = 0.0
+        }
+    }
+    mask = []
+    for j in range(d):
+    {
+        if vars[j] > thr: { mask.append(1) } else: { mask.append(0) }
+    }
+    return mask
+}
+
+# VarianceThreshold (transform): select columns where mask[j] == 1
+def variance_threshold_transform(X, mask):
+{
+    n = len(X)
+    d = 0
+    if n > 0: { d = len(X[0]) }
+    out = []
+    for i in range(n):
+    {
+        row = []
+        for j in range(d):
+        {
+            if mask[j] == 1: { row.append(X[i][j]) }
+        }
+        out.append(row)
+    }
+    return out
+}
+
+# --- Pipeline-friendly wrappers (fit(X, params)) / transform(X, model) ---
+
+def pca_fit_params(X, params):
+{
+    d = 0
+    if len(X) > 0: { d = len(X[0]) }
+    nc = params.get("n_components", d)
+    if nc < 1: { nc = d }
+    if nc > d: { nc = d }
+    return pca_fit(X, nc)
+}
+
+
+def pca_transform_model(X, model):
+{
+    comps = model[0]
+    mean_vec = model[1]
+    return pca_transform(X, comps, mean_vec)
+}
+
+
+def variance_threshold_fit_params(X, params):
+{
+    thr = params.get("thr", 0.0)
+    return variance_threshold_fit(X, thr)
+}
+
+
+def variance_threshold_transform_model(X, model):
+{
+    mask = model
+    return variance_threshold_transform(X, mask)
+}
+
+# Arabic wrappers (Wave 17)
+
+def تدريب_PCA(س, عدد_مكونات): { return pca_fit(س, عدد_مكونات) }
+
+def تحويل_PCA(س, مكونات, متوسط): { return pca_transform(س, مكونات, متوسط) }
+
+def تدريب_عتبة_تباين(س, عتبة): { return variance_threshold_fit(س, عتبة) }
+
+def تحويل_عتبة_تباين(س, قناع): { return variance_threshold_transform(س, قناع) }
+

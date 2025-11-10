@@ -268,6 +268,14 @@ Arabic wrappers (v16):
 
 - k_means(data, k, max_iters=10) → [centers, labels]
 
+
+New (v17):
+- pca_fit(X, n_components) → [components, mean]
+- pca_transform(X, components, mean)
+- variance_threshold_fit(X, thr) → mask
+- variance_threshold_transform(X, mask)
+- Arabic wrappers: تدريب_PCA/تحويل_PCA، تدريب_عتبة_تباين/تحويل_عتبة_تباين
+
 ## 🧮 Data Module (ai.data)
 
 New (v5):
@@ -336,6 +344,12 @@ New (v4):
 Arabic wrappers (v4):
 - تعيين_بذرة(بذرة)
 - عشوائي_0_1()
+
+New (v17):
+- pipeline_fit_transform(steps, X) → [X_transformed, models]
+- pipeline_transform(steps, X, models) → X_transformed
+  - Steps format: [name, fit_fn, transform_fn, params]; executed sequentially
+
 - عشوائي_صحيح_بين(أ, ب)
 - خلط_قائمة(قائمة)
 - عينة_من_قائمة(قائمة, ك)
@@ -502,5 +516,5 @@ Arabic wrappers:
 - مسافة_ليفنشتاين(نص1, نص2)
 
 ### Handoff status
-- Waves 1–16: complete, 364 tests passing.
+- Waves 1–17: complete, 367 tests passing.
 - All Wave 9–16 tests are passing.

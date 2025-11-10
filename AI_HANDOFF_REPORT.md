@@ -700,3 +700,34 @@ Refer to docs/developer_guide.md (handoff appendix) for details.
   - Tests: small numeric matrices with known projections; verify reconstruction error monotonic with n_components; unit tests for masks
   - Docs: add v17 to AI_LIBRARY_GUIDE.md; README badges; add release workflow
 - Wave 18–20: follow roadmap in docs/developer_guide.md addendum (Softmax + micro/macro, Soft TF‑IDF, Voting/Stacking + grid search, polish + v1.0)
+
+
+
+## 📎 Addendum — 2025-11-10 — AI Stdlib Wave 17
+
+### Summary
+- ML: Principal Component Analysis (PCA) and Variance Threshold feature selector implemented.
+- Data: Simple transformation pipelines (fit/transform pattern) with sequential steps.
+
+### APIs
+- pca_fit(X, n_components) → [components, mean]
+- pca_transform(X, components, mean) → Z
+- variance_threshold_fit(X, thr) → mask
+- variance_threshold_transform(X, mask) → X_selected
+- Data pipelines (ai.data):
+  - pipeline_fit_transform(steps, X) → [X_transformed, models]
+  - pipeline_transform(steps, X, models) → X_transformed
+
+Steps format: [name, fit_fn, transform_fn, params]
+
+### Tests
+- tests/test_ai_ml_wave17_pca.py → PASS
+- tests/test_ai_ml_wave17_variance.py → PASS
+- tests/test_ai_data_wave17_pipeline.py → PASS
+- Total: 367/367 tests passing
+
+### Notes
+- Replaced unsupported scientific literal 1e-12 with decimal 0.000000000001 for Bayan lexer compatibility.
+- Avoided inline one-line if/else; used full block form with colons and braces.
+- Added pipeline-friendly wrappers (fit_params/transform_model) in ai/ml.bayan.
+- Documentation updated: README badge/status, AI_LIBRARY_GUIDE.md (v17), developer_guide status.
