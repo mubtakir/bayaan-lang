@@ -3756,3 +3756,363 @@ def تدريب_Softmax(س, ت, lr=0.1, epochs=200, l2=0.0): { return softmax_tra
 def توقع_Softmax_احتمال(س, نموذج): { return softmax_predict_proba(س, نموذج) }
 
 def توقع_Softmax(س, نموذج): { return softmax_predict(س, نموذج) }
+
+
+# --- Wave 19: VotingClassifier (hard/soft) + simple Stacking + small grid search ---
+
+# Helper: build label→index map
+
+def _lab_to_idx(labels):
+{
+    m = len(labels)
+    mp = {}
+    for i in range(m): { mp[labels[i]] = i }
+    return mp
+}
+
+# Helper: probabilities from estimator (supports: softmax, logistic). Fallback to one-hot from hard preds.
+
+def _estimator_proba(estimators_i, X, labels):
+{
+    kind = estimators_i.get("kind", "")
+    K = len(labels)
+    lab2 = _lab_to_idx(labels)
+    n = len(X)
+    out = []
+    if kind == "softmax":
+    {
+        model = estimators_i["model"]
+        probs = softmax_predict_proba(X, model)
+        for i in range(n): { out.append(probs[i]) }
+        return out
+    }
+    if kind == "logistic":
+    {
+        # binary: labels[0]=neg, labels[1]=pos
+        wb = estimators_i["model"]
+        w = wb[0]
+        b = wb[1]
+        pp = logistic_regression_predict_proba(X, w, b)
+        kpos = 1
+        if K >= 2: { kpos = 1 }
+        kneg = 0
+        for i in range(n):
+        {
+            p1 = pp[i]
+            row = []
+            for j in range(K): { row.append(0.0) }
+            if K >= 2:
+            {
+                row[kpos] = p1
+                row[kneg] = 1.0 - p1
+            }
+            else:
+            {
+                row[0] = p1
+            }
+            out.append(row)
+        }
+        return out
+    }
+    # Fallback: hard predictions -> one-hot
+    preds = _estimator_predict(estimators_i, X)
+    for i in range(n):
+    {
+        row = []
+        for j in range(K): { row.append(0.0) }
+        L = preds[i]
+        if lab2.get(L, -1) != -1:
+        {
+            idx = lab2[L]
+            row[idx] = 1.0
+        }
+        out.append(row)
+    }
+    return out
+}
+
+# Internal: hard predict for supported estimators
+
+def _estimator_predict(est, X):
+{
+    kind = est.get("kind", "")
+    if kind == "softmax": { return softmax_predict(X, est["model"]) }
+    if kind == "logistic":
+    {
+        wb = est["model"]
+        w = wb[0]
+        b = wb[1]
+        thr = est.get("threshold", 0.5)
+        return logistic_regression_predict(X, w, b, thr)
+    }
+    if kind == "tree": { return decision_tree_predict(est["model"], X) }
+    if kind == "forest": { return random_forest_predict(est["model"], X) }
+    if kind == "perceptron":
+    {
+        wb = est["model"]
+        return perceptron_predict(X, wb[0], wb[1])
+    }
+    if kind == "svm":
+    {
+        wb = est["model"]
+        return linear_svm_predict(X, wb[0], wb[1])
+    }
+    if kind == "knn":
+    {
+        k = est.get("k", 3)
+        return k_nearest_neighbors_predict(est["train_X"], est["train_y"], X, k)
+    }
+    # default empty
+    preds = []
+    for i in range(len(X)): { preds.append(0) }
+    return preds
+}
+
+# VotingClassifier: voting = "hard" | "soft"
+
+def voting_classifier_predict(X, estimators, labels, voting="hard"):
+{
+    n = len(X)
+    K = len(labels)
+    if voting == "soft":
+    {
+        # average probabilities
+        sums = []
+        for i in range(n):
+        {
+            row = []
+            for j in range(K): { row.append(0.0) }
+            sums.append(row)
+        }
+        m = len(estimators)
+        for ei in range(m):
+        {
+            probs = _estimator_proba(estimators[ei], X, labels)
+            for i in range(n):
+            {
+                pr = probs[i]
+                for j in range(K): { sums[i][j] = sums[i][j] + pr[j] }
+            }
+        }
+        preds = []
+        for i in range(n):
+        {
+            best_j = 0
+            best_v = sums[i][0]
+            for j in range(1, K):
+            {
+                v = sums[i][j]
+                if v > best_v:
+                {
+                    best_v = v
+                    best_j = j
+                }
+            }
+            preds.append(labels[best_j])
+        }
+        return preds
+    }
+    # hard voting
+    lab2 = _lab_to_idx(labels)
+    counts = []
+    for i in range(n):
+    {
+        row = []
+        for j in range(K): { row.append(0) }
+        counts.append(row)
+    }
+    m = len(estimators)
+    for ei in range(m):
+    {
+        yhat = _estimator_predict(estimators[ei], X)
+        for i in range(n):
+        {
+            L = yhat[i]
+            idx = lab2.get(L, -1)
+            if idx != -1: { counts[i][idx] = counts[i][idx] + 1 }
+        }
+    }
+    preds = []
+    for i in range(n):
+    {
+        best_j = 0
+        best_v = counts[i][0]
+        for j in range(1, K):
+        {
+            v = counts[i][j]
+            if v > best_v:
+            {
+                best_v = v
+                best_j = j
+            }
+        }
+        preds.append(labels[best_j])
+    }
+    return preds
+}
+
+# Simple Stacking (classification): base_specs → train base models; meta = softmax over concatenated base probabilities
+# base_specs element example:
+# {"kind":"softmax", "params":{"lr":0.1, "epochs":200, "l2":0.0}}
+# {"kind":"logistic", "params":{"lr":0.1, "epochs":200}}
+
+def stacking_train(X, y, base_specs, labels):
+{
+    # train base models
+    bases = []
+    for bi in range(len(base_specs)):
+    {
+        sp = base_specs[bi]
+        k = sp.get("kind", "")
+        if k == "softmax":
+        {
+            p = sp.get("params", {})
+            lr = p.get("lr", 0.1)
+            ep = p.get("epochs", 200)
+            l2 = p.get("l2", 0.0)
+            model = softmax_train(X, y, lr, ep, l2)
+            bases.append({"kind": "softmax", "model": model})
+        }
+        else:
+        {
+            if k == "logistic":
+            {
+                p = sp.get("params", {})
+                lr = p.get("lr", 0.1)
+                ep = p.get("epochs", 200)
+                wb = logistic_regression_train(X, y, lr, ep)
+                bases.append({"kind": "logistic", "model": wb})
+            }
+        }
+    }
+    # build meta features Z = concat proba across bases
+    K = len(labels)
+    n = len(X)
+    Z = []
+    for i in range(n):
+    {
+        Z.append([])
+    }
+    for bi in range(len(bases)):
+    {
+        probs = _estimator_proba(bases[bi], X, labels)
+        for i in range(n):
+        {
+            for j in range(K): { Z[i].append(probs[i][j]) }
+        }
+    }
+    meta = softmax_train(Z, y, 0.1, 200, 0.0)
+    return {"labels": labels, "bases": bases, "meta": meta, "K": K}
+}
+
+
+def stacking_predict(model, X):
+{
+    labels = model["labels"]
+    bases = model["bases"]
+    K = model["K"]
+    n = len(X)
+    # build Z for new X
+    Z = []
+    for i in range(n): { Z.append([]) }
+    for bi in range(len(bases)):
+    {
+        probs = _estimator_proba(bases[bi], X, labels)
+        for i in range(n):
+        {
+            for j in range(K): { Z[i].append(probs[i][j]) }
+        }
+    }
+    return softmax_predict(Z, model["meta"])
+}
+
+# Small grid search (Softmax): param_list is list of dicts with keys lr, epochs, l2
+
+def grid_search_cv_softmax(X, y, param_list, k_folds=3):
+{
+    # build labels order from y
+    labels = []
+    seen = {}
+    for i in range(len(y)):
+    {
+        L = y[i]
+        if seen.get(L, 0) == 0:
+        {
+            seen[L] = 1
+            labels.append(L)
+        }
+    }
+    # stratified folds
+    folds = stratified_k_fold_indices(y, k_folds, True, 42)
+    best_score = -1.0
+    best_params = {}
+    for pi in range(len(param_list)):
+    {
+        p = param_list[pi]
+        lr = p.get("lr", 0.1)
+        ep = p.get("epochs", 200)
+        l2 = p.get("l2", 0.0)
+        acc_sum = 0.0
+        m = 0
+        for fi in range(len(folds)):
+        {
+            idxs = folds[fi]
+            tr_idx = idxs[0]
+            va_idx = idxs[1]
+            Xtr = []
+            ytr = []
+            Xva = []
+            yva = []
+            # build train/val splits from indices
+            for ii in range(len(tr_idx)):
+            {
+                k = tr_idx[ii]
+                Xtr.append(X[k])
+                ytr.append(y[k])
+            }
+            for ii in range(len(va_idx)):
+            {
+                k = va_idx[ii]
+                Xva.append(X[k])
+                yva.append(y[k])
+            }
+            model = softmax_train(Xtr, ytr, lr, ep, l2)
+            yhat = softmax_predict(Xva, model)
+            a = accuracy_score(yva, yhat)
+            acc_sum = acc_sum + a
+            m = m + 1
+        }
+        if m > 0:
+        {
+            avg = acc_sum / (1.0 * m)
+            if avg > best_score:
+            {
+                best_score = avg
+                best_params = p
+            }
+            else:
+            {
+                if avg == best_score:
+                {
+                    cur_ep = best_params.get("epochs", 0)
+                    if ep > cur_ep:
+                    {
+                        best_score = avg
+                        best_params = p
+                    }
+                }
+            }
+        }
+    }
+    return {"best_params": best_params, "best_score": best_score}
+}
+
+# Arabic wrappers (Wave 19)
+
+def تصويت_مصنف_تنبؤ(س, مصنفات, تسميات, نمط="hard"): { return voting_classifier_predict(س, مصنفات, تسميات, نمط) }
+
+def تكديس_تدريب(س, ت, مواصفات, تسميات): { return stacking_train(س, ت, مواصفات, تسميات) }
+
+def تكديس_توقع(نموذج, س): { return stacking_predict(نموذج, س) }
+
+def بحث_شبكي_Softmax(س, ت, معلمات, طيات=3): { return grid_search_cv_softmax(س, ت, معلمات, طيات) }

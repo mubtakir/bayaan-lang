@@ -760,3 +760,33 @@ Steps format: [name, fit_fn, transform_fn, params]
 - Probabilities sum to 1 for each sample; argmax maps back to original label order.
 - Soft TF–IDF computes soft term frequency by summing token similarity ≥ threshold to each vocab term, then scales by idf = 1 + N/(df+1). Cosine over sparse dicts reused from existing utility.
 - Documentation updated: README badge/status, AI_LIBRARY_GUIDE.md (v18 ML/NLP), developer_guide status.
+
+
+
+## 📎 Addendum — 2025-11-10 — AI Stdlib Wave 19
+
+### Summary
+- ML Ensembles: VotingClassifier (hard/soft), Stacking (base learners → meta softmax)
+- Model selection: grid_search_cv_softmax with stratified k‑fold CV and tie‑breaking
+
+### APIs
+- voting_classifier_predict(X, estimators, labels, voting="hard") → [label, ...]
+- stacking_train(X, y, base_specs, labels) → model; stacking_predict(model, X)
+- grid_search_cv_softmax(X, y, param_list, k_folds=3) → {"best_params","best_score"}
+- Arabic wrappers:
+  - تصويت_مصنف_تنبؤ(س, مصنفات, تسميات, نمط="hard")
+  - تكديس_تدريب(س, ت, مواصفات, تسميات) / تكديس_توقع(نموذج, س)
+  - بحث_شبكي_Softmax(س, ت, معلمات, طيات=3)
+
+### Tests
+- tests/test_ai_ml_wave19_voting.py → PASS
+- tests/test_ai_ml_wave19_stacking.py → PASS
+- tests/test_ai_ml_wave19_grid.py → PASS
+- Total: 375/375 tests passing
+
+### Notes
+- Hard voting = majority vote over predicted labels; Soft voting = average class probabilities then argmax.
+- Stacking: train base models on original features; meta‑features = concatenated base probabilities; meta‑model = softmax.
+- Grid search uses stratified_k_fold_indices returning [train_idx, val_idx] pairs; folds unpacked explicitly; tie‑break prefers higher epochs on equal scores.
+- Bayan constraints respected: full block if/else with colons/braces, no semicolons, no scientific notation; pow() instead of **; dictionary .get() membership style.
+- Documentation updated: README badge/status (375), AI_LIBRARY_GUIDE.md (v19 ML), docs/developer_guide (status 375/375), this addendum.

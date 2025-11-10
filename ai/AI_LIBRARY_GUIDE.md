@@ -294,6 +294,17 @@ New (v18):
 - Arabic wrappers: تدريب_Softmax / توقع_Softmax / توقع_Softmax_احتمال
 
 
+
+New (v19):
+- voting_classifier_predict(X, estimators, labels, voting="hard")
+- stacking_train(X, y, base_specs, labels) / stacking_predict(model, X)
+- grid_search_cv_softmax(X, y, param_list, k_folds=3)
+
+Arabic wrappers (v19):
+- تصويت_مصنف_تنبؤ(س, مصنفات, تسميات, نمط="hard")
+- تكديس_تدريب(س, ت, مواصفات, تسميات) / تكديس_توقع(نموذج, س)
+- بحث_شبكي_Softmax(س, ت, معلمات, طيات=3)
+
 ## 🧮 Data Module (ai.data)
 
 New (v5):
@@ -534,5 +545,5 @@ Arabic wrappers:
 - مسافة_ليفنشتاين(نص1, نص2)
 
 ### Handoff status
-- Waves 1–18: complete, 371 tests passing.
+- Waves 1–19: complete, 375 tests passing.
 - All Wave 9–16 tests are passing.
