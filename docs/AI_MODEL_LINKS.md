@@ -210,8 +210,13 @@ https://github.com/mubtakir/bayaan-lang/archive/refs/heads/main.zip
 - Physical simulations (EN):
   - https://raw.githubusercontent.com/mubtakir/bayaan-lang/main/prompt_templates/physical_simulations/template_en.json
 
-### Coming soon
-- Datasets (alignment):
-  - https://github.com/mubtakir/bayaan-lang/tree/main/datasets (plain: add `?plain=1` to files)
-- Eval framework:
-  - https://github.com/mubtakir/bayaan-lang/tree/main/eval_framework
+### Datasets (alignment)
+- JSONL (RAW):
+  - https://raw.githubusercontent.com/mubtakir/bayaan-lang/main/datasets/alignment/sample_social_interactions.jsonl
+- CSV (RAW):
+  - https://raw.githubusercontent.com/mubtakir/bayaan-lang/main/datasets/alignment/sample_social_interactions.csv
+- Dataset README (RAW):
+  - https://raw.githubusercontent.com/mubtakir/bayaan-lang/main/datasets/alignment/README.md
+
+### Eval framework (coming soon)
+- https://github.com/mubtakir/bayaan-lang/tree/main/eval_framework
