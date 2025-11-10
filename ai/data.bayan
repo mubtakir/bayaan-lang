@@ -1296,3 +1296,10 @@ def pipeline_fit_transform_ar(steps, X): { return pipeline_fit_transform(steps, 
 
 def pipeline_transform_ar(steps, X, models): { return pipeline_transform(steps, X, models) }
 
+# Arabic wrappers (Wave 20 additions)
+
+def ملاءمة_تحويل_أنبوب(خطوات, س): { return pipeline_fit_transform(خطوات, س) }
+
+def تحويل_أنبوب(خطوات, س, نماذج): { return pipeline_transform(خطوات, س, نماذج) }
+
+

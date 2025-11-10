@@ -305,6 +305,11 @@ Arabic wrappers (v19):
 - تكديس_تدريب(س, ت, مواصفات, تسميات) / تكديس_توقع(نموذج, س)
 - بحث_شبكي_Softmax(س, ت, معلمات, طيات=3)
 
+New (v20):
+- Educational examples added under examples/ (softmax, voting/stacking, soft TF‑IDF, PCA+variance+pipeline)
+- API names stabilized; no breaking changes
+
+
 ## 🧮 Data Module (ai.data)
 
 New (v5):
@@ -545,5 +550,5 @@ Arabic wrappers:
 - مسافة_ليفنشتاين(نص1, نص2)
 
 ### Handoff status
-- Waves 1–19: complete, 375 tests passing.
+- Waves 1–20: complete, 379 tests passing.
 - All Wave 9–16 tests are passing.

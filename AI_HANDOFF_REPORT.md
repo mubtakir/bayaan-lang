@@ -789,9 +789,34 @@ Steps format: [name, fit_fn, transform_fn, params]
 - Stacking: train base models on original features; meta‑features = concatenated base probabilities; meta‑model = softmax.
 - Grid search uses stratified_k_fold_indices returning [train_idx, val_idx] pairs; folds unpacked explicitly; tie‑break prefers higher epochs on equal scores.
 - Bayan constraints respected: full block if/else with colons/braces, no semicolons, no scientific notation; pow() instead of **; dictionary .get() membership style.
-- Documentation updated: README badge/status (375), AI_LIBRARY_GUIDE.md (v19 ML), docs/developer_guide (status 375/375), this addendum.
+- Documentation updated: README badge/status (379), AI_LIBRARY_GUIDE.md (v19/20 notes), docs/developer_guide (status 379/379), this addendum.
 
 
+
+---
+
+## 📎 Addendum — 2025-11-10 — AI Stdlib Wave 20
+
+### Summary
+- Final polish and examples complete.
+- Added Arabic wrappers in ai/data.bayan for pipelines:
+  - ملاءمة_تحويل_أنبوب → pipeline_fit_transform
+  - تحويل_أنبوب → pipeline_transform
+- Added educational examples under examples/:
+  - ai_softmax_multiclass.md
+  - ai_voting_stacking.md
+  - ai_soft_tfidf_similarity.md
+  - ai_pca_variance_pipeline.md
+- Added tests to validate examples: tests/test_ai_wave20_examples.py (4 tests)
+
+### Tests
+- tests/test_ai_wave20_examples.py → PASS
+- Total: 379/379 tests passing
+
+### Docs
+- README: Updated badge/status to Waves 1–20 complete, 379 tests
+- ai/AI_LIBRARY_GUIDE.md: Added v20 notes (examples, API stabilized)
+- docs/developer_guide.md: Updated status to Waves 1–20 and 379/379 tests
 
 ---
 
@@ -799,8 +824,8 @@ Steps format: [name, fit_fn, transform_fn, params]
 
 ### Current status
 - Repository: github.com/mubtakir/bayaan-lang (branch: main)
-- AI stdlib Waves: 1–19 complete
-- Tests: 375/375 passing (pytest -q)
+- AI stdlib Waves: 1–20 complete
+- Tests: 379/379 passing (pytest -q)
 - Latest tag: ai-stdlib-v19
 - Key files:
   - ai/ml.bayan (ML algorithms + Arabic wrappers)

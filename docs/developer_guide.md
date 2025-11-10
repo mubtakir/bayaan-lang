@@ -295,12 +295,12 @@ hybrid {
 - الاختبارات أولًا قدر الإمكان (TDD)، ثم تنفيذ الدوال، ثم تحديث الوثائق.
 
 ### 3) أين وصلنا الآن؟
-- Waves 1–19: مكتملة.
+- Waves 1–20: مكتملة.
   - Wave 16 (جديد):
     - ML: stratified_k_fold_indices, train_test_split_stratified
     - ML Metrics: matthews_corrcoef, cohen_kappa_score
     - NLP: damerau_levenshtein_distance + غلاف عربي: مسافة_دامراو_ليفنشتاين
-- الحالة: 375/375 اختبار ناجح.
+- الحالة: 379/379 اختبار ناجح.
 
 ### 4) ما الذي يجب عليك فعله الآن (خارطة الطريق المختصرة)
 - Wave 17 — PCA + VarianceThreshold + Pipelines بسيطة:
@@ -369,8 +369,8 @@ hybrid {
 ## ملحق — تسليم المهام للنموذج التالي (Wave 20)
 
 ### الحالة الآن
-- Waves 1–19: مكتملة ✅
-- الاختبارات: 375/375 ناجحة (pytest -q)
+- Waves 1–20: مكتملة ✅
+- الاختبارات: 379/379 ناجحة (pytest -q)
 - الوسم الأخير: ai-stdlib-v19
 
 ### ما يجب فعله الآن (Wave 20 — Polish + v1.0)
