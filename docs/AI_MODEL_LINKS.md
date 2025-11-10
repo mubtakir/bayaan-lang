@@ -192,3 +192,26 @@ https://github.com/mubtakir/bayaan-lang/archive/refs/heads/main.zip
 
 > إن لم يعمل رابط raw لسبب ما، جرّب نسخة GitHub مع `?plain=1` في النهاية.
 
+
+
+## Prompt Engineering + Datasets + Eval
+
+### Prompt Templates (RAW)
+- Usage (AR):
+  - https://raw.githubusercontent.com/mubtakir/bayaan-lang/main/prompt_templates/docs/USAGE_AR.md
+- Usage (EN):
+  - https://raw.githubusercontent.com/mubtakir/bayaan-lang/main/prompt_templates/docs/USAGE_EN.md
+- Social interactions (AR):
+  - https://raw.githubusercontent.com/mubtakir/bayaan-lang/main/prompt_templates/social_interactions/template_ar.json
+- Social interactions (EN):
+  - https://raw.githubusercontent.com/mubtakir/bayaan-lang/main/prompt_templates/social_interactions/template_en.json
+- Physical simulations (AR):
+  - https://raw.githubusercontent.com/mubtakir/bayaan-lang/main/prompt_templates/physical_simulations/template_ar.json
+- Physical simulations (EN):
+  - https://raw.githubusercontent.com/mubtakir/bayaan-lang/main/prompt_templates/physical_simulations/template_en.json
+
+### Coming soon
+- Datasets (alignment):
+  - https://github.com/mubtakir/bayaan-lang/tree/main/datasets (plain: add `?plain=1` to files)
+- Eval framework:
+  - https://github.com/mubtakir/bayaan-lang/tree/main/eval_framework
