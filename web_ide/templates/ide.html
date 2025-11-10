@@ -45,6 +45,7 @@
           <option value="ai.nlp">ai.nlp</option>
           <option value="ai.data">ai.data</option>
           <option value="logic">logic</option>
+          <option value="gfx">gfx</option>
           <option value="mixed">mixed</option>
           <option value="unknown">unknown</option>
         </select>
@@ -61,6 +62,7 @@
           <option value="ai.nlp">ai.nlp</option>
           <option value="ai.data">ai.data</option>
           <option value="logic">logic</option>
+          <option value="gfx">gfx</option>
         </select>
         <div class="vr mx-2"></div>
         <label class="form-label m-0 me-1">السمة</label>
@@ -84,6 +86,18 @@
       <div class="card-body">
         <h6 class="mb-2">المخرجات</h6>
         <pre id="output" class="p-3 rounded" style="background:#0b1220; border:1px solid #1f2a44; min-height: 18vh"></pre>
+        <h6 class="mt-3 mb-2">معاينة</h6>
+        <div id="preview-toolbar" class="d-flex align-items-center gap-2 mb-2" style="display:none">
+          <span class="badge text-bg-light" id="preview-status">0/0</span>
+          <div class="btn-group btn-group-sm" role="group">
+            <button class="btn btn-outline-secondary" id="btn-prev-output">سابق</button>
+            <button class="btn btn-outline-secondary" id="btn-next-output">التالي</button>
+            <button class="btn btn-outline-info" id="btn-copy-output">نسخ</button>
+            <button class="btn btn-outline-success" id="btn-download-output">تنزيل</button>
+          </div>
+        </div>
+
+        <div id="preview" class="p-2 rounded" style="background:#ffffff; border:1px solid #1f2a44; min-height: 18vh"></div>
       </div>
     </div>
   </div>
@@ -275,6 +289,81 @@
     {caption:'كيان', value:'كيان ', meta:'logic', score:60, docText:'تعريف كيان بخصائص/حالات/أفعال.', ar:true},
     {caption:'طبق', value:'طبق ', meta:'logic', score:60, docText:'تطبيق فعل على كيان مستهدف.', ar:true},
 
+
+    // GFX (SVG + waves + pen)
+    {caption:'svg_wrap', value:'svg_wrap(', meta:'gfx', score:85, docText:'Wrap inner SVG content with width/height.'},
+    {caption:'svg_rect', value:'svg_rect(', meta:'gfx', score:85, docText:'Rectangle element.'},
+    {caption:'svg_circle', value:'svg_circle(', meta:'gfx', score:85, docText:'Circle element.'},
+    {caption:'svg_line', value:'svg_line(', meta:'gfx', score:85, docText:'Line element.'},
+    {caption:'svg_text', value:'svg_text(', meta:'gfx', score:85, docText:'Text element.'},
+    {caption:'svg_triangle', value:'svg_triangle(', meta:'gfx', score:85, docText:'Triangle polygon (x1,y1,x2,y2,x3,y3).'},
+    {caption:'svg_ellipse', value:'svg_ellipse(', meta:'gfx', score:85, docText:'Ellipse element.'},
+    {caption:'svg_cylinder', value:'svg_cylinder(', meta:'gfx', score:85, docText:'2D cylinder (top ellipse + body + bottom ellipse).'},
+    {caption:'svg_sphere', value:'svg_sphere(', meta:'gfx', score:85, docText:'2D sphere (circle with highlight).'},
+
+    {caption:'pen_new', value:'pen_new(', meta:'gfx', score:82, docText:'New free-draw pen (path builder).'},
+    {caption:'pen_move', value:'pen_move(', meta:'gfx', score:82, docText:'Move pen to (x,y).'},
+    {caption:'pen_line', value:'pen_line(', meta:'gfx', score:82, docText:'Line to (x,y).'},
+    {caption:'pen_curve', value:'pen_curve(', meta:'gfx', score:82, docText:'Cubic Bezier curve.'},
+    {caption:'pen_close', value:'pen_close(', meta:'gfx', score:82, docText:'Close path.'},
+    {caption:'pen_to_path', value:'pen_to_path(', meta:'gfx', score:82, docText:'Convert pen to <path> element.'},
+    {caption:'wave_sine', value:'wave_sine(', meta:'gfx', score:80, docText:'Generate sine wave points.'},
+    {caption:'wave_square', value:'wave_square(', meta:'gfx', score:80, docText:'Generate square wave points.'},
+    {caption:'wave_triangle', value:'wave_triangle(', meta:'gfx', score:80, docText:'Generate triangle wave points.'},
+    {caption:'wave_plot_svg', value:'wave_plot_svg(', meta:'gfx', score:80, docText:'Render wave points to SVG path.'},
+
+    {caption:'wave_sawtooth', value:'wave_sawtooth(', meta:'gfx', score:80, docText:'Generate sawtooth wave points.'},
+    {caption:'wave_noise', value:'wave_noise(', meta:'gfx', score:80, docText:'Generate uniform noise points.'},
+    {caption:'envelope_adsr', value:'envelope_adsr(', meta:'gfx', score:78, docText:'ADSR envelope over n samples (a,d,s,r).'},
+    {caption:'apply_envelope', value:'apply_envelope(', meta:'gfx', score:78, docText:'Apply envelope array to points.'},
+    {caption:'wave_am', value:'wave_am(', meta:'gfx', score:80, docText:'Amplitude modulation (AM).'},
+    {caption:'wave_fm', value:'wave_fm(', meta:'gfx', score:80, docText:'Frequency modulation (FM).'},
+
+    // Arabic aliases (gfx)
+    {caption:'لف_SVG', value:'لف_SVG(', meta:'gfx', score:85, docText:'لف محتوى SVG بعرض/ارتفاع.' , ar:true},
+    {caption:'مستطيل', value:'مستطيل(', meta:'gfx', score:85, docText:'عنصر مستطيل.' , ar:true},
+    {caption:'دائرة', value:'دائرة(', meta:'gfx', score:85, docText:'عنصر دائرة.' , ar:true},
+    {caption:'خط', value:'خط(', meta:'gfx', score:85, docText:'عنصر خط.' , ar:true},
+    {caption:'نص', value:'نص(', meta:'gfx', score:85, docText:'عنصر نص.' , ar:true},
+    {caption:'مثلث', value:'مثلث(', meta:'gfx', score:85, docText:'عنصر مثلث (ثلاث نقاط).', ar:true},
+    {caption:'بيضوي', value:'بيضوي(', meta:'gfx', score:85, docText:'عنصر بيضوي (إهليلجي).', ar:true},
+    {caption:'اسطوانة', value:'اسطوانة(', meta:'gfx', score:85, docText:'أسطوانة ثنائية الأبعاد (إهليلج علوي + جسم + إهليلج سفلي).', ar:true},
+    {caption:'كرة', value:'كرة(', meta:'gfx', score:85, docText:'كرة ثنائية الأبعاد (دائرة مع إضاءة).', ar:true},
+
+    // GFX raster (Pillow)
+    {caption:'img_canvas', value:'img_canvas(', meta:'gfx', score:84, docText:'Create a new RGBA canvas (requires Pillow).'},
+    {caption:'img_rect', value:'img_rect(', meta:'gfx', score:84, docText:'Draw rectangle on image.'},
+    {caption:'img_circle', value:'img_circle(', meta:'gfx', score:84, docText:'Draw circle on image.'},
+    {caption:'img_line', value:'img_line(', meta:'gfx', score:84, docText:'Draw line on image.'},
+    {caption:'img_text', value:'img_text(', meta:'gfx', score:84, docText:'Draw text on image.'},
+    {caption:'img_to_data_uri', value:'img_to_data_uri(', meta:'gfx', score:84, docText:'Export image as data URI (PNG/JPEG).'},
+
+    // Arabic aliases (raster)
+    {caption:'لوحة', value:'لوحة(', meta:'gfx', score:84, docText:'إنشاء لوحة RGBA (تتطلب Pillow).', ar:true},
+    {caption:'مستطيل_صورة', value:'مستطيل_صورة(', meta:'gfx', score:84, docText:'رسم مستطيل على الصورة.', ar:true},
+    {caption:'دائرة_صورة', value:'دائرة_صورة(', meta:'gfx', score:84, docText:'رسم دائرة على الصورة.', ar:true},
+    {caption:'خط_صورة', value:'خط_صورة(', meta:'gfx', score:84, docText:'رسم خط على الصورة.', ar:true},
+    {caption:'نص_صورة', value:'نص_صورة(', meta:'gfx', score:84, docText:'رسم نص على الصورة.', ar:true},
+    {caption:'صورة_إلى_URI', value:'صورة_إلى_URI(', meta:'gfx', score:84, docText:'تصدير الصورة كسلسلة data URI.', ar:true},
+
+    {caption:'قلم_جديد', value:'قلم_جديد(', meta:'gfx', score:82, docText:'قلم رسم حر (مسار).' , ar:true},
+    {caption:'قلم_تحرك', value:'قلم_تحرك(', meta:'gfx', score:82, docText:'تحريك القلم إلى (x,y).' , ar:true},
+    {caption:'قلم_خط', value:'قلم_خط(', meta:'gfx', score:82, docText:'خط إلى (x,y).' , ar:true},
+    {caption:'موجة_سن_منشار', value:'موجة_سن_منشار(', meta:'gfx', score:80, docText:'توليد موجة سن منشار.', ar:true},
+    {caption:'موجة_ضوضاء', value:'موجة_ضوضاء(', meta:'gfx', score:80, docText:'توليد ضوضاء موحدة.', ar:true},
+    {caption:'مغلف_ADSR', value:'مغلف_ADSR(', meta:'gfx', score:78, docText:'مغلف هجوم/اضمحلال/ثبات/تحرير.', ar:true},
+    {caption:'تطبيق_مغلف', value:'تطبيق_مغلف(', meta:'gfx', score:78, docText:'تطبيق المغلف على النقاط.', ar:true},
+    {caption:'موجة_AM', value:'موجة_AM(', meta:'gfx', score:80, docText:'تعديل السعة (AM).', ar:true},
+    {caption:'موجة_FM', value:'موجة_FM(', meta:'gfx', score:80, docText:'تعديل التردد (FM).', ar:true},
+
+    {caption:'قلم_منحنى', value:'قلم_منحنى(', meta:'gfx', score:82, docText:'منحنى بيزيه مكعب.' , ar:true},
+    {caption:'قلم_إغلاق', value:'قلم_إغلاق(', meta:'gfx', score:82, docText:'إغلاق المسار.' , ar:true},
+    {caption:'قلم_إلى_مسار', value:'قلم_إلى_مسار(', meta:'gfx', score:82, docText:'تحويل القلم إلى عنصر <path>.' , ar:true},
+    {caption:'موجة_جيب', value:'موجة_جيب(', meta:'gfx', score:80, docText:'توليد نقاط موجة جيبية.' , ar:true},
+    {caption:'موجة_مربعة', value:'موجة_مربعة(', meta:'gfx', score:80, docText:'توليد نقاط موجة مربعة.' , ar:true},
+    {caption:'موجة_مثلثية', value:'موجة_مثلثية(', meta:'gfx', score:80, docText:'توليد نقاط موجة مثلثية.' , ar:true},
+    {caption:'رسم_موجة_SVG', value:'رسم_موجة_SVG(', meta:'gfx', score:80, docText:'رسم نقاط الموجة إلى SVG.' , ar:true},
+
     {caption:'تقسيم_عشوائي_تدريب_اختبار', value:'تقسيم_عشوائي_تدريب_اختبار', meta:'ai.ar', docText:'Arabic alias: train_test_split_shuffle.'}
   ];
   const isArabicName = (s) => /[^\x00-\x7F]/.test(s || '');
@@ -322,6 +411,7 @@
             if (!aiCompletions[i].docText && fn.doc) aiCompletions[i].docText = fn.doc;
             if (typeof aiCompletions[i].ar !== 'boolean') aiCompletions[i].ar = !!fn.ar;
           }
+
         }
       });
     }).catch(() => {});
@@ -330,6 +420,7 @@
   editor.setValue(`# مثال سريع\n\nprint("Hello Bayan!\n")\n\nclass A:{\n  def who():{ print("A") }\n}\n\nb = A()\nb.who()\n\n# منطق\nhybrid{\n  fact edge(a,b).\n  fact edge(b,c).\n  rule reachable(X,Y) :- edge(X,Y).\n  rule reachable(X,Y) :- edge(X,Z), reachable(Z,Y).\n  print("reachable(a, ?Y):")\n  query reachable(a, ?Y).\n}\n`, 1);
 
   const outputPre = document.getElementById('output');
+  const previewDiv = document.getElementById('preview');
   const currentFileBadge = document.getElementById('current-file');
   let currentFile = null;
 
@@ -339,6 +430,20 @@
     window.onbeforeunload = clean ? null : function(e){ e.preventDefault(); e.returnValue=''; };
   };
   updateDirty();
+
+  const previewToolbar = document.getElementById('preview-toolbar');
+  const previewStatus = document.getElementById('preview-status');
+  const btnPrevOutput = document.getElementById('btn-prev-output');
+  const btnNextOutput = document.getElementById('btn-next-output');
+  const btnCopyOutput = document.getElementById('btn-copy-output');
+  const btnDownloadOutput = document.getElementById('btn-download-output');
+  let previewItems = [];
+  let previewIndex = 0;
+  if (btnPrevOutput) btnPrevOutput.addEventListener('click', () => { if (previewIndex > 0) { previewIndex--; renderPreview(); } });
+  if (btnNextOutput) btnNextOutput.addEventListener('click', () => { if (previewIndex < (previewItems.length - 1)) { previewIndex++; renderPreview(); } });
+  if (btnCopyOutput) btnCopyOutput.addEventListener('click', () => copyCurrentOutput());
+  if (btnDownloadOutput) btnDownloadOutput.addEventListener('click', () => downloadCurrentOutput());
+
 
   // Static keyword completer
   const keywords = [
@@ -401,8 +506,106 @@
     }
   }
 
+  function extractSvg(s) {
+    try {
+      if (!s) return '';
+      const m = s.match(/<svg[\s\S]*?<\/svg>/i);
+      return m ? m[0] : '';
+    } catch (_) { return ''; }
+  }
+  function extractDataUri(s) {
+    try {
+      if (!s) return '';
+      const m = s.match(/data:image\/(png|jpeg);base64,[A-Za-z0-9+/=]+/i);
+      return m ? m[0] : '';
+    } catch (_) { return ''; }
+  }
+  function setToolbarVisible(v){ try{ if (previewToolbar) previewToolbar.style.display = v ? '' : 'none'; }catch(_){} }
+  function collectOutputs(s){
+    const items = [];
+    try{
+      if (!s) return items;
+      const svgRe = /<svg[\s\S]*?<\/svg>/ig;
+      let m;
+      while ((m = svgRe.exec(s))){ items.push({ type:'svg', content:m[0], pos:m.index }); }
+      const dataRe = /data:image\/[a-zA-Z0-9.+-]+;base64,[A-Za-z0-9+/=]+/ig;
+      while ((m = dataRe.exec(s))){ items.push({ type:'data', content:m[0], pos:m.index }); }
+      items.sort((a,b)=>a.pos-b.pos);
+    }catch(_){ }
+    return items;
+  }
+  function renderPreview(){
+    if (!previewDiv){ setToolbarVisible(false); return; }
+    previewDiv.innerHTML = '';
+    if (!previewItems || previewItems.length === 0){ setToolbarVisible(false); return; }
+    if (previewIndex < 0) previewIndex = 0;
+    if (previewIndex >= previewItems.length) previewIndex = previewItems.length - 1;
+    const it = previewItems[previewIndex];
+    try{
+      if (previewStatus) previewStatus.textContent = `${previewIndex+1}/${previewItems.length}`;
+      if (btnPrevOutput) btnPrevOutput.disabled = (previewIndex <= 0);
+      if (btnNextOutput) btnNextOutput.disabled = (previewIndex >= previewItems.length-1);
+    }catch(_){ }
+    setToolbarVisible(true);
+    if (it.type === 'svg'){
+      previewDiv.innerHTML = it.content;
+    } else {
+      const img = document.createElement('img');
+      img.src = it.content;
+      img.style.maxWidth = '100%'; img.style.height='auto'; img.style.border='0';
+      previewDiv.appendChild(img);
+    }
+  }
+  function dataUriToBlob(uri){
+    try{
+      const m = uri.match(/^data:(image\/[a-zA-Z0-9.+-]+);base64,([A-Za-z0-9+/=]+)/i);
+      if (!m) return null;
+      const mime = m[1]; const b64 = m[2];
+      const bin = atob(b64); const len = bin.length; const arr = new Uint8Array(len);
+      for (let i=0;i<len;i++) arr[i] = bin.charCodeAt(i);
+      return new Blob([arr], {type:mime});
+    }catch(_){ return null; }
+  }
+  function svgTextToBlob(txt){ try{ return new Blob([txt], {type:'image/svg+xml'}); }catch(_){ return null; } }
+  function suggestFilename(it, idx){
+    try{
+      let ext = (it.type === 'svg') ? 'svg' : (it.content.match(/^data:image\/([a-zA-Z0-9.+-]+)/i)?.[1] || 'img');
+      ext = ext.replace('svg+xml','svg');
+      return `output_${idx+1}.${ext}`;
+    }catch(_){ return `output_${idx+1}.img`; }
+  }
+  function copyCurrentOutput(){
+    try{
+      const it = previewItems && previewItems[previewIndex]; if (!it) return;
+      if (navigator.clipboard && window.isSecureContext){
+        navigator.clipboard.writeText(it.content).catch(()=>{});
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = it.content; document.body.appendChild(ta); ta.select();
+        try{ document.execCommand('copy'); }catch(_){ }
+        document.body.removeChild(ta);
+      }
+    }catch(_){ }
+  }
+  function downloadCurrentOutput(){
+    try{
+      const it = previewItems && previewItems[previewIndex]; if (!it) return;
+      const blob = (it.type === 'svg') ? svgTextToBlob(it.content) : dataUriToBlob(it.content);
+      if (!blob) return;
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = suggestFilename(it, previewIndex);
+      document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    }catch(_){ }
+  }
+
+
+
   async function run(code) {
     outputPre.textContent = '...';
+    if (previewDiv) { previewDiv.innerHTML = ''; }
+    previewItems = [];
+    previewIndex = 0;
+    setToolbarVisible(false);
     const res = await fetch('/api/ide/run', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ code })
@@ -418,9 +621,19 @@
         out += `\n[Result]: ${data.result_repr}`;
       }
       outputPre.textContent = out;
+      // Build multi-output preview items (SVG and data:image/*) and render
+      if (previewDiv) {
+        previewItems = collectOutputs(out);
+        previewIndex = 0;
+        renderPreview();
+      }
     } else {
       annotateError(data.error, data.traceback);
       outputPre.textContent = `Error: ${data.error_type}: ${data.error}\n${data.traceback || ''}`;
+      if (previewDiv) { previewDiv.innerHTML = ''; }
+      previewItems = [];
+      previewIndex = 0;
+      setToolbarVisible(false);
     }
   }
 
@@ -451,6 +664,7 @@
       case 'ai.nlp': return '🟦';
       case 'ai.data': return '🟨';
       case 'logic': return '🟪';
+      case 'gfx': return '🟥';
       case 'mixed': return '🟧';
       default: return '⚪';
     }

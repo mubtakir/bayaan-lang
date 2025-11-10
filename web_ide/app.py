@@ -241,6 +241,9 @@ def _infer_example_domain(text: str) -> str:
             domains.add('ai.nlp')
         if 'include "ai/data.bayan"' in code or "include 'ai/data.bayan'" in code:
             domains.add('ai.data')
+        # Graphics domain detection (any include from gfx/*)
+        if 'include "gfx/' in code or "include 'gfx/" in code:
+            domains.add('gfx')
         if len(domains) == 1:
             return next(iter(domains))
         if len(domains) > 1:
@@ -387,6 +390,7 @@ def api_ide_run():
             os.path.join(PROJECT_ROOT, 'examples'),
             os.path.join(PROJECT_ROOT, 'bayan_solutions'),
             os.path.join(PROJECT_ROOT, 'ai'),
+            os.path.join(PROJECT_ROOT, 'gfx'),
         }:
             if os.path.isdir(extra) and extra not in bayan_module_paths:
                 bayan_module_paths.insert(0, extra)

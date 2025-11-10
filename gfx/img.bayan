@@ -1,0 +1,72 @@
+# Raster image helpers for Bayan (via Pillow wrappers in gfx_img_py)
+
+import gfx_img_py
+
+# Canvas
+
+def img_canvas(w, h, bg="#ffffff"):
+{
+    return gfx_img_py.new(int(w), int(h), bg)
+}
+
+# Drawing primitives
+
+def img_rect(img, x, y, w, h, fill=None, outline="#000000", width=1):
+{
+    return gfx_img_py.draw_rect(img, int(x), int(y), int(w), int(h), fill, outline, int(width))
+}
+
+def img_circle(img, cx, cy, r, fill=None, outline="#000000", width=1):
+{
+    return gfx_img_py.draw_circle(img, int(cx), int(cy), int(r), fill, outline, int(width))
+}
+
+def img_line(img, x1, y1, x2, y2, color="#000000", width=1):
+{
+    return gfx_img_py.draw_line(img, int(x1), int(y1), int(x2), int(y2), color, int(width))
+}
+
+def img_text(img, x, y, text, fill="#000000"):
+{
+    return gfx_img_py.draw_text(img, int(x), int(y), text, fill)
+}
+
+# Export
+
+def img_to_data_uri(img, fmt="PNG"):
+{
+    return gfx_img_py.to_data_uri(img, fmt)
+}
+
+# Arabic wrappers
+
+def لوحة(عرض, ارتفاع, خلفية="#ffffff"):
+{
+    return img_canvas(عرض, ارتفاع, خلفية)
+}
+
+def مستطيل_صورة(صورة, س, ص, عرض, ارتفاع, تعبئة=None, حد="#000000", سماكة=1):
+{
+    return img_rect(صورة, س, ص, عرض, ارتفاع, تعبئة, حد, سماكة)
+}
+
+def دائرة_صورة(صورة, مركز_س, مركز_ص, نصف_قطر, تعبئة=None, حد="#000000", سماكة=1):
+{
+    return img_circle(صورة, مركز_س, مركز_ص, نصف_قطر, تعبئة, حد, سماكة)
+}
+
+def خط_صورة(صورة, س1, ص1, س2, ص2, لون="#000000", سماكة=1):
+{
+    return img_line(صورة, س1, ص1, س2, ص2, لون, سماكة)
+}
+
+def نص_صورة(صورة, س, ص, محتوى, لون="#000000"):
+{
+    return img_text(صورة, س, ص, محتوى, لون)
+}
+
+def صورة_إلى_URI(صورة, صيغة="PNG"):
+{
+    return img_to_data_uri(صورة, صيغة)
+}
+

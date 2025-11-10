@@ -1,0 +1,178 @@
+# Simple SVG helpers for Bayan (vector graphics + pen)
+
+# Wrap inner SVG content with width/height and viewBox
+
+def svg_wrap(w, h, inner):
+{
+    return "<svg xmlns='http://www.w3.org/2000/svg' width='" + str(w) + "' height='" + str(h) + "' viewBox='0 0 " + str(w) + " " + str(h) + "'>" + inner + "</svg>"
+}
+
+# Basic shapes
+
+def svg_rect(x, y, w, h, fill="#dddddd", stroke="#000000", stroke_width=1):
+{
+    return "<rect x='" + str(x) + "' y='" + str(y) + "' width='" + str(w) + "' height='" + str(h) + "' fill='" + str(fill) + "' stroke='" + str(stroke) + "' stroke-width='" + str(stroke_width) + "'/>"
+}
+
+def svg_circle(cx, cy, r, fill="#88c", stroke="#000", stroke_width=1):
+{
+    return "<circle cx='" + str(cx) + "' cy='" + str(cy) + "' r='" + str(r) + "' fill='" + str(fill) + "' stroke='" + str(stroke) + "' stroke-width='" + str(stroke_width) + "'/>"
+}
+
+def svg_line(x1, y1, x2, y2, stroke="#222", stroke_width=1):
+{
+    return "<line x1='" + str(x1) + "' y1='" + str(y1) + "' x2='" + str(x2) + "' y2='" + str(y2) + "' stroke='" + str(stroke) + "' stroke-width='" + str(stroke_width) + "'/>"
+}
+
+def svg_text(x, y, text, font_size=14, fill="#000"):
+{
+    return "<text x='" + str(x) + "' y='" + str(y) + "' font-size='" + str(font_size) + "' fill='" + str(fill) + "'>" + text + "</text>"
+}
+# More shapes
+
+def svg_triangle(x1, y1, x2, y2, x3, y3, fill="#ddd", stroke="#000", stroke_width=1):
+{
+    return "<polygon points='" + str(x1) + "," + str(y1) + " " + str(x2) + "," + str(y2) + " " + str(x3) + "," + str(y3) + "' fill='" + str(fill) + "' stroke='" + str(stroke) + "' stroke-width='" + str(stroke_width) + "'/>"
+}
+
+# Ellipse (oval)
+
+def svg_ellipse(cx, cy, rx, ry, fill="#ddd", stroke="#000", stroke_width=1):
+{
+    return "<ellipse cx='" + str(cx) + "' cy='" + str(cy) + "' rx='" + str(rx) + "' ry='" + str(ry) + "' fill='" + str(fill) + "' stroke='" + str(stroke) + "' stroke-width='" + str(stroke_width) + "'/>"
+}
+
+# Cylinder (2D): top ellipse + body rect + bottom ellipse
+
+def svg_cylinder(x, y, w, h, fill_body="#cce", fill_ends="#aab", stroke="#000", stroke_width=1):
+{
+    rx = w / 2
+    ry = w * 0.2
+    if ry < 1: { ry = 1 }
+    body_h = h - 2 * ry
+    if body_h < 1: { body_h = 1 }
+    cx = x + w / 2
+    top = svg_ellipse(cx, y, rx, ry, fill_ends, stroke, stroke_width)
+    body = svg_rect(x, y + ry, w, body_h, fill_body, stroke, stroke_width)
+    bot = svg_ellipse(cx, y + ry + body_h, rx, ry, fill_ends, stroke, stroke_width)
+    return svg_group(bot + body + top)
+}
+
+# Sphere (2D): circle + small highlight
+
+def svg_sphere(cx, cy, r, fill="#cce", stroke="#000", stroke_width=1):
+{
+    base = svg_circle(cx, cy, r, fill, stroke, stroke_width)
+    hl = svg_circle(cx - r * 0.4, cy - r * 0.4, r * 0.25, "#fff", "none", 0)
+    # inject opacity on highlight
+    return svg_group(base + hl.replace("/>", "" + " fill-opacity='0.35'/"))
+}
+
+
+def svg_group(inner, transform=""):
+{
+    if transform == "":
+    {
+        return "<g>" + inner + "</g>"
+    }
+    else:
+    {
+        return "<g transform='" + transform + "'>" + inner + "</g>"
+    }
+}
+
+# Circle with a simple SMIL animate child
+
+def svg_circle_anim(cx, cy, r, fill, stroke, animate_attr, values, dur="2s", repeatCount="indefinite", stroke_width=1):
+{
+    inner = "<animate attributeName='" + animate_attr + "' values='" + values + "' dur='" + dur + "' repeatCount='" + repeatCount + "'/>"
+    return "<circle cx='" + str(cx) + "' cy='" + str(cy) + "' r='" + str(r) + "' fill='" + str(fill) + "' stroke='" + str(stroke) + "' stroke-width='" + str(stroke_width) + "'>" + inner + "</circle>"
+}
+
+# Free drawing pen (path builder)
+
+def pen_new():
+{
+    return []
+}
+
+def pen_move(pen, x, y):
+{
+    pen.append("M " + str(x) + " " + str(y))
+    return pen
+}
+
+def pen_line(pen, x, y):
+{
+    pen.append("L " + str(x) + " " + str(y))
+    return pen
+}
+
+def pen_curve(pen, x1, y1, x2, y2, x, y):
+{
+    pen.append("C " + str(x1) + " " + str(y1) + " " + str(x2) + " " + str(y2) + " " + str(x) + " " + str(y))
+    return pen
+}
+
+def pen_close(pen):
+{
+    pen.append("Z")
+    return pen
+}
+
+def pen_to_path(pen, fill="none", stroke="#000", stroke_width=2):
+{
+    if len(pen) == 0:
+    {
+        d = ""
+    }
+    else:
+    {
+        d = pen[0]
+        for i in range(1, len(pen)):
+        {
+            d = d + " " + pen[i]
+        }
+    }
+    return "<path d='" + d + "' fill='" + str(fill) + "' stroke='" + str(stroke) + "' stroke-width='" + str(stroke_width) + "'/>"
+}
+
+# Arabic wrappers
+
+def لف_SVG(عرض, ارتفاع, داخل): { return svg_wrap(عرض, ارتفاع, داخل) }
+
+def مستطيل(س, ص, عرض, ارتفاع, تعبئة="#dddddd", حد="#000000", سماكة=1): { return svg_rect(س, ص, عرض, ارتفاع, تعبئة, حد, سماكة) }
+
+def دائرة(مركز_س, مركز_ص, نصف_قطر, تعبئة="#88c", حد="#000", سماكة=1): { return svg_circle(مركز_س, مركز_ص, نصف_قطر, تعبئة, حد, سماكة) }
+
+def خط(س1, ص1, س2, ص2, حد="#222", سماكة=1): { return svg_line(س1, ص1, س2, ص2, حد, سماكة) }
+
+def نص(س, ص, محتوى, حجم=14, لون="#000"): { return svg_text(س, ص, محتوى, حجم, لون) }
+
+def مجموعة(داخل, تحويل=""): { return svg_group(داخل, تحويل) }
+
+def دائرة_متحركة(مركز_س, مركز_ص, نصف_قطر, تعبئة, حد, خاصية, قيم, مدة="2s", تكرار="indefinite", سماكة=1): { return svg_circle_anim(مركز_س, مركز_ص, نصف_قطر, تعبئة, حد, خاصية, قيم, مدة, تكرار, سماكة) }
+
+# Arabic pen wrappers
+
+def قلم_جديد(): { return pen_new() }
+
+def قلم_تحرك(قلم, س, ص): { return pen_move(قلم, س, ص) }
+
+def قلم_خط(قلم, س, ص): { return pen_line(قلم, س, ص) }
+# Arabic shape wrappers (new)
+
+def مثلث(س1, ص1, س2, ص2, س3, ص3, تعبئة="#ddd", حد="#000", سماكة=1): { return svg_triangle(س1, ص1, س2, ص2, س3, ص3, تعبئة, حد, سماكة) }
+
+def بيضوي(مركز_س, مركز_ص, نصف_قطر_س, نصف_قطر_ص, تعبئة="#ddd", حد="#000", سماكة=1): { return svg_ellipse(مركز_س, مركز_ص, نصف_قطر_س, نصف_قطر_ص, تعبئة, حد, سماكة) }
+
+def اسطوانة(س, ص, عرض, ارتفاع, تعبئة_جسم="#cce", تعبئة_نهايات="#aab", حد="#000", سماكة=1): { return svg_cylinder(س, ص, عرض, ارتفاع, تعبئة_جسم, تعبئة_نهايات, حد, سماكة) }
+
+def كرة(مركز_س, مركز_ص, نصف_قطر, تعبئة="#cce", حد="#000", سماكة=1): { return svg_sphere(مركز_س, مركز_ص, نصف_قطر, تعبئة, حد, سماكة) }
+
+
+def قلم_منحنى(قلم, س1, ص1, س2, ص2, س, ص): { return pen_curve(قلم, س1, ص1, س2, ص2, س, ص) }
+
+def قلم_إغلاق(قلم): { return pen_close(قلم) }
+
+def قلم_إلى_مسار(قلم, تعبئة="none", حد="#000", سماكة=2): { return pen_to_path(قلم, تعبئة, حد, سماكة) }

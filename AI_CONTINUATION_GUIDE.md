@@ -20,6 +20,26 @@
 > - Bayan syntax cheat-sheet: always put ':' after control keywords; do not use ';'; avoid 'query' as identifier; no list comprehensions; use pow() instead of **; avoid // and negative slicing; no ternary 'x if ... else ...'.
 > - See also: docs/developer_guide.md (handoff appendix), AI_HANDOFF_REPORT.md (addendum), ai/AI_LIBRARY_GUIDE.md (v9 update).
 
+
+> Addendum (2025-11-10) — Graphics (gfx), Web IDE, and AI Stdlib v17–20
+>
+> - Graphics domain (gfx) has been added with three modules:
+>   - gfx/svg.bayan: basic + advanced shapes, pen path API, simple animations; full Arabic wrappers.
+>   - gfx/waves.bayan: sine/square/triangle/sawtooth/noise, ADSR, AM/FM, SVG plotting with axes/area fill; Arabic wrappers.
+>   - gfx/img.bayan: raster canvas via Pillow (gfx_img_py.py) with rect/circle/line/text and PNG/JPEG data URI export; Arabic wrappers.
+> - Web IDE updated:
+>   - Domain filter includes 🟥 gfx; autocomplete entries (EN/AR) added for new APIs.
+>   - Preview panel renders the first SVG in stdout, or the first data:image/* base64 as an <img>.
+> - Examples (EN/AR) added for SVG shapes/free drawing, waves (ADSR, AM/FM), and raster canvas.
+> - Tests: 379/379 PASS. README updated with new examples. Developer guide appendix for gfx/IDE added.
+>
+> Next steps for you (suggested order):
+> 1) IDE polish: Download/Copy buttons for SVG/PNG; optional multi-preview when multiple outputs are printed.
+> 2) Examples: add SVG animation and chart/grid themes (EN/AR); expand waves demos (noise + filters, AM/FM variants); raster layered compositions.
+> 3) Optional: educational DFT (O(N^2)) and moving-average filter in gfx/waves; SVG polyline/polygon with styling utilities.
+> 4) Keep Bayan syntax constraints; add Arabic wrappers for any new public API; avoid new heavy dependencies without approval.
+> 5) Validate by running `pytest -q` after changes.
+
 ## 📖 التعريف بلغة البيان | Introduction to Bayan Language
 
 ### ما هي لغة البيان؟ | What is Bayan?

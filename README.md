@@ -94,6 +94,8 @@ python web_ide/app.py
 - AI autocompletion (Arabic/English) with function docs; filter by language and domain (ai.ml / ai.nlp / ai.data / logic)
 - Examples browser with search and domain filters (ai.ml / ai.nlp / ai.data / logic / mixed / unknown); hover tooltips and domain badges in the list
 
+- Graphics (gfx) domain + live SVG preview panel — SVG helpers (shapes/text/groups), waves (sine/square/triangle), and free pen drawing (Arabic/English)
+
 ## 🧩 Syntax: Blocks and Indentation
 
 Unlike Python, Bayan does NOT require indentation. Blocks are defined by a colon `:` after control keywords and braces `{}`. No semicolons; each statement on its own line.
@@ -296,6 +298,17 @@ python -m pytest tests/ -v
 - Voting & Stacking: examples/ai_voting_stacking.md
 - Soft TF-IDF Similarity: examples/ai_soft_tfidf_similarity.md
 - PCA + Variance + Pipeline: examples/ai_pca_variance_pipeline.md
+
+## 🖼️ Graphics & Visualization (SVG, gfx)
+- English: examples/svg_basic_shapes.md, examples/svg_sine_wave.md, examples/svg_free_drawing.md, examples/svg_advanced_shapes.md, examples/img_basic_canvas.md, examples/svg_sawtooth_area.md, examples/wave_modulation.md
+- Arabic: examples/ar_svg_أشكال_أساسية.md, examples/ar_svg_موجة_جيبية.md, examples/ar_svg_رسم_حر.md, examples/ar_svg_أشكال_متقدمة.md, examples/ar_img_لوحة_أساسية.md, examples/ar_svg_موجات_متقدمة.md, examples/ar_wave_تعديل.md
+
+
+### Web IDE Preview Enhancements
+- Multi-output rendering: shows all SVG and data:image/* outputs in order (navigate via Prev/Next).
+- Toolbar: Download (SVG/PNG/JPEG) and Copy the current output.
+- First output remains the default for quick iteration.
+
 
 ---
 

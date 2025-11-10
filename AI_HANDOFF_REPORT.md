@@ -871,3 +871,37 @@ Steps format: [name, fit_fn, transform_fn, params]
 ### Notes
 - The ensemble/grid code assumes labels array passed to voting/stacking aligns with model label order; keep consistent ordering when constructing labels.
 - Grid search tie‑break prefers higher epochs when average CV accuracy ties.
+
+
+---
+
+## 📎 Addendum — 2025-11-10 — Graphics (gfx), Web IDE, and Raster
+
+### Summary
+- Graphics domain (gfx) added and integrated into Web IDE.
+- New modules:
+  - gfx/svg.bayan — basic/advanced shapes, pen path API, simple animations; Arabic wrappers.
+  - gfx/waves.bayan — sine/square/triangle/sawtooth/noise, ADSR, AM/FM; SVG plotting with axes/area fill; Arabic wrappers.
+  - gfx/img.bayan — raster canvas via Pillow (gfx_img_py.py), primitives (rect/circle/line/text), PNG/JPEG data URI export; Arabic wrappers.
+- Web IDE:
+  - Domain filter shows 🟥 gfx; autocomplete entries (EN/AR) added.
+  - Preview panel renders first SVG or first data:image/* base64.
+- Examples (EN/AR) added for SVG shapes/free drawing/advanced, waves (ADSR + area fill, AM/FM), raster canvas.
+- Tests: 379/379 passing.
+
+### Files
+- Modules: gfx/svg.bayan, gfx/waves.bayan, gfx/img.bayan, gfx_img_py.py
+- IDE: web_ide/templates/ide.html, web_ide/app.py
+- Examples: examples/svg_advanced_shapes.md, examples/svg_sawtooth_area.md, examples/wave_modulation.md, examples/img_basic_canvas.md, وأقرانها العربية
+- Docs: README updated; docs/developer_guide.md updated (gfx/IDE appendix); AI_CONTINUATION_GUIDE.md addendum added.
+
+### Pillow dependency
+- Use Pillow < 12.0 for compatibility (verified with 11.3.0). Do not change dependencies without explicit approval; always use the package manager.
+
+### Next steps (recommended)
+1) IDE polish (high): Download/Copy buttons for SVG/PNG; optional multi‑preview when multiple outputs are printed.
+2) Examples (medium): SVG animations and chart/grid themes (EN/AR); waves demos with filters; raster layered compositions.
+3) Optional gfx extensions (light/educational): SVG polyline/polygon styling helpers; O(N^2) DFT and moving‑average filter in gfx/waves.
+4) Validation: run `pytest -q` after changes; keep Bayan syntax constraints; provide Arabic wrappers for any new public API.
+
+Status: ready for handoff — gfx/IDE baseline complete; AI stdlib Waves 1–20 complete; 379/379 tests passing.
