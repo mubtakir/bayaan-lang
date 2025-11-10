@@ -29,9 +29,13 @@ Example (EN):
 ```
 
 ## Splits
-- train: ex001–ex400
-- val: ex401–ex450
-- test: ex451–ex500
+- Dynamic: 80% train, 10% val, 10% test (by index after sorting)
+- Example (n=1000): train=800, val=100, test=100
+
+## CLI
+- Generate dataset:
+  - `python datasets/alignment/generate_dataset.py --total 1000 --seed 42 --weights 'social=0.30 physical=0.20 mixed=0.20 transport=0.10 health=0.08 education=0.05 work=0.04 market=0.02 public=0.01'`
+- Supported domains: social, physical, mixed, transport, health, education, work, market, public
 
 ## Notes
 - Keep numbers in [0,1] when modeling fuzzy states

@@ -24,6 +24,9 @@ random.seed(42)
 OUT_DIR = Path(__file__).parent
 JSONL_PATH = OUT_DIR / "sample_social_interactions.jsonl"
 CSV_PATH = OUT_DIR / "sample_social_interactions.csv"
+# Dynamic total for splits (set by gen_examples)
+N_TOTAL = 500
+
 
 # Pools
 AR_NAMES = [
@@ -80,6 +83,90 @@ EN_PHYS_ACTIONS = [
     ("brake", "Braking reduces speed", [("speed", -0.25)]),
 ]
 
+# Transport domain actions
+AR_TRANSPORT_ACTIONS = [
+    ("ركوب_حافلة", "الركوب يقلل الطاقة قليلاً", [("طاقة", -0.1)]),
+    ("قيادة_سيارة", "القيادة تتطلب تركيزًا وتستهلك طاقة", [("تركيز", +0.2), ("طاقة", -0.15)]),
+    ("انتظار_مترو", "الانتظار قد يزيد الملل", [("ملل", +0.2)]),
+    ("تفادي_ازدحام", "تفادي الازدحام يقلل التوتر", [("توتر", -0.15)]),
+]
+EN_TRANSPORT_ACTIONS = [
+    ("board_bus", "Boarding slightly reduces energy", [("energy", -0.1)]),
+    ("drive_car", "Driving requires focus and consumes energy", [("focus", +0.2), ("energy", -0.15)]),
+    ("wait_metro", "Waiting may increase boredom", [("boredom", +0.2)]),
+    ("avoid_traffic", "Avoiding traffic reduces stress", [("stress", -0.15)]),
+]
+
+# Health/Emergency domain actions
+AR_HEALTH_ACTIONS = [
+    ("إسعافات_أولية", "الإسعافات تقلل الخوف وترفع الراحة", [("خوف", -0.2), ("راحة", +0.2)]),
+    ("صرف_دواء", "صرف الدواء يقلل الألم", [("ألم", -0.3)]),
+    ("قياس_ضغط", "القياس يعطي طمأنينة", [("طمأنينة", +0.2)]),
+    ("اتصال_إسعاف", "الاتصال يرفع الأمان ويقلل التوتر", [("أمان", +0.2), ("توتر", -0.15)]),
+]
+EN_HEALTH_ACTIONS = [
+    ("first_aid", "First aid reduces fear and increases comfort", [("fear", -0.2), ("comfort", +0.2)]),
+    ("dispense_med", "Dispensing medicine reduces pain", [("pain", -0.3)]),
+    ("measure_bp", "Measuring blood pressure provides reassurance", [("reassurance", +0.2)]),
+    ("call_ambulance", "Calling ambulance increases safety and reduces stress", [("safety", +0.2), ("stress", -0.15)]),
+]
+
+# Education domain actions
+AR_EDU_ACTIONS = [
+    ("شرح_درس", "الشرح يحسن الفهم", [("فهم", +0.25)]),
+    ("مراجعة", "المراجعة تزيد الثقة وتقلل التوتر", [("ثقة", +0.15), ("توتر", -0.1)]),
+    ("تعاون_طلابي", "التعاون يرفع التعاون والثقة", [("تعاون", +0.2), ("ثقة", +0.1)]),
+    ("حل_واجب", "حل الواجب يحسن المهارة", [("مهارة", +0.2)]),
+]
+EN_EDU_ACTIONS = [
+    ("explain_lesson", "Explanation improves understanding", [("understanding", +0.25)]),
+    ("review", "Review increases confidence and reduces stress", [("confidence", +0.15), ("stress", -0.1)]),
+    ("student_collab", "Collaboration raises teamwork and trust", [("teamwork", +0.2), ("trust", +0.1)]),
+    ("do_homework", "Homework improves skill", [("skill", +0.2)]),
+]
+
+# Work domain actions
+AR_WORK_ACTIONS = [
+    ("تغذية_راجعة", "التغذية الراجعة تقلل التوتر وتزيد التحسن", [("توتر", -0.1), ("تحسن", +0.2)]),
+    ("تفويض_مهمة", "التفويض يرفع المسؤولية", [("مسؤولية", +0.2)]),
+    ("اجتماع", "الاجتماع يحسن التنسيق ويستهلك طاقة", [("تنسيق", +0.2), ("طاقة", -0.1)]),
+    ("تخطيط", "التخطيط يرفع الوضوح", [("وضوح", +0.25)]),
+]
+EN_WORK_ACTIONS = [
+    ("feedback", "Feedback reduces stress and increases improvement", [("stress", -0.1), ("improvement", +0.2)]),
+    ("delegate_task", "Delegation increases responsibility", [("responsibility", +0.2)]),
+    ("meeting", "Meeting improves coordination and uses energy", [("coordination", +0.2), ("energy", -0.1)]),
+    ("planning", "Planning increases clarity", [("clarity", +0.25)]),
+]
+
+# Market/Service domain actions
+AR_MARKET_ACTIONS = [
+    ("إرجاع_منتج", "الإرجاع يرفع الرضا والثقة", [("رضا", +0.2), ("ثقة", +0.1)]),
+    ("استبدال", "الاستبدال يرفع الرضا", [("رضا", +0.2)]),
+    ("تفاوض", "التفاوض قد يرفع الثقة", [("ثقة", +0.05)]),
+    ("خدمة_سيئة", "الخدمة السيئة ترفع الغضب وتقلل الثقة", [("غضب", +0.25), ("ثقة", -0.2)]),
+]
+EN_MARKET_ACTIONS = [
+    ("return_item", "Return increases satisfaction and trust", [("satisfaction", +0.2), ("trust", +0.1)]),
+    ("exchange_item", "Exchange increases satisfaction", [("satisfaction", +0.2)]),
+    ("negotiate", "Negotiation may increase trust", [("trust", +0.05)]),
+    ("bad_service", "Bad service increases anger and reduces trust", [("anger", +0.25), ("trust", -0.2)]),
+]
+
+# Public spaces domain actions
+AR_PUBLIC_ACTIONS = [
+    ("حجز_طاولة", "الحجز يرفع الرضا", [("رضا", +0.15)]),
+    ("اصطفاف", "الاصطفاف قد يزيد الملل ويرفع الصبر", [("ملل", +0.1), ("صبر", +0.1)]),
+    ("استعارة_كتاب", "الاستعارة ترفع المعرفة", [("معرفة", +0.2)]),
+    ("تنظيف_مكان", "التنظيف يرفع الراحة", [("راحة", +0.2)]),
+]
+EN_PUBLIC_ACTIONS = [
+    ("book_table", "Booking a table increases satisfaction", [("satisfaction", +0.15)]),
+    ("queue", "Queuing may increase boredom and patience", [("boredom", +0.1), ("patience", +0.1)]),
+    ("borrow_book", "Borrowing a book increases knowledge", [("knowledge", +0.2)]),
+    ("clean_area", "Cleaning increases comfort", [("comfort", +0.2)]),
+]
+
 AR_PHYS_ENTITIES = ["كرة", "جسم", "ماء", "صندوق", "سيارة", "كرة_معدنية"]
 EN_PHYS_ENTITIES = ["Ball", "Object", "Water", "Box", "Car", "MetalBall"]
 
@@ -116,9 +203,12 @@ def make_id(i: int) -> str:
 
 
 def split_for(i: int) -> str:
-    if i <= 400:
+    # Dynamic 80/10/10 split based on N_TOTAL
+    train_cut = int(0.8 * N_TOTAL)
+    val_cut = int(0.9 * N_TOTAL)
+    if i <= train_cut:
         return "train"
-    elif i <= 450:
+    elif i <= val_cut:
         return "val"
     return "test"
 
@@ -179,6 +269,96 @@ def en_social_example(i: int) -> Example:
         states=states,
         split=split_for(i),
     )
+# Generic pair-based generators for domains that involve person-to-person actions
+
+def ar_pair_example(i: int, actions_pool: list[tuple[str, str, list[tuple[str, float]]]]) -> Example:
+    a, b = random.sample(AR_NAMES, 2)
+    action, rationale, effects = random.choice(actions_pool)
+    ctx = random.choice(CONTEXTS_AR)
+    nt = f"{a} {ctx} يقوم بفعل '{action}' مع {b}"
+    stmts: list[str] = [f"{a}.{action}({b})"]
+    states: list[str] = []
+    for st, delta in effects:
+        op = "+=" if delta > 0 else "-="
+        stmts.append(f"{b}.{st} {op} {abs(clip_delta(delta))}")
+        states.append(st)
+    code = "; ".join(stmts)
+    return Example(
+        id=make_id(i),
+        lang="ar",
+        natural_text=nt,
+        bayan_code=code,
+        logic_explanation=rationale,
+        entities=[a, b],
+        actions=[action],
+        states=states,
+        split=split_for(i),
+    )
+
+
+def en_pair_example(i: int, actions_pool: list[tuple[str, str, list[tuple[str, float]]]]) -> Example:
+    a, b = random.sample(EN_NAMES, 2)
+    action, rationale, effects = random.choice(actions_pool)
+    ctx = random.choice(CONTEXTS_EN)
+    nt = f"{a} {ctx} performs '{action}' with {b}"
+    stmts: list[str] = [f"{a}.{action}({b})"]
+    states: list[str] = []
+    for st, delta in effects:
+        op = "+=" if delta > 0 else "-="
+        stmts.append(f"{b}.{st} {op} {abs(clip_delta(delta))}")
+        states.append(st)
+    code = "; ".join(stmts)
+    return Example(
+        id=make_id(i),
+        lang="en",
+        natural_text=nt,
+        bayan_code=code,
+        logic_explanation=rationale,
+        entities=[a, b],
+        actions=[action],
+        states=states,
+        split=split_for(i),
+    )
+
+
+# Wrappers per new domain
+
+def ar_transport_example(i: int) -> Example:
+    return ar_pair_example(i, AR_TRANSPORT_ACTIONS)
+
+def en_transport_example(i: int) -> Example:
+    return en_pair_example(i, EN_TRANSPORT_ACTIONS)
+
+def ar_health_example(i: int) -> Example:
+    return ar_pair_example(i, AR_HEALTH_ACTIONS)
+
+def en_health_example(i: int) -> Example:
+    return en_pair_example(i, EN_HEALTH_ACTIONS)
+
+def ar_education_example(i: int) -> Example:
+    return ar_pair_example(i, AR_EDU_ACTIONS)
+
+def en_education_example(i: int) -> Example:
+    return en_pair_example(i, EN_EDU_ACTIONS)
+
+def ar_work_example(i: int) -> Example:
+    return ar_pair_example(i, AR_WORK_ACTIONS)
+
+def en_work_example(i: int) -> Example:
+    return en_pair_example(i, EN_WORK_ACTIONS)
+
+def ar_market_example(i: int) -> Example:
+    return ar_pair_example(i, AR_MARKET_ACTIONS)
+
+def en_market_example(i: int) -> Example:
+    return en_pair_example(i, EN_MARKET_ACTIONS)
+
+def ar_public_example(i: int) -> Example:
+    return ar_pair_example(i, AR_PUBLIC_ACTIONS)
+
+def en_public_example(i: int) -> Example:
+    return en_pair_example(i, EN_PUBLIC_ACTIONS)
+
 
 
 def ar_physical_example(i: int) -> Example:
@@ -269,27 +449,80 @@ def en_mixed_example(i: int) -> Example:
     )
 
 
-def gen_examples(n: int = 500) -> list[Example]:
+def gen_examples(n: int = 500, weights_str: str | None = None) -> list[Example]:
+    """Generate examples with weighted domain distribution and 50/50 AR/EN balance."""
+    global N_TOTAL
+    N_TOTAL = n
+
+    # Allowed domains and default weights
+    domains = [
+        "social", "physical", "mixed",
+        "transport", "health", "education", "work", "market", "public",
+    ]
+    default_weights = {
+        "social": 0.30,
+        "physical": 0.20,
+        "mixed": 0.20,
+        "transport": 0.10,
+        "health": 0.08,
+        "education": 0.05,
+        "work": 0.04,
+        "market": 0.02,
+        "public": 0.01,
+    }
+
+    def parse_weights(s: str | None) -> dict[str, float]:
+        if not s:
+            return default_weights.copy()
+        weights = default_weights.copy()
+        for tok in s.replace(",", " ").split():
+            if "=" in tok:
+                k, v = tok.split("=", 1)
+                k = k.strip().lower()
+                try:
+                    val = float(v)
+                except ValueError:
+                    continue
+                if k in weights:
+                    weights[k] = max(0.0, val)
+        total = sum(weights.values())
+        if total <= 0:
+            return default_weights.copy()
+        for k in list(weights.keys()):
+            weights[k] = weights[k] / total
+        return weights
+
+    weights = parse_weights(weights_str)
+
+    def pick_domain() -> str:
+        r = random.random()
+        cum = 0.0
+        last = domains[-1]
+        for k in domains:
+            cum += weights.get(k, 0.0)
+            if r <= cum:
+                return k
+        return last
+
+    gens = {
+        "social": {"ar": ar_social_example, "en": en_social_example},
+        "physical": {"ar": ar_physical_example, "en": en_physical_example},
+        "mixed": {"ar": ar_mixed_example, "en": en_mixed_example},
+        "transport": {"ar": ar_transport_example, "en": en_transport_example},
+        "health": {"ar": ar_health_example, "en": en_health_example},
+        "education": {"ar": ar_education_example, "en": en_education_example},
+        "work": {"ar": ar_work_example, "en": en_work_example},
+        "market": {"ar": ar_market_example, "en": en_market_example},
+        "public": {"ar": ar_public_example, "en": en_public_example},
+    }
+
     examples: list[Example] = []
-    # Distribution: 40% social, 30% physical, 30% mixed
-    n_social = int(0.40 * n)
-    n_physical = int(0.30 * n)
-    n_mixed = n - n_social - n_physical
-
-    # Build type schedule and language alternation
-    schedule = (["social"] * n_social) + (["physical"] * n_physical) + (["mixed"] * n_mixed)
-    random.shuffle(schedule)
-
     for i in range(1, n + 1):
-        t = schedule[i - 1]
-        lang = "ar" if (i % 2 == 1) else "en"  # alternate for balance
-        if t == "social":
-            ex = ar_social_example(i) if lang == "ar" else en_social_example(i)
-        elif t == "physical":
-            ex = ar_physical_example(i) if lang == "ar" else en_physical_example(i)
-        else:  # mixed
-            ex = ar_mixed_example(i) if lang == "ar" else en_mixed_example(i)
+        d = pick_domain()
+        lang = "ar" if (i % 2 == 1) else "en"
+        ex = gens[d][lang](i)
         examples.append(ex)
+
     # Sort by id for stable splits
     examples.sort(key=lambda e: e.id)
     return examples
@@ -346,12 +579,13 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Generate Bayan alignment dataset (JSONL+CSV)")
     parser.add_argument("--total", type=int, default=500, help="Total number of examples (default: 500)")
     parser.add_argument("--seed", type=int, default=42, help="RNG seed (default: 42)")
+    parser.add_argument("--weights", type=str, default="", help="Domain weights, e.g. 'social=0.35 physical=0.25 transport=0.1' or comma-separated")
     args = parser.parse_args()
 
     random.seed(args.seed)
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    examples = gen_examples(args.total)
+    examples = gen_examples(args.total, args.weights)
     write_jsonl(examples, JSONL_PATH)
     write_csv(examples, CSV_PATH)
 
