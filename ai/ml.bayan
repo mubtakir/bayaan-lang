@@ -2881,3 +2881,139 @@ def تدريب_ادابوست(س, ت, عدد_مصنفات=10): { return adaboost
 
 def توقع_ادابوست(نموذج, س): { return adaboost_predict(نموذج, س) }
 
+
+
+# --- Wave 14: Multinomial Naive Bayes (educational) ---
+
+def naive_bayes_train(docs_tokens, y, alpha=1.0):
+{
+    n = len(docs_tokens)
+    if n == 0: { return {"classes": [], "prior": {}, "likelihoods": {}, "unk": {}, "vocab": []} }
+    class_counts = {}
+    token_counts = {}  # class -> dict token->count
+    total_tokens = {}  # class -> total token count
+    vocab = {}
+    i = 0
+    while i < n:
+    {
+        c = y[i]
+        doc = docs_tokens[i]
+        if not (c in class_counts): { class_counts[c] = 0 }
+        class_counts[c] = class_counts[c] + 1
+        if not (c in token_counts): { token_counts[c] = {} }
+        if not (c in total_tokens): { total_tokens[c] = 0 }
+        j = 0
+        while j < len(doc):
+        {
+            t = doc[j]
+            # update class token counts
+            cur = 0
+            if t in token_counts[c]: { cur = token_counts[c][t] }
+            token_counts[c][t] = cur + 1
+            total_tokens[c] = total_tokens[c] + 1
+            vocab[t] = 1
+            j = j + 1
+        }
+        i = i + 1
+    }
+    # classes list
+    classes = []
+    for c in class_counts: { classes.append(c) }
+    # priors
+    prior = {}
+    for c in class_counts: { prior[c] = class_counts[c] / n }
+    # likelihoods with Laplace smoothing
+    V = 0
+    for v in vocab: { V = V + 1 }
+    likelihoods = {}
+    unk = {}
+    for c in class_counts:
+    {
+        likelihoods[c] = {}
+        denom = total_tokens[c] + alpha * V
+        # unknown token prob for this class
+        unk[c] = alpha / denom
+        for t in vocab:
+        {
+            cnt = 0
+            if t in token_counts[c]: { cnt = token_counts[c][t] }
+            likelihoods[c][t] = (cnt + alpha) / denom
+        }
+    }
+    model = {"classes": classes, "prior": prior, "likelihoods": likelihoods, "unk": unk, "vocab": []}
+    # store vocab list (optional)
+    vv = []
+    for t in vocab: { vv.append(t) }
+    model["vocab"] = vv
+    return model
+}
+
+# Predict classes for a list of docs (each a list of tokens)
+def naive_bayes_predict(model, docs_tokens):
+{
+    classes = model.get("classes", [])
+    prior = model.get("prior", {})
+    likelihoods = model.get("likelihoods", {})
+    unk = model.get("unk", {})
+    e = 2.718281828
+    # natural log via bisection on exp
+    def _ln(val):
+    {
+        if val <= 0.0: { return -50.0 }
+        lo = -50.0
+        hi = 50.0
+        it = 0
+        while it < 40:
+        {
+            mid = (lo + hi) / 2.0
+            ev = pow(e, mid)
+            if ev < val: { lo = mid } else: { hi = mid }
+            it = it + 1
+        }
+        return (lo + hi) / 2.0
+    }
+    n = len(docs_tokens)
+    preds = []
+    i = 0
+    while i < n:
+    {
+        doc = docs_tokens[i]
+        # compute log score per class
+        best_c = 0
+        if len(classes) > 0:
+        {
+            best_c = classes[0]
+        }
+        best_s = -1000000.0
+        k = 0
+        while k < len(classes):
+        {
+            c = classes[k]
+            s = _ln(prior.get(c, 1.0 / len(classes)))
+            j = 0
+            while j < len(doc):
+            {
+                t = doc[j]
+                p = unk.get(c, 1.0)
+                if t in likelihoods.get(c, {}): { p = likelihoods[c][t] }
+                s = s + _ln(p)
+                j = j + 1
+            }
+            if s > best_s:
+            {
+                best_s = s
+                best_c = c
+            }
+            k = k + 1
+        }
+        preds.append(best_c)
+        i = i + 1
+    }
+    return preds
+}
+
+# Arabic wrappers (Wave 14)
+
+def تدريب_بايز_متعدد(وثائق, تسميات, ألفا=1.0): { return naive_bayes_train(وثائق, تسميات, ألفا) }
+
+def توقع_بايز_متعدد(نموذج, وثائق): { return naive_bayes_predict(نموذج, وثائق) }

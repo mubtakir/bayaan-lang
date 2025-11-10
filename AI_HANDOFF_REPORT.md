@@ -627,3 +627,28 @@ Refer to docs/developer_guide.md (handoff appendix) for details.
 - README badge updated to 353 passing tests; status now Waves 1–13 complete
 - ai/AI_LIBRARY_GUIDE.md: new v13 entries + updated handoff status
 - docs/developer_guide.md: status and tests updated
+
+
+
+## 📎 Addendum — 2025-11-10 — AI Stdlib Wave 14
+
+### Summary
+- NLP: Added LCS length and Jaccard over character n-grams.
+  - lcs_length(s1, s2)
+  - jaccard_char_ngrams(text1, text2, n=3)
+  - Arabic wrappers: طول_LCS(نص1, نص2)، جاكارد_محارف(نص1, نص2, ن=3)
+
+- ML: Added Multinomial Naive Bayes for tokenized documents.
+  - naive_bayes_train(docs_tokens, y, alpha=1.0)
+  - naive_bayes_predict(model, docs_tokens)
+  - Arabic wrappers: تدريب_بايز_متعدد(وثائق, تسميات, ألفا=1.0)، توقع_بايز_متعدد(نموذج, وثائق)
+
+### Tests
+- tests/test_ai_nlp_wave14.py → PASS
+- tests/test_ai_ml_wave14_nb.py → PASS
+- Total: 358/358 tests passing
+
+### Notes
+- Follow Bayan syntax rules strictly (no semicolons, always colon after control keywords).
+- In Naive Bayes, initialization avoids the literal `None` to fit Bayan runtime.
+- README, AI_LIBRARY_GUIDE.md, and docs/developer_guide.md updated to 358/358 and Wave 14 entries.

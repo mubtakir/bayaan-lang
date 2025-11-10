@@ -1759,3 +1759,98 @@ def bm25_top_k(model, qtext, k=5):
 def تشابه_جيبي_TFIDF(نص1, نص2): { return tfidf_cosine_similarity(نص1, نص2) }
 
 def أفضل_BM25(نموذج, استعلام, ك=5): { return bm25_top_k(نموذج, استعلام, ك) }
+
+
+# --- Wave 14: LCS and Jaccard over character n-grams ---
+
+# Longest Common Subsequence length (dynamic programming)
+def lcs_length(s1, s2):
+{
+    n = len(s1)
+    m = len(s2)
+    # build (n+1) x (m+1) table of zeros
+    dp = []
+    i = 0
+    while i < n + 1:
+    {
+        row = []
+        j = 0
+        while j < m + 1:
+        {
+            row.append(0)
+            j = j + 1
+        }
+        dp.append(row)
+        i = i + 1
+    }
+    i = 1
+    while i <= n:
+    {
+        j = 1
+        while j <= m:
+        {
+            a = s1[i - 1]
+            b = s2[j - 1]
+            if a == b:
+            {
+                dp[i][j] = dp[i - 1][j - 1] + 1
+            }
+            else:
+            {
+                v1 = dp[i - 1][j]
+                v2 = dp[i][j - 1]
+                if v1 > v2: { dp[i][j] = v1 } else: { dp[i][j] = v2 }
+            }
+            j = j + 1
+        }
+        i = i + 1
+    }
+    return dp[n][m]
+}
+
+# Jaccard similarity over character n-grams (default: bigrams if n=2, trigrams if n=3)
+def jaccard_char_ngrams(text1, text2, n=3):
+{
+    # build sets of n-grams directly
+    set1 = {}
+    set2 = {}
+    # text1 n-grams
+    L1 = len(text1)
+    max1 = L1 - n + 1
+    if max1 < 0: { max1 = 0 }
+    i = 0
+    while i < max1:
+    {
+        j = i + n
+        g = text1[i:j]
+        set1[g] = 1
+        i = i + 1
+    }
+    # text2 n-grams
+    L2 = len(text2)
+    max2 = L2 - n + 1
+    if max2 < 0: { max2 = 0 }
+    i = 0
+    while i < max2:
+    {
+        j = i + n
+        g = text2[i:j]
+        set2[g] = 1
+        i = i + 1
+    }
+    inter = 0
+    union = 0
+    # union count
+    for k in set1: { union = union + 1 }
+    for k in set2: { if not (k in set1): { union = union + 1 } }
+    # intersection count
+    for k in set1: { if k in set2: { inter = inter + 1 } }
+    if union == 0: { return 0.0 }
+    return inter / union
+}
+
+# Arabic wrappers (Wave 14)
+
+def طول_LCS(نص1, نص2): { return lcs_length(نص1, نص2) }
+
+def جاكارد_محارف(نص1, نص2, ن=3): { return jaccard_char_ngrams(نص1, نص2, ن) }
