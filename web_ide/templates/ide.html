@@ -521,7 +521,7 @@
   async function saveFile(asNew=false) {
     let name = currentFile;
     if (!name || asNew) {
-      name = prompt('اسم الملف (ينتهي بـ .bayan):', name || 'program.bayan');
+      name = prompt('اسم الملف (ينتهي بـ .bayan أو .by):', name || 'program.bayan');
       if (!name) return;
     }
     const res = await fetch('/api/ide/file', {

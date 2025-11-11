@@ -39,7 +39,7 @@ os.makedirs(SCRIPTS_DIR, exist_ok=True)
 # -----------------------------
 # Utilities: file validation
 # -----------------------------
-NAME_PATTERN = re.compile(r'^[A-Za-z0-9_\-.]+\.bayan$')
+NAME_PATTERN = re.compile(r'^[A-Za-z0-9_\-.]+\.(?:bayan|by)$')
 
 def _is_valid_script_name(name: str) -> bool:
     if not isinstance(name, str):
@@ -48,7 +48,7 @@ def _is_valid_script_name(name: str) -> bool:
         return False
     if '/' in name or '\\' in name or name.startswith('.'):
         return False
-    if not name.endswith('.bayan'):
+    if not (name.endswith('.bayan') or name.endswith('.by')):
         return False
     return NAME_PATTERN.fullmatch(name) is not None
 

@@ -568,11 +568,12 @@ class HybridInterpreter:
 
     def _find_bayan_module_path(self, module_name):
         import os
-        rel_path = module_name.replace('.', os.sep) + '.bayan'
+        rel_base = module_name.replace('.', os.sep)
         for base in self._bayan_module_paths:
-            candidate = os.path.join(base, rel_path)
-            if os.path.isfile(candidate):
-                return candidate
+            for ext in ('.bayan', '.by'):
+                candidate = os.path.join(base, rel_base + ext)
+                if os.path.isfile(candidate):
+                    return candidate
         return None
 
     def _load_bayan_module(self, module_name):

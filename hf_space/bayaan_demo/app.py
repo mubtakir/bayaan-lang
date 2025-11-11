@@ -62,15 +62,62 @@ def load_metrics():
 
 
 def browse_examples(split, lang, limit):
-    # Offline, lightweight sample rows to keep Space fast to build/run
-    samples = [
-        ["ex001", "ar", split, "محمد قدم وجبة لأحمد", "محمد.تقديم_وجبة(أحمد); أحمد.امتنان += 0.3", "تقديم_وجبة", "امتنان"],
-        ["ex002", "en", split, "Aisha helped Zain study", "Aisha.help(Zain); Zain.knowledge += 0.2", "help", "knowledge"],
-        ["ex003", "ar", split, "سارة شاركت كتابًا مع ريم", "سارة.مشاركة(كتاب, ريم); ريم.معرفة += 0.1", "مشاركة", "معرفة"],
-    ]
-    if lang:
-        samples = [r for r in samples if r[1] == lang]
-    return samples[: int(limit) if limit else 10]
+    """Prefer datasets streaming if available; fallback to HF datasets-server API."""
+    length = int(limit) if limit else 10
+    # Try using the `datasets` library with streaming (no pyarrow required)
+    try:
+        ds = get_dataset()
+        it = ds[split]
+        rows = []
+        for ex in it:
+            if lang and ex.get("lang") != lang:
+                continue
+            rows.append([
+                ex.get("id"), ex.get("lang"), ex.get("split"),
+                (ex.get("natural_text", "") or "")[:160],
+                (ex.get("bayan_code", "") or "")[:160],
+                ", ".join((ex.get("actions") or [])[:3]),
+                ", ".join((ex.get("states") or [])[:3]),
+            ])
+            if len(rows) >= length:
+                break
+        if rows:
+            return rows
+    except Exception:
+        pass
+    # Fallback to lightweight API (no local deps)
+    try:
+        cfg = _cached.get("cfg")
+        if not cfg:
+            info_url = f"https://datasets-server.huggingface.co/info?dataset={DATASET_ID}"
+            r_info = requests.get(info_url, timeout=10)
+            r_info.raise_for_status()
+            js = r_info.json()
+            configs = js.get("configs") or []
+            cfg = (configs[0].get("config") if configs else "default")
+            _cached["cfg"] = cfg
+        url = (
+            "https://datasets-server.huggingface.co/rows"
+            f"?dataset={DATASET_ID}&config={cfg}&split={split}&offset=0&length={length}"
+        )
+        r = requests.get(url, timeout=20)
+        r.raise_for_status()
+        j = r.json()
+        rows = []
+        for rr in j.get("rows", []):
+            ex = rr.get("row", {})
+            if lang and ex.get("lang") != lang:
+                continue
+            rows.append([
+                ex.get("id"), ex.get("lang"), ex.get("split"),
+                (ex.get("natural_text", "") or "")[:160],
+                (ex.get("bayan_code", "") or "")[:160],
+                ", ".join((ex.get("actions") or [])[:3]),
+                ", ".join((ex.get("states") or [])[:3]),
+            ])
+        return rows or [["No rows", "", "", "", "", "", ""]]
+    except Exception as e:
+        return [[f"Failed to fetch rows: {e}", "", "", "", "", "", ""]]
 # --- Lightweight normalization and structural validator (beta) ---
 _SEMI = re.compile(r";+")
 _PLUS_EQ = re.compile(r"(?P<lhs>[\w\u0600-\u06FF\.]+)\s*\+=\s*(?P<rhs>[^;\n]+)")
@@ -163,7 +210,7 @@ def make_app():
             code_in = gr.Textbox(lines=8, label="Bayan code", placeholder="محمد.تقديم_وجبة(أحمد);\nأحمد.امتنان += 0.3")
             run_btn = gr.Button("Validate")
             res = gr.JSON(label="Result")
-            norm = gr.Code(language="bayan", label="Normalized code")
+            norm = gr.Code(language="python", label="Normalized code")
             run_btn.click(fn=validate_bayan_full, inputs=[code_in], outputs=[res, norm])
 
 
