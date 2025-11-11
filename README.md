@@ -78,6 +78,9 @@ hybrid {
 python -m bayan examples/hello.by
 ```
 
+Note: Both .by and .bayan extensions are supported for Bayan scripts and imports. Conventionally, .bayan is used for libraries/modules and .by for runnable scripts.
+
+
 ## 🧰 Built-in Web IDE (no install)
 
 If you can’t install development tools, Bayan ships with a simple Web IDE you can run locally:

@@ -66,7 +66,7 @@ INCLUDE_PREFIXES = ('include ', 'إدراج ', 'استيراد ')
 
 def _expand_includes(code: str, *, visited: set[str] | None = None) -> str:
     """Very simple preprocessor: expands lines like
-       include foo.bayan   | إدراج foo.bayan | استيراد foo.bayan
+       include foo.bayan | include foo.by  | إدراج foo.bayan | إدراج foo.by | استيراد foo.bayan | استيراد foo.by
        by inlining file content from user_scripts.
        Prevents cycles using a visited set.
     """
