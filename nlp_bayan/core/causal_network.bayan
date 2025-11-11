@@ -1,0 +1,42 @@
+hybrid {
+    # واجهة مبسطة لمحرك الشبكات السببية (قابلة للتوسّع)
+
+    def create_network(network_id, network_name, domain): {
+        return network_id
+    }
+
+    def add_node(network_id, node_id, node_type, properties): {
+        return node_id
+    }
+
+    def add_causal_relation(network_id, from_node, to_node, relation_type, strength): {
+        return relation_type
+    }
+
+    def infer_causal_chain(network_id, start_node, end_node, max_depth): {
+        return "chain_found"
+    }
+
+    def find_all_effects(network_id, node_id, depth): {
+        return "effects_found"
+    }
+
+    def find_all_causes(network_id, node_id, depth): {
+        return "causes_found"
+    }
+
+    # Minimal causal relations and inference
+    relation_type("causes").
+    relation_type("enables").
+    relation_type("leads_to").
+
+    causal_relation(a, b, "leads_to", 0.9).
+    causal_relation(b, c, "leads_to", 0.8).
+
+    direct_effect(?X, ?Y) :- causal_relation(?X, ?Y, ?_T, ?_S).
+
+    causes_path(?X, ?Y) :- direct_effect(?X, ?Y).
+    causes_path(?X, ?Y) :- direct_effect(?X, ?Z), causes_path(?Z, ?Y).
+
+}
+

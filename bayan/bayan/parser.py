@@ -1309,7 +1309,8 @@ class HybridParser:
                     left = self.parse_logical_term()
                     op_tok = self.eat(TokenType.OPERATOR)
                     right = self.parse_logical_term()
-                    return IsExpression(left, BinaryOp(left, op_tok.value, right))
+                    # Represent comparisons as special predicates handled by the logical engine
+                    return Predicate(f'_compare_{op_tok.value}', [left, right])
                 else:
                     # Not a comparison, restore and parse as predicate
                     self.position = saved_pos

@@ -1,0 +1,122 @@
+# Integrated Knowledge Base for Bayan + NLP Bayan
+# قاعدة معرفية موحّدة لمشاركة الحقائق والقواعد بين الأمثلة والوحدات
+
+hybrid {
+    # ----------------------------
+    # Probabilities + thresholds
+    # ----------------------------
+    prob("is_green", "garden", 0.7).
+    prob("has_trees", "garden", 0.6).
+    prob("is_neglected", "garden", 0.8).
+    prob("has_water", "garden", 0.3).
+
+    threshold("maybe", 0.5).
+    threshold("likely", 0.7).
+
+    maybe(?fact, ?entity) :- prob(?fact, ?entity, ?p), threshold("maybe", ?t), ?p > ?t.
+    likely(?fact, ?entity) :- prob(?fact, ?entity, ?p), threshold("likely", ?t), ?p > ?t.
+
+    # ----------------------------
+    # Information equations (simplified)
+    # ----------------------------
+    information(info_001, ["محمد", "المدرسة"], "ذهب", ["محمد_في_المدرسة"], "2024-10-23").
+    information(info_002, ["محمد", "الدرس"], "تأثر", ["محمد_متأثر"], "2024-10-23").
+
+    information_equation(?info_id, ?objects, ?event, ?result) :-
+        information(?info_id, ?objects, ?event, ?result, ?_ts).
+
+    # ----------------------------
+    # Family relations (simplified)
+    # ----------------------------
+    parent("أحمد", "محمد").
+    parent("محمد", "علي").
+    parent("علي", "سارة").
+
+    grandparent(?X, ?Z) :- parent(?X, ?Y), parent(?Y, ?Z).
+    ancestor(?X, ?Z) :- parent(?X, ?Z).
+    ancestor(?X, ?Z) :- parent(?X, ?Y), ancestor(?Y, ?Z).
+
+    # ----------------------------
+    # Events and simple sequencing
+    # ----------------------------
+    event(e001, "movement", ["محمد"], 800, "completed").
+    event(e002, "learning", ["محمد", "المعلم"], 830, "in_progress").
+
+    sequential_events(?e1, ?e2) :-
+        event(?e1, ?_t1, ?_a1, ?t1, ?_s1),
+        event(?e2, ?_t2, ?_a2, ?t2, ?_s2),
+        ?t2 > ?t1.
+
+    # ----------------------------
+    # Shapes
+    # ----------------------------
+    shape_equation("circle", "x^2 + y^2 = r^2").
+    shape_equation("square", "|x| <= a AND |y| <= a").
+
+    extract_shape_equation(?typ, ?eq) :- shape_equation(?typ, ?eq).
+}
+
+# Copy all facts and rules from this module's KB into a target logical engine
+# انسخ كل الحقائق والقواعد من قاعدة هذا الملف إلى محرك منطقي مستهدف
+
+def load_into(target_logical):
+{
+    kb = logical.knowledge_base
+    for pred in kb:
+    {
+        items = kb[pred]
+        for item in items:
+        {
+            target_logical.assertz(item)
+        }
+    }
+    return True
+}
+
+# Selective copy by domains (prob, information, family, events, shapes)
+# تحميل انتقائي حسب المجالات المعرفية
+
+def load_selective(target_logical, only):
+{
+    # Map domain → list of predicate names included in that domain
+    domains = {
+        "prob": ["prob", "threshold", "maybe", "likely"],
+        "information": ["information", "information_equation"],
+        "family": ["parent", "grandparent", "ancestor"],
+        "events": ["event", "sequential_events"],
+        "shapes": ["shape_equation", "extract_shape_equation"],
+    }
+
+    # Build allowed predicate set
+    allowed = []
+    for key in only:
+    {
+        if key in domains:
+        {
+            preds = domains[key]
+            for p in preds:
+            {
+                if not (p in allowed):
+                {
+                    allowed.append(p)
+                }
+            }
+        }
+    }
+
+    kb = logical.knowledge_base
+    for pred in kb:
+    {
+        if pred in allowed:
+        {
+            items = kb[pred]
+            for item in items:
+            {
+                target_logical.assertz(item)
+            }
+        }
+    }
+    return True
+}
+
+

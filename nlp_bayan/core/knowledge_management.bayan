@@ -1,0 +1,10 @@
+hybrid {
+    # Knowledge items and relations (trimmed)
+    knowledge_item("k001", "مدرسة", "مكان للتعليم", "place", 1, 0.9).
+    knowledge_item("k002", "محمد", "طالب", "person", 1, 0.95).
+
+    knowledge_relation("k002", "k001", "enrolled_in", 0.8).
+
+    item_by_type(?Id, ?Type) :- knowledge_item(?Id, ?_T, ?_C, ?Type, ?_L, ?_Conf).
+}
+

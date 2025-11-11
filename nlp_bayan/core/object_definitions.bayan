@@ -1,0 +1,11 @@
+hybrid {
+    # Object model (trimmed): O = (id, phi, psi_t, gamma)
+    object("o1").
+    phi("o1", "type", "physical").
+    psi("o1", "position", "home").
+    gamma("o1", "shape_fn").
+
+    object_property(?Id, ?Key, ?Val) :- phi(?Id, ?Key, ?Val).
+    object_state(?Id, ?Key, ?Val) :- psi(?Id, ?Key, ?Val).
+}
+

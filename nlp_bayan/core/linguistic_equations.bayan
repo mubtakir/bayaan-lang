@@ -1,0 +1,39 @@
+hybrid {
+    # ============================================
+    # 1) معجم مبسّط: كلمة → معنى → معادلة لغوية
+    # ============================================
+    word_meaning("ذهب", "movement", "Go").
+    word_meaning("عاد", "return", "Return").
+    word_meaning("أثر", "affect", "Affect").
+    word_meaning("تأثر", "influence", "BeAffected").
+    word_meaning("تحول", "transform", "Transform").
+
+    linguistic_equation("ذهب", "movement", "Go(h, g) -> h_new").
+    linguistic_equation("عاد", "return", "Return(h, g) -> h_new").
+    linguistic_equation("أثر", "affect", "Affect(h, g) -> g_new").
+    linguistic_equation("تأثر", "influence", "BeAffected(h, g) -> h_new").
+    linguistic_equation("تحول", "transform", "Transform(h, a, b) -> h_new").
+
+    # ============================================
+    # 2) قواعد استخراج ومعالجة بسيطة
+    # ============================================
+    extract_equation(?word, ?equation) :-
+        linguistic_equation(?word, _, ?equation).
+
+    extract_meaning(?word, ?meaning) :-
+        word_meaning(?word, ?meaning, _).
+
+    # تركنا process_sentence للاستخدام المستقبلي إن لزم
+    process_sentence(?subject, ?verb, ?object, ?result) :-
+        extract_equation(?verb, _),
+        # مبدئياً: نولّد جملة عربية مباشرة
+        realize_simple(?subject, ?verb, ?object, ?result).
+
+    # ============================================
+    # 3) دوال التحقّق/التوليد البسيط
+    # ============================================
+    def realize_simple(subject, verb, object): {
+        return subject + " " + verb + " " + object
+    }
+}
+

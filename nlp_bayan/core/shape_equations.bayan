@@ -1,0 +1,16 @@
+hybrid {
+    # Shape types and equations (trimmed)
+    shape_type("circle", "circle_arabic").
+    shape_type("square", "square_arabic").
+
+    shape_equation("circle", "x^2 + y^2 = r^2").
+    shape_equation("square", "|x| <= a AND |y| <= a").
+
+    shape_property("circle", "radius", "r").
+    shape_property("circle", "area", "pi * r^2").
+
+    extract_shape_equation(?typ, ?eq) :- shape_equation(?typ, ?eq).
+    extract_property(?typ, ?prop, ?val) :- shape_property(?typ, ?prop, ?val).
+
+}
+

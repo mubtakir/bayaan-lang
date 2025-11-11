@@ -1,0 +1,17 @@
+hybrid {
+    prob("is_green", "garden", 0.7).
+    prob("has_trees", "garden", 0.6).
+    maybe(?fact, ?entity) :- prob(?fact, ?entity, ?p), ?p > 0.5.
+    maybe2(?fact, ?entity) :- prob(?fact, ?entity, 0.7).
+    print("prob single:")
+    query prob("is_green", "garden", ?P).
+    print("maybe facts (rule with >):")
+    query maybe(?F, "garden").
+    print("maybe facts (rule no compare):")
+    query maybe2(?F2, "garden").
+    # Define gt/2 using comparison in rule body
+    gt(?X, ?Y) :- ?X > ?Y.
+    print("0.7 > 0.5?")
+    query gt(0.7, 0.5).
+}
+

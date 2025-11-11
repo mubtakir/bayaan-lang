@@ -1,0 +1,17 @@
+hybrid {
+    # قواعد متخصصة مبسطة (ألوان/مواد/علاقات)
+
+    color("red", "basic").
+    color("green", "basic").
+    color("blue", "basic").
+
+    material("wood", "solid").
+    material("water", "liquid").
+
+    relation("is_a", "hypernym").
+    relation("part_of", "meronym").
+
+    is_color(?x) :- color(?x, ?_).
+    is_material(?x) :- material(?x, ?_).
+}
+

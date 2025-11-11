@@ -674,8 +674,50 @@ class HybridInterpreter:
         for substitution in solutions:
             result_dict = {}
             for var_name, value in substitution.bindings.items():
-                result_dict[var_name] = value
+                # Dereference to get the final bound value (if any)
+                try:
+                    resolved = self.logical._deref(value, substitution)
+                except Exception:
+                    resolved = value
+                # Extract underlying value for Terms; otherwise keep as is
+                final_val = getattr(resolved, 'value', resolved)
+                result_dict[var_name] = final_val
             results.append(result_dict)
+
+        # Best-effort console display for interactive use inside hybrid blocks
+        try:
+            # Collect only variables that appear in the original query goal
+            goal_vars = set()
+            goal = getattr(node, 'goal', None)
+            if goal is not None and hasattr(goal, 'args'):
+                for arg in goal.args:
+                    # arg is a Term from logical_engine with .is_variable and .value
+                    if hasattr(arg, 'is_variable') and getattr(arg, 'is_variable', False):
+                        name = getattr(arg, 'value', None)
+                        if name is not None:
+                            goal_vars.add(name)
+
+            if results:
+                # If variable bindings exist, print only goal vars; else print a generic confirmation
+                printed_any = False
+                for r in results:
+                    parts = []
+                    for k, v in r.items():
+                        if goal_vars and k not in goal_vars:
+                            continue
+                        val = getattr(v, 'value', v)
+                        parts.append(f"?{k}={val}")
+                    if parts:
+                        print(", ".join(parts))
+                        printed_any = True
+                if not printed_any:
+                    # No goal variables or no bindings to show
+                    print("(true)")
+            else:
+                print("(no solutions)")
+        except Exception:
+            # Do not fail execution because of display issues
+            pass
 
         return results
 

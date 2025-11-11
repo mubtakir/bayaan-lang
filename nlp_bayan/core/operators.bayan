@@ -1,0 +1,17 @@
+hybrid {
+    # ============================================
+    # 1) أنواع المشغّلات ومعاملاتها (مبسطة)
+    # ============================================
+    operator_type("Go", "movement", "انتقال").
+    operator_type("Affect", "influence", "تأثير").
+
+    operator_params("Go", ["object_id", "from", "to", "speed"]).
+    operator_params("Affect", ["actor_id", "recipient_id", "effect", "intensity"]).
+
+    # ============================================
+    # 2) قواعد إمكانية التطبيق (افتراضية)
+    # ============================================
+    can_apply_operator("Go", ?obj) :- object_exists(?obj), object_has_property(?obj, "position").
+    can_apply_operator("Affect", ?a, ?b) :- object_exists(?a), object_exists(?b).
+}
+

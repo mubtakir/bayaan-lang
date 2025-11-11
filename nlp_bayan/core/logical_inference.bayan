@@ -1,0 +1,16 @@
+hybrid {
+    # Basic family and event facts
+    parent("أحمد", "محمد").
+    parent("محمد", "علي").
+    parent("علي", "سارة").
+
+    person("أحمد"). person("محمد"). person("علي"). person("سارة").
+
+    # Core inference rules
+    grandparent(?X, ?Z) :- parent(?X, ?Y), parent(?Y, ?Z).
+    ancestor(?X, ?Z) :- parent(?X, ?Z).
+    ancestor(?X, ?Z) :- parent(?X, ?Y), ancestor(?Y, ?Z).
+    sibling(?X, ?Y) :- parent(?P, ?X), parent(?P, ?Y), ?X != ?Y.
+
+}
+

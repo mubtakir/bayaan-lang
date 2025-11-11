@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Run Bayan identifier linter only on staged .bayan/.by files under nlp_bayan/
+changed_files=$(git diff --cached --name-only --diff-filter=ACM | grep -E '^nlp_bayan/.*\.(bayan|by)$' || true)
+
+if [ -z "${changed_files}" ]; then
+  exit 0
+fi
+
+echo "Running Bayan identifier linter on staged files..."
+python scripts/bayan_lint_identifiers.py ${changed_files}
+

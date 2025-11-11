@@ -86,7 +86,7 @@ hybrid {
     parent("فاطمة", "أحمد").
     parent("أحمد", "محمد").
     parent("أحمد", "سارة").
-    
+
     grandparent(?X, ?Z) :- parent(?X, ?Y), parent(?Y, ?Z).
     sibling(?X, ?Y) :- parent(?P, ?X), parent(?P, ?Y).
 }
@@ -126,7 +126,7 @@ hybrid {
     people = ["john", "mary", "tom"]
     parent("john", "mary").
     parent("john", "tom").
-    
+
     for person in people:
     {
         print(person)
@@ -157,7 +157,7 @@ hybrid {
     {
         print("Hello, " + name)
     }
-    
+
     greet("Bayan")
 }
 """
@@ -169,7 +169,7 @@ def test_if_with_logical_condition():
     code = """
 hybrid {
     parent("john", "mary").
-    
+
     if parent("john", ?X):
     {
         print("John has a child")
@@ -178,6 +178,20 @@ hybrid {
 """
     result = run_code(code)
     print("✓ test_if_with_logical_condition passed")
+
+def test_comparison_in_rule_body():
+    """Ensure comparisons like ?P > 0.5 in rule bodies work"""
+    code = """
+    hybrid {
+        prob("is_green", "garden", 0.7).
+        prob("has_trees", "garden", 0.6).
+        prob("has_water", "garden", 0.3).
+        maybe(?F, ?E) :- prob(?F, ?E, ?P), ?P > 0.5.
+        query maybe(?X, "garden").
+    }
+    """
+    result = run_code(code)
+    print("\u2713 test_comparison_in_rule_body passed")
 
 if __name__ == "__main__":
     test_logical_fact()
@@ -192,5 +206,6 @@ if __name__ == "__main__":
     test_arabic_identifiers_hybrid()
     test_function_in_hybrid()
     test_if_with_logical_condition()
+    test_comparison_in_rule_body()
     print("\n✓ All hybrid interpreter tests passed!")
 

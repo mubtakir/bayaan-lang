@@ -4,6 +4,17 @@ All notable changes to the Bayan Programming Language will be documented in this
 
 ---
 
+
+## [Unreleased] | قيد التطوير
+
+### Planned | الميزات المخططة
+- Modularize integrated knowledge base into topic files (e.g., prob_kb.bayan, family_kb.bayan, ...), plus a composite loader; keep `load_selective` as a fast path.
+- Enhance generator pipeline for context-aware, logic-verified generation; add demos and examples.
+- Leverage Bayan's built-in AI/NLP libraries during actual model building.
+- Expand tests covering nlp_bayan modules, selective loading, and end-to-end flows; consider CI matrix.
+- Optional: allow opt-in linter scope beyond nlp_bayan without affecting Arabic-first projects; consider pre-push hook.
+- Improve developer docs: architecture map, contribution guide, coding conventions.
+
 ## [1.0.0] - 2024-11-05
 
 ### 🎉 Initial Release | الإصدار الأول
@@ -276,7 +287,7 @@ This changelog follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ---
 
-**Developed by: Basel Yahya Abdullah (باسل يحيى عبدالله)**  
+**Developed by: Basel Yahya Abdullah (باسل يحيى عبدالله)**
 **With assistance from: AI Language Models**
 
 ---
@@ -320,3 +331,22 @@ This changelog follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 - �� أنظمة الخبراء الاحتمالية
 - 📈 اتخاذ القرارات المبنية على البيانات
 
+
+
+## [1.5.0] - 2025-11-11
+
+### Added | الإضافات
+- docs/DEVELOPER_GUIDE.md — دليل شامل للمطورين (سياسات، أدوات، تشغيل، اختبارات، أمثلة)
+- scripts/bayan_lint_identifiers.py — لينتر لفرض «المعرّفات الإنجليزية فقط» داخل nlp_bayan
+- .githooks/pre-commit — هوك يفحص فقط ملفات .bayan/.by ضمن nlp_bayan قبل الالتزام
+- .github/workflows/lint-and-test.yml — سير عمل CI لتشغيل اللينتر والاختبارات تلقائيًا
+- tests/test_integrated_kb_selective.py — اختبارات للتحقق من التحميل الانتقائي للقاعدة
+- load_selective(target_logical, only) داخل nlp_bayan/core/integrated_kb.bayan — تحميل مجالات معرفية محددة
+
+### Changed | تعديلات
+- تحديث nlp_bayan/examples/demo_generation.bayan ليحمّل القاعدة المتكاملة للحصول على نتائج استعلام أغنى
+- توحيد المعرّفات إلى الإنجليزية داخل nlp_bayan/core مع الإبقاء على حرية البيانات النصية بالعربية
+
+### Fixed/Improved | إصلاحات/تحسينات (متعلقة بالسياق)
+- تحسين طباعة نتائج الاستعلامات داخل hybrid بعرض متغيّرات الاستعلام فقط وبقيم مفككة
+- دعم مقارنات مثل `?p > 0.5` داخل جسم القاعدة عبر تحويلها لمسندات مقارنة خاصة أثناء التحليل

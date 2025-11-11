@@ -7,6 +7,14 @@
 ![Arabic Support](https://img.shields.io/badge/Arabic-Fully%20Supported-success?style=for-the-badge)
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=for-the-badge&logo=python)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
+[![CI](https://github.com/mubtakir/Bayan-Hybrid-Programming-Language/actions/workflows/lint-and-test.yml/badge.svg?branch=main)](https://github.com/mubtakir/Bayan-Hybrid-Programming-Language/actions/workflows/lint-and-test.yml)
+[![Tests Workflow](https://github.com/mubtakir/Bayan-Hybrid-Programming-Language/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/mubtakir/Bayan-Hybrid-Programming-Language/actions/workflows/tests.yml)
+
+
+[![Developer Guide](https://img.shields.io/badge/Developer%20Guide-nlp__bayan-blue?style=for-the-badge)](docs/DEVELOPER_GUIDE.md)
+[![Roadmap](https://img.shields.io/badge/Roadmap-Plan-orange?style=for-the-badge)](docs/ROADMAP.md)
+[![Changelog](https://img.shields.io/badge/Changelog-Recent%20Changes-purple?style=for-the-badge)](CHANGELOG.md)
+
 
 **The World's First True Hybrid Programming Language**
 **أول لغة برمجة هجينة حقيقية في العالم**
@@ -19,6 +27,12 @@
 
 > Status update (2025-11-10): AI stdlib Waves 1–20 complete (379 tests passing). Wave 20: polish + examples + docs.
 
+
+
+## 📘 Project Docs (nlp_bayan)
+- Developer Guide: [docs/DEVELOPER_GUIDE.md](docs/DEVELOPER_GUIDE.md)
+- Roadmap: [docs/ROADMAP.md](docs/ROADMAP.md)
+- Changelog: [CHANGELOG.md](CHANGELOG.md)
 
 <a name="english"></a>
 

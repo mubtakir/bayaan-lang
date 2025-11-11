@@ -1,0 +1,20 @@
+hybrid {
+    # قواعد بيانات حروف مختصرة (عربي + إنجليزي)
+
+    # العربية: الحرف، الاسم اللاتيني، النوع (صامت/صائت مبسّط)
+    arabic_letter("ا", "alef", "vowel").
+    arabic_letter("ب", "ba",   "consonant").
+    arabic_letter("ت", "ta",   "consonant").
+    arabic_letter("ث", "tha",  "consonant").
+
+    # الإنجليزية: الحرف، النوع التقريبي
+    english_letter("a", "vowel").
+    english_letter("b", "consonant").
+    english_letter("c", "consonant").
+
+    # قواعد مساعدة مبسطة
+    is_vowel_ar(?ch) :- arabic_letter(?ch, ?_n, "vowel").
+    is_consonant_ar(?ch) :- arabic_letter(?ch, ?_n, "consonant").
+    is_vowel_en(?ch) :- english_letter(?ch, "vowel").
+}
+

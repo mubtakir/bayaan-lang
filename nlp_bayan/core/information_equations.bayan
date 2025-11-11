@@ -1,0 +1,43 @@
+hybrid {
+    # ============================================
+    # معلومات أساسية (من النموذج القديم بعد التنظيف)
+    # ============================================
+    information(info_001, ["محمد", "المدرسة"], "ذهب", ["محمد_في_المدرسة"], "2024-10-23").
+    information(info_002, ["محمد", "الدرس"], "تأثر", ["محمد_متأثر"], "2024-10-23").
+    information(info_003, ["محمد", "البيت"], "عاد", ["محمد_في_البيت"], "2024-10-23").
+
+    # ============================================
+    # قواعد أساسية: استخراج مكونات المعلومة
+    # ============================================
+    information_equation(?info_id, ?objects, ?event, ?result) :-
+        information(?info_id, ?objects, ?event, ?result, ?_ts).
+
+    infer_result(?objects, ?event, ?result) :-
+        information(?_info, ?objects, ?event, ?result, ?_ts).
+
+    infer_event(?objects, ?result, ?event) :-
+        information(?_info, ?objects, ?event, ?result, ?_ts).
+
+    infer_objects(?event, ?result, ?objects) :-
+        information(?_info, ?objects, ?event, ?result, ?_ts).
+
+    # ============================================
+    # تحديث معلومة: سيتم تفعيلها لاحقاً بعد تثبيت نحو retract/assert
+    # ============================================
+    # update_information(?info_id, ?new_result) :-
+    #     retract(information(?info_id, ?objects, ?event, ?_old, ?timestamp)),
+    #     assert(information(?info_id, ?objects, ?event, ?new_result, ?timestamp)).
+
+    # ============================================
+    # واجهات مساعدة (def stubs) — يمكن تطويرها لاحقاً
+    # ============================================
+    def recalculate_result(objects, event, new_info, adapted_result): {
+        return adapted_result
+    }
+
+    def combine_information(info1, info2, combined): {
+        return combined
+    }
+
+}
+

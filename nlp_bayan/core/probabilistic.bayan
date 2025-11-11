@@ -1,0 +1,26 @@
+hybrid {
+    # ============================================
+    # 1) حقائق احتمالية نموذجية
+    # ============================================
+    prob("is_green", "garden", 0.7).
+    prob("has_trees", "garden", 0.6).
+    prob("is_neglected", "garden", 0.8).
+    prob("has_water", "garden", 0.3).
+
+    # ============================================
+    # 2) أدوات التشكيك (عربي + English)
+    # ============================================
+    maybe(?fact, ?entity) :- prob(?fact, ?entity, ?p), ?p > 0.5.
+
+    likely(?fact, ?entity) :- prob(?fact, ?entity, ?p), ?p > 0.7.
+
+    unlikely(?fact, ?entity) :- prob(?fact, ?entity, ?p), ?p < 0.3.
+
+    possible(?fact, ?entity) :- prob(?fact, ?entity, ?p), ?p > 0.2, ?p < 0.8.
+
+    certain(?fact, ?entity) :- prob(?fact, ?entity, ?p), ?p > 0.95.
+
+
+
+}
+

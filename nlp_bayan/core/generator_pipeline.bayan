@@ -1,0 +1,12 @@
+import nlp_bayan.core.linguistic_equations as ling
+
+hybrid {
+    # مولّد بسيط يستفيد من قواعد المعادلات اللغوية
+    def generate_simple_ar(subject, verb, object): {
+        # تحقّق أن لدينا معادلة للفظة (للآن نتجاهل تفاصيل eq)
+        # NOTE: lookup skipped in this minimal demo to avoid cross-module query inside a function
+        # توليد نص بسيط
+        return subject + " " + verb + " " + object
+    }
+}
+

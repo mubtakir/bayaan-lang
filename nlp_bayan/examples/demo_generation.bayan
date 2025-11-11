@@ -1,0 +1,42 @@
+import nlp_bayan.core.linguistic_equations as ling
+import nlp_bayan.core.generator_pipeline as gen
+import nlp_bayan.core.probabilistic as prob
+import nlp_bayan.core.semantic_network as sem
+import nlp_bayan.core.information_equations as info
+import nlp_bayan.core.morphosyntactic_rules as morph
+import nlp_bayan.core.event_processing as ev
+import nlp_bayan.core.logical_inference as logic
+import nlp_bayan.core.shape_equations as shape
+import nlp_bayan.core.integrated_kb as kb
+
+
+hybrid {
+    # Load the integrated knowledge base for richer queries
+    kb.load_into(logical)
+
+    # مثال بسيط للتوليد:
+    sentence = gen.generate_simple_ar("محمد", "ذهب", "المدرسة")
+    print("الجملة المولّدة: " + sentence)
+
+    # مثال احتمالي: عرض الحقائق ذات احتمال > 0.5 لكيان "garden"
+    print("حقائق محتملة لـ garden:")
+    query maybe(?fact, "garden").
+
+    # استعلام معادلات المعلومات:
+    print("معادلات معلومات موجودة:")
+    query information_equation(?I, ?O, ?E, ?R).
+
+    # الاستدلال المنطقي للعائلة:
+    print("أحفاد أحمد (grandchildren targets):")
+    query grandparent("أحمد", ?Z).
+
+    # تسلسل الأحداث:
+    print("أحداث متسلسلة:")
+    query sequential_events(?A, ?B).
+
+    # معادلات الأشكال:
+    print("معادلة دائرة:")
+    query extract_shape_equation("circle", ?Eq).
+}
+
+

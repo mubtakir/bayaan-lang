@@ -1,0 +1,18 @@
+hybrid {
+    # Expert initial knowledge base (trimmed)
+
+    knowledge_code("derivative_basic", "First derivative of f", "calculus", "medium",
+        ["x", "h"],
+        ["example: f(x)=x^2 at x=2 -> 4"]
+    ).
+
+    knowledge_code("linear_equation", "Solve ax+b=0", "algebra", "low",
+        ["a", "b"],
+        ["2x+4=0 -> x=-2"]
+    ).
+
+    law("conservation_energy", "Energy is conserved", "physics",
+        ["compute_total_energy"]
+    ).
+}
+

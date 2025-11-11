@@ -1,0 +1,32 @@
+import nlp_bayan.core.generator_pipeline as gen
+import nlp_bayan.core.integrated_kb as kb
+
+hybrid {
+    # تحميل القاعدة المعرفية الموحّدة
+    kb.load_into(logical)
+
+    # توليد جملة بسيطة
+    sentence = gen.generate_simple_ar("محمد", "ذهب", "المدرسة")
+    print("الجملة المولّدة: " + sentence)
+
+    # 1) احتمالات + أدوات التشكيك
+    print("حقائق محتملة لـ garden:")
+    query maybe(?fact, "garden").
+
+    # 2) معادلات معلومات مبسطة
+    print("معادلات معلومات موجودة:")
+    query information_equation(?I, ?O, ?E, ?R).
+
+    # 3) استدلال عائلي مبسّط
+    print("أحفاد أحمد (grandchildren targets):")
+    query grandparent("أحمد", ?Z).
+
+    # 4) أحداث وتسلسل زمني
+    print("أحداث متسلسلة:")
+    query sequential_events(?A, ?B).
+
+    # 5) أشكال ومعادلات
+    print("معادلة دائرة:")
+    query extract_shape_equation("circle", ?Eq).
+}
+

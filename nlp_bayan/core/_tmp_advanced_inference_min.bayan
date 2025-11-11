@@ -1,0 +1,4 @@
+hybrid {
+    test_fact("ok").
+}
+

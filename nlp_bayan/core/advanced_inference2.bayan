@@ -1,0 +1,4 @@
+hybrid {
+    implies("A", "B").
+}
+
